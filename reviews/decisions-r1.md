@@ -94,3 +94,51 @@ accept / partial / reject, and why. New fact used here: the real bot sources (`d
   validated path counts, (3) site sandbox for ground truth. Stage 1 simulator already fits this.
 - X14 accept: calibrate counting on the site with known-length cells before trusting comparisons.
 - X15 accept: one kernel source with `%ifdef DESIGN_A/B/C`, flattened per design.
+
+## Round 2 review (reviewer: Claude, F) — decisions 2026-11-07
+Review: `r2-review.md`. Lead checks before deciding: arithmetic in its sections 1.1-1.4 re-traced and correct,
+with two corrections. (1) Its 1.5 says a blind lock is 2 without taken jumps; wrong, the locked path's `jz` is
+NOT taken, so the blind lock is 3 under both conventions (it still beats everything). (2) Post lock: the
+unlocked table entry must be (-VIEW_W)&0xFF so `add al` gives 0, and since VIEW_W differs on sandbox boards,
+every index 8k (k = 4..255) must hold (-k)&0xFF; locked indices are odd, so no collisions (2041-byte table).
+The post lock also splits blindly on EMPTY: at e<5 the tick is wasted (no rest), at e=5-6 the child is 2-3.
+Its simulator runs are simplified (Python policies, naive feeders) and are treated as indications, not facts.
+
+- F1 accept: the lock moves into the kernel; slot C as "the lock bet" is dissolved. Variant = post lock
+  (5 locked, refill at 5), checked lock kept as fallback if E3 shows blind EMPTY-splits cost more than the
+  refill race gains. Unlocked tax is +4 (first contact 11). Conditional on F6/F11 calibration.
+- F2 accept: multi-enemy choice encoded in the fight table at 6 (two enemies: fixed D,L,U,R order; three:
+  opposite the friend side; four: any). Kill-first dropped from v1; E4 confirms.
+- F3 accept: fed or tied fronts freeze; feeding is first-order defence. Effort order revised: (1) front path
+  and feeding defence, (2) grab incl. scouts, (3) refill and push. Rewrite designs.md 1.1.4 and 1.4.
+- F4 accept: scouts become a kernel feature with count/bearings as parameters (count 0 allowed); E2 sets them.
+  Note the review's own data: a naive feed-assist gave ~2% (290 vs 284 cells at tick 100); assist stays in
+  the kernel only if E2 shows a real gain with a better design (fat-burst tips).
+- F5 partial: adopt the structure (one kernel, three parameter settings, no pure-control slot); names Hold /
+  Spore / Breach adopted as working names. Final slot specs only after E9; A remains the simulator baseline.
+- F6 accept: counting convention is the first sandbox calibration (three cells: `mov al,1/ret`,
+  `jmp x / x: mov al,1 / ret`, and one `rep` cell). Without taken jumps F6 = 5 and the post/checked lock = 5.
+- F7 accept as rival, defer as ours: R-Blind3 joins the rival set (needs rax = 0 at entry, verify). A blind-3
+  variant of Breach is considered only after E6 and real rival averages.
+- F8 accept in principle, needs the user: a Sprint cell on the ladder means writing cell code and publishing
+  under the user's account (both need the user's go-ahead). Asked 2026-11-07.
+- F9 accept: refill race is the second initiative number; covered by the post lock and E3.
+- F10 partial: direction accepted (second row feeds the front, producers kept below the cap, no feed from
+  <=4, front cell never <=2); thresholds (12 / 48) are E1 parameters, not decisions.
+- F11 accept: "memory writes persist when stunned" is the top sandbox fact for the lock; sim keeps it as a
+  flag-able assumption (add a switch).
+- F12 accept: reverses X11's "clear the lock byte before a split". With a self-checking lock the inherited
+  byte is harmless; with the post lock it is the breach-column mechanism.
+- F13 accept: generate tables with `times` runs, check flattened source < 64 KB, no `org` in our source,
+  write `[abs fight_tbl+rax*8]` and check the listing.
+- F14 accept: sentinel = VIEW_W (documented field, never 0..3 on a real board) instead of unused byte 100;
+  check ABI_VERSION = 4 at build time (`%if`).
+- F15 accept (= E1 frozen front with brigade variants).
+- F16 accept (= E2 scouts/grab, incl. a dead-quadrant slot with Idle).
+- F17 accept (= E3 refill race and E4 multi-enemy cost).
+- F18 accept: rival set E0 is the next simulator task (R-F6, R-Post5, R-Blind3, R-Feeder, R-Grab, R-Static,
+  R-Hunter+), each with a no-taken-jumps count; E5 reruns E1/E3 with the flipped convention.
+- F19 accept: slow path orders feed shorter than split. Sim already sizes the child at the parent's turn
+  (live energy); add to the sandbox list.
+- F20 accept as E8 starting values: stop long-range feed 2950, fill from 2980, last-tick children near an
+  enemy only if >= 3.
