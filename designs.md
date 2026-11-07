@@ -76,7 +76,9 @@ beats the bots has not been tested. The simulator needs "rival" reference polici
 4. Push and refill rules (turn kills into land).
 
 ### 1.5 Sandbox calibration checklist
-Known-length calibration cells first (match page shows average/max instructions per call). Then: split
+Known-length calibration cells first (match page shows average/max instructions per call). Hunter's split
+path is 20 if every instruction counts, yet the Rules say the bots use "fewer than 20": check whether taken
+jumps or `ret` really count (it changes relative order only if taken jumps are excluded). Then: split
 rounding for odd energy and whether energy is conserved; `rep` counting; rax/xmm values at entry; what
 VIEW_CELLS[12] reports for self; whether memory persists after a stun or a fault; whether the child's memory
 includes the parent's same-call writes; whether a split uses live or snapshot energy; whether POP counts
