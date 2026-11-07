@@ -30,6 +30,12 @@ class RunnerTest(unittest.TestCase):
             self.assertTrue(text.startswith('tick 0 '))
             self.assertIn('pl  slot bot', out.getvalue())
 
+    def test_order_no_taken_jumps_switch(self):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            run.main(['--bots', 'hunter,walker', '--size', '8', '--ticks', '20', '--order-no-taken-jumps'])
+        self.assertIn('order: no taken jumps', out.getvalue())
+
     def test_series_rotates_slots(self):
         out = io.StringIO()
         with contextlib.redirect_stdout(out):

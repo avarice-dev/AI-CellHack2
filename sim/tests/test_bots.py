@@ -31,7 +31,7 @@ FR = E.CELL_FRIEND
 
 class BotPathTest(unittest.TestCase):
     def run_bot(self, bot, **kw):
-        return bot(FakeView(**kw), bytearray(64))
+        return bot(FakeView(**kw), bytearray(64))[:2]   # (action, full insn); 3rd value tested below
 
     def test_idle(self):
         self.assertEqual(self.run_bot(bots.idle, energy=10), (E.ACT_REST, 2))
@@ -81,6 +81,35 @@ class BotPathTest(unittest.TestCase):
                 for rnd in (0, 0x55, 0x80, 0xFF):
                     a, n = self.run_bot(bot, energy=e, rand=rnd, up=FR)
                     self.assertLessEqual(n, 20, name)
+
+
+class BotAltCountTest(unittest.TestCase):
+    """Third value = path length without taken jumps, traced from docs/bots/*.asm."""
+
+    def run_bot(self, bot, **kw):
+        return bot(FakeView(**kw), bytearray(64))
+
+    def test_alt_counts(self):
+        cases = [
+            (bots.idle, dict(energy=10), (E.ACT_REST, 2, 2)),
+            (bots.hunter, dict(energy=3, up=EN), (0x30, 7, 6)),
+            (bots.hunter, dict(energy=3, right=EN), (0x31, 10, 9)),
+            (bots.hunter, dict(energy=3, down=EN), (0x32, 13, 12)),
+            (bots.hunter, dict(energy=3, left=EN), (0x33, 16, 15)),
+            (bots.hunter, dict(energy=5), (E.ACT_REST, 17, 16)),
+            (bots.hunter, dict(energy=6, rand=1), (0x21, 20, 20)),
+            (bots.medic, dict(energy=5), (E.ACT_REST, 6, 4)),
+            (bots.medic, dict(energy=6, rand=2), (0x22, 9, 8)),
+            (bots.medic, dict(energy=15, up=FR), (0x40, 9, 9)),
+            (bots.medic, dict(energy=15, rand=3), (0x23, 13, 12)),
+            (bots.random_bot, dict(energy=5), (E.ACT_REST, 4, 3)),
+            (bots.random_bot, dict(energy=6, rand=0x22), (0x32, 14, 14)),
+            (bots.walker, dict(energy=6, rand=1), (0x21, 7, 7)),
+            (bots.walker, dict(energy=5, rand=0x01), (E.ACT_REST, 7, 5)),
+            (bots.walker, dict(energy=5, rand=0x82), (0x12, 9, 8)),
+        ]
+        for bot, kw, expected in cases:
+            self.assertEqual(self.run_bot(bot, **kw), expected, (bot.__name__, kw))
 
 
 class BotMatchTest(unittest.TestCase):

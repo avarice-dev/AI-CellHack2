@@ -63,7 +63,7 @@ def suffixed(path, seed, many):
 def play(names, seed, args, csv_path=None, snap_path=None):
     eng = E.Engine([load_policy(n) for n in names], width=args.width, height=args.height, seed=seed,
                    max_ticks=args.ticks, start_inset=args.inset, split_child_rounding=args.split_rounding,
-                   cap_mid_tick=args.cap_mid_tick)
+                   cap_mid_tick=args.cap_mid_tick, order_by_alt=args.order_no_taken_jumps)
     csvf = open(csv_path, 'w', newline='') if csv_path else None
     snapf = open(snap_path, 'w') if snap_path else None
     try:
@@ -94,7 +94,9 @@ def fmt_faults(f):
 
 
 def print_match(names, eng, res, secs):
-    print('seed %d  %dx%d  ticks run %d/%d  %.1fs' % (eng.seed, eng.W, eng.H, eng.tick, eng.max_ticks, secs))
+    print('seed %d  %dx%d  ticks run %d/%d  %.1fs  order: %s'
+          % (eng.seed, eng.W, eng.H, eng.tick, eng.max_ticks, secs,
+             'no taken jumps' if eng.order_by_alt else 'all instructions'))
     print('%-3s %-4s %-10s %3s %5s %6s %10s %6s %4s %6s %6s %6s %5s  %s'
           % ('pl', 'slot', 'bot', 'pts', 'pop', 'energy', 'insn_total', 'avg', 'max', 'births', 'deaths',
              'stuns', 'died', 'faults'))
@@ -119,6 +121,9 @@ def main(argv=None):
     ap.add_argument('--split-rounding', choices=('floor', 'ceil'), default='floor',
                     help="child's share of a split (unverified)")
     ap.add_argument('--cap-mid-tick', action='store_true', help='clamp energy to 50 at every gain (unverified)')
+    ap.add_argument('--order-no-taken-jumps', action='store_true',
+                    help='order turns by the policy\'s optional 3rd count (taken jumps not counted); '
+                         'totals, averages and the budget still use the full count')
     ap.add_argument('--no-rotate', action='store_true')
     ap.add_argument('--csv', help='per-tick CSV (tick, pops, energies); with several seeds _s<seed> is added')
     ap.add_argument('--snap', help='ASCII board snapshots file; with several seeds _s<seed> is added')

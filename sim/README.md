@@ -56,6 +56,11 @@ def my_cell(view, mem):
 - `insn_count` is your estimate of the asm path length, counting every executed instruction including
   taken jumps and `ret` (the convention used for the bots). Fewest acts first; ties are a seeded coin
   flip. Over 1000 is a budget fault.
+- Optional third value: `(action, insn, insn_no_taken_jumps)`, the same path with taken jumps not
+  counted. Ignored by default; `Engine(order_by_alt=True)` / `run.py --order-no-taken-jumps` orders
+  turns by it instead (totals, averages and the 1000 budget still use `insn`). A policy that returns
+  only two values is ordered by `insn` either way. (Excluding `ret` needs no switch: every path has
+  exactly one, so it shifts all counts equally and changes no order.)
 - Faults (cell does nothing that tick, counted per colony): exception, `None` or malformed return
   (`crash`), unknown action byte (`bad_action`), `insn_count > 1000` (`budget`).
 
@@ -102,5 +107,13 @@ feeds up at e >= 15). Instruction counts per path (every executed instruction in
 Hunter, Medic and Walker split in a random direction without checking the square, so a split at an
 occupied square wastes the tick.
 
-Note: Hunter's split path is 20 by this convention while the Rules say "the bots use fewer than 20";
-either `ret` (or taken jumps) are not counted, or the sentence is loose. Unverified.
+Without taken jumps (third value): Hunter eat 6/9/12/15, rest 16, split 20; Medic rest 4, split 8 or 12,
+feed 9; Random rest 3, else 14; Walker split 7, rest 5, move 8; Idle 2.
+
+Note: Hunter's split path is 20 by this convention while the Rules say "the bots use fewer than 20".
+That path has no taken jumps, so only not counting `ret` would make it 19; or the sentence is loose.
+Unverified.
+
+Slot effects are large: Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16, so in 4x Hunter
+the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-right one (fronts down and
+left) always died first. Always rotate slots when comparing policies.

@@ -136,7 +136,8 @@ class Engine(object):
                  split_child_rounding='floor',  # ASSUMPTION: child gets floor(e/2), parent keeps the rest
                  cap_mid_tick=False,          # ASSUMPTION: energy may exceed 50 until Tidy (rules text)
                  self_type=CELL_FRIEND,       # ASSUMPTION: what view.cells[12] holds for yourself
-                 place_start=True):
+                 place_start=True,
+                 order_by_alt=False):         # order by the optional 3rd return value (no taken jumps)
         if len(policies) > MAX_COLONIES:
             raise ValueError('at most 4 colonies')
         if split_child_rounding not in ('floor', 'ceil'):
@@ -149,6 +150,7 @@ class Engine(object):
         self.split_ceil = split_child_rounding == 'ceil'
         self.cap_mid_tick = cap_mid_tick
         self.self_type = self_type
+        self.order_by_alt = order_by_alt
         self.rng = random.Random(seed)
         self.seed = seed
 
@@ -295,6 +297,7 @@ class Engine(object):
         rnd = self.rng.getrandbits
         acts = []
         append = acts.append
+        alt = self.order_by_alt
         for i in live:
             c = col[i]
             p = pos[i]
@@ -304,7 +307,17 @@ class Engine(object):
             m = mems[i]
             v = View(ctx, p, en[i], rnd(8), age, p % PW - 2, p // PW - 2, pop[c], total_pop - pop[c], c)
             try:
-                a, n = pols[c](v, m)
+                r = pols[c](v, m)
+                a = r[0]
+                n = r[1]
+                k = n                     # count used for turn order
+                if len(r) > 2:
+                    if len(r) > 3:
+                        raise ValueError('too many return values')
+                    if alt:
+                        k = r[2]
+                        if type(k) is not int or k < 0:
+                            raise ValueError('bad alt count')
             except Exception:
                 self._fault(c, t, p, FAULT_CRASH, 0)
                 continue
@@ -327,7 +340,7 @@ class Engine(object):
                 self._fault(c, t, p, FAULT_BAD_ACTION, None)
                 continue
             if a != ACT_NOP:
-                append((n, i, a))
+                append((k, i, a))
 
         # ---- 2. Act: one pass, fewest instructions first, ties shuffled with the match RNG ----
         self.rng.shuffle(acts)

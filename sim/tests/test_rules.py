@@ -668,6 +668,44 @@ class EndAndRankingTest(unittest.TestCase):
         self.assertEqual(order, [2, 0, 1, 3])
 
 
+class AltCountTest(unittest.TestCase):
+    """Optional third return value: insn count without taken jumps, used for order only on request."""
+
+    def _contest(self, **kw):
+        # A: 5 insn (2 without taken jumps); B: 3 insn (3 without). Both move into (1,1).
+        pol = script({(0, 1): (move(RIGHT), 5, 2), (2, 1): (move(LEFT), 3, 3)})
+        e = board([pol], **kw)
+        a = e.add_cell(0, 1, 0)
+        b = e.add_cell(2, 1, 0)
+        e.step()
+        return {a: 'A', b: 'B'}[e.cell_at(1, 1)], e
+
+    def test_third_value_ignored_by_default(self):
+        winner, e = self._contest()
+        self.assertEqual(winner, 'B')
+        self.assertEqual(e.faults[0], {})
+        self.assertEqual(e.insn_total[0], 8)
+
+    def test_order_by_alt_count(self):
+        winner, e = self._contest(order_by_alt=True)
+        self.assertEqual(winner, 'A')
+        self.assertEqual(e.insn_total[0], 8)        # totals and budget still use the full count
+
+    def test_two_value_policies_fall_back_to_full_count(self):
+        pol = script({(0, 1): (move(RIGHT), 5), (2, 1): (move(LEFT), 3, 3)})
+        e = board([pol], order_by_alt=True)
+        e.add_cell(0, 1, 0)
+        b = e.add_cell(2, 1, 0)
+        e.step()
+        self.assertEqual(e.cell_at(1, 1), b)
+
+    def test_bad_alt_count_is_a_fault(self):
+        e = board([script({(1, 1): (REST, 3, -1)})], order_by_alt=True)
+        e.add_cell(1, 1, 0, 10)
+        e.step()
+        self.assertEqual(e.faults[0], {E.FAULT_CRASH: 1})
+
+
 class DeterminismTest(unittest.TestCase):
     def test_same_seed_same_match(self):
         import bots
