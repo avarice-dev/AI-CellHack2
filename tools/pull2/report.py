@@ -1,5 +1,6 @@
 """Aggregate data/pull2/summaries/[0-9]*.json into markdown tables (stdout).
-Run from the project root: python -I tools/pull2/report.py [dir|fp|starts|rules|val|all]"""
+Run from the project root: python -I tools/pull2/report.py [dir|fp|starts|rules|val|all]
+History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, glob, re, sys, collections
 
 S = {}

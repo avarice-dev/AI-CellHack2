@@ -1,4 +1,5 @@
-"""Candidate table for direction-profile replays: Sprint matches with Sprint's survival. python -I tools/pull2/select_sprint.py"""
+"""Candidate table for direction-profile replays: Sprint matches with Sprint's survival. python -I tools/pull2/select_sprint.py
+History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, re
 P = json.load(open('data/pull2/sprint-match-pages.json', encoding='utf-8'))['pages']
 def nm(s): return re.sub(r'^\W+\s*', '', s).strip()

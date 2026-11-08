@@ -1,4 +1,5 @@
-"""Section 8 (matches chosen and why) and section 9 (file index) as markdown. python -I tools/pull2/sec8.py"""
+"""Section 8 (matches chosen and why) and section 9 (file index) as markdown. python -I tools/pull2/sec8.py
+History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, glob, re, os
 nm = lambda s: re.sub(r'^\W+\s*', '', s).strip()
 WHY = {}
@@ -18,5 +19,7 @@ for f in sorted(glob.glob('data/pull2/summaries/[0-9]*.json')):
           ', '.join('%d.%s %d' % (r['place'], nm(r['cell']), r['finalPop']) for r in rows)))
 print('\nFILES')
 for root in ('data/pull2', 'data/pull2/replays', 'data/pull2/keyframes', 'data/pull2/summaries', 'data/pull2/site', 'tools/pull2'):
+    if not os.path.isdir(root):   # replays, keyframes and site are not in the repository
+        print(root, 'not here'); continue
     fs = [os.path.join(root, x) for x in os.listdir(root) if os.path.isfile(os.path.join(root, x))]
     print(root, len(fs), 'files', round(sum(os.path.getsize(x) for x in fs) / 1e6, 2), 'MB')

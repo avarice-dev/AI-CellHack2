@@ -1,5 +1,6 @@
 """Win rates and head-to-heads from data/pull2/matches-*.json (+ first pull baseline, hard-coded from
-data/ladder-data-2026-11-08.md section 2). Run: python -I tools/pull2/lists.py"""
+data/ladder-data-2026-11-08.md section 2). Run: python -I tools/pull2/lists.py
+History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, glob, re, itertools, collections, sys
 f = sorted(glob.glob('data/pull2/matches-*.json'))[0]
 D = json.load(open(f, encoding='utf-8'))['matches']

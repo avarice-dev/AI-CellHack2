@@ -2,8 +2,11 @@
 tool must stop with a one-line "run a pull first" message, never a traceback or an empty output file.  Also the
 --pull / --cell / --matches arguments of the tab scripts, and LF line endings in the files the tools write.
 
-e2e: each test copies the real script into a temporary tree with the repository layout (the scripts find the data
-folder from their own location) and runs it as a subprocess with `python -I`.  Only the data is made up.
+Most tests here run the old paths (tools/pull2/, pull3/, pull4/, tools/valtab.py), which are now thin wrappers of
+tools/replay/ with the defaults they had, so the commands in the dated reports keep working; NewPaths runs
+tools/replay/ itself (more in test_replay_tools.py).
+e2e: each test copies the real scripts into a temporary tree with the repository layout (the scripts find the data
+folder from their own location) and runs them as a subprocess with `python -I`.  Only the data is made up.
 Run from the repo root:  python -m unittest discover -s tools/tests
 """
 import json
@@ -23,6 +26,8 @@ class Tree(unittest.TestCase):
     def setUp(self):
         self.root = tempfile.mkdtemp(prefix='chfc-')
         self.addCleanup(shutil.rmtree, self.root, True)
+        shutil.copytree(os.path.join(REPO, 'tools', 'replay'), self.path('tools', 'replay'),
+                        ignore=shutil.ignore_patterns('__pycache__'))
 
     def copy(self, *rel):
         for r in rel:
@@ -100,6 +105,36 @@ class NoReplays(Tree):
         self.copy('tools/pull2/birth_order.py')
         res = self.run_tool('tools/pull2/birth_order.py', '0', '123')
         self.assertPullFirst(res, 'data/pull2/')
+
+
+class NewPaths(Tree):
+    def test_valtab_missing_replays(self):
+        res = self.run_tool('tools/replay/valtab.py', '--pull', 'pull9')
+        self.assertPullFirst(res, 'no replays in data/pull9/replays')
+        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'validation-table.md')))
+
+    def test_mine_named_replay_missing(self):
+        os.makedirs(self.path('data', 'pull9', 'replays'))
+        res = self.run_tool('tools/replay/mine.py', '--pull', 'pull9', '123')
+        self.assertPullFirst(res, 'data/pull9/replays/123.chr2.gz')
+
+    def test_actions_replay_missing(self):
+        res = self.run_tool('tools/replay/actions.py', '--pull', 'pull9', '123')
+        self.assertPullFirst(res, 'data/pull9/replays/123.chr2.gz')
+
+    def test_birth_order_replay_missing(self):
+        res = self.run_tool('tools/replay/birth_order.py', '--pull', 'pull9', '0', '123')
+        self.assertPullFirst(res, 'data/pull9/replays/123.chr2.gz')
+
+    def test_tab_arguments(self):
+        p = self.path('lists', 'mine.json')
+        os.makedirs(os.path.dirname(p))
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(fake_matches('Foo'), f)
+        res = self.run_tool('tools/replay/tab.py', '--pull', 'pull9', '--cell', 'Foo', '--matches', p)
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertIn('Games 4 (ids 200-203); won 2', res.stdout)
+        self.assertNotIn(b'\r\n', open(self.path('data', 'pull9', 'names.json'), 'rb').read())
 
 
 def fake_matches(cell='Foo', n=4):
