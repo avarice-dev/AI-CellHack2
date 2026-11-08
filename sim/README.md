@@ -222,3 +222,9 @@ the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-ri
 left) always died first. Always rotate slots when comparing policies.
 - 2026-11-07 baseline (sim 909c432 models): FIT sw 4/7, 17/24; fz 2632 vs 2106; f500 0 vs 0; Sp 9/12 vs 12/12;
   31/63 checks pass. Pump colonies E200 28-32 vs 10-13 real; AtomCrasher f/eat 27 vs 7; fed +3 85% vs 73%.
+- it1, pumps (Brawler, Brawler v2, Bouncer, Aegis, Noob+, Noob++): `hold=none,target=poorest,pump_min=10,
+  pump_target_max=50` (sweep on 6 FIT matches to t1000: richest-target pumps kept interior 18-21; poorest 7/10/13
+  gave interior 11/14/17). Fingerprints now fit (interior t500 13-15 vs 9-19 real, front 16-30). FIT sw 3/7, 16/24;
+  fz 2426 vs 2106; Sp 8/12; 37/63 checks. TEST sw 1/5, 7/12; fz 2684 vs 1810; Sp 2/5 vs 3/5; 46/62. Winners worse
+  than baseline: thin pumps still hold land (Brawler t1000 1733 vs 16 real) and both Atoms collapse late
+  (AtomPush end 1 vs 1370), so Sprint's late growth is short (t1000 1840 vs 2426).

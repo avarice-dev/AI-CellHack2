@@ -43,7 +43,7 @@ class RunTest(unittest.TestCase):
         jobs = V.make_jobs(t, V.load_starts(), dict(width=64, height=64, max_ticks=40))
         self.assertEqual(len(jobs), 2)
         self.assertEqual(jobs[0]['engine']['start_positions'], [(34, 52), (39, 10), (60, 10), (55, 14)])
-        self.assertEqual(jobs[0]['names'], ['sprint', 'walker', 'rpump', 'rpump'])
+        self.assertEqual(jobs[0]['names'], ['sprint', 'walker', V.MODELS['Brawler v2'][0], V.MODELS['Aegis'][0]])
         res = [V.X.play_job(j) for j in jobs]
         self.assertEqual(res[0]['starts'], {0: [34, 52], 1: [39, 10], 2: [60, 10], 3: [55, 14]})
         cmp = V.compare(t, res)
