@@ -67,8 +67,8 @@ data/
     winrates.json                   win rate data (see lists.py)
     validation-table.md             table read by sim/validate.py
     site/viewer.js                  copy of the site's replay decoder (local only, not in the repository)
-    replays/<id>.chr2.gz            raw replays (35 kept)
-    keyframes/<id>.kf.json.gz       keyframes for each replay
+    replays/<id>.chr2.gz            raw replays (35 kept; git-ignored, not in the repository)
+    keyframes/<id>.kf.json.gz       keyframes for each replay (git-ignored, not in the repository)
     summaries/<id>.json             one summary per replay
     mining/                         output of mine.py and mine_report.py
   pull3/ and pull4/

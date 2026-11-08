@@ -16,13 +16,15 @@ Each cell sees the 5 by 5 block of squares around it, including its own square. 
 
 ## Why instruction count matters
 
-Within a tick, the game runs the cells in order of instruction count. A cell with a lower count plays first. The count includes every instruction that the cell runs in its turn. It also includes each jump that is taken, and the final `ret`. A `ret` is the instruction that ends the call and hands the action back to the game.
+Within a tick, the game runs the cells in order of instruction count. A cell with a lower count plays first. The count includes every instruction that the cell runs in its turn. It also includes each jump that is taken, and the final `ret`. A `ret` is the instruction that ends the call and hands the action back to the game. All colonies share one pass per tick. Cells with equal counts are put in a random order, and that randomness comes only from the match seed. A match with the same seed therefore replays identically (Rules, pages 2 and 3).
 
-The `ret` rule was tested on the site. A probe cell that ran a `mov` and a `ret` averaged 2 instructions per call, so both were counted. The rule for taken jumps is less certain. For that rule, the design notes cite a rival bot's highest count, which was 9. The probe written to test taken jumps, `b_jmp`, has no recorded result.
+The game documents state this rule. The Reference says: "The engine counts every instruction." The Quick start counts `mov al, ACT_REST` and `ret` as two instructions. The site agrees. A probe cell that ran a `mov` and a `ret` averaged 2 instructions per call. The `b_jmp` probe, written to test taken jumps, was not needed after this.
 
 The game also caps a call at 1000 instructions (`INSN_BUDGET` in `docs/cellhack.inc`). A call over the cap is a fault, and the cell does nothing that tick. The longest path in Covetous is 60 instructions, and the longest feed path in Scourge is 53. The cap does not limit these cells.
 
-Why do a few instructions matter so much? The design notes record a replay finding that a freed square is refilled on the next tick. The race for that square is therefore decided by turn order in that tick, which means by instruction count. A cell that acts first takes the square.
+Why do a few instructions matter so much? The Rules say that a square freed by a death cannot be entered until the next tick. (A square freed by a move can be entered later in the same tick, and two cells cannot swap places.) The replays agree. The race for a freed square is therefore decided by turn order in the next tick, which means by instruction count. A cell that acts first takes the square.
+
+The total instruction count also matters at the end of a match. Living colonies are ranked by population, then by total energy, then by fewer instructions in total, then by the lower colony number (Rules, page 2).
 
 ## The core trick: one compare, one lookup
 
@@ -111,7 +113,7 @@ The threshold has three values, and each one has a reason:
 
 ## Feeding from full cells
 
-Feeding gives 2 energy to a friendly neighbour. The reason for feeding is simple. A cell near the cap of 50 gains little from resting, so it can give energy away with little cost. The Covetous rule is that a cell at 47 energy or more feeds when it would otherwise rest. It feeds its poorest friend neighbour, but only if that friend has 46 energy or less:
+Feeding gives 2 of the feeder's energy to the cell in the chosen direction. A feeder with less than 2 gives all it has, and dies if that was all of it. The target can be a friend or an enemy (Rules, page 2), so the cells check for a friend first. A fed cell that also rests gains 3 in that tick: 2 from the feed and 1 from its own rest. There is no feed bonus. The reason for feeding is simple. A cell near the cap of 50 gains little from resting, so it can give energy away with little cost. The Covetous rule is that a cell at 47 energy or more feeds when it would otherwise rest. It feeds its poorest friend neighbour, but only if that friend has 46 energy or less:
 
 ```nasm
 feed:
@@ -209,13 +211,13 @@ The site runs a limited set of instructions. Probe cells in `cells/calib/` teste
 | 128-bit VEX `vpcmpeqb` | Works | `k_avx` |
 | VEX `vpcmpeqb` with an unaligned memory operand | Works | `p_vex_unaligned` |
 
-The VEX prefix marks a newer encoding of an instruction, which can name three registers, not two. The VEX forms that work are the 128-bit forms of SSE2 operations. The site rejects the forms of the SSSE3 and SSE4 instructions. The cells use only SSE2 in their final form. The site's processor model is the plain `qemu64` model, which the Covetous header names as the CPU target.
+The VEX prefix marks a newer encoding of an instruction, which can name three registers, not two. The VEX forms that work are the 128-bit forms of SSE2 operations. The site rejects the forms of the SSSE3 and SSE4 instructions. The cells use only SSE2 in their final form. The site's processor model is the plain `qemu64` model. The Reference says that SSE2 and SSE3 are available and that anything newer is not guaranteed. The Reference also bans `syscall`, `sysenter`, `int`, `int3`, `ud2`, `in`, `out` and `rdrand`. The instruction `rdtsc` works and returns the tick number.
 
 The VEX forms have a more serious problem. Probe `s_vex_src` tested whether a VEX compare reads its first source register or its destination. It gave a bad-action fault on every call, so the site uses the destination. The local emulator, Unicorn, has the same bug. The project wrote `cells/vex_emu.py` to run that one instruction the way the site does. Woe, Conceit and Endemic are VEX variants of Scourge, Covetous and Contagion. They use the newer form to cut one or more instructions. Woe died in two Sandbox games, with peaks of 4 and 5 cells while Scourge grew. The design notes mark all three as broken on the site and not to be submitted. Their simulator figures assumed the three-operand form, so those figures do not describe the site.
 
 Legacy SSE instructions that read memory need the address to be a multiple of 16. The file places each constant on a 16-byte boundary, with `align 16`. The view window can start at any byte, so the cells load it with `movdqu`, which has no such rule. The VEX forms do not have the alignment rule, but they are the broken forms described above.
 
-The cells follow three more rules. They do not write to memory. The Scourge and Complacency headers say that they do not read or write the cell memory. Contagion uses the cell memory only on its scout path. The cells also use no loops and no stack. The design notes list these as code rules. The sources read for this document do not give a separate reason for them, beyond the instruction budget that the cap sets.
+The cells follow three more rules. They do not write to memory. The Scourge and Complacency headers say that they do not read or write the cell memory. Contagion uses the cell memory only on its scout path. The cells also use no loops and no stack. These are the project's own speed rules, not game rules. The game allows both: the Reference says to keep mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The project avoids them because each extra instruction makes the cell act later in the tick and adds to the total that breaks end-of-match ties. The real hazards that the Reference names are writes to the code or view pages and running off the stack, which are memory faults.
 
 The cells are generated by Python scripts, not written by hand. The generator for each cell, `cells/gen_<name>.py`, writes both the assembly and the tables. The tables are too large to write by hand. The bite table alone has 1106 entries. The sources give one reason for the approach. A change to a rule is made once, in the script. The tests also import the table functions and check them against the Python reference.
 
@@ -251,7 +253,6 @@ Woe, Conceit and Endemic were the VEX side branch. They are not on the ladder, a
 - The sources read for this document record no fix for the VEX cells.
 - Complacency's last check was at 69 ladder games. The project's open items still call for more games before it is compared with Scourge's last rating.
 - The experiments E1 to E4 in `designs.md` have no recorded results in the sources read.
-- The rule for taken jumps rests on the highest count of a rival bot. The `b_jmp` probe has no recorded result.
 - Whether dropping the prey hold fixes Scourge's early land grab has not been measured on the site. The simulator cannot settle it.
 
 ## Glossary

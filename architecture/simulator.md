@@ -110,7 +110,7 @@ The docs do not settle every rule, so the simulator makes some assumptions. The 
 
 | Assumption | Why it matters |
 |---|---|
-| Starts are random squares at least 8 steps apart (Manhattan). | Real starts were checked in the replays. The real distribution is not fully known. |
+| Starts are random squares at least 8 steps apart (Manhattan). | The Rules only say that four colonies start with one cell each, at 10 energy. Only a comment in `cellhack.inc` says "one per corner", and the ladder replays show non-corner starts. The real distribution is not fully known. |
 | A split gives the child the energy halved (rounded down). The parent keeps the rest. | The replays confirmed this rounding. |
 | A cell's memory changes persist even if the cell is stunned. | This matters only for designs that use memory on the front. |
 | A newborn cell is on the board at once, but it takes no turn until the next tick. | Newborns can be bitten in their birth tick. |

@@ -7,6 +7,8 @@
 ;   2  (A = 2) -> taken jumps are NOT counted (sim: run.py --order-no-taken-jumps applies)
 ;   B = A + 1 in general means the jmp counts; B = A means it does not.
 ; Expected fault log: empty.
+; RESULT: not run. Not needed: the Reference says "The engine counts every instruction" (p.3), and Walker's
+;   site maximum of 9 (8 without its taken jb) already showed that taken jumps count.
 
 	jmp	skip
 skip:

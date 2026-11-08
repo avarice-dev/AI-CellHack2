@@ -24,6 +24,7 @@
   (100 iterations + 5). No bulk-work shortcut for anyone. Matches the local Unicorn count exactly (2, 4,
   105 all agree), so the stage-2 emulator's instruction counts can be trusted.
 - Cell B (taken jump) was not run: Walker's max of 9 already settles it.
+  Update 2026-11-08 (docs re-review): the Reference states the rule outright, "The engine counts every instruction" (p.3).
 - Cells 150 and 151 were created by a scripted POST (fetch) to /cells/new. That build said only
   "Built OK." and did NOT put them on the ladder; the browser form's submit does ladder a new cell.
 - calib-e-jexit (cell 150 id reused, created 2026-11-08 by scripted POST, not laddered; Sandbox match 99887 vs Idle): `mov al,ACT_REST / jmp EXIT_ADDR` = 2 (2) insns/call, 0 faults, energy 50. => a call may end with a jump to EXIT_ADDR instead of ret (1 instruction either way). Clears Covetous's `jnz EXIT_ADDR` bite exit. Sprint at that time: rating 1355, 223 games.
@@ -73,7 +74,7 @@ end at about 49-50 energy per cell (204240 / 4095), so they keep their whole col
 
 ## START POSITIONS ARE RANDOM, NOT CORNERS (match 98753)
 Starts: Brawler (10,61), Walker (23,30), Sprint (45,21), AtomPush (13,41). The docs' "one per corner"
-(cellhack.inc comment) is wrong or out of date for the ladder. Every corner/home/outward assumption in
+(cellhack.inc comment) is wrong or out of date for the ladder. (Update 2026-11-08: the Rules pages never say corners; only that comment does.) Every corner/home/outward assumption in
 designs.md and the sim (CORNER_ORDER, start_inset) must change: starts can be mid-board with four open
 directions, and colonies can start close to each other.
 

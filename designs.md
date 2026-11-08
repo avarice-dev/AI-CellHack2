@@ -27,6 +27,8 @@ Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, 
    below the cap that rest. Energy above ~50 is wasted.
 
 ---------------------------------------------------------------------------------------------------
+> **Docs re-review (2026-11-08).** A full re-read of `docs/` settled several points this file once marked open or inferred: every instruction counts, including taken jumps and `ret` (Reference p.3); the cap is applied at Tidy (Rules p.1); feed gives 2 of the feeder's energy to any cell in that direction, friend or enemy, so "fed +3" is feed 2 + rest 1 (Rules p.1-2); a square freed by a death opens next tick, one freed by a move opens the same tick (Rules p.2); matches are deterministic from the seed (Rules p.3); SSE2 and SSE3 are available (Reference p.3); the stack and `[rdx]` memory are allowed, so "no loops / no stack / no memory writes" are this project's speed rules, not game rules. See `architecture/overview.md` and `architecture/cell-assembly.md`.
+
 ## 1. Facts this round rests on
 
 ### 1.1 Verified on the site or in every replay
@@ -54,9 +56,9 @@ Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, 
 
 ### 1.3 Still unknown
 1. Is a rival's "6" direction 5, 6 or 7? Covetous answers it: its 5 bites first ~100% if the rival is 6, ~50% if 5.
-2. Does memory persist when a cell is stunned? Matters only if a design uses memory on the front.
+2. Does memory persist when a cell is stunned? Matters only if a design uses memory on the front. Docs re-review 2026-11-08: implied yes (Rules p.1: step 1 Decide calls every cell before step 2 Act, so a cell's writes are done before any bite). Not stated outright; a Sandbox cell would confirm.
 3. Resolved by replay mining: an event-free cell below 50 gains +1 in 95-99% of ticks, at 50 never. Income = resting cells below the cap.
-4. Exact cap (50 at Tidy, mid-tick 52-56 seen).
+4. Resolved by the docs (re-review 2026-11-08): energy is capped at 50 in step 9, Tidy (Rules p.1), so mid-tick 52-56 is expected.
 
 ---------------------------------------------------------------------------------------------------
 ## 2. Shared kernel K
@@ -185,9 +187,9 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 6. **Famine** (S): harvesting (G17); low value for a fat-interior kernel, better in a pump variant.
 7. **Bane** (M): notch traps that bait AtomPush's fixed refill; weak (energy-only, AtomPush banks ~158k).
 Dropped: kill-order tricks, staircase fronts, a stateless 4-bite, a 2-instruction blind lock, hidden channels,
-parity signalling. Inferred from the Rules (not measured): memory writes happen in Decide, before actions, so
-they survive a stun; the cap is applied at Tidy.
-Open: rivals' LEFT 6 vs 5 (Covetous); cap timing (replay stat); child memory copy timing (Sandbox cell);
+parity signalling. From the Rules (docs re-review 2026-11-08): the cap is applied at Tidy (stated, Rules p.1 step 9);
+memory writes happen in Decide, before actions, so they survive a stun (implied by the step order, not stated).
+Open: rivals' LEFT 6 vs 5 (Covetous); child memory copy timing (Sandbox cell; implied by Decide-before-Act);
 AtomPush's refill cost (stored replay event order).
 
 ---------------------------------------------------------------------------------------------------

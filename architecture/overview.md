@@ -6,9 +6,11 @@ This is the starting point for the project. It explains the game, the goal, the 
 
 CellHack2 is an online game. Players write small programs in x86-64 assembly language. Each program is a **cell**. A cell controls one square on a 64 by 64 board.
 
-A **match** has up to four **colonies**. A colony is the group of cells that one player's program makes. A match runs for up to 3000 **ticks**. It can end early. In each tick, every living cell gets one turn. On its turn, a cell can rest, split, move, eat or feed. The colony with the most cells at the end wins. Ties go to more total energy, then to fewer instructions over the match.
+A **match** has up to four **colonies**. A colony is the group of cells that one player's program makes. A match runs for up to 3000 **ticks**. It can end early. In each tick, every living cell gets one turn. On its turn, a cell can rest, split, move, eat or feed. The colony with the most cells at the end wins. Ties go to more total energy, then to fewer instructions over the match, then to the lower colony number. Ladder matches give 3, 2, 1 and 0 points by place, and the points feed the rating (Rules, page 2).
 
-The turn order depends on the **instruction count**. This is the number of machine instructions a cell runs on its turn. A cell with fewer instructions acts earlier in the tick. So a short program can take a square before a longer one.
+The turn order depends on the **instruction count**. This is the number of machine instructions a cell runs on its turn. A cell with fewer instructions acts earlier in the tick. So a short program can take a square before a longer one. All colonies share one pass per tick, and cells with equal counts are put in a random order. All randomness comes from the match seed, so a match replays identically (Rules, pages 2 and 3). A call over 1000 instructions is a fault, and the cell does nothing that tick.
+
+The official rules are in `docs/` (Rules, Reference and Quick start, as PDF files). When this documentation and those files disagree, the official files are right.
 
 The game has a public ranked list called the **ladder**. Cells on the ladder play real matches against other players' cells. Each cell has a **rating** that goes up or down with its results.
 
@@ -28,14 +30,14 @@ These terms are used the same way in every document in this folder.
 | Colony | All the cells that one player has in one match. A match has up to four colonies. |
 | Tick | One round of the game. A match has up to 3000 ticks. |
 | Instruction count | How many machine instructions a cell runs on one turn. Fewer instructions means an earlier turn. |
-| Energy | A number that each cell holds. It starts at 10 and cannot go above 50. |
+| Energy | A number that each cell holds. It starts at 10. At the end of each tick (the Tidy step), energy above 50 is cut back to 50, so a cell can hold more than 50 for part of a tick. |
 | Rest | An action that gives the cell +1 energy. Resting is the only income. |
 | Eat | An action that takes up to 2 energy from an adjacent cell. |
 | Bite | An eat aimed at an adjacent enemy cell. Only the four neighbours that share an edge count. |
 | Stun | A bitten cell that has not had its turn yet in that tick loses that turn. |
 | Split | An action that makes a child cell on an empty adjacent square. It needs at least 5 energy. The child gets half the energy, rounded down. The parent keeps the rest. |
-| Feed | An action that gives 2 energy to an adjacent friendly cell. It gives less if the cell has less. |
-| Refill | A birth or move onto a square that a death freed. In the replays, no refill came in the same tick as its death, and most came one tick later. |
+| Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). There is no feed bonus. |
+| Refill | A birth or move onto a square that a death freed. The Rules say such a square cannot be entered until the next tick (a square freed by a move can be entered in the same tick). The replays agree: no refill came in the same tick as its death, and most came one tick later. |
 | Prey hold | A rule in the Scourge cell. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
 | Bet | The one main idea that a cell tests. |
 | Ladder | The public ranked list. Cells on it play real matches and have a rating. |
@@ -62,7 +64,7 @@ flowchart LR
 
 The steps run in this order:
 
-1. **Site and data pulls.** Scripts copy match lists, ratings and replays from the site. See [data-pulls.md](data-pulls.md).
+1. **Site and data pulls.** Match lists, ratings and replays are fetched from the site in a logged-in browser, with a small in-page script (`tools/pull2/analyze.js`). Offline Python tools then decode and tabulate them. See [data-pulls.md](data-pulls.md).
 2. **Analysis.** Decoders read the replays. Tables and write-ups record what the games show.
 3. **Designs.** The design notes turn the findings into one bet for each cell. They also list the instruction count of each path.
 4. **Cell generators.** Python scripts in `cells/` write the assembly code. Lookup tables are built by code, not typed by hand.
@@ -95,11 +97,11 @@ The loop runs in both directions. Ladder results and new replays feed the next a
 | Path | What it holds |
 |---|---|
 | `README.md` | Short entry point with a quick start. |
-| `architecture/` | These four documents. |
+| `architecture/` | These architecture documents. |
 | `designs.md` | Design notes: verified facts, the cell designs, planned experiments and decisions. |
 | `docs/` | The game rules as PDF files, `cellhack.inc` (the constants: interface version 4, ruleset version 9), five open bots in `docs/bots/`, and a list of cell names in `docs/cell_names.txt`. |
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py`, the VEX helper `vex_emu.py`, and calibration probes in `calib/`. |
 | `sim/` | The simulator, its batch runners and its unit tests in `sim/tests/`. Output goes to `sim/out/`, which git ignores. |
-| `tools/` | Data pull scripts (`pull2/`, `pull3/`, `pull4/`) and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). |
+| `tools/` | Data pull scripts (`pull2/`, `pull3/`, `pull4/`) and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). The hook enforces this project's own privacy rules, for example it blocks AI model names and home-folder paths. It is opt-in, and outside contributors can skip it. |
 | `data/` | Write-ups (`*.md`), and the pulled data in `pull2/`, `pull3/` and `pull4/`. |
 | `reviews/` | Earlier design review notes and decision records. |

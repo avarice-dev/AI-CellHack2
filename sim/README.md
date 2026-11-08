@@ -145,7 +145,7 @@ Reads `../data/pull2/validation-table.md` and the starts in `../data/ladder-data
 `model` (rivals.py on the measured profile: direction order, split threshold, feeding style) or `rough`
 (no model; hunter or walker stands in). Reported: freeze ticks, matches frozen by t500, same winner,
 Sprint wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
-two unexplained replay effects (no-event +1, fed +3). The model is not tuned to fit.
+two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is feed 2 + the target's own rest 1 (Rules p.1-2; docs re-review 2026-11-08). The model is not tuned to fit.
 
 Smoke result (2 matches, 98844 and 99388; not a sample): Sprint's growth matches closely (t50 242/243,
 t100 850/849, t200 1884/1874 real/sim). Fed-once receivers end +3 in 83% of sim cases (real: 73% of
@@ -176,6 +176,10 @@ Each line: change, then FIT (and TEST when run) results. sw = same winner (no ro
 median sim vs real, f500 = frozen by t500, Sp = Sprint wins.
 
 ## Assumptions (docs silent or unverified)
+
+Docs re-review 2026-11-08: the Rules support the defaults of 4 (cap at Tidy, stated), 5 and 6 (implied by
+Decide before Act), and 7 (newborns act from the next tick); 6b has no basis in the docs (no feed bonus,
+no passive gain). 1 (starts), 2 (rounding) and 3 (self type) are not in the docs.
 Parameters let you flip the ones marked (param).
 1. **Start squares** (param `start_mode`). Verified 2026-11-08 from replays: ladder starts are random
    squares (e.g. 98753: (10,61) (23,30) (45,21) (13,41); more in `../data/ladder-data-2026-11-08.md` s5).
@@ -231,7 +235,8 @@ feed 9; Random rest 3, else 14; Walker split 7, rest 5, move 8; Idle 2.
 
 Note: Hunter's split path is 20 by this convention while the Rules say "the bots use fewer than 20".
 That path has no taken jumps, so only not counting `ret` would make it 19; or the sentence is loose.
-Unverified.
+Settled 2026-11-08: the sentence is loose. The Reference says "The engine counts every instruction"
+(p.3), and the site's match pages show Hunter at 19 (20).
 
 Slot effects are large: Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16, so in 4x Hunter
 the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-right one (fronts down and

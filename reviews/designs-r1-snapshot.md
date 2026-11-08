@@ -1,5 +1,7 @@
 # CellHack2 cell designs — round 1 draft (2026-11-07)
 
+> **Update 2026-11-08 (docs re-review).** This is a historical record; its open questions are kept as written. A later full re-read of `docs/` settled several of them: every instruction counts, including taken jumps and `ret` (Reference p.3); energy is capped at 50 in the Tidy step (Rules p.1); feed gives 2 of the feeder's energy to any cell in that direction, so "fed +3" is feed 2 + rest 1, with no bonus (Rules p.1-2); a square freed by a death opens next tick, one freed by a move opens the same tick (Rules p.2); matches are deterministic from the seed (Rules p.3); SSE2 and SSE3 are available (Reference p.3); loops, the stack and `[rdx]` memory are allowed by the game. Ladder starts are not corners (replays; the Rules never say corners). See `architecture/overview.md` for the current summary.
+
 Planning only. No code yet. Rules source: `docs/` (ruleset v9, ABI 4). Instruction counts below are
 estimates that assume every executed instruction (including `ret` and taken jumps) counts as 1.
 

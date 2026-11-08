@@ -1,5 +1,7 @@
 # Round 2 review (Claude) — decisions-r1.md and the round 2 plan (2026-11-07)
 
+> **Update 2026-11-08 (docs re-review).** This is a historical record; its open questions are kept as written. A later full re-read of `docs/` settled several of them: every instruction counts, including taken jumps and `ret` (Reference p.3); energy is capped at 50 in the Tidy step (Rules p.1); feed gives 2 of the feeder's energy to any cell in that direction, so "fed +3" is feed 2 + rest 1, with no bonus (Rules p.1-2); a square freed by a death opens next tick, one freed by a move opens the same tick (Rules p.2); matches are deterministic from the seed (Rules p.3); SSE2 and SSE3 are available (Reference p.3); loops, the stack and `[rdx]` memory are allowed by the game. Ladder starts are not corners (replays; the Rules never say corners). See `architecture/overview.md` for the current summary.
+
 Sources read in full: the three doc PDFs, cellhack.inc, the five bot sources, designs.md (round 2),
 designs-r1-snapshot.md, r1-rules.md, r1-strategy.md, r1-asm.md, decisions-r1.md, sim/README.md,
 sim/engine.py, sim/bots.py. Counting convention: every executed instruction, taken jumps and `ret`
