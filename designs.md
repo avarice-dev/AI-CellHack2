@@ -378,7 +378,7 @@ one Sandbox game, then the ladder (user approval).
   Paired by seed over both orders (32 games): Complacency finished ahead of Scourge in 8 of 16 per order and **on no
   seed in both orders**, i.e. in the sim the head-to-head winner is fixed by the start slot, not by the cell. So the
   "62% head to head" in 9.2 (and Woe's 2.38 vs 1.75 in 8.6, the same seeds and the same numbers) measure start luck,
-  not the change. What survives: same win rates, more land (final pop +7% to +30%, t200 pop +4% to +11% vs the rival
+  not the change. What survives: same win rates, more land (final pop +6% to +30%, t200 pop +4% to +11% vs the rival
   models), and no sign that dropping the hold costs anything in the sim.
 - Verdict (indicative): a free, low-risk change in the sim; whether it fixes the real t21-t200 deficit can only be
   seen on the site (Sandbox, then the ladder with the user's approval).
