@@ -28,3 +28,9 @@ class MetricsTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class LoadRealTest(unittest.TestCase):
+    def test_missing_races_file_gives_none(self):
+        # 98797's raw replay was deleted in pull 2 (size cap), so it has no races file
+        self.assertIsNone(T.load_real(98797))

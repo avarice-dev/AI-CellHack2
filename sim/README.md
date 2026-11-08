@@ -101,6 +101,10 @@ by giving its module a `FACTORIES` (name -> factory) and/or `POLICIES` dict and 
 No measured rival uses a lock: every one checks directions in a fixed order (4 / 6 / >= 8). The lock and
 flat-3 variants are labelled hypotheticals, for comparison only.
 Options: `order=ULRD`, `front=static|flat3|lock`, thresholds (see the factories), e.g. `rpump[pump_min=12]`.
+Speed options (2026-11-08, all off by default): `pad=N` adds N instructions to every non-bite path, and with
+`pad_bites_from=k` also to bites in check positions >= k (slow cells: the match-page average insns of rooby,
+Noob++ and Aegis is 33-90 while the models ran ~20); `split_after=k` (ratompush and rpump, static front) does
+the split check after the first k direction checks, so a hole is refilled in 2k + 13.
 
 ## Experiments
 **CPU limit:** every runner uses at most 4 worker processes (default 4; never 6, the PC's total; `--workers 1`
@@ -125,6 +129,8 @@ python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8        
 python experiments.py --mix a,b,c,d --mix a,b,c,e --seeds 1-16 --json out.json
 python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8 --detail        # replay stats
 python validate.py --matches 98844,99388                                                 # a few matches
+python treadmill.py --set fit --workers 2                       # late-game metrics + validate checks
+python treadmill.py --set fit --models '{"rooby": "ratompush[...,pad=56]"}'   # try other cell models
 ```
 Per mix and policy: points per game (3/2/1/0), win %, average place and final population. `--detail`
 adds per match and as means: splits, moves, eats, feeds, feeds per bite (feeds / eats of enemies,
@@ -154,6 +160,16 @@ every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989
 ladder data s4 are pooled over all replays, TEST ones included. The report ends with the acceptance
 checks (`validate.thresholds`) per set and a fingerprint table (front / interior energy t500/t1000 and
 split mode, real s4 vs sim). "E200 / E1000" in the checks is the colony mean energy of the table.
+
+### Treadmill metrics (treadmill.py)
+Late-game targets from pull 3 (data/scourge-losses-2026-11-08.md), computed the same way for the real replays
+(data/pull2/mining/races/*.csv.gz, summaries pop10) and the sim (`Engine(record_races=True)`, one row per
+death as in tools/pull2/mine.py): per cell, the share of its refilled death squares it refilled itself, its
+deaths per tick in t < 500 / 500-1000 / >= 1000, the median pop change t500 -> end, the first tick at pop 128
+/ 512, and contested races per opponent (deaths of either with both adjacent, won by whom). It also prints
+validate.py's report and checks and the sim's average insns per call (compare with the match pages).
+tools/pull2/actions.py gives per-cell action shares at the front from a real replay (eat direction, bitten
+first, split, none) for comparing with the sim.
 
 ### Calibration log
 Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze

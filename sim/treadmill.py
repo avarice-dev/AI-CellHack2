@@ -70,6 +70,9 @@ def metrics(rows, pop10, ncol=4):
 
 
 def load_real(mid):
+    """Real metrics of a pull 2 match, or None when it has no races file (98797: raw replay deleted)."""
+    if not os.path.exists(os.path.join(RACES, '%d.csv.gz' % mid)):
+        return None
     with gzip.open(os.path.join(RACES, '%d.csv.gz' % mid), 'rt') as f:
         rows = [tuple(int(v) for v in d.values()) for d in csv.DictReader(f)]
     with open(os.path.join(SUMS, '%d.json' % mid), encoding='utf-8') as f:
@@ -185,6 +188,9 @@ def main(argv=None):
         names = r['cells']
         real = load_real(m)
         dump[m] = {'names': names, 'real': real, 'sim': r['treadmill']}
+        if real is None:
+            print('match %d: no real races file, left out of the treadmill tables' % m)
+            continue
         for c, n in enumerate(names):
             ri.append((n, names, real[c]))
             si.append((n, names, r['treadmill'][str(c)] if str(c) in r['treadmill'] else r['treadmill'][c]))
