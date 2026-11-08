@@ -1,0 +1,596 @@
+{
+"103128": [
+"AtomPush",
+"Hunter",
+"Scourge",
+"Covetous"
+],
+"103134": [
+"Covetous",
+"Sprint",
+"AtomPush",
+"Scourge"
+],
+"103138": [
+"Brawler",
+"Scourge",
+"gemAlert_v4",
+"Noob"
+],
+"103144": [
+"Brawler v2",
+"gemAlert_v4",
+"squirtle",
+"Scourge"
+],
+"103152": [
+"Random",
+"Sprint",
+"Scourge",
+"rooby"
+],
+"103159": [
+"Scourge",
+"Walker",
+"Bouncer",
+"Hunter"
+],
+"103163": [
+"gemAlert_v4",
+"zergling",
+"Scourge",
+"Brawler"
+],
+"103168": [
+"AtomPush",
+"Brawler",
+"Scourge",
+"AtomCrasher"
+],
+"103176": [
+"Scourge",
+"Medic",
+"zergling",
+"squirtle"
+],
+"103181": [
+"Scourge",
+"AtomPush",
+"squirtle",
+"Aegis"
+],
+"103187": [
+"Covetous",
+"Scourge",
+"Brawler",
+"Bulwark"
+],
+"103195": [
+"zergling",
+"rooby",
+"Aegis",
+"Scourge"
+],
+"103202": [
+"rooby",
+"gemAlert_v3",
+"zergling",
+"Scourge"
+],
+"103208": [
+"Scourge",
+"squirtle",
+"Walker",
+"AtomCrasher"
+],
+"103212": [
+"Covetous",
+"AtomCrasher",
+"Aegis",
+"Scourge"
+],
+"103219": [
+"Bouncer",
+"zergling",
+"Scourge",
+"rooby"
+],
+"103226": [
+"squirtle",
+"Scourge",
+"Noob++",
+"Brawler"
+],
+"103232": [
+"Covetous",
+"gemAlert_v4",
+"squirtle",
+"Scourge"
+],
+"103237": [
+"Bouncer",
+"Scourge",
+"AtomPush",
+"Random"
+],
+"103244": [
+"Noob+",
+"Scourge",
+"Covetous",
+"gemAlert_v3"
+],
+"103249": [
+"Scourge",
+"zergling",
+"Bulwark",
+"Covetous"
+],
+"103257": [
+"Sprint",
+"Scourge",
+"Bouncer",
+"gemAlert_v3"
+],
+"103262": [
+"zergling",
+"Scourge",
+"AtomCrasher",
+"gemAlert_v3"
+],
+"103269": [
+"rooby",
+"Scourge",
+"Noob++",
+"Walker"
+],
+"103276": [
+"Noob++",
+"Scourge",
+"Brawler v2",
+"gemAlert_v3"
+],
+"103281": [
+"Covetous",
+"Brawler",
+"Scourge",
+"Aegis"
+],
+"103290": [
+"Scourge",
+"Hunter",
+"gemAlert_v3",
+"Brawler"
+],
+"103298": [
+"Scourge",
+"Sprint",
+"gemAlert_v4",
+"Medic"
+],
+"103303": [
+"choochoo",
+"Medic",
+"AtomCrasher",
+"Scourge"
+],
+"103308": [
+"Scourge",
+"Noob+",
+"Medic",
+"Hunter"
+],
+"103313": [
+"Scourge",
+"Walker",
+"zergling",
+"Hunter"
+],
+"103318": [
+"Walker",
+"Scourge",
+"Random",
+"Covetous"
+],
+"103325": [
+"Noob+",
+"Scourge",
+"Sprint",
+"Hunter"
+],
+"103331": [
+"Scourge",
+"Sprint",
+"Covetous",
+"squirtle"
+],
+"103337": [
+"rooby",
+"gemAlert_v4",
+"Scourge",
+"Covetous"
+],
+"103344": [
+"squirtle",
+"Scourge",
+"Noob++",
+"Noob+"
+],
+"103349": [
+"Noob",
+"gemAlert_v4",
+"Scourge",
+"choochoo"
+],
+"103354": [
+"gemAlert_v4",
+"Medic",
+"Scourge",
+"Noob"
+],
+"103360": [
+"AtomCrasher",
+"gemAlert_v3",
+"choochoo",
+"Scourge"
+],
+"103366": [
+"Medic",
+"Scourge",
+"gemAlert_v3",
+"Covetous"
+],
+"103374": [
+"gemAlert_v4",
+"Bulwark",
+"Scourge",
+"Hunter"
+],
+"103380": [
+"Scourge",
+"gemAlert_v4",
+"Random",
+"Sprint"
+],
+"103386": [
+"Medic",
+"Scourge",
+"Bulwark",
+"Noob"
+],
+"103392": [
+"Scourge",
+"choochoo",
+"Hunter",
+"Bulwark"
+],
+"103397": [
+"choochoo",
+"rooby",
+"Scourge",
+"Covetous"
+],
+"103405": [
+"Covetous",
+"squirtle",
+"Scourge",
+"Random"
+],
+"103411": [
+"zergling",
+"Noob",
+"Scourge",
+"AtomCrasher"
+],
+"103419": [
+"Hunter",
+"Noob++",
+"Scourge",
+"Brawler v2"
+],
+"103426": [
+"Scourge",
+"choochoo",
+"Brawler",
+"Walker"
+],
+"103433": [
+"Scourge",
+"gemAlert_v4",
+"Random",
+"Covetous"
+],
+"103440": [
+"Medic",
+"Scourge",
+"Noob+",
+"AtomCrasher"
+],
+"103446": [
+"Scourge",
+"AtomCrasher",
+"Hunter",
+"Covetous"
+],
+"103451": [
+"Bouncer",
+"Scourge",
+"Noob+",
+"gemAlert_v4"
+],
+"103458": [
+"Scourge",
+"Walker",
+"Noob",
+"rooby"
+],
+"103463": [
+"Scourge",
+"Walker",
+"Medic",
+"AtomPush"
+],
+"103469": [
+"Scourge",
+"AtomPush",
+"Medic",
+"gemAlert_v3"
+],
+"103475": [
+"Walker",
+"rooby",
+"choochoo",
+"Scourge"
+],
+"103481": [
+"gemAlert_v3",
+"rooby",
+"Noob+",
+"Scourge"
+],
+"103487": [
+"Hunter",
+"Bulwark",
+"Noob+",
+"Scourge"
+],
+"103494": [
+"zergling",
+"Brawler v2",
+"choochoo",
+"Scourge"
+],
+"103502": [
+"Scourge",
+"Medic",
+"Noob++",
+"Brawler"
+],
+"103509": [
+"Scourge",
+"Aegis",
+"AtomCrasher",
+"Medic"
+],
+"103514": [
+"Sprint",
+"Walker",
+"Scourge",
+"AtomCrasher"
+],
+"103522": [
+"Medic",
+"Noob+",
+"Scourge",
+"Brawler"
+],
+"103527": [
+"Sprint",
+"Brawler",
+"AtomCrasher",
+"Scourge"
+],
+"103535": [
+"Scourge",
+"choochoo",
+"rooby",
+"Covetous"
+],
+"103542": [
+"Scourge",
+"zergling",
+"Noob++",
+"Sprint"
+],
+"103548": [
+"Brawler v2",
+"Aegis",
+"Scourge",
+"Random"
+],
+"103553": [
+"squirtle",
+"Scourge",
+"Aegis",
+"Noob++"
+],
+"103560": [
+"Noob++",
+"Scourge",
+"Noob+",
+"Brawler v2"
+],
+"103564": [
+"Noob",
+"squirtle",
+"Walker",
+"Scourge"
+],
+"103570": [
+"AtomPush",
+"Random",
+"Scourge",
+"choochoo"
+],
+"103578": [
+"squirtle",
+"Sprint",
+"AtomPush",
+"Scourge"
+],
+"103583": [
+"zergling",
+"AtomCrasher",
+"Bouncer",
+"Scourge"
+],
+"103589": [
+"Scourge",
+"AtomCrasher",
+"Brawler v2",
+"Random"
+],
+"103597": [
+"Brawler",
+"Scourge",
+"Bouncer",
+"Random"
+],
+"103605": [
+"Noob+",
+"Scourge",
+"AtomCrasher",
+"choochoo"
+],
+"103611": [
+"Covetous",
+"gemAlert_v3",
+"Sprint",
+"Scourge"
+],
+"103622": [
+"rooby",
+"Medic",
+"Contagion",
+"Scourge"
+],
+"103628": [
+"squirtle",
+"Scourge",
+"Brawler",
+"gemAlert_v4"
+],
+"103635": [
+"Scourge",
+"Noob",
+"Hunter",
+"Brawler v2"
+],
+"103642": [
+"Brawler v2",
+"AtomPush",
+"Scourge",
+"Hunter"
+],
+"103647": [
+"Aegis",
+"gemAlert_v4",
+"rooby",
+"Scourge"
+],
+"103655": [
+"Noob+",
+"gemAlert_v3",
+"Scourge",
+"Random"
+],
+"103661": [
+"Noob+",
+"AtomCrasher",
+"Medic",
+"Scourge"
+],
+"103669": [
+"Random",
+"Scourge",
+"choochoo",
+"gemAlert_v3"
+],
+"103674": [
+"AtomPush",
+"choochoo",
+"zergling",
+"Scourge"
+],
+"103680": [
+"Random",
+"rooby",
+"Scourge",
+"gemAlert_v3"
+],
+"103686": [
+"Scourge",
+"Brawler v2",
+"gemAlert_v3",
+"Noob+"
+],
+"103693": [
+"Hunter",
+"Bulwark",
+"Scourge",
+"AtomPush"
+],
+"103701": [
+"Aegis",
+"Scourge",
+"Noob+",
+"Walker"
+],
+"103706": [
+"Covetous",
+"Bulwark",
+"squirtle",
+"Scourge"
+],
+"103711": [
+"Noob",
+"Random",
+"Hunter",
+"Scourge"
+],
+"103716": [
+"Walker",
+"choochoo",
+"rooby",
+"Scourge"
+],
+"103722": [
+"Contagion",
+"rooby",
+"Noob+",
+"Scourge"
+],
+"103730": [
+"Hunter",
+"Scourge",
+"Bulwark",
+"Medic"
+],
+"103734": [
+"rooby",
+"Brawler v2",
+"Scourge",
+"Random"
+],
+"103740": [
+"Noob++",
+"Scourge",
+"Brawler v2",
+"Noob"
+],
+"103747": [
+"Noob+",
+"Brawler",
+"zergling",
+"Scourge"
+]
+}
