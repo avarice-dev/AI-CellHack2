@@ -2,9 +2,9 @@
 
 The project studies real games from the public CellHack2 site. The site serves each match's replay as a separate file. So the project collects the match lists, match pages and replays in rounds called **pulls**. It then decodes the replays and turns them into tables and write-ups. This document explains what each pull collected, how the replays are read, where the files are, and the rules the project follows when it fetches data.
 
-## The four pulls
+## The pulls
 
-All four pulls were collected on 2026-11-08.
+All five pulls were collected on 2026-11-08.
 
 | Pull | What it collected | Main write-up |
 |---|---|---|
@@ -12,8 +12,9 @@ All four pulls were collected on 2026-11-08.
 | 2 | 16 match-list pages (593 finished ladder matches, ids 98830 to 99422), 165 small match pages, the leaderboard, and 36 replays. 35 raw replay files were kept. | `data/ladder-data-2-2026-11-08.md` |
 | 3 | The newest 100 finished ladder games of the Scourge cell (matches 103128 to 103747), one match page for each, and 15 replays of games Scourge lost. | `data/scourge-losses-2026-11-08.md` |
 | 4 | All 95 finished ladder games of the Contagion cell (matches 103614 to 104195), and 12 replays (6 wins, 6 losses). | `data/contagion-games-2026-11-08.md` |
+| 5 | 12 match-list pages (480 finished ladder matches, ids 105881 to 106358), the leaderboard, and 72 match pages and replays: Contagion 18, Complacency 18, and 38 games of the top rivals without our cells. All 72 are in the validation set. | `data/pull5-games-2026-11-08.md` |
 
-Pull 1 and pull 2 were read through a logged-in browser session. Pull 3 and pull 4 used the site's match list and match pages. The offline study of the 35 pull 2 replays is in `data/replay-mining-2026-11-08.md`. Site mechanics and calibration results are in `data/site-observations-2026-11-08.md`. Ratings logged over time are in `data/site-checks.md`.
+Pull 1 and pull 2 were read through a logged-in browser session. Pull 3 and pull 4 used the site's match list and match pages. Pull 5 used the match list, the match pages and the leaderboard, in a logged-in browser session. The offline study of the 35 pull 2 replays is in `data/replay-mining-2026-11-08.md`. Site mechanics and calibration results are in `data/site-observations-2026-11-08.md`. Ratings logged over time are in `data/site-checks.md`.
 
 ## What the site gives
 
@@ -71,11 +72,18 @@ data/
     keyframes/<id>.kf.json.gz       keyframes for each replay (git-ignored, not in the repository)
     summaries/<id>.json             one summary per replay
     mining/                         output of mine.py and mine_report.py
-  pull3/ and pull4/
+  pull3/, pull4/ and pull5/
     matches-*.json, names.json      match lists and name tables
     replays/                        raw replays; git-ignored (too large for the repo)
     mining/<id>.json                per-game timelines
     mining/races/<id>.csv.gz        one row per death (refill race)
+    validation-table.md, starts.json  tables read by sim/validate.py (tools/valtab.py)
+  pull5/
+    matchlist-105881-106358.json    the 480 matches of the match list (id, cells, winner)
+    matches-pull5-2026-11-08.json   the 72 chosen games with their match pages
+    leaderboard-2026-11-08.json     leaderboard snapshot (versions)
+  splits/
+    split.json                      the FIT or TEST set of every validation match (sim/validate.py)
 ```
 
 ## Tools
@@ -94,7 +102,7 @@ Run each tool from the repository root. Most read files with paths that start wi
 | `tools/pull2/late.py` | Finds the largest population changes after tick 500, and the freeze tick of each match. |
 | `tools/pull2/sec8.py` | Builds the table of matches chosen for study and why. |
 | `tools/pull2/collect.sh` | Moves finished files saved by the browser into `data/pull2/`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. It takes an optional folder argument. |
-| `tools/pull3/tab.py` | Builds the table of Scourge games. It also writes `data/pull3/names.json`. |
+| `tools/pull3/tab.py` | Builds the table of Scourge games. It also writes `data/pull3/names.json`. Games without `--cell` are left out of the tables but kept in `names.json`, so one list can hold the games of several cells (pull 5). |
 | `tools/pull3/losses.py` | Builds a timeline for each game Scourge lost. |
 | `tools/pull4/tab.py` | Builds the table of Contagion games, with a Contagion against Scourge comparison. |
 | `tools/pull4/games.py` | Builds a timeline for each Contagion game. |
@@ -155,6 +163,8 @@ python -I tools/pull3/tab.py --pull <pull> --cell <your cell> --matches data/<pu
 
 The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a logged-in session. Save each replay as `data/<pull>/replays/<id>.chr2.gz`. The tools read this file with gzip.
 
+Pull 5 did this from a page of the site. `fetch()` returns the bytes already decompressed. The page compressed them again with `CompressionStream('gzip')` and saved them through a download link. Then the files were moved from the download folder into the replays folder.
+
 - The file must be gzip-compressed. A replay that the browser has already decompressed starts with the bytes `CHR2` (about 100 MB for 3000 ticks). Compress it with this command:
 
   ```
@@ -182,6 +192,8 @@ CH_PULL=<pull> python -I tools/valtab.py
 ```
 
 This writes `data/<pull>/validation-table.md` and `data/<pull>/starts.json` for all replays of the pull. `sim/validate.py` reads only the pulls named in its `PULLS` list, so a new pull must be added there before the simulator uses it.
+
+Then give the new matches a FIT or TEST set. Run `python validate.py --extend-split` in `sim/`. It splits only the matches that have no set yet, and it writes them into `data/splits/split.json`. A match never changes its set after that, because the simulator is tuned on FIT. `validate.py` stops with an error when a match has no set.
 
 ### Step 7: tables for each game
 

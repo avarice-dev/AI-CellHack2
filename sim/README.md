@@ -18,7 +18,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `policies.py` | registry: policy spec string -> function |
 | `experiments.py` | parallel runner for policy mixes over many seeds, replay-style statistics |
 | `batch.py` | one command: a named experiment set, unattended, summary .md + full .json in `out/` |
-| `validate.py` | re-plays the 36 pull-2 ladder matches (real starts) and compares with the replay stats |
+| `validate.py` | re-plays the validation matches (pulls 2-5, 135; real starts) and compares with the replay stats |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 
 ## Running
@@ -153,7 +153,12 @@ the +3/+2/+0 cases) with no feed bonus, because a fed cell that rests also gains
 no-event +1 share is 26% vs 8% real (the sim counts REST as no event; whether replays log a rest event
 is unknown).
 
-**Hold-out split** (fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
+**Validation pool now** (2026-11-08, pull 5): 135 matches, FIT 90 / TEST 45, fixed per match in
+data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
+stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
+SPLIT_SEED = 20261108). New matches: `python validate.py --extend-split` (old entries never change).
+
+**Hold-out split** (history; fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
 every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989, 99074, 99109, 99134,
 99208, 99239, 99304, 99371, 99420), the other 24 are FIT. Tuning looks at FIT runs only
 (`python validate.py --set fit --workers 3`); TEST is run only to judge. Caveat: the rival fingerprints of
