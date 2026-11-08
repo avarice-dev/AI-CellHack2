@@ -112,6 +112,14 @@ class RunTest(unittest.TestCase):
             self.assertTrue(any(x.startswith(n) for x in names), n)
         self.assertTrue(all(isinstance(r[3], bool) for r in rows))
 
+    def test_slow_rivals_padded_by_default(self):
+        # pad3, adopted 2026-11-08 on the 63-match FIT set (45/63 checks, winner 30/42 vs defaults 44/63, 27/42)
+        self.assertIn('pad=66,pad_bites_from=1', V.MODELS['Noob++'][0])
+        self.assertIn('pad=56,pad_bites_from=2', V.MODELS['rooby'][0])
+        self.assertIn('pad=12,pad_bites_from=1', V.MODELS['Aegis'][0])
+        for n in ('Noob++', 'rooby', 'Aegis'):
+            self.assertTrue(callable(policies.get(V.MODELS[n][0])))
+
     def test_median(self):
         self.assertEqual(V.median([3, None, 1, 2]), 2)
         self.assertEqual(V.median([1, 2, 3, 4]), 2.5)

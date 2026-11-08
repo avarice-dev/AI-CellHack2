@@ -43,12 +43,15 @@ MODELS = {
     'Brawler': ('rpump[split_min=6,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                 # U4 L6, split 6, feeds/eat 48
     'Brawler v2': ('rpump[hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                           # U4 L6, split 5, pump
     'Bouncer': ('rpump[order=DRLU,split_min=6,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),      # D4 R6, split 6, pump
-    'Aegis': ('rpump[hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                                # U fast only, pump-ish (interior 19)
+    # Aegis, Noob++, rooby: pad3 (adopted 2026-11-08 on the 63-match FIT set): slow cells (match-page avg insns
+    # 33 / 79 / 76 vs ~20-24 unpadded), every non-bite path and the bites in their slow directions padded.
+    'Aegis': ('rpump[hold=none,target=richest,pump_min=5,pump_target_max=50,pad=12,pad_bites_from=1]', 'model'),
     'Noob+': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                    # D fast only
-    'Noob++': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),
+    'Noob++': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50,pad=66,pad_bites_from=1]',
+               'model'),
     'AtomPush': ('ratompush[split_after=2]', 'model'),                         # R4 L6, fat economy
     'AtomCrasher': ('ratompush[split_after=2]', 'model'),                      # R4 L6, fat, feeds less
-    'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99]', 'model'),  # U4 R6, no feeding
+    'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=56,pad_bites_from=2]', 'model'),  # U4 R6, no feeding
     'Noob': ('hunter', 'rough'), 'squirtle': ('hunter', 'rough'), 'gemAlert_v3': ('hunter', 'rough'),
     'gemAlert_v4': ('hunter', 'rough'), 'Bulwark': ('hunter', 'rough'),
     'zergling': ('walker', 'rough'), 'choochoo': ('walker', 'rough'),
