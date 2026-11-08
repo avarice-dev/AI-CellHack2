@@ -419,6 +419,10 @@ def main(argv=None):
     table = load_table()
     if args.matches:
         keep = {int(x) for x in args.matches.split(',')}
+        missing = sorted(keep - set(table))
+        if missing:
+            sys.exit('match id(s) %s not in any validation table (data/<pull>/validation-table.md of %s)'
+                     % (', '.join(map(str, missing)), ', '.join(PULLS)))
         table = {m: d for m, d in table.items() if m in keep}
     fit, test = split_sets(load_table())   # split over every match, whatever --matches keeps
     if args.set != 'all':

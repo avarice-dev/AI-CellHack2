@@ -125,6 +125,15 @@ class RunTest(unittest.TestCase):
         self.assertEqual(V.median([1, 2, 3, 4]), 2.5)
         self.assertIsNone(V.median([None]))
 
+    def test_unknown_match_id_exits_non_zero(self):
+        err = io.StringIO()
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(err), \
+                self.assertRaises(SystemExit) as cm:
+            V.main(['--matches', '1,2', '--workers', '1'])   # no known id: no sim runs
+        self.assertNotIn(cm.exception.code, (0, None))
+        self.assertIn('1, 2', str(cm.exception.code))
+        self.assertIn('not in any validation table', str(cm.exception.code))
+
 
 if __name__ == '__main__':
     unittest.main()
