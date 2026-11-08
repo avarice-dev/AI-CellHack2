@@ -294,3 +294,76 @@ form) to confirm 0 faults and the counts on the site (bite 5, refill 10); the la
 
 Open: probe q (xmm zero at entry) and probe r (GPRs zero) are done (verified above); Woe, Conceit and Endemic have
 not run on the site yet (a Sandbox game before any ladder use; no ladder change without the user's approval).
+
+## 9. Round 6: Complacency = Scourge plus early free splitting (2026-11-08)
+### 9.1 The bet
+Pull 3 (data/scourge-losses-2026-11-08.md): Scourge loses the land grab, not the late fights. Winners lead from about
+t21; at t200 Scourge has ~800 cells vs ~2400 for AtomPush/AtomCrasher; it reaches pop 128 / 512 at t36-44 / t81-175
+vs t28-33 / t56-82 for the winners. Suspected cause: the prey hold (5 <= e < 16 with an enemy anywhere in the 5x5:
+rest until t2980). Contagion's games (data/contagion-games-2026-11-08.md) point the same way: it wins the pre-contact
+race and loses t75-t200, right after first contact, still with the prey hold. **Complacency** (unconcerned by
+enemies in view; `cells/gen_complacency.py` -> `cells/complacency.asm`) is Scourge with exactly one change: no prey
+hold while tick < T. Built on Scourge, legacy SSE2 only: it was drafted on Woe, but calib-s showed Woe's VEX form is
+broken on the site (section 8 note).
+
+### 9.2 T chosen: never hold (T = 3000)
+Sweep `python sim/batch.py --set complacency-t` (136 games, seeds 1-8, 4 workers, below-normal priority, 3148 s;
+`sim/out/complacency-t-20261108-104611.md`), T in {200, 300, 500, never} plus the "hold only for a diagonal enemy"
+probe (diag: view 6/8/16/18, which gate 1's mask already holds, so `test ecx, DIAG` would cost 2-3):
+
+| Mix | T=200 | T=300 | T=500 | never | diag | Scourge alone |
+|---|---|---|---|---|---|---|
+| X, scourge, rpump, ratompush: X pts (win %), final pop | 2.38 (62%), 1871 | 2.38 (62%), 1870 | 2.38 (62%), 1870 | **2.50 (62%), 1907** | 2.38 (62%), 1826 | Scourge 1.75 (12%), ~1125 |
+| X, rpump, ratompush, rblind3 | 2.00 (0%), 1066 | 2.00, 1066 | 2.00, 1077 | **2.00, 1204** | 2.00, 1026 | 2.00 (0%), 993 |
+| X, rbrawler, ratompush, walker | 2.50 (62%), 1944 | 2.50, 1940 | 2.50, 1942 | **2.50, 1974** | 2.50, 1878 | 2.50 (62%), 1705 |
+
+Win rates are the same for every T (and in the rival fields the same as Scourge's): the sim says the change wins
+land, not games. Final population is highest with "never" in all three mixes, and "never" is also the simplest code
+(the 5x5 check is gone) and the fastest middle path (16). The diagonal hold is worse than any T (fewer cells, same
+wins), so it was not built. T >= 200 also matches the Contagion data (the no-hold window must cover t75-t200).
+
+### 9.3 Instruction counts per path (every executed instruction incl. taken jumps and ret)
+| Path | Scourge | **Complacency** |
+|---|---|---|
+| bite (adjacent enemy) | 5 | 5 |
+| refill (freed front square, e >= 12) / split e >= 16 | 11 | 11 |
+| split, 5 <= e < 16, no enemy in the 5x5 | 24 | **16** |
+| split, 5 <= e < 16, enemy in the 5x5, tick >= 2980 | 25 | **16** |
+| same, tick < 2980 | rest (hold), 27 | **split, 16** |
+| rest, e < 5 / boxed below the feed floor | 17 / 17 | 17 / 17 |
+| feed block (boxed, e >= 16) | 21 + ..., max 53 | same |
+
+(A finite T would cost: early split 17, and after T Scourge's 5x5 paths + 2: 26 / 27 / hold 29.)
+The bite, gate 1 and the tables are Scourge's byte for byte (tested); kTwoLo/kTwoHi are gone.
+
+### 9.4 Checks
+- `cells/check_cells.py` (NASM + Unicorn, WSL): Complacency vs `sim/cells_ref.complacency` 200,512 cases (Scourge's
+  grid, ticks 0/1/2979/2980), 0 mismatches in action and count; and its action vs `cells_ref.scourge` on every case:
+  equal except the 7,566 prey-hold states (Scourge rests on its 27 path, tick < 2980), where it splits into the
+  first freed, else first empty, neighbour of DOWN, RIGHT, UP, LEFT: 0 mismatches. All other non-VEX cells still
+  pass; the run's 33 problems are all Woe/Conceit/Endemic (broken by design since calib-s).
+- `sim/tests/test_complacency.py` (9 tests: ref vs a spec-written expectation for T 200/300/3000, generator = committed
+  asm, bite/gate-1 and tables = Scourge's, no VEX, paste rules, a real-engine match). 274 tests pass.
+
+### 9.5 Sim results (indicative: early growth is the better-modelled part, late fights are weak)
+Early growth, mean pop at t50 / t100 / t200 and median first tick to pop 128 / 512 (sweep, 8 games per mix):
+
+| Mix | Complacency | Scourge |
+|---|---|---|
+| head to head (+ rpump, ratompush) | 222 / 673 / 1229; 37 / 83 | 193 / 540 / 846; 40 / 94 |
+| + rpump, ratompush, rblind3 (Scourge in its own mix) | 216 / 641 / 1065; 37 / 87 | 218 / 621 / 1023; 37 / 89 |
+| + rbrawler, ratompush, walker | 223 / 695 / 1350; 37 / 89 | 221 / 665 / 1221; 37 / 91 |
+| real ladder (pull 3) | - | Scourge ~500 at t100, ~800 at t200; 36-44 / 81-175; winners 28-33 / 56-82, ~2400 at t200 |
+
+Reading: the gain shows from t100 on (+3% to +11% at t200 against the rival models, +45% head to head, where
+Scourge's hold is triggered by Complacency itself) and lasts (final pop +7% to +21%). But the sim's rivals do not
+grow like the real Atoms (ratompush reaches 512 at t75-84, real AtomPush t56-82, and only rblind3 at t64 comes near),
+and the sim's Scourge already reaches 128 / 512 at t37 / t89-94, the fast end of the real range: the sim does not
+reproduce Scourge's real land-grab deficit, so it cannot say how much of that deficit the hold causes. Real test:
+one Sandbox game, then the ladder (user approval).
+
+### 9.6 Follow-ups
+- The same change on **Contagion** (which already has the faster opening and loses t75-t200 after first contact,
+  data/contagion-games-2026-11-08.md) as a separate cell; not built here (one bet per cell).
+- Before any ladder use: one Sandbox game (scripted POST, not the form) for 0 faults and the counts (bite 5,
+  refill 11, middle split 16); the ladder swap needs the user's approval.
