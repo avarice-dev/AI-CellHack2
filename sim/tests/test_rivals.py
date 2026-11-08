@@ -298,6 +298,38 @@ class StaticFrontTest(unittest.TestCase):
         self.assertEqual(policies.get('rfatgrab')(FakeView(3, cells=nb(up=EN)), bytearray(64)), (0x30, 10, 8))
 
 
+class SplitAfterTest(unittest.TestCase):
+    """ratompush[split_after=2]: R and L checked first (4 / 6), then the split check (refill a hole at
+    once: 2k + 13 = 17), then U and D; a failed split check costs 3 (e < split_min) or 8 (no empty)."""
+
+    def pol(self):
+        return policies.get('ratompush[split_after=2]')
+
+    def test_first_two_bites_unchanged(self):
+        p = self.pol()
+        self.assertEqual(p(FakeView(9, cells=nb(right=EN)), bytearray(64)), (0x31, 4, 3))
+        self.assertEqual(p(FakeView(9, cells=nb(left=EN, up=EN)), bytearray(64)), (0x33, 6, 5))
+
+    def test_split_before_up_down_bites(self):
+        p = self.pol()
+        v = FakeView(12, fill=FR, fill_e=20, cells={NB[UP]: EN, NB[DOWN]: EM})
+        self.assertEqual(p(v, bytearray(64)), (0x22, 17, 17))
+
+    def test_up_bite_after_failed_split_check(self):
+        p = self.pol()
+        # 2 misses (4 / 4) + failed split check (3 / 2 when e < split_min, 8 / 7 boxed in) + cmp, je, mov, ret
+        self.assertEqual(p(FakeView(3, cells=nb(up=EN)), bytearray(64)), (0x30, 11, 9))
+        v = FakeView(12, fill=FR, fill_e=20, cells={NB[UP]: EN})
+        self.assertEqual(p(v, bytearray(64)), (0x30, 16, 14))
+        self.assertEqual(p(FakeView(3, cells=nb(down=EN)), bytearray(64)), (0x32, 13, 11))
+
+    def test_body_after_all_checks(self):
+        p = self.pol()
+        self.assertEqual(p(FakeView(4), bytearray(64)), (REST, 13, 12))     # 8 / 8 + 3 / 2 + mov, ret
+        v = FakeView(48, fill=FR, fill_e=30, energies={17: 12})
+        self.assertEqual(p(v, bytearray(64))[0], 0x42)                       # capped donor feed as before
+
+
 class PumpTest(unittest.TestCase):
     """rpump: Brawler front (U,L,R,D), interior feeds its richest friend neighbour (uphill) up to 48;
     capped (> 48) neighbours are skipped; cells that see an enemy within the 5x5 view but not adjacent
@@ -320,6 +352,21 @@ class PumpTest(unittest.TestCase):
     def test_interior_feeds_richest_uphill(self):
         v = FakeView(20, fill=FR, fill_e=20, energies={7: 25, 13: 40, 17: 40, 11: 10})
         self.assertEqual(self.call(v), (0x41, 43, 42))       # ties -> first in U, R, D, L
+
+    def test_hold_none_feeds_near_the_front(self):
+        p = policies.get('rpump[hold=none]')
+        v = FakeView(30, fill=FR, fill_e=20, cells={0: EN}, energies={13: 25})
+        self.assertEqual(p(v, bytearray(64)), (0x41, 35, 34))   # enemy-in-view block (8 / 8 not taken) left out
+
+    def test_target_poorest(self):
+        p = policies.get('rpump[target=poorest]')
+        v = FakeView(20, fill=FR, fill_e=20, energies={7: 25, 13: 9, 17: 40, 11: 9})
+        self.assertEqual(p(v, bytearray(64)), (0x41, 43, 42))   # ties -> first in U, R, D, L
+
+    def test_target_max_50_feeds_full_cells(self):
+        p = policies.get('rpump[pump_target_max=50]')
+        v = FakeView(20, fill=FR, fill_e=50)
+        self.assertEqual(p(v, bytearray(64)), (0x40, 43, 42))
 
     def test_target_cap_and_no_friend(self):
         v = FakeView(20, fill=FR, fill_e=49)

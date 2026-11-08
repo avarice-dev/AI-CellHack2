@@ -179,7 +179,7 @@ def _make_front(front, order, prearm):
 
 
 # ---- feeding tails -----------------------------------------------------------------------------------
-def _grow_pump(view, c, n, alt, split_min, pump_min, tmax):
+def _grow_pump(view, c, n, alt, split_min, pump_min, tmax, hold='view', target='richest'):
     """Pump: interior cells push energy uphill to the richest friend neighbour that is <= tmax; a cell
     that sees an enemy anywhere in its view (not adjacent: the front already handled that) holds.
 
@@ -192,6 +192,8 @@ def _grow_pump(view, c, n, alt, split_min, pump_min, tmax):
           (key = 255 - e for friends <= tmax, 255 otherwise; ties -> U, R, D, L)
       cmp cx, 255 / jae .rest                                         ; 2 (alt 1 if taken)
       shr ecx, 16 / mov al, [feed_tbl+rcx] / ret                      ; 3
+    hold='none' leaves the enemy-in-view block out (8 / 8 fewer on the not-taken path); target='poorest' feeds the poorest
+    friend <= tmax instead (same count: the key is e instead of 255 - e).
     """
     e = view.energy
     n += 3
@@ -201,10 +203,11 @@ def _grow_pump(view, c, n, alt, split_min, pump_min, tmax):
     res, n, alt = _split_or(view, c, n, alt)
     if res is not None:
         return res
-    n += 8
-    if CELL_ENEMY in c:
-        return ACT_REST, n + 2, alt + 9
-    alt += 8
+    if hold == 'view':
+        n += 8
+        if CELL_ENEMY in c:
+            return ACT_REST, n + 2, alt + 9
+        alt += 8
     n += 2
     if e < pump_min:
         return ACT_REST, n + 2, alt + 3
@@ -213,11 +216,12 @@ def _grow_pump(view, c, n, alt, split_min, pump_min, tmax):
     en = view.energies
     best = -1
     bd = 0
+    poorest = target == 'poorest'
     for d in (0, 1, 2, 3):
         i = NB[d]
         if c[i] == CELL_FRIEND:
             v = en[i]
-            if best < v <= tmax:
+            if v <= tmax and (best < 0 or (v < best if poorest else v > best)):
                 best = v
                 bd = d
     if best < 0:
@@ -245,6 +249,11 @@ def _grow_fat(view, c, n, alt, split_min, assist_min, assist_poor, donor_min, ma
     res, n, alt = _split_or(view, c, n, alt)
     if res is not None:
         return res
+    return _fat_tail(view, c, e, n, alt, assist_min, assist_poor, donor_min, margin, tmax)
+
+
+def _fat_tail(view, c, e, n, alt, assist_min, assist_poor, donor_min, margin, tmax):
+    """_grow_fat after a split check that found no empty neighbour (e >= split_min)."""
     n += 2
     if e >= donor_min:
         return _feed_poorest(view, c, e, n, alt + 1, margin, tmax)
@@ -266,7 +275,8 @@ def _grow_fat(view, c, n, alt, split_min, assist_min, assist_poor, donor_min, ma
 
 # ---- rival families ----------------------------------------------------------------------------------
 def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', split_min=5, feed_min=6,
-                  feed_margin=2, feed_target_max=48, pump_min=16, pump_target_max=48):
+                  feed_margin=2, feed_target_max=48, pump_min=16, pump_target_max=48, hold='view',
+                  target='richest'):
     """Brawler-like (Striker): static front U, L, R, D (4/6/8/10, measured), split at 5.
 
     feed='poorest': heavy feeding, cells with e >= feed_min feed the poorest friend neighbour when the
@@ -291,7 +301,7 @@ def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', spl
             a, n, alt = fr(c, mem)
             if a is not None:
                 return a, n, alt
-            return _grow_pump(view, c, n, alt, split_min, pump_min, pump_target_max)
+            return _grow_pump(view, c, n, alt, split_min, pump_min, pump_target_max, hold, target)
     else:
         raise ValueError("feed must be 'poorest' or 'pump'")
     return rbrawler
@@ -314,13 +324,52 @@ def make_rlock5(**kw):
 
 
 def make_ratompush(order='RLUD', front='static', prearm=True, split_min=5, assist_min=10, assist_poor=5,
-                   donor_min=48, feed_margin=2, feed_target_max=48):
+                   donor_min=48, feed_margin=2, feed_target_max=48, split_after=None):
     """AtomPush-like (HammerSpb): static front R, L, U, D (measured), feed-assisted grab, fat body.
 
     Static-front paths: bite 4/6/8/10; rest (e < 5) 13/12; split 21/21; boxed in, e < assist_min 22/20;
     assist feed 42/41; assist found none 42/40; donor feed (e >= donor_min) 34/32, declined 30/28 (cap)
     or 33/31 (margin).  front='lock': see make_rfatgrab.
+    split_after=k (static front only): the split check (movzx/cmp/jb 3, empties 5, split 5) comes after
+    the first k direction checks, so a hole is refilled in 2k + 13 (k = 2: 17, below Sprint's 19-23;
+    replay mining 2026-11-08: AtomPush takes 99% of contested holes from Sprint, child energy ~6).  A failed
+    check costs 3 / 2 (e < split_min) or 8 / 7 (no empty) before the remaining direction checks.
     """
+    if split_after is not None:
+        if front != 'static' or not 0 <= split_after <= 4:
+            raise ValueError('split_after needs the static front and 0..4 checks')
+        checks = parse_order(order)
+        first, rest = checks[:split_after], checks[split_after:]
+
+        def ratompush_sa(view, mem):
+            c = view.cells
+            n = 0
+            for i, d in first:
+                if c[i] == CELL_ENEMY:
+                    return ACT_EAT + d, n + 4, n + 3
+                n += 2
+            e = view.energy
+            boxed = False
+            if e < split_min:
+                n, alt = n + 3, n + 2
+            else:
+                r = view.rand & 3
+                for k in (0, 1, 2, 3):
+                    d = (r + k) & 3
+                    if c[NB[d]] == CELL_EMPTY:
+                        return ACT_SPLIT + d, n + 13, n + 13
+                n, alt = n + 8, n + 7
+                boxed = True
+            for i, d in rest:
+                if c[i] == CELL_ENEMY:
+                    return ACT_EAT + d, n + 4, alt + 3
+                n += 2
+                alt += 2
+            if not boxed:
+                return ACT_REST, n + 2, alt + 2
+            return _fat_tail(view, c, e, n, alt, assist_min, assist_poor, donor_min, feed_margin,
+                             feed_target_max)
+        return ratompush_sa
     fr = _make_front(front, order, prearm)
 
     def ratompush(view, mem):

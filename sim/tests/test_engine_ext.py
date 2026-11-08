@@ -161,6 +161,27 @@ class CounterTest(unittest.TestCase):
         self.assertEqual((e.eats_enemy[0], e.eats_friend[0], e.feeds[0]), (0, 0, 0))
 
 
+class SplitEnergyTest(unittest.TestCase):
+    """record_events: split_energy[c] = {parent energy before the split: count} (ladder data s4)."""
+
+    def test_parent_energy_histogram(self):
+        p0 = script({(1, 1): (split(RIGHT), 1), (1, 3): (split(RIGHT), 1), (3, 3): (split(UP), 1)})
+        e = board([p0], record_events=True)
+        e.add_cell(1, 1, 0, 6)
+        e.add_cell(1, 3, 0, 6)
+        e.add_cell(3, 3, 0, 9)
+        e.add_cell(4, 4, 0, 4)     # never splits
+        e.step()
+        self.assertEqual(e.split_energy[0], {6: 2, 9: 1})
+        self.assertEqual(e.split_energy[1], {})
+
+    def test_off_by_default(self):
+        e = board([script({(1, 1): (split(RIGHT), 1)})])
+        e.add_cell(1, 1, 0, 6)
+        e.step()
+        self.assertIsNone(e.split_energy)
+
+
 class BiteOrderTest(unittest.TestCase):
     def setup(self, record):
         # colony 0 bites at 1 and 3 instructions, colony 1 at 2, all in the same tick

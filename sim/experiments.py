@@ -180,7 +180,8 @@ def play_job(job):
                  'deaths': eng.deaths[c], 'stuns': eng.stuns[c], 'pop_at': pop_at, 'energy_at': energy_at,
                  'front_at': {t: fronts.get(t, final_front)[0][c] for t in FRONT_TICKS},
                  'interior_at': {t: fronts.get(t, final_front)[1][c] for t in FRONT_TICKS},
-                 'feeds_per_bite': (eng.feeds[c] / eng.eats_enemy[c]) if eng.eats_enemy[c] else None}
+                 'feeds_per_bite': (eng.feeds[c] / eng.eats_enemy[c]) if eng.eats_enemy[c] else None,
+                 'split_energy': dict(eng.split_energy[c])}
             st.append(s)
         out['stats'] = st
         out['bite_first'] = [row[:] for row in eng.bite_first]

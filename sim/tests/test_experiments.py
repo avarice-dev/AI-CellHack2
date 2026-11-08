@@ -67,6 +67,8 @@ class PlayJobTest(unittest.TestCase):
             self.assertEqual(set(s['front_at']), {200, 500, 1000})
             self.assertEqual(set(s['interior_at']), {200, 500, 1000})
             self.assertIn('feeds_per_bite', s)
+            self.assertEqual(sum(s['split_energy'].values()), s['splits'])
+            self.assertTrue(all(k >= 2 for k in s['split_energy']))
             mean, count = s['front_at'][1000]
             self.assertTrue(mean is None or 0 < mean <= 50)
 

@@ -145,7 +145,19 @@ Smoke result (2 matches, 98844 and 99388; not a sample): Sprint's growth matches
 t100 850/849, t200 1884/1874 real/sim). Fed-once receivers end +3 in 83% of sim cases (real: 73% of
 the +3/+2/+0 cases) with no feed bonus, because a fed cell that rests also gains its own +1. The sim's
 no-event +1 share is 26% vs 8% real (the sim counts REST as no event; whether replays log a rest event
-is unknown). TODO: run `python batch.py --set validate` in full and read the per-cell table.
+is unknown).
+
+**Hold-out split** (fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
+every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989, 99074, 99109, 99134,
+99208, 99239, 99304, 99371, 99420), the other 24 are FIT. Tuning looks at FIT runs only
+(`python validate.py --set fit --workers 3`); TEST is run only to judge. Caveat: the rival fingerprints of
+ladder data s4 are pooled over all replays, TEST ones included. The report ends with the acceptance
+checks (`validate.thresholds`) per set and a fingerprint table (front / interior energy t500/t1000 and
+split mode, real s4 vs sim). "E200 / E1000" in the checks is the colony mean energy of the table.
+
+### Calibration log
+Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze
+median sim vs real, f500 = frozen by t500, Sp = Sprint wins.
 
 ## Assumptions (docs silent or unverified)
 Parameters let you flip the ones marked (param).
@@ -208,3 +220,5 @@ Unverified.
 Slot effects are large: Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16, so in 4x Hunter
 the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-right one (fronts down and
 left) always died first. Always rotate slots when comparing policies.
+- 2026-11-07 baseline (sim 909c432 models): FIT sw 4/7, 17/24; fz 2632 vs 2106; f500 0 vs 0; Sp 9/12 vs 12/12;
+  31/63 checks pass. Pump colonies E200 28-32 vs 10-13 real; AtomCrasher f/eat 27 vs 7; fed +3 85% vs 73%.

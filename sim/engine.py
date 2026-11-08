@@ -283,6 +283,8 @@ class Engine(object):
         # record_events: bite_first[a][b] = same-tick pairs of successful eats (any target) in which a
         # colony-a eat came before a colony-b eat in turn order (the count taken from the replay events)
         self.bite_first = [[0] * MAX_COLONIES for _ in range(MAX_COLONIES)] if record_events else None
+        # record_events: split_energy[c] = {parent energy just before a successful split: count}
+        self.split_energy = [dict() for _ in range(MAX_COLONIES)] if record_events else None
         self.start_positions = {}
 
         if place_start:
@@ -536,6 +538,7 @@ class Engine(object):
         eats_friend = self.eats_friend
         saved = self._saved
         bf = self.bite_first
+        sh = self.split_energy
         ev = self._ev
         fedn = self._fed
         rested = self._rested
@@ -635,6 +638,8 @@ class Engine(object):
                     live.append(k)
                     grid[tp] = k
                     self.births[c] += 1
+                    if sh is not None:
+                        sh[c][e] = sh[c].get(e, 0) + 1
                     if ev is not None:
                         ev[i] = ev.get(i, 0) + 1
 
