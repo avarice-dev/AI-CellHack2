@@ -385,3 +385,30 @@ class PumpTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SlowPathPadTest(unittest.TestCase):
+    """pad=N (2026-11-08): N extra instructions on every non-bite path (slow cells: match-page insns avg
+    rooby 58-79, Noob++ 73-90, Aegis 32-35 vs model ~20); bites keep their measured counts."""
+
+    def check(self, spec_plain, spec_pad, pad):
+        p0, p1 = policies.get(spec_plain), policies.get(spec_pad)
+        views = [FakeView(3), FakeView(20), FakeView(20, fill=FR, fill_e=10),
+                 FakeView(20, cells=nb(up=EN)), FakeView(20, cells=nb(down=EN))]
+        for v in views:
+            a0 = p0(v, bytearray(64))
+            a1 = p1(v, bytearray(64))
+            self.assertEqual(a0[0], a1[0])
+            extra = 0 if a0[0] & 0xF0 == E.ACT_EAT else pad
+            self.assertEqual((a1[1], a1[2]), (a0[1] + extra, a0[2] + extra), (spec_pad, a0, a1))
+
+    def test_rpump_pad(self):
+        self.check('rpump[order=DLRU,hold=none,target=richest,pump_min=5]',
+                   'rpump[order=DLRU,hold=none,target=richest,pump_min=5,pad=60]', 60)
+
+    def test_ratompush_pad(self):
+        self.check('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99]',
+                   'ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=55]', 55)
+
+    def test_ratompush_split_after_pad(self):
+        self.check('ratompush[split_after=2]', 'ratompush[split_after=2,pad=7]', 7)

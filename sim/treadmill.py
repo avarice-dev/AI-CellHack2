@@ -39,12 +39,14 @@ def metrics(rows, pop10, ncol=4):
     out = {}
     for c in range(ncol):
         out[c] = {'deaths': [0, 0, 0], 'filled': [0, 0, 0], 'own': [0, 0, 0],
-                  'cont': {}, 'span': [max(0, min(hi, ticks) - lo) for lo, hi in WIN]}
+                  'cont': {}, 'killed_by': {}, 'span': [max(0, min(hi, ticks) - lo) for lo, hi in WIN]}
     for t, dc, kc, mask, fc, dt, kind, fe in rows:
         w = window(t)
         if 0 <= dc < ncol:
             o = out[dc]
             o['deaths'][w] += 1
+            kb = o['killed_by'].setdefault(str(kc), [0, 0, 0])
+            kb[w] += 1
             if fc >= 0:
                 o['filled'][w] += 1
                 o['own'][w] += fc == dc
@@ -191,6 +193,20 @@ def main(argv=None):
     if args.models:
         print('models override:', args.models)
     report(pool(ri), pool(si))
+    cmp = V.compare(table, res)
+    V.print_report(cmp)
+    for label, idset in (('FIT', fit), ('TEST', test)):
+        sub = [r for r in res if r['mix'] in set(idset)]
+        if sub:
+            V.print_thresholds(V.thresholds(V.compare(table, sub)), '%s (%d games)' % (label, len(sub)))
+    ins = {}
+    for r in res:
+        for q in r['ranking']:
+            ins.setdefault(r['cells'][q['colony']], []).append(round(q['avg_insn'], 1))
+    print('
+sim avg insns per call by cell (match page has the real ones):')
+    for n in sorted(ins):
+        print('  %-12s %s' % (n, sorted(ins[n])))
     print('\n%.0fs wall' % (time.perf_counter() - t0))
     if args.json:
         with open(args.json, 'w') as f:

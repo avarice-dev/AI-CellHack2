@@ -273,10 +273,27 @@ def _fat_tail(view, c, e, n, alt, assist_min, assist_poor, donor_min, margin, tm
     return ACT_REST, n + 2, alt + 21
 
 
+def _padded(pol, pad):
+    """pad > 0: every non-bite path costs `pad` more (both counts).  Models a slow cell whose bites were
+    measured fast (direction profile) but whose match-page average is far above the model's
+    (data/pull2/summaries facts 'insns': rooby 58-79, Noob++ 73-90, Aegis 32-35; the models run ~20).
+    The name keeps the policy's own name."""
+    if not pad:
+        return pol
+
+    def padded(view, mem):
+        r = pol(view, mem)
+        if r[0] & 0xF0 == ACT_EAT:
+            return r
+        return r[0], r[1] + pad, r[2] + pad
+    padded.__name__ = pol.__name__
+    return padded
+
+
 # ---- rival families ----------------------------------------------------------------------------------
 def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', split_min=5, feed_min=6,
                   feed_margin=2, feed_target_max=48, pump_min=16, pump_target_max=48, hold='view',
-                  target='richest'):
+                  target='richest', pad=0):
     """Brawler-like (Striker): static front U, L, R, D (4/6/8/10, measured), split at 5.
 
     feed='poorest': heavy feeding, cells with e >= feed_min feed the poorest friend neighbour when the
@@ -304,7 +321,7 @@ def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', spl
             return _grow_pump(view, c, n, alt, split_min, pump_min, pump_target_max, hold, target)
     else:
         raise ValueError("feed must be 'poorest' or 'pump'")
-    return rbrawler
+    return _padded(rbrawler, pad)
 
 
 def make_rpump(**kw):
@@ -324,7 +341,7 @@ def make_rlock5(**kw):
 
 
 def make_ratompush(order='RLUD', front='static', prearm=True, split_min=5, assist_min=10, assist_poor=5,
-                   donor_min=48, feed_margin=2, feed_target_max=48, split_after=None):
+                   donor_min=48, feed_margin=2, feed_target_max=48, split_after=None, pad=0):
     """AtomPush-like (HammerSpb): static front R, L, U, D (measured), feed-assisted grab, fat body.
 
     Static-front paths: bite 4/6/8/10; rest (e < 5) 13/12; split 21/21; boxed in, e < assist_min 22/20;
@@ -369,7 +386,7 @@ def make_ratompush(order='RLUD', front='static', prearm=True, split_min=5, assis
                 return ACT_REST, n + 2, alt + 2
             return _fat_tail(view, c, e, n, alt, assist_min, assist_poor, donor_min, feed_margin,
                              feed_target_max)
-        return ratompush_sa
+        return _padded(ratompush_sa, pad)
     fr = _make_front(front, order, prearm)
 
     def ratompush(view, mem):
@@ -379,7 +396,7 @@ def make_ratompush(order='RLUD', front='static', prearm=True, split_min=5, assis
             return a, n, alt
         return _grow_fat(view, c, n, alt, split_min, assist_min, assist_poor, donor_min, feed_margin,
                          feed_target_max)
-    return ratompush
+    return _padded(ratompush, pad)
 
 
 def make_rfatgrab(**kw):
