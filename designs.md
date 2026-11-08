@@ -161,3 +161,29 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 - Scouts S = 4 and corner logic: starts are random and contact comes early (G9).
 - Sprint's F6 as the base: F5 replaces it in every new cell.
 - Tide, Reaper raiders, Lattice, Turtle, a pure control slot: as in rounds 2-3.
+
+---------------------------------------------------------------------------------------------------
+## 7. Exploratory cells (planner brainstorm 2026-11-08; ranked by value per effort; none built yet)
+1. **Pestilence** (S, fits K): refill a freed square by MOVE with a fat front cell (>= 20), backfill its old square
+   from the interior by split. Carries 30-50 energy forward in one action; nobody refills by move (0% in mining).
+   Only pays once our refill wins the race (rides on Scourge). Guard: move only if the vacated square has no enemy
+   neighbour. Test: E1 variant, squares held 10 / 50 ticks after capture.
+2. **Conviction** (M, new architecture): a queue of up to 7 planned actions in one memory qword, executed in 3
+   instructions (`shr qword [rdx],8 / mov al,[rdx] / jnz EXIT_ADDR`). A queued bite beats every rival's fast side
+   (4); queued refills beat any rival refill. Est. contact-tick wins 75% -> ~87%. Risks: stale plans (eating empty
+   squares or own children), +3 on every unqueued path, child may inherit the queue. Light version: queue after
+   the F5 miss (bite 5, queued refill 8) fits K. Test: Unicorn count, then sim vs fixed-fast-direction rivals.
+3. **Anxiety** (S-M, fits K): a scout settles fat in a left corner (preferably bottom-left), where no rival is fast
+   (no rival is fast LEFT; only Bouncer/Noob+/Noob++ are fast DOWN). Insurance for last-colony-standing endings
+   (14/36). Est. +0.1-0.15 points per game. Depends on rivals' LEFT being 6 (Covetous probe) and cap at Tidy.
+4. **Abasement** (S, fits K): read the enemy two squares out; fat enemy (46-50, HammerSpb/rooby) -> hold the line, no
+   cheap contested refills; thin enemy (9-20, pumps) -> push hard. Aims for a safe 2nd vs HammerSpb.
+5. **Misfortune** (S, fits K): census switch from VIEW_POP_SELF / VIEW_POP_ENEMY; below ~15% share after t500 the
+   whole colony goes to survival mode. Test: replay stat on Sprint's 17 replays.
+6. **Famine** (S): harvesting (G17); low value for a fat-interior kernel, better in a pump variant.
+7. **Bane** (M): notch traps that bait AtomPush's fixed refill; weak (energy-only, AtomPush banks ~158k).
+Dropped: kill-order tricks, staircase fronts, a stateless 4-bite, a 2-instruction blind lock, hidden channels,
+parity signalling. Inferred from the Rules (not measured): memory writes happen in Decide, before actions, so
+they survive a stun; the cap is applied at Tidy.
+Open: rivals' LEFT 6 vs 5 (Covetous); cap timing (replay stat); child memory copy timing (Sandbox cell);
+AtomPush's refill cost (stored replay event order).
