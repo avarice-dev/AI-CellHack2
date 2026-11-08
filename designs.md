@@ -1,204 +1,160 @@
-# CellHack2 cell designs — round 3 (2026-11-08)
+# CellHack2 cell designs — round 4 (2026-11-08)
 
-Planning only. Round 3 is the first round built on real site data: `data/site-observations-2026-11-08.md`
-(calibration cells, Sprint's ladder games, the decoded replay of match 98753, the leaderboard).
-History: `reviews/designs-r1-snapshot.md`, `reviews/designs-r2-snapshot.md`, the reviews in `reviews/`,
-and every decision in `reviews/decisions-r1.md` (round 1 and the reviewer's F1-F20).
+Planning only. Round 4 rests on both ladder data pulls (`data/ladder-data-2-2026-11-08.md` is the main source,
+991 matches and 36 decoded replays), the site calibrations (`data/site-observations-2026-11-08.md`), the reviewer's
+round 3 review (`reviews/r3-review.md`) and the lead's decisions on its G1-G20 (end of `reviews/decisions-r1.md`).
+History: `reviews/designs-r1..r3-snapshot.md`.
 
-**Names** (2026-11-08, user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to
-behaviour. Dogma = the slot formerly called Hold (feeds its front, never gives ground); Contagion = formerly Spore
-(scouts, spreads fast); Scourge = formerly Breach (kill, refill, keep eating forward). Our ladder cell Sprint is called
-Avarice in the docs (eats greedily, never feeds); its ladder name and `cells/sprint.asm` stay Sprint. The simulator
-may still use the old names in code.
+**Names** (user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to behaviour.
+Avarice = our ladder cell Sprint (eats greedily, never feeds; ladder name and `cells/sprint.asm` stay Sprint).
+Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
+Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
 
-**What changed since round 2, and why**
-1. Starts are random, not corners. All corner, home and "outward from the corner" logic is replaced by an
-   origin each colony records for itself (2.3).
-2. The best rivals bite in 5 instructions or fewer. Our 6 (Sprint) lost almost every same-tick bite to
-   Brawler (63 of 88183). The lock is no longer an option: every design has one (2.1).
-3. The winners feed about 10 times per bite. Sprint never fed; its interior idled near 50 energy while its
-   front was eaten. Feeding the front is core behaviour (2.4).
-4. The slots are three settings of one kernel, chosen to differ where the simulator and the ladder must
-   decide: lock type, grab policy and feeding depth (section 3).
+**What changed since round 3, and why**
+1. Pull 2 overturned "land is decided by t300-500": only 2 of 36 replays are frozen by t500; median freeze 2076.
+   Late conversion of land matters as much as the grab.
+2. A flat 5-instruction bite with no memory exists (Covetous, verified on the site): `or al,[bite_tbl+rcx]` with
+   rax = 0 at entry, then `jnz EXIT_ADDR`. This supersedes every lock form for the bite (G3 asked for the post
+   lock; its 5 is now free without memory, its first contact 11 was worse).
+3. Sprint loses to HammerSpb on the refill race, not bite order (G2): it kills thousands of AtomPush cells and
+   gains no land, because AtomPush refills freed squares faster (split path <= 20, children 5-7). A fast refill of
+   freed front squares is the kernel's main new feature.
+4. Deep pumps (interior ~6-10) are the field's losing economy (G1): Dogma is dropped. Feeding comes from capped
+   cells only, plus a moderate donor floor D (12-16).
+5. The "+3 on feed" and "+1 idle" are feed 2 + rest 1 and rest, which replays do not log (G4). Income = cells
+   below the cap that rest. Energy above ~50 is wasted.
 
 ---------------------------------------------------------------------------------------------------
 ## 1. Facts this round rests on
 
-### 1.1 Verified on the site (2026-11-08)
+### 1.1 Verified on the site or in every replay
 | Fact | Evidence |
 |---|---|
 | Every executed instruction counts, incl. taken jumps and `ret` | calib-a 2 (2); Walker max 9 |
-| rax = 0 at entry | calib-c 4 (4), no faults |
-| `rep` counts per iteration + 1 | calib-d 105 |
-| Ties between living colonies go to fewer total instructions | sandbox 98751 |
-| Start positions are random squares | replay 98753 keyframe 0 |
-| Events in a replay are logged in turn order | Sprint never eats after its own split in a tick |
-| Saving a cell through the site form ladders it at once | cell 148 |
-| Local Unicorn counts equal the server's | calib a, c, d |
+| A call may end with `jmp`/`jcc EXIT_ADDR` instead of `ret` (1 instruction) | calib-e, Sandbox 99887 |
+| rax = 0 at entry; `rep` counts per iteration + 1 | calib-c, calib-d |
+| Within a tick cells act in instruction-count order, across colonies | every replay (pull 2 sec. 6) |
+| Split: child floor(e/2), parent the rest; eat moves 2 (1 if target has 1); feed moves 2 | pull 2 sec. 6 |
+| Cells cap near 50; bites by a capped eater gain nothing (66% of all bites) | pull 2 sec. 6, G4 |
+| One start cell per colony at energy 10, on a random square (median 10 from an edge; closest pair median 18, min 8) | 144 starts |
+| No diagonal eats; 14 of 36 matches end early at "last colony standing" | replays |
+| Saving through the site form ladders a cell; a scripted POST does not (30 s between creations, else HTTP 429) | site notes |
 
-### 1.2 Rivals (replay of 98753; leaderboard of 2026-11-08)
-- **Brawler** (Striker, rated ~1230-1350 across versions): bites in <= 5, feeds ~11 times per eat, colony
-  mean energy ~11, never moves. Held 838 cells to the end against AtomPush.
-- **AtomPush** (HammerSpb, #2, wins 77%): bites below 6 on ~85% of contacts, feeds ~10 per eat, colony
-  fat (mean ~48 from tick 500), grows faster than split-at-5 (386 vs 253 cells at tick 50).
-- The field is small: ~20 active cells, ~10 players, 4 bots. HammerSpb's two cells are the target.
-- Averages on match pages (35-90 per call for top cells) say nothing about front paths. Relative bite
-  speed is measured from replay event order instead (data file, "Replays").
+### 1.2 Rivals (pull 2 sections 3-4)
+- Every strong rival bites at ~4 in ONE fixed direction, maybe ~6 in a second, >= 8 in the rest; orders never change:
+  Aegis U; Bouncer D (R 6); Noob+, Noob++ D; AtomCrasher, AtomPush R (L 6); Brawler, Brawler v2 U (L 6); rooby U (R 6).
+- HammerSpb (AtomCrasher 77% wins, AtomPush 73%): fat colonies (interior ~46-47), no moves, splits spread out,
+  refill freed squares fast with 5-7-energy children. AtomCrasher feeds ~6 per eat, AtomPush 4-300 by match.
+- Pump cells (Bouncer, Brawler v2, Aegis, Noob+): thin interior 9-20, fat front ~28-38, 30-110 feeds per eat;
+  they cause most of HammerSpb's 19% upsets by numbers (2000-2500 cells at t200).
+- The grab matters: the t200 leader wins 22/36, the t500 leader 28/36; contact comes around tick 37 (G8).
+- Direction luck is worth ~16 points of win rate, so judge a cell on >= 50 games (G11).
 
-### 1.3 Still unknown (sim keeps both cases where it matters)
-1. Do memory writes persist when a cell is stunned? Decides whether a lock set on the first-contact tick
-   survives being bitten first. Sim flag.
-2. Does a child's memory include the parent's same-call writes? Matters only for tick-0 data; the origin
-   rule (2.3) works either way.
-3. Exact rival bite counts: 3 (blind lock) or 5 (checked lock). Our first 5-lock cell on the ladder
-   answers it: equal counts interleave in the event order, a 3 always goes first.
-4. Start-position distribution (minimum distance, edges). Read from more replays' keyframe 0.
-5. Split rounding for odd energy. Readable from replay births versus keyframes.
+### 1.3 Still unknown
+1. Is a rival's "6" direction 5, 6 or 7? Covetous answers it: its 5 bites first ~100% if the rival is 6, ~50% if 5.
+2. Does memory persist when a cell is stunned? Matters only if a design uses memory on the front.
+3. Is the idle +1 exactly "rest below the cap", or something else? Offline replay mining (in progress) counts it.
+4. Exact cap (50 at Tidy, mid-tick 52-56 seen).
 
 ---------------------------------------------------------------------------------------------------
 ## 2. Shared kernel K
 
-### 2.1 Front: locks (5 instructions engaged)
-Both forms use the VIEW_W sentinel (review F14): zero memory points the check at VIEW_W's low byte, which
-is 64 on the ladder and 16 in the sandbox, never a cell type. Lock byte `[rdx]` = VIEW_CELLS + idx - 12,
-so UP 27, LEFT 31, RIGHT 33, DOWN 37.
-
-**Checked lock (Dogma, Contagion).**
+### 2.1 Bite: F5 (Covetous form)
 ```
-movsx  rcx, byte [rdx]
-cmp    byte [rdi+rcx+12], CELL_ENEMY   ; unlocked: reads VIEW_W
-jne    .f6
-mov    al, [abs eat_tbl+rcx]           ; 38-byte table, EAT+d at 27/31/33/37
-ret                                    ; 5 engaged; +3 on every other path
+movdqu   xmm0, [rdi+VIEW_CELLS+VIEW_UP]
+pcmpeqb  xmm0, [kEnemy]
+pmovmskb ecx, xmm0
+or       al, [abs bite_tbl+rcx]   ; rax = 0 at entry; ZF set = no adjacent enemy
+jnz      EXIT_ADDR                ; 5 in every direction, no memory
 ```
-Pre-arming (slow path, no extra cost on the hot path): a cell that sees an enemy two squares away in a
-straight line (view idx 2, 10, 14, 22) with the square between empty sets its lock toward that square.
-When the enemy or its child steps in, the first bite is already 5. A pre-armed checked lock pointing at
-an empty square just falls through (+3), so it is harmless.
+Beats every rival's second direction (6) and every slow side (>= 8); loses only to a rival's single 4. Multi-enemy
+choice is in the table (two or four enemies D, L, U, R; three: opposite the free side). The miss costs 5.
 
-**Post lock (Scourge).** The reviewer's form with the decision-r1 corrections:
-```
-movzx  ecx, byte [rdx]                ; 0 = unlocked
-movzx  eax, byte [rdi+rcx+12]         ; target type, or VIEW_W when unlocked
-add    al,  [abs post_tbl+rcx+rax*8]  ; (action - type) & 0xFF, or (-type) & 0xFF = "run full path"
-jz     .full
-ret                                   ; 5 engaged: EAT on ENEMY, SPLIT on EMPTY (refill); +4 elsewhere
-```
-`post_tbl` is 2041 bytes: index 8k (k = 4..255) holds (-k)&0xFF for any board width; locked indices are
-odd. FRIEND and WALL fall through, and the slow path then clears the lock. Two costs: no pre-arming (a
-pre-armed post lock would split toward the enemy blindly), and a refill at e < 5 wastes the tick. The
-gain: a freed square is refilled at 5, and the child inherits the lock pointing at the next enemy row
-(a breach column).
+### 2.2 Refill: retake freed front squares fast (the new core feature)
+A freed front square is an empty orthogonal neighbour that an enemy can reach next tick: one with an enemy in the
+square beyond it or beside it (5x5 view). Stateless: no memory, so the stun question does not matter.
+- Placed first on the slow path, right after the F5 miss. Target <= 12 instructions to a refill split, so it beats
+  AtomPush's split path (10-21) most ticks.
+- Child size: refill only when the child gets >= R energy (parent >= 2R). Default R = 6 (AtomPush's children are
+  5-7); experiment E1 sweeps R in {3, 6, 8}. A refill from a 50 gives 25, two productive eaters (G10).
+- Fallback if the stateless check cannot reach ~12: the post lock of round 3 (memory, refill at 5), at the cost of a
+  lock store on the bite path (bite 6).
 
-**F6 below the lock** (unchanged, Sprint's code): 6 on a bite plus the lock store (7), miss 4.
-Multi-enemy choice is encoded in the fight table at no cost: two enemies D, L, U, R order; three enemies
-bite opposite the friend side; four enemies any.
+### 2.3 Feeding (from capped cells, G5)
+1. Never feed from e <= 4; never feed a target >= 47 (Aegis wastes 34% of its feeds on full cells).
+2. Capped donors (e >= 47, nothing to gain by resting) feed the poorest friend neighbour at margin >= 2.
+3. Other donors with e >= D feed the poorest friend neighbour at margin >= 4. D in {12, 16} (E2).
+4. Front cells never reach the feeding code (the bite or refill takes the tick).
+Covetous already does rule 2 alone; it is the baseline for E2.
 
-| Path | Checked (Dogma, Contagion) | Post (Scourge) |
-|---|---|---|
-| Engaged bite | 5 | 5 |
-| First contact, pre-armed | 5 | n/a |
-| First contact, not armed | 10 | 11 |
-| Refill of a freed square | slow path, ~20 | 5 |
-| Every other path | +3 | +4 |
+### 2.4 Growth
+- Split at e >= 5 into an empty neighbour; the plain split path stays <= ~15 instructions and comes before the
+  feeding code (G12): Sprint's late gains came from re-occupying dead colonies' squares fast.
+- Prey rule: with an enemy in the 5x5, split only if the child gets >= 8, except refills (2.2).
+- Grab assist (Contagion): during the grab (no enemy in the 5x5), donors with e >= G = 8 feed a friend
+  neighbour with e < 5 that has an empty neighbour.
+- Scouts (Contagion only): S <= 2, only from starts within 10 squares of an edge, along the longest free axis
+  (G9; S = 4 was a corner-board artefact: contact comes at tick ~37). A scout MOVEs up to ~10 squares, stops on
+  seeing an enemy or when blocked, then grows normally. Needs memory: origin and scout bearing.
 
-Against a rival at 5 we tie (coin flip per tick, decided by feeding). Against a blind 3 we lose every
-contact; a 3 cannot exit and bites anything that enters its square, which E6 must price before we decide
-whether to answer with our own blind lock.
+### 2.5 Endgame
+Stop long-range feeding from tick 2950; fill every empty neighbour from 2980; in the last two ticks a child next
+to an enemy only if it gets >= 3 (a newborn can be bitten in its birth tick).
 
-### 2.2 Memory layout (zero = default)
-`[0]` lock, `[1]` flags (bit 0 = origin set, bit 1 = scout), `[2]` origin x, `[3]` origin y,
-`[4]` scout bearing, `[5]` scout steps left, `[6..63]` spare. The lock byte stays across splits
-(review F12); the slow path clears it when its target is not an enemy.
+### 2.6 Memory (only Contagion uses it)
+`[1]` flags (bit 0 origin set, bit 1 scout), `[2]` origin x, `[3]` origin y, `[4]` scout bearing, `[5]` steps left.
+Nothing on the bite or refill paths reads or writes memory.
 
-### 2.3 Origin instead of a corner
-Slow path: if flag bit 0 is clear, store my x, y as origin and set the bit. The root does this on tick 0.
-A child that missed it (if memory is copied before the parent's writes) takes its own birth square, one
-step off, which is harmless. "Outward" = the directions that increase distance from the origin, the
-longer axis first.
-
-### 2.4 Feeding (defence)
-Stateless diffusion, decided on the slow path. Front cells (an enemy adjacent) never reach it.
-1. Never feed from e <= 4. Never feed a target >= 47.
-2. Capped donors (e >= 47) feed the poorest friend neighbour if the margin is >= 2.
-3. Other donors with e >= D feed the poorest friend neighbour if the margin is >= 4.
-4. Grab assist: during the grab (no enemy in the 5x5), donors with e >= G feed a friend neighbour that
-   has e < 5 and an empty neighbour.
-D is the main design parameter: Brawler-like deep feeding (D ~ 6, colony mean ~11) versus
-AtomPush-like fat reserves (D ~ 20, mean ~45). E1 and E7 decide.
-
-### 2.5 Growth
-- Split at e >= 5 into an empty neighbour, outward directions first.
-- Prey rule: with an enemy in the 5x5, split only if the child gets >= 8 (parent e >= 16). Exception:
-  Scourge's post-lock refill.
-- Scouts (parameter S, 0-4): the root's early children with e >= 12 get the scout flag and a bearing
-  (one outward axis each). A scout MOVEs along its bearing for up to L squares (parameter, ~15), stops on
-  seeing an enemy in its 5x5 or when blocked, then clears the flag and grows as a normal cell.
-
-### 2.6 Endgame
-Stop long-range feeding from tick 2950; fill every empty neighbour from 2980; in the last two ticks a child
-next to an enemy only if it gets >= 3 (a newborn can be bitten in its birth tick).
-
-### 2.7 Code rules (unchanged from round 2 and the review)
+### 2.7 Code rules
 SSE constants `align 16`; unaligned windows via `movdqu`; every table entry filled; `[abs table+reg*8]`;
-generated tables with `times`; no org/bits/section/%include; no loops; nothing on the hot path writes
-memory except the lock store on the first bite; check ABI_VERSION = 4 at build time.
+generated tables with `times`; no org/bits/section/%include; no loops; check ABI_VERSION = 4 at build time;
+cells/check_cells.py (NASM build, alignment map, Unicorn differential test vs sim/cells_ref.py) must pass.
 
 ---------------------------------------------------------------------------------------------------
-## 3. The three slots
+## 3. The cells
 
-| | Dogma | Contagion | Scourge |
-|---|---|---|---|
-| Bet | Fronts freeze; defence and land at freeze time decide | The grab decides | Kills convert into land |
-| Lock | checked + pre-arm | checked + pre-arm | post (refill at 5) |
-| Feeding D (donor floor) | 6 (deep, Brawler-like) | 12 | 8, locked cells first |
-| Grab assist G | 12 | 8 | 12 |
-| Scouts S | 0 | 4 | 0 |
-| Prey rule | child >= 8 near enemies | child >= 8 | child >= 8, except lock refills |
+| | Covetous (on ladder) | Scourge (next) | Contagion | Doctrine (later) |
+|---|---|---|---|---|
+| Bet | Faster bite is enough | Kills convert into land | The grab decides | Feeding depth |
+| Bite | F5 | F5 | F5 | F5 |
+| Refill (2.2) | no | yes, R = 6 | yes, R = 6 | as the better of the two |
+| Feeding | capped donors only | capped + D = 16 | capped + D = 12 | D = 8 or 20 |
+| Grab assist / scouts | no / no | no / no | G = 8 / S <= 2 | as parent |
 
-**Dogma.** Every front contact is 5 from the first tick; deep feeding keeps front cells topped up. Loses
-least against a 5-rival; gains least against weak ones.
+**Covetous** is the interim data collector: F5 + capped feeding, otherwise Sprint. Its ladder record against
+Sprint's measures what the bite alone is worth, and it probes the rivals' "6" directions (1.3.1).
 
-**Contagion.** Four scouts along the outward axes, strong grab assist. With random starts, a colony that
-starts near an edge has fewer directions to grow; scouts move the growth front away from neighbours early.
+**Scourge** is the next cell: Covetous plus the refill and D = 16. It targets HammerSpb directly (the refill race).
 
-**Scourge.** Post lock: a kill is followed by a refill at 5 and the child keeps eating forward. Pays off
-against rivals that are slower than 5 or that feed thinly; risks wasted ticks on refills below 5 energy.
+**Contagion** adds the grab tools to Scourge's kernel.
 
-All three share the endgame, origin, memory layout, multi-enemy table and code rules.
+**Ladder slots (3):** Sprint and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
+weakest of the four by then, and only after each has >= 50 games (G11). Every ladder change needs the user's approval.
 
 ---------------------------------------------------------------------------------------------------
-## 4. Simulator plan (rules-only engine in `sim/`)
-Engine updates in progress: random starts, a "memory persists when stunned" flag, rival policies
-(R-Lock5 Brawler-like, R-Blind3, R-FatGrab AtomPush-like), a parallel experiment runner and replay-style
-statistics, checked against the real match 98753.
-
-Experiments, each with the decision it changes:
+## 4. Experiments (simulator; max 4 of 6 cores, below-normal priority, run as background batches)
+The simulator's rival models are being refitted to pull 2's fingerprints (pump rivals were too fat, the late
+game too slow; `issues.md`). Trust E1-E4 only after that validation rerun.
 | # | Question | Setup | Changes |
 |---|---|---|---|
-| E1 | How much feeding does a front need? | Dogma with D = 4/6/10/20 vs R-Lock5 and R-FatGrab, 4-way, random starts | D per slot |
-| E2 | Do scouts and grab assist pay with random starts? | Contagion with S = 0/2/4, G = 6/8/12, mirrors and vs rivals | Contagion's slot; S, G |
-| E3 | Checked + pre-arm vs post lock | Dogma vs Scourge head to head and vs rivals | which lock goes into the other slots |
-| E4 | Multi-enemy table vs kill-first handler | breach and salient setups | keep table at 6 |
-| E5 | Does it matter if stunned writes are lost? | E3 with the memory flag flipped | lock design robustness |
-| E6 | How bad is a blind-3 rival? | our designs vs R-Blind3 | whether to build our own blind lock |
-| E7 | Fat reserve vs deep feeding | D sweep vs each rival type | D defaults |
-| E8 | Endgame constants | stop-feed 2900/2950/2990, fill 2960/2980/2995 | constants |
-| E9 | Ranking of the trio | each slot vs 3 draws from {rivals, Sprint, bots}, 50 seeds, rotated | which three go on the ladder |
-Validation before trusting E1-E9: Sprint + R-Lock5 + R-FatGrab + Walker should look like match 98753
-(Sprint wiped out by ~1500, rivals' eat/feed ratios ~1:10).
+| E1 | Refill race (G13) | refill R in {3, 6, 8} vs no refill, against the fat AtomPush-like rival | Scourge's R; squares gained per 100 ticks after first kill |
+| E2 | Feeding depth (G14) | D in {8, 12, 16, 20} with capped donors, vs fat, pump and flat-6 rivals | D for Scourge, Contagion, Doctrine |
+| E3 | Grab (G15) | G in {8, 12}, S in {0, 2}, measured start distribution; targets 300-400 / 700-1400 / 1300-2300 at t50/100/200 | Contagion |
+| E4 | Counter-moves (G16) | a blind-3 rival; a rival with a 4-instruction refill in its fast direction | whether we need a faster answer |
+Deferred: harvesting (G17: a second-row cell eating its own capped front cell); only as an experiment.
 
 ---------------------------------------------------------------------------------------------------
-## 5. Ladder plan
-- Sprint stays on the ladder to collect more games; analyse its replays after more games (user, 2026-11-08).
-- The first round 3 cell on the ladder doubles as a probe: its bite order against Brawler and AtomPush
-  shows whether they are at 5 (interleaved) or 3 (always first).
-- Nothing goes on the ladder without the user's approval. New cells are created by the scripted POST
-  that does not ladder them, then tested in the Sandbox.
+## 5. Data plan
+- Covetous's first ~50 games: win rate and head-to-heads vs Sprint's (scheduled check), and its bite-first share in
+  each rival's "6" direction (1.3.1), from one or two chosen replays only.
+- Offline mining of the 35 stored replays (in progress, G18): refill race per cell, resting income per colony.
+- Watch the leaderboard (small page) for rival version changes before fetching anything large. Fetch gently.
 
 ---------------------------------------------------------------------------------------------------
 ## 6. Rejected or retired
-- F6 without a lock: loses every contact to the top cells.
-- Corner, home and colony-slot direction logic: starts are random.
-- Tide, Reaper raiders, Lattice, Turtle: as in round 2.
-- A pure control slot: the simulator plays that role.
+- Dogma and deep feeding (D ~ 6): losing economy in pull 2 (G1).
+- Checked lock and pre-arming: refill at ~20 loses the race (G3).
+- Post lock as the bite: F5 gives the same 5 without memory; kept only as the refill fallback (2.2).
+- Scouts S = 4 and corner logic: starts are random and contact comes early (G9).
+- Sprint's F6 as the base: F5 replaces it in every new cell.
+- Tide, Reaper raiders, Lattice, Turtle, a pure control slot: as in rounds 2-3.
