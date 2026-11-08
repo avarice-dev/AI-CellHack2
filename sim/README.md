@@ -234,3 +234,5 @@ left) always died first. Always rotate slots when comparing policies.
 - it3, pumps `target=richest,pump_min=8` (uphill to the front instead of poorest). FIT sw 4/7, 17/24; fz 2276 vs
   2106 (pass); Sp 8/12; 44/63 checks. Interior 18 vs 9-13 real (pump colony E200 17-18 vs 10, just outside +-6),
   pump f/eat 14-27 vs 18-59; Sprint t500 1699 vs 2504.
+- it4, pumps `pump_min=5` (feed whenever boxed in). FIT sw 3/7, 16/24; fz 2212 vs 2106; Sp 7/12; 49/63 checks.
+  Interior t500 15-17 vs 9-19. Still: pumps hold land after t500 (Noob+ t1000 1606 vs 2, Brawler 915 vs 11).
