@@ -1,186 +1,198 @@
-# CellHack2 cell designs — round 2 (2026-11-07)
+# CellHack2 cell designs — round 3 (2026-11-08)
 
-Planning only; no code. Spec: `docs/` (ruleset v9, ABI 4) and the bot sources in `docs/bots/`.
-Round 1 draft: `reviews/designs-r1-snapshot.md`. Reviews and the decision on every suggestion:
-`reviews/r1-*.md`, `reviews/decisions-r1.md`. Instruction counts include every executed instruction
-(taken jumps and `ret` too, per the Reference: "The engine counts every instruction"); calibrate on the site.
+Planning only. Round 3 is the first round built on real site data: `data/site-observations-2026-11-08.md`
+(calibration cells, Sprint's ladder games, the decoded replay of match 98753, the leaderboard).
+History: `reviews/designs-r1-snapshot.md`, `reviews/designs-r2-snapshot.md`, the reviews in `reviews/`,
+and every decision in `reviews/decisions-r1.md` (round 1 and the reviewer's F1-F20).
 
-**Changes from round 1.** A flat 6-instruction SSE2 front ("F6") shared by all designs; no home-corner init
-and no mode dispatch on hot paths; eating counts as income; prey rule covers the parent; freed squares are
-refilled next tick; raiders and energy-delta sensing dropped; the trio is now one shared kernel plus two
-bets: B = expansion, C = initiative. Tide and Reaper are retired.
+**What changed since round 2, and why**
+1. Starts are random, not corners. All corner, home and "outward from the corner" logic is replaced by an
+   origin each colony records for itself (2.3).
+2. The best rivals bite in 5 instructions or fewer. Our 6 (Sprint) lost almost every same-tick bite to
+   Brawler (63 of 88183). The lock is no longer an option: every design has one (2.1).
+3. The winners feed about 10 times per bite. Sprint never fed; its interior idled near 50 energy while its
+   front was eaten. Feeding the front is core behaviour (2.4).
+4. The slots are three settings of one kernel, chosen to differ where the simulator and the ladder must
+   decide: lock type, grab policy and feeding depth (section 3).
 
 ---------------------------------------------------------------------------------------------------
-## 1. Game analysis
+## 1. Facts this round rests on
 
-### 1.1 Facts and consequences
-1. **Score.** Ladder points by placement (3/2/1/0); within a match, population at the end, then energy, then
-   fewer total instructions. Optimise rank, not margin. Population is bounded by squares held (4096 total).
-2. **Energy.** World income is REST (+1, capped at 50 at Tidy). For a cell, EAT is income too
-   (+min(2, target)); eating an enemy is +2 for us and -2 for them. Splitting conserves energy, but each
-   frontier step costs the new cell 3-4 ticks of rest to reach 5: energy reaching the frontier is the
-   growth throttle.
-3. **Initiative.** Fewest instructions acts first; a bite stuns a target that has not acted. A strictly faster
-   front cell eats every tick and its target never acts. One faster neighbour is enough to stun. Different
-   code rarely ties (6 vs 7 is 100/0). The front-path count is the most important number in the program.
-4. **Attrition.** A stun-locked cell loses 2/tick and survives only on feeds (each friend feeds at most
-   2/tick; a chain where every link feeds every tick runs on stored energy). A strictly faster colony wins a
-   straight front in the long run; feeding only delays. With equal speed, geometry (k of ours on one enemy:
-   it acts first with probability 1/(k+1)) and logistics decide.
-5. **Fragility.** A cell with <= 2 dies to one bite. A split at 5 leaves parent and child at 2-3: both are
-   free meals next to an enemy.
-6. **Timing.** Decisions see a start-of-tick snapshot; actions hit the live board. A death-freed square
-   opens next tick; a move-vacated square opens later the same tick. Two cells splitting/moving into the
-   same empty square: the faster wins, the slower wastes its tick (no rest either).
-7. **Memory.** 64 bytes, copied to the child at birth (assumed to include the parent's writes in the
-   splitting call). A child knows it is new from VIEW_AGE == 0. Zero memory must mean "default".
-8. **Free information** each call: tick, POP_SELF, POP_ENEMY, x, y, W, H, colony slot.
-9. **End.** No tick-limit constant exists; 3000 is hard-coded. Last-tick births can be eaten the same tick;
-   whether they count is unverified.
-10. **Faults** = no action. SSE2/SSE3 only (no SSSE3/SSE4/popcnt/BMI); legacy-SSE memory operands must be
-    16-byte aligned or every call faults. Tables must be fully filled (int3 padding read as an action is a
-    bad_action fault; a zero jump-table entry jumps to address 0).
+### 1.1 Verified on the site (2026-11-08)
+| Fact | Evidence |
+|---|---|
+| Every executed instruction counts, incl. taken jumps and `ret` | calib-a 2 (2); Walker max 9 |
+| rax = 0 at entry | calib-c 4 (4), no faults |
+| `rep` counts per iteration + 1 | calib-d 105 |
+| Ties between living colonies go to fewer total instructions | sandbox 98751 |
+| Start positions are random squares | replay 98753 keyframe 0 |
+| Events in a replay are logged in turn order | Sprint never eats after its own split in a tick |
+| Saving a cell through the site form ladders it at once | cell 148 |
+| Local Unicorn counts equal the server's | calib a, c, d |
 
-### 1.2 The bots (real source, `docs/bots/`)
-| Bot | Behaviour | Instructions by path |
+### 1.2 Rivals (replay of 98753; leaderboard of 2026-11-08)
+- **Brawler** (Striker, rated ~1230-1350 across versions): bites in <= 5, feeds ~11 times per eat, colony
+  mean energy ~11, never moves. Held 838 cells to the end against AtomPush.
+- **AtomPush** (HammerSpb, #2, wins 77%): bites below 6 on ~85% of contacts, feeds ~10 per eat, colony
+  fat (mean ~48 from tick 500), grows faster than split-at-5 (386 vs 253 cells at tick 50).
+- The field is small: ~20 active cells, ~10 players, 4 bots. HammerSpb's two cells are the target.
+- Averages on match pages (35-90 per call for top cells) say nothing about front paths. Relative bite
+  speed is measured from replay event order instead (data file, "Replays").
+
+### 1.3 Still unknown (sim keeps both cases where it matters)
+1. Do memory writes persist when a cell is stunned? Decides whether a lock set on the first-contact tick
+   survives being bitten first. Sim flag.
+2. Does a child's memory include the parent's same-call writes? Matters only for tick-0 data; the origin
+   rule (2.3) works either way.
+3. Exact rival bite counts: 3 (blind lock) or 5 (checked lock). Our first 5-lock cell on the ladder
+   answers it: equal counts interleave in the event order, a 3 always goes first.
+4. Start-position distribution (minimum distance, edges). Read from more replays' keyframe 0.
+5. Split rounding for odd energy. Readable from replay births versus keyframes.
+
+---------------------------------------------------------------------------------------------------
+## 2. Shared kernel K
+
+### 2.1 Front: locks (5 instructions engaged)
+Both forms use the VIEW_W sentinel (review F14): zero memory points the check at VIEW_W's low byte, which
+is 64 on the ladder and 16 in the sandbox, never a cell type. Lock byte `[rdx]` = VIEW_CELLS + idx - 12,
+so UP 27, LEFT 31, RIGHT 33, DOWN 37.
+
+**Checked lock (Hold, Spore).**
+```
+movsx  rcx, byte [rdx]
+cmp    byte [rdi+rcx+12], CELL_ENEMY   ; unlocked: reads VIEW_W
+jne    .f6
+mov    al, [abs eat_tbl+rcx]           ; 38-byte table, EAT+d at 27/31/33/37
+ret                                    ; 5 engaged; +3 on every other path
+```
+Pre-arming (slow path, no extra cost on the hot path): a cell that sees an enemy two squares away in a
+straight line (view idx 2, 10, 14, 22) with the square between empty sets its lock toward that square.
+When the enemy or its child steps in, the first bite is already 5. A pre-armed checked lock pointing at
+an empty square just falls through (+3), so it is harmless.
+
+**Post lock (Breach).** The reviewer's form with the decision-r1 corrections:
+```
+movzx  ecx, byte [rdx]                ; 0 = unlocked
+movzx  eax, byte [rdi+rcx+12]         ; target type, or VIEW_W when unlocked
+add    al,  [abs post_tbl+rcx+rax*8]  ; (action - type) & 0xFF, or (-type) & 0xFF = "run full path"
+jz     .full
+ret                                   ; 5 engaged: EAT on ENEMY, SPLIT on EMPTY (refill); +4 elsewhere
+```
+`post_tbl` is 2041 bytes: index 8k (k = 4..255) holds (-k)&0xFF for any board width; locked indices are
+odd. FRIEND and WALL fall through, and the slow path then clears the lock. Two costs: no pre-arming (a
+pre-armed post lock would split toward the enemy blindly), and a refill at e < 5 wastes the tick. The
+gain: a freed square is refilled at 5, and the child inherits the lock pointing at the next enemy row
+(a breach column).
+
+**F6 below the lock** (unchanged, Sprint's code): 6 on a bite plus the lock store (7), miss 4.
+Multi-enemy choice is encoded in the fight table at no cost: two enemies D, L, U, R order; three enemies
+bite opposite the friend side; four enemies any.
+
+| Path | Checked (Hold, Spore) | Post (Breach) |
 |---|---|---|
-| Hunter | eat adjacent enemy (checks U,R,D,L), else split at e>=6 in a random direction, else rest | eat U 7, R 10, D 13, L 16; rest 17; split 20 |
-| Medic | e>=15 and friend above: feed up; e>=6: split random; else rest | rest 6, split 9 or 13, feed 9 |
-| Walker | e>=6: split random; else 50/50 rest or move random | split 7, rest 7, move 9 |
-| Random | e<6 rest; else random move/split/eat/feed in a random direction | 4 / 14 |
-| Idle | rest | 2 (one cell forever) |
+| Engaged bite | 5 | 5 |
+| First contact, pre-armed | 5 | n/a |
+| First contact, not armed | 10 | 11 |
+| Refill of a freed square | slow path, ~20 | 5 |
+| Every other path | +3 | +4 |
 
-Hunter, Medic and Walker try to split in a random direction even into occupied squares, so once packed
-their cells with e>=6 never rest: their interiors stall at about 6 energy and earn nothing. Any front path
-of 6 or less acts before Hunter in every direction. Idle (2) always acts before us; it still loses
-(+1 rest against 2 bites per eater).
+Against a rival at 5 we tie (coin flip per tick, decided by feeding). Against a blind 3 we lose every
+contact; a 3 cannot exit and bites anything that enters its square, which E6 must price before we decide
+whether to answer with our own blind lock.
 
-**Opponent model.** The bots are only the floor. Most ladder opponents are cells written by other people,
-from lightly edited bot copies to heavily tuned code. Plan for: fronts at 6 instructions or fewer (F6-class,
-static orders tuned to their corner, locks, blind eats), fast expanders, and feeders. A design that only
-beats the bots has not been tested. The simulator needs "rival" reference policies of this kind (section 5).
+### 2.2 Memory layout (zero = default)
+`[0]` lock, `[1]` flags (bit 0 = origin set, bit 1 = scout), `[2]` origin x, `[3]` origin y,
+`[4]` scout bearing, `[5]` scout steps left, `[6..63]` spare. The lock byte stays across splits
+(review F12); the slow path clears it when its target is not an enemy.
 
-### 1.3 Front-path menu
-| Technique | Instr. | Notes |
-|---|---|---|
-| Static order DOWN, LEFT, UP, RIGHT (`cmp byte [rdi+VIEW_CELLS+d],2` / `je`) | 4/6/8/10 (miss 8) | Beats Hunter in every direction; loses to a flat 6 in two directions. |
-| **F6**: `movdqu xmm0,[rdi+VIEW_CELLS+7]` / `pcmpeqb xmm0,[kEnemy]` / `pmovmskb eax,xmm0` / `jmp [fight_tbl+rax*8]` -> `mov al,ACT_EAT+d` / `ret` | 6 flat (miss 4) | kEnemy = 2 in lanes 0,4,6,10 (U,L,R,D), 0xFF elsewhere. 1106-entry jump table (8.8 KB), every entry filled. Multi-enemy masks can go to a longer handler. |
-| F5: same but `mov al,[act_tbl+rax]` / `ret` | 5 flat | Eat-or-rest only; cannot grow. Yardstick. |
-| Checked lock (C): `movsx rcx,byte [rdx]` / `cmp byte [rdi+rcx+100],2` / `jne .f6` / `mov al,[rcx+eat_tbl+K]` / `ret` | 5 locked; +3 on every other path | [rdx] holds (VIEW_CELLS+idx-100); zero memory points at unused view byte 100, documented zero, so it never matches. Self-checking, so a child inheriting it is harmless. |
-| Blind lock: `or al,[rdx]` / `jz .f6` / `ret` | 3 locked; +2 elsewhere | Needs rax = 0 at entry (verify). No exit: eats an emptied square or a friend that refilled it forever. Not planned. |
+### 2.3 Origin instead of a corner
+Slow path: if flag bit 0 is clear, store my x, y as origin and set the bit. The root does this on tick 0.
+A child that missed it (if memory is copied before the parent's writes) takes its own birth square, one
+step off, which is harmless. "Outward" = the directions that increase distance from the origin, the
+longer axis first.
 
-### 1.4 What decides games (effort order)
-1. Front-path count (decides every duel outright when unequal).
-2. Land-grab speed (sets the borders; decisive against passive bots and when fronts are tied).
-3. Logistics (decides tied fronts; delays losing ones).
-4. Push and refill rules (turn kills into land).
+### 2.4 Feeding (defence)
+Stateless diffusion, decided on the slow path. Front cells (an enemy adjacent) never reach it.
+1. Never feed from e <= 4. Never feed a target >= 47.
+2. Capped donors (e >= 47) feed the poorest friend neighbour if the margin is >= 2.
+3. Other donors with e >= D feed the poorest friend neighbour if the margin is >= 4.
+4. Grab assist: during the grab (no enemy in the 5x5), donors with e >= G feed a friend neighbour that
+   has e < 5 and an empty neighbour.
+D is the main design parameter: Brawler-like deep feeding (D ~ 6, colony mean ~11) versus
+AtomPush-like fat reserves (D ~ 20, mean ~45). E1 and E7 decide.
 
-### 1.5 Sandbox calibration checklist
-Known-length calibration cells first (match page shows average/max instructions per call). Hunter's split
-path is 20 if every instruction counts, yet the Rules say the bots use "fewer than 20": check whether taken
-jumps or `ret` really count (it changes relative order only if taken jumps are excluded). Then: split
-rounding for odd energy and whether energy is conserved; `rep` counting; rax/xmm values at entry; what
-VIEW_CELLS[12] reports for self; whether memory persists after a stun or a fault; whether the child's memory
-includes the parent's same-call writes; whether a split uses live or snapshot energy; whether POP counts
-include newborns; last VIEW_TICK value and whether last-tick births count; whether energy above 50 mid-tick
-can be spent; colony-slot-to-corner mapping and exact start squares; whether eating a friend stuns it.
+### 2.5 Growth
+- Split at e >= 5 into an empty neighbour, outward directions first.
+- Prey rule: with an enemy in the 5x5, split only if the child gets >= 8 (parent e >= 16). Exception:
+  Breach's post-lock refill.
+- Scouts (parameter S, 0-4): the root's early children with e >= 12 get the scout flag and a bearing
+  (one outward axis each). A scout MOVEs along its bearing for up to L squares (parameter, ~15), stops on
+  seeing an enemy in its 5x5 or when blocked, then clears the flag and grows as a normal cell.
 
----------------------------------------------------------------------------------------------------
-## 2. Shared kernel K (all designs)
+### 2.6 Endgame
+Stop long-range feeding from tick 2950; fill every empty neighbour from 2980; in the last two ticks a child
+next to an enemy only if it gets >= 3 (a newborn can be bitten in its birth tick).
 
-**Code shape.** One source with `%ifdef DESIGN_A/B/C`, Python-generated tables, flattened with `nasm -e`
-for upload. Entry: [C only: lock prefix] -> F6 -> fight table -> slow path. Nothing on the F6 path writes
-memory. No loops anywhere. Constants and tables after the code, `align 16`.
-
-**Memory (zero = default).** [0] lock (C only), [1] birth direction (written by the parent before a split),
-[2] role (B scouts), [3] flags, [4..63] design-specific. No home-corner byte: corner from VIEW_COLONY tables
-if the slot-to-corner mapping is fixed, else from x/y on the slow path.
-
-**Slow path, in priority order** (only reached when no enemy is adjacent):
-1. **Multi-enemy handler** (from the fight table, not the slow path): kill (target <= 2) first, else the
-   fixed direction order DOWN, LEFT, UP, RIGHT, so neighbouring cells on a diagonal front bite different
-   enemies.
-2. **Endgame fill.** tick >= 2980: split into any empty neighbour if e >= 5; prey rule off for the last two
-   ticks. From tick ~2950 stop feeding so cells hold energy for the fill.
-3. **Refill.** An empty neighbour that has an enemy next to it (a freed front square): split into it only if
-   parent and child both keep >= 8; otherwise rest to get there (neighbours feed this cell, see 5).
-4. **Grab.** No enemy in the 5x5: split at e >= 5 into an empty neighbour, outward first (away from the home
-   corner), contested squares broken by parity ((x + y + tick) & 1 picks which of two candidates goes first).
-   Prey rule: never leave parent or child < 8 on or next to a square that touches an enemy (25-bit enemy
-   mask from two `pcmpeqb`/`pmovmskb`, ring masks, table).
-5. **Feed.** Never from e <= 2, never to a target >= 49. Capped donors (e >= 49) feed the poorest friend with
-   e <= donor - 3. Other donors with e >= 14 feed the poorest friend if the margin is >= 4. During the grab,
-   donors with e >= 10 feed a friend that has an empty neighbour (frontier assist). "Poorest friend" routes
-   energy to the front without any front-detection logic.
-6. **Gap.** Enemy two squares away across an empty square: fill it only with a child >= 8.
-7. **Rest.**
+### 2.7 Code rules (unchanged from round 2 and the review)
+SSE constants `align 16`; unaligned windows via `movdqu`; every table entry filled; `[abs table+reg*8]`;
+generated tables with `times`; no org/bits/section/%include; no loops; nothing on the hot path writes
+memory except the lock store on the first bite; check ABI_VERSION = 4 at build time.
 
 ---------------------------------------------------------------------------------------------------
-## 3. The three designs
+## 3. The three slots
 
-### A — Bastion (kernel only: the control)
-The kernel and nothing else. Fastest slow paths, fewest parameters, least to go wrong. F6 beats every bot's
-eat path; kill-and-refill eats through stalled bot colonies on its own. Every other design must beat A in
-the simulator to keep its slot. Estimated 200-300 lines plus generated tables.
-
-### B — Spore (expansion bet)
-Bet: the land grab sets the borders for the rest of the game, and MOVE (1 square/tick, free) is 3-4x faster
-than a rest-and-split front (0.25-0.33 squares/tick).
-1. **Scouts.** In the first ~20 ticks, 2-4 early cells with e >= 12 take role SCOUT (set by the parent via
-   memory before the split; the parent clears its own copy next call). They walk outward along bearings
-   toward the board centre and the two adjacent edge midpoints for 15-25 squares, then plant: become
-   ordinary kernel cells and grow a nucleus. A scout that sees an enemy plants immediately.
-2. **Stronger grab assist.** Donors from e >= 8 feed frontier friends during the grab.
-3. **Push where strong (slow path, stateless).** Local strength = total - 2 x enemy energy in the 5x5
-   (`psadbw`, 18-24 instructions). When strength >= S, cells one square behind the front feed the front and
-   cells at distance 2 from an enemy create 2-on-1 contacts (split/move to touch the same enemy twice).
-   S is lowered when POP_SELF < POP_ENEMY / 3 (below an even share) and raised when well ahead; no pushing
-   after tick 2800.
-Risk: scouts earn nothing while walking and their young nuclei meet enemy fronts weak. Estimated 350-450
-lines.
-
-### C — Lock (initiative bet)
-Bet: serious ladder rivals will converge on a ~6-instruction front (F6-class), and a strictly faster
-sustained duel wins everything over 2800 ticks.
-1. **Checked lock** (1.3): 5 instructions while engaged; +3 on all other paths; the first contact tick costs
-   10 (lock check miss + F6 + one store of the lock byte in the eat stub). The lock needs no exit logic: it
-   checks its target every call and falls through to F6 when the target is gone.
-2. Everything else is the kernel.
-Measured head to head, C should beat A on every sustained front (5 < 6) and lose first-contact ticks
-(10 > 6). Against Hunter both win. Keep C's slot only if the simulator shows it beats A, and replace it if
-site data shows rivals are slower than 6 (then the lock buys nothing). Estimated A + 30 lines.
-
----------------------------------------------------------------------------------------------------
-## 4. Comparison
-| | A Bastion | B Spore | C Lock |
+| | Hold | Spore | Breach |
 |---|---|---|---|
-| Bet | Simplicity, kernel quality | Land grab decides | Initiative decides |
-| Front path | F6 = 6 | F6 = 6 | 5 engaged, 10 first contact |
-| Other paths | baseline | + scout/push logic | +3 everywhere |
-| Wins against | bots | bots, slow expanders | F6-class rivals |
-| Main risk | Ties with equal rivals | Scouts wasted | Tax with no gain vs slow rivals |
+| Bet | Fronts freeze; defence and land at freeze time decide | The grab decides | Kills convert into land |
+| Lock | checked + pre-arm | checked + pre-arm | post (refill at 5) |
+| Feeding D (donor floor) | 6 (deep, Brawler-like) | 12 | 8, locked cells first |
+| Grab assist G | 12 | 8 | 12 |
+| Scouts S | 0 | 4 | 0 |
+| Prey rule | child >= 8 near enemies | child >= 8 | child >= 8, except lock refills |
+
+**Hold.** Every front contact is 5 from the first tick; deep feeding keeps front cells topped up. Loses
+least against a 5-rival; gains least against weak ones.
+
+**Spore.** Four scouts along the outward axes, strong grab assist. With random starts, a colony that
+starts near an edge has fewer directions to grow; scouts move the growth front away from neighbours early.
+
+**Breach.** Post lock: a kill is followed by a refill at 5 and the child keeps eating forward. Pays off
+against rivals that are slower than 5 or that feed thinly; risks wasted ticks on refills below 5 energy.
+
+All three share the endgame, origin, memory layout, multi-enemy table and code rules.
 
 ---------------------------------------------------------------------------------------------------
-## 5. Simulator experiments (rules-only Python engine in `sim/`)
-1. **Grab speed.** Split@5 alone vs + frontier feed (e>=10, e>=8) vs + scouts: squares held at ticks 50, 100,
-   200 in a four-way mirror and against the bots. Decides B's slot and the kernel's feed thresholds.
-2. **Front duel.** Straight 20-cell front, A (6) vs Hunter (7-16) and vs C (5), with and without logistics:
-   rows lost per 100 ticks. Confirms the initiative model and C's value.
-3. **Logistics.** Feed-rule variants: how long a stun-locked front cell survives, energy reaching depth 10.
-4. **Eat-through.** A against a packed Hunter and Medic colony: squares gained per 100 ticks.
-5. **Conveyor.** Fat interior cells walking to the front through holes (R14) vs feed chains only.
-6. **Endgame.** Population gained by the fill rule.
-7. **Full matches.** A/B/C against rival policies and bots in rotated four-colony mixes over many seeds;
-   placement points.
-8. **Rival policies** to build first (plausible strong human cells): R-F6 (F6 front + split@6 + rest),
-   R-Static (static order tuned per corner, 4-6 on its front directions), R-Blind (3-instruction blind lock),
-   R-Grab (fast expander with frontier feeding, no combat logic beyond eat), R-Feeder (Medic-style logistics
-   + F6). Our designs are judged mainly against these, the bots are a sanity floor.
+## 4. Simulator plan (rules-only engine in `sim/`)
+Engine updates in progress: random starts, a "memory persists when stunned" flag, rival policies
+(R-Lock5 Brawler-like, R-Blind3, R-FatGrab AtomPush-like), a parallel experiment runner and replay-style
+statistics, checked against the real match 98753.
+
+Experiments, each with the decision it changes:
+| # | Question | Setup | Changes |
+|---|---|---|---|
+| E1 | How much feeding does a front need? | Hold with D = 4/6/10/20 vs R-Lock5 and R-FatGrab, 4-way, random starts | D per slot |
+| E2 | Do scouts and grab assist pay with random starts? | Spore with S = 0/2/4, G = 6/8/12, mirrors and vs rivals | Spore's slot; S, G |
+| E3 | Checked + pre-arm vs post lock | Hold vs Breach head to head and vs rivals | which lock goes into the other slots |
+| E4 | Multi-enemy table vs kill-first handler | breach and salient setups | keep table at 6 |
+| E5 | Does it matter if stunned writes are lost? | E3 with the memory flag flipped | lock design robustness |
+| E6 | How bad is a blind-3 rival? | our designs vs R-Blind3 | whether to build our own blind lock |
+| E7 | Fat reserve vs deep feeding | D sweep vs each rival type | D defaults |
+| E8 | Endgame constants | stop-feed 2900/2950/2990, fill 2960/2980/2995 | constants |
+| E9 | Ranking of the trio | each slot vs 3 draws from {rivals, Sprint, bots}, 50 seeds, rotated | which three go on the ladder |
+Validation before trusting E1-E9: Sprint + R-Lock5 + R-FatGrab + Walker should look like match 98753
+(Sprint wiped out by ~1500, rivals' eat/feed ratios ~1:10).
 
 ---------------------------------------------------------------------------------------------------
-## 6. Rejected
-- Tide (round 1 B): its sensing sat on the front path and it was 80% Bastion; sensing is noisy (X9).
-- Reaper raiders (round 1 C): kill a few 2-3 energy cells, then die and feed the third and fourth colonies.
-- Lattice: 20% holes mid-game; revisit only if experiment 5 shows a large logistics gain.
-- Turtle: land is score.
-- Mode dispatch on the hot path, the home-corner init, and the blind lock (see 1.3).
+## 5. Ladder plan
+- Sprint stays on the ladder to collect more games; analyse its replays after more games (user, 2026-11-08).
+- The first round 3 cell on the ladder doubles as a probe: its bite order against Brawler and AtomPush
+  shows whether they are at 5 (interleaved) or 3 (always first).
+- Nothing goes on the ladder without the user's approval. New cells are created by the scripted POST
+  that does not ladder them, then tested in the Sandbox.
+
+---------------------------------------------------------------------------------------------------
+## 6. Rejected or retired
+- F6 without a lock: loses every contact to the top cells.
+- Corner, home and colony-slot direction logic: starts are random.
+- Tide, Reaper raiders, Lattice, Turtle: as in round 2.
+- A pure control slot: the simulator plays that role.
