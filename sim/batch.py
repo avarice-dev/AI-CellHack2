@@ -55,6 +55,10 @@ SETS = {
                       'mixes': [[v, 'scourge', 'rpump', 'ratompush'] for v in COMPLACENCY_T]
                                + [[v, 'rpump', 'ratompush', 'rblind3'] for v in COMPLACENCY_T + ('scourge',)]
                                + [[v, 'rbrawler', 'ratompush', 'walker'] for v in COMPLACENCY_T + ('scourge',)]},
+    'complacency-mirror': {'about': 'Complacency vs Scourge head to head with their places in the mix swapped (start '
+                                    'luck check: seeds 1-8 and 9-16 gave opposite head-to-head winners)',
+                           'seeds': '1-16', 'growth': True,
+                           'mixes': [['scourge', 'complacency', 'rpump', 'ratompush']]},
     'complacency': {'about': 'Complacency (chosen T) vs Scourge, head to head and in the rival fields (new seeds)',
                     'seeds': '9-16', 'growth': True,
                     'mixes': [['complacency', 'scourge', 'rpump', 'ratompush']]
