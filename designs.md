@@ -9,6 +9,7 @@ History: `reviews/designs-r1..r3-snapshot.md`.
 Avarice = our ladder cell Sprint (eats greedily, never feeds; ladder name and `cells/sprint.asm` stay Sprint).
 Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
 Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
+Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, Contagion (same decisions, fewer instructions).
 
 **What changed since round 3, and why**
 1. Pull 2 overturned "land is decided by t300-500": only 2 of 36 replays are frozen by t500; median freeze 2076.
@@ -187,3 +188,100 @@ parity signalling. Inferred from the Rules (not measured): memory writes happen 
 they survive a stun; the cap is applied at Tidy.
 Open: rivals' LEFT 6 vs 5 (Covetous); cap timing (replay stat); child memory copy timing (Sandbox cell);
 AtomPush's refill cost (stored replay event order).
+
+---------------------------------------------------------------------------------------------------
+## 8. Round 5: VEX/AVX-128 (2026-11-08)
+Rounds 1-4 and every cell above stay as they are; round 5 adds three VEX variants. Each one makes exactly its
+parent's decisions and differs only in instruction counts, so each ladder comparison measures speed alone.
+
+### 8.1 Instructions on the site (calibration cells in `cells/calib/`, data/site-observations-2026-11-08.md)
+| Works | Faults (invalid_insn every call) |
+|---|---|
+| SSE2 (movdqu, pcmpeqb, pmovmskb, por, pxor) | popcnt (f), SSSE3 pshufb (g), SSE4.1 ptest (h), SSE4.2 crc32 (m) |
+| AVX-128 VEX forms of SSE2 ops: vpcmpeqb reg-reg (k) and with an UNALIGNED memory operand (p); vpxor, vpmovmskb (q) | BMI1 andn (i), BMI2 pext (j), AVX2 ymm (l) |
+| | VEX forms of SSSE3/SSE4.1 ops: vpshufb (n), vptest (o) |
+
+Verified at entry, on every call: rax = 0 (c); **xmm0..xmm15 all zero** (probe q, `cells/calib/q_xmm_zero.asm`,
+22 insns, 0 faults); **rbx, rcx, rbp, r8..r15 zero** (probe r, `cells/calib/r_gpr_zero.asm`, 15 insns, 0 faults).
+Only al is read as the action. Legacy-SSE memory operands must be 16-byte aligned; VEX memory operands need not be.
+
+**What VEX buys.** A VEX compare is non-destructive with a separate destination (`vpcmpeqb xmm0, xmm3, [mem]`),
+so one raw view window loaded once can be compared against several constants, one instruction each. It does not
+make the first compare cheaper: one operand has to be in a register, so load + compare is still 2 (`movdqu` +
+`vpcmpeqb`), and the F5 bite stays at 5. The zero registers do not help these cells: comparing against zero finds
+EMPTY squares, but the bite needs ENEMY (2), and an empty-square compare is already one VEX instruction against a
+memory constant. They could save an instruction in a design that needs a zero or an empty mask before any load.
+
+**Tooling.** Unicorn 2.1.4 ignores VEX.vvvv (it runs `vpcmpeqb xmm0, xmm3, [k]` as xmm0 = (xmm0 == k)), so
+`cells/check_cells.py` decodes and executes vpcmpeqb itself (`cells/vex_emu.py`, self-tested at start; any other VEX
+op is refused). Unicorn also runs popcnt/SSSE3/SSE4/BMI that the site rejects, so every cell is checked against a
+site-verified instruction list (`ALLOWED`); VEX cells may have no legacy-SSE memory operand, so they need no
+`align 16`.
+
+### 8.2 The three variants (names from docs/cell_names.txt)
+| Cell (files) | VEX variant of | Change | Saved |
+|---|---|---|---|
+| **Woe** (`cells/gen_woe.py` -> `woe.asm`) | Scourge (the scourge brings woe) | The bite loads view idx 6..21 once into xmm3 (bite mask shifted one lane, table 2211 bytes); gate 1 is `vpcmpeqb xmm1, xmm3, [kRefill]` instead of movdqu + pcmpeqb | -1 on every path after the bite |
+| **Conceit** (`gen_conceit.py` -> `conceit.asm`) | Covetous (greed grown vain about its speed) | The bite keeps its raw window 7..22 in xmm3; the split check is `vpcmpeqb xmm0, xmm3, [kEmpty]` instead of a reload + compare | -1 on every path through the split check |
+| **Endemic** (`gen_endemic.py` -> `endemic.asm`) | Contagion (a contagion that settles in) | Woe's bite and gate 1; the boxed block makes its empty masks with `vpcmpeqb xmmN, xmmView, [kZero]` instead of pxor + pcmpeqb | -1 after the bite; -3 on the boxed block from the grab gate on |
+
+Each cell's header comment names its parent. All three use only movdqu, vpcmpeqb, pmovmskb, por and integer ops,
+and none relies on the zero registers (constants are in memory; same counts either way).
+
+### 8.3 Instruction counts per path (every executed instruction incl. taken jumps and ret)
+| Path | Scourge | **Woe** | Covetous | **Conceit** | Contagion | **Endemic** |
+|---|---|---|---|---|---|---|
+| bite (adjacent enemy) | 5 | 5 | 5 | 5 | 5 | 5 |
+| refill (freed front square, e >= 12) | 11 | **10** | - | - | 11 | **10** |
+| split, e >= 16 (Covetous: no enemy in view / enemy in view) | 11 | **10** | 22 / 24 | **21 / 23** | 11 | **10** |
+| split, 5 <= e < 16, no enemy in the 5x5 | 24 | **23** | 22 | **21** | 26 | **25** |
+| split, 5 <= e < 16, enemy in view, tick >= 2980 | 25 | **24** | 26 | **25** | 25 | **24** |
+| hold (rest), enemy in view, tick < 2980 (Covetous: e < 47) | 27 | **26** | 23 | 23 | 28 | **27** |
+| rest, e < 5 | 17 | **16** | 9 | 9 | 17 | **16** |
+| rest, boxed, below the feed / grab floor | 17 | **16** | 24 | **23** | 17 | **16** |
+| scout move | - | - | - | - | 40 | **39** |
+| boxed e 20, friends 20/5/9/5 (feed; Covetous rests) and the longest feed path | 48, max 53 | **47, max 52** | 24, max 60 | **23, max 59** | 82 | **79** (parent - 3) |
+
+### 8.4 Squares 2 and 22 (beyond UP / DOWN) in the refill window: not free
+No 16-byte window holds view idx 2..22 (21 bytes). Reading them takes a second window compare plus a merge into
+the table index (pmovmskb, shift, or): at least 3 more instructions on the 10-instruction refill path, which is
+the one path that must stay fast. A check only on the hold path (5 <= e < 16, enemy in view) would cost nothing
+elsewhere but would refill there at ~30 instructions and change decisions: a separate bet, not built.
+
+### 8.5 Equivalence checks
+- `cells/check_cells.py` (NASM + Unicorn with VEX emulation): ALL CHECKS PASSED. Woe vs `sim/cells_ref.woe`
+  100,256 cases, Conceit 98,304, Endemic 610,200 (memory states, positions, memory compared after the call), all
+  0 mismatches in action and instruction count. The same grids as their parents (which still pass with 0).
+- `sim/cells_ref.woe/conceit/endemic` = the parent's policy with the saved instructions subtracted;
+  `sim/tests/test_vex.py` checks the same action and parent minus the saving on every view of a 15,000+ grid,
+  the tables (Woe's bite table = Covetous's shifted one lane; act/thr = Scourge's), the paste rules and the
+  instruction list. 261 tests pass.
+
+### 8.6 Sim results (indicative: the fight/refill model is weak, 47/62 calibration checks)
+`python sim/batch.py --set vex` (120 games, seeds 1-8 per mix, 4 workers, 2613 s; `sim/out/vex-20261108-092732.md`).
+Points per game (win %) over 8 games:
+
+| Mix | Variant | Parent | Others |
+|---|---|---|---|
+| Woe, Scourge, rpump, ratompush (head to head) | **Woe 2.38 (62%)**, pop 1915 | Scourge 1.75 (12%), pop 1056 | ratompush 1.62 (25%), rpump 0.25 |
+| Conceit, Covetous, rpump, ratompush | **Conceit 1.88 (0%)**, pop 485 | Covetous 1.00 (0%), pop 128 | ratompush 2.62 (88%), rpump 0.50 (12%) |
+| Endemic, Contagion, rpump, ratompush | **Endemic 2.75 (75%)**, pop 2098 | Contagion 1.75 (12%), pop 1299 | ratompush 1.38 (12%), rpump 0.12 |
+| X + rpump, ratompush, rblind3 | Woe 2.00 / Conceit 1.50 / Endemic 2.00 (0%) | Scourge 2.00 / Covetous 1.50 / Contagion 2.00 (0%) | rblind3 3.00 (100%) every time |
+| X + rbrawler, ratompush, walker | Woe 2.50 (62%) / Conceit 1.62 (0%) / Endemic 2.75 (75%) | Scourge 2.50 (62%) / Covetous 1.62 (0%) / Contagion 2.75 (75%) | rbrawler 2.00-2.62 |
+
+Reading: against the rival models the variants play the **same games** as their parents (Woe, Endemic: identical
+numbers; Conceit within a few cells): no rival path in the sim lands on 10-11 (or 21-26), so one instruction
+changes no turn order. Head to head a variant wins every contested refill against its own parent (10 before 11),
+which is what decides those mixes. So the saving is worth something only where a rival's path count equals the
+parent's (a tie, broken at random) or falls between the two; the real ladder's refill counts are not known that
+precisely. The gain is free: same decisions, no path slower.
+
+### 8.7 Recommendation
+Submit **Woe** first: it is Scourge (1st on the leaderboard) with every refill and split one instruction earlier
+and nothing slower, so it can only win ties Scourge would lose; head to head it beats Scourge 2.38 to 1.75 points.
+Then **Endemic** for Contagion (same reasoning; also -3 on its grab/feed paths). Conceit last (Covetous's
+split paths at 21-25 are rarely contested). Before any ladder use: one Sandbox game each (scripted POST, not the
+form) to confirm 0 faults and the counts on the site (bite 5, refill 10); the ladder swap needs the user's approval.
+
+Open: probe q (xmm zero at entry) and probe r (GPRs zero) are done (verified above); Woe, Conceit and Endemic have
+not run on the site yet (a Sandbox game before any ladder use; no ladder change without the user's approval).
