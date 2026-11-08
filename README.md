@@ -20,14 +20,14 @@ Run these commands from the root of the repository.
    python -m unittest
    ```
 
-2. Run a simulator batch. The `rivals` set plays 24 games and takes about 12 to 15 minutes. The console prints the path of the summary file. The results go to `sim/out/`.
+2. Run a simulator batch. The `rivals` set plays 24 games and takes about 12 to 15 minutes. For a quick test, add `--seeds 1` (about 1 minute). The console prints the path of the summary file. The results go to `sim/out/`.
 
    ```
    cd sim
    python batch.py --set rivals
    ```
 
-3. Check the cells. Run this in a Linux shell, or in WSL on Windows. NASM, the assembler, must be installed. The Unicorn emulator is optional. A complete run ends with `ALL CHECKS PASSED`.
+3. Check the cells. Run this in a Linux shell, or in WSL on Windows. NASM, the assembler, must be installed. The Unicorn emulator is optional. At present the run ends with `3 PROBLEM(S)`. The three problems are the VEX cells Woe, Conceit and Endemic. The site runs their VEX compares incorrectly, so the checker flags them on purpose, and they are not submitted. Any other problem is a real failure.
 
    ```
    python3 cells/check_cells.py

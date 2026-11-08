@@ -1,4 +1,4 @@
-"""Unit tests for tools/privacy_check.py and the model-name scrub in tools/export_share.py.
+"""Unit tests for tools/privacy_check.py.
 
 Fake local paths and model names are built by concatenation so this file itself passes the check.
 Run from the repo root:  python -m unittest discover -s tools/tests
@@ -12,7 +12,6 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import privacy_check as pc  # noqa: E402
-import export_share as ex  # noqa: E402
 
 M = pc.MODEL_WORDS                      # the model words, decoded at run time
 DRIVE = 'C' + ':\\Users\\someone\\proj'
@@ -22,7 +21,7 @@ HOME = '~' + '/Downloads'
 
 
 class TestLineChecks(unittest.TestCase):
-    def hits(self, line, models=False, personal=()):
+    def hits(self, line, models=True, personal=()):
         return pc.check_line(line, pc.compile_patterns(models=models, personal=personal))
 
     def test_local_paths_are_flagged(self):
@@ -37,12 +36,13 @@ class TestLineChecks(unittest.TestCase):
                      'test' + '@' + 'example.com', '$HOME/Downloads', '~~struck~~'):
             self.assertEqual(self.hits(line), [], line)
 
-    def test_model_names_only_with_models_flag(self):
+    def test_model_names_flagged_by_default(self):
         line = 'reviewed by ' + M[1].capitalize() + ' agents'
-        self.assertEqual(self.hits(line), [])
-        self.assertTrue(self.hits(line, models=True))
-        self.assertTrue(self.hits('claude-' + M[0] + '-4', models=True))
-        self.assertEqual(self.hits('an af' + M[3] + ' person', models=True), [])   # word boundary
+        self.assertTrue(pc.check_line(line, pc.compile_patterns()))
+        self.assertEqual(self.hits(line, models=False), [])           # the --no-models opt-out
+        self.assertTrue(self.hits(line))
+        self.assertTrue(self.hits('claude-' + M[0] + '-4'))
+        self.assertEqual(self.hits('an af' + M[3] + ' person'), [])   # word boundary
 
     def test_personal_patterns(self):
         pers = ['Users[\\\\/]Someone', 'someone@x\\.org', 'App' + 'Data']
@@ -92,28 +92,15 @@ class TestScan(unittest.TestCase):
                 self.assertEqual(pc.main(['--patterns', nopers, good]), 0)
                 self.assertEqual(pc.main(['--patterns', nopers, bad]), 1)
 
-
-class TestScrub(unittest.TestCase):
-    def test_text_replacements(self):
-        big = M[0].capitalize()
-        self.assertEqual(ex.scrub_text('the lead (' + big + ')'), 'the lead (Claude)')
-        self.assertEqual(ex.scrub_text('Claude ' + M[1].capitalize() + ' 5.5 agents'), 'Claude agents')
-        self.assertEqual(ex.scrub_text(M[3].capitalize() + "'s review"), "Claude's review")
-        self.assertEqual(ex.scrub_text('--model ' + M[1]), '--model claude')
-        self.assertEqual(ex.scrub_text('id claude-' + M[2] + '-4-5 ok'), 'id Claude ok')
-        self.assertEqual(ex.scrub_text('af' + M[3] + ' stays'), 'af' + M[3] + ' stays')
-
-    def test_rename_and_link_fix(self):
-        old = 'reviews/r3-' + M[3] + '.md'
-        renames = ex.plan_renames(['a.md', old, 'reviews/x.md'])
-        self.assertEqual(renames, {old: 'reviews/r3-review.md'})
-        txt = ex.scrub_text('see `' + old + '` and `r3-' + M[3] + '.md`', renames)
-        self.assertEqual(txt, 'see `reviews/r3-review.md` and `r3-review.md`')
-        self.assertFalse(pc.check_line(txt, pc.compile_patterns(models=True)))
-
-    def test_rename_collision_is_an_error(self):
-        with self.assertRaises(SystemExit):
-            ex.plan_renames(['r3-' + M[3] + '.md', 'r3-review.md'])
+    def test_main_flags_model_names_unless_no_models(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = os.path.join(d, 'm.md')
+            with open(f, 'w') as fh:
+                fh.write('written with ' + M[0].capitalize() + '\n')
+            nopers = os.path.join(d, 'none')
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(pc.main(['--patterns', nopers, f]), 1)
+                self.assertEqual(pc.main(['--patterns', nopers, '--no-models', f]), 0)
 
 
 if __name__ == '__main__':

@@ -98,7 +98,7 @@ Run each tool from the repository root. Most read files with paths that start wi
 | `tools/pull3/losses.py` | Builds a timeline for each game Scourge lost. |
 | `tools/pull4/tab.py` | Builds the table of Contagion games, with a Contagion against Scourge comparison. |
 | `tools/pull4/games.py` | Builds a timeline for each Contagion game. |
-| `tools/privacy_check.py` | Looks for local paths and personal text in the files. |
+| `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
 
 ## Pacing rules for the site
 

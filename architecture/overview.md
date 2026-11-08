@@ -100,6 +100,6 @@ The loop runs in both directions. Ladder results and new replays feed the next a
 | `docs/` | The game rules as PDF files, `cellhack.inc` (the constants: interface version 4, ruleset version 9), five open bots in `docs/bots/`, and a list of cell names in `docs/cell_names.txt`. |
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py`, the VEX helper `vex_emu.py`, and calibration probes in `calib/`. |
 | `sim/` | The simulator, its batch runners and its unit tests in `sim/tests/`. Output goes to `sim/out/`, which git ignores. |
-| `tools/` | Data pull scripts (`pull2/`, `pull3/`, `pull4/`) and `privacy_check.py`, which looks for local paths in text. |
+| `tools/` | Data pull scripts (`pull2/`, `pull3/`, `pull4/`) and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). |
 | `data/` | Write-ups (`*.md`), and the pulled data in `pull2/`, `pull3/` and `pull4/`. |
 | `reviews/` | Earlier design review notes and decision records. |

@@ -1,0 +1,24 @@
+#!/bin/sh
+# After each commit, snapshot the local-only tracking files into the hidden repo .tracking-git/
+# (gitignored, no remote): tasks.md, issues.md, planning.md, archive/ and ops/ (not ops/logs/).
+# Quiet, and it never fails the main commit. Does nothing when .tracking-git/ does not exist.
+(
+    root="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+    [ -d "$root/.tracking-git" ] || exit 0
+    # git sets these for hooks; they would point the commands below at the main repo.
+    unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_PREFIX GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
+    cd "$root" || exit 0
+    t() { git --git-dir="$root/.tracking-git" --work-tree="$root" "$@"; }
+    # The main .gitignore ignores these paths, so add with -f; ops/logs/ is skipped.
+    for p in tasks.md issues.md planning.md; do
+        [ -f "$p" ] && t add -f -- "$p"
+    done
+    for d in archive ops; do
+        [ -d "$d" ] || continue
+        find "$d" -type f ! -path 'ops/logs/*' -print | while IFS= read -r f; do t add -f -- "$f"; done
+    done
+    t add -u -- . 2>/dev/null                   # record deletions of tracked files
+    t diff --cached --quiet && exit 0
+    t -c core.hooksPath=/dev/null commit -q --no-verify -m "tracking snapshot"
+) >/dev/null 2>&1
+exit 0

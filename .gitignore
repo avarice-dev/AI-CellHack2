@@ -6,7 +6,7 @@ __pycache__/
 cells/build/
 /data/pull2/replays/
 /data/pull2/keyframes/
-/ops/logs/
+/ops/
 /data/pull3/replays/
 /data/pull4/replays/
 /.privacy-patterns
@@ -16,3 +16,4 @@ cells/build/
 /issues.md
 /planning.md
 /archive/
+/.tracking-git/

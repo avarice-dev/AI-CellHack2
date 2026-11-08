@@ -1,5 +1,5 @@
 #!/bin/sh
-# Block commits whose staged content has local paths or personal data (see tools/privacy_check.py).
+# Block commits whose staged content has local paths, personal data or model names (see tools/privacy_check.py).
 # Install once per clone:  git config core.hooksPath tools/hooks
 root="$(git rev-parse --show-toplevel)" || exit 1
 for py in python python3 py; do

@@ -1,1 +1,1 @@
-tools/hooks/pre-commit text eol=lf
+tools/hooks/* text eol=lf

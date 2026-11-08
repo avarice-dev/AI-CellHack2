@@ -139,7 +139,7 @@ weakest of the four by then, and only after each has >= 50 games (G11). Every la
 ---------------------------------------------------------------------------------------------------
 ## 4. Experiments (simulator; max 4 of 6 cores, below-normal priority, run as background batches)
 The simulator's rival models are being refitted to pull 2's fingerprints (pump rivals were too fat, the late
-game too slow; `issues.md`). Trust E1-E4 only after that validation rerun.
+game too slow). Trust E1-E4 only after that validation rerun.
 | # | Question | Setup | Changes |
 |---|---|---|---|
 | E1 | Refill race (G13) | refill R in {3, 6, 8} vs no refill, against the fat AtomPush-like rival | Scourge's R; squares gained per 100 ticks after first kill |

@@ -41,7 +41,7 @@ flowchart LR
 | `run.py` | Command-line tool for one match or a series of seeds. |
 | `batch.py` | Runs a named set of experiments unattended and writes a summary. |
 | `validate.py` | Replays the 36 pull 2 ladder matches and compares them with the real results. |
-| `treadmill.py` | Late-game measures, such as land changes after tick 500. |
+| `treadmill.py` | Compares late-game measures of the real replays and the simulator, such as land changes after tick 500. |
 | `tests/` | Unit tests. Run them with `python -m unittest` from `sim/`. |
 
 The full policy interface, the engine options and the list of assumptions are in [sim/README.md](../sim/README.md).
@@ -95,10 +95,12 @@ Batch sets write a summary of under 60 lines (`.md`) and a full file of every ma
 The simulator was checked against real ladder matches from pull 2. The check used the same start squares and the nearest model for each cell. It compared the winners and the population curves with the real replays.
 
 - **Same winner.** In the final run over all 36 matches, the simulator picked the same winner as the real game in 26 of 36 matches.
-- **Held-out checks.** 12 of the 36 matches were kept back as the TEST set. The other 24 form the FIT set, which was used for tuning. On the TEST set, the simulator passed 47 of 62 checks.
+- **Held-out checks.** 12 of the 36 matches were kept back as the TEST set. The other 24 form the FIT set, which was used for tuning. With the default models, the simulator passes 49 of 63 checks on FIT and 47 of 62 checks on TEST.
 - **Early game is the better-modelled part.** For roughly the first 200 ticks, the simulated growth follows the real replays closely. In a two-match smoke test, Sprint's population at tick 200 was 1884 in the real match and 1874 in the simulation. Two matches are not a sample, so treat this as a sign and not as proof.
 - **Late game is weak.** After about tick 500, the simulator is less reliable. Thin pump colonies keep their land in the simulator, but they lose it in real matches. In the final run, the simulated Brawler and Noob+ colonies held 900 to 1600 cells at tick 1000, against 2 to 16 in the real replays. The sim README says the fight and refill model is what is off, not the feeding.
-- **The late-game model is being improved.** Results that depend on late-game land should be treated as provisional until that work is finished.
+- **Late-game work so far.** The tool `treadmill.py` compares late-game measures of the real replays and the simulator. Run it from `sim/` with `python treadmill.py --set fit --workers 4` (or `--set test`). It showed that some rival cells are slower on the site than in the models. Three new options can slow a model down: `pad`, `pad_bites_from` and `split_after` (for `ratompush` and `rpump`; see sim/README.md). They are all off by default.
+- **Candidate not adopted.** The candidate "pad3" slows three rivals: Noob++ (pad 66), rooby (pad 56) and Aegis (pad 12), with slow bites padded too. It gives 49 of 62 checks on TEST, but only 46 of 63 on FIT. FIT is the set for tuning, and it got worse. Thus the defaults did not change.
+- **Still not explained.** Noob+ and Brawler v2 keep their land late in the simulator, but they lose it in real matches. Early in the game, thin pump colonies lose front cells at about half the real rate. The Atom cells feed 2 to 6 times more than in the real replays. The early contact geometry is already different from the real replays by tick 100. Treat results that depend on late-game land as provisional.
 
 The sim README gives the same advice. Do not trust the simulator for outcomes between Sprint and pump colonies, or for late-game land.
 
