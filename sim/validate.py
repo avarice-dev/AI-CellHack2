@@ -35,12 +35,12 @@ MODELS = {
     'Sprint': ('sprint', 'exact'),
     'Hunter': ('hunter', 'exact'), 'Medic': ('medic', 'exact'), 'Walker': ('walker', 'exact'),
     'Random': ('random', 'exact'),
-    'Brawler': ('rpump[split_min=6,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                 # U4 L6, split 6, feeds/eat 48
-    'Brawler v2': ('rpump[hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                           # U4 L6, split 5, pump
-    'Bouncer': ('rpump[order=DRLU,split_min=6,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),      # D4 R6, split 6, pump
-    'Aegis': ('rpump[hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                                # U fast only, pump-ish (interior 19)
-    'Noob+': ('rpump[order=DLRU,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                    # D fast only
-    'Noob++': ('rpump[order=DLRU,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),
+    'Brawler': ('rpump[split_min=6,hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),                 # U4 L6, split 6, feeds/eat 48
+    'Brawler v2': ('rpump[hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),                           # U4 L6, split 5, pump
+    'Bouncer': ('rpump[order=DRLU,split_min=6,hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),      # D4 R6, split 6, pump
+    'Aegis': ('rpump[hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),                                # U fast only, pump-ish (interior 19)
+    'Noob+': ('rpump[order=DLRU,hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),                    # D fast only
+    'Noob++': ('rpump[order=DLRU,hold=none,target=richest,pump_min=8,pump_target_max=50]', 'model'),
     'AtomPush': ('ratompush[split_after=2]', 'model'),                         # R4 L6, fat economy
     'AtomCrasher': ('ratompush[split_after=2]', 'model'),                      # R4 L6, fat, feeds less
     'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99]', 'model'),  # U4 R6, no feeding
