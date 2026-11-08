@@ -367,3 +367,18 @@ one Sandbox game, then the ladder (user approval).
   data/contagion-games-2026-11-08.md) as a separate cell; not built here (one bet per cell).
 - Before any ladder use: one Sandbox game (scripted POST, not the form) for 0 faults and the counts (bite 5,
   refill 11, middle split 16); the ladder swap needs the user's approval.
+
+### 9.7 Confirmation on new seeds, and the head-to-head numbers are start luck
+- `python sim/batch.py --set complacency` (seeds 9-16, 40 games, 3 workers, 1137 s; `sim/out/complacency-20261108-112036.md`):
+  vs rpump/ratompush/rblind3 Complacency 2.00 pts (0% wins), final pop 1080 vs Scourge 2.00 (0%), 832; pop t200 722 vs
+  650, time to 512 t113 vs t132. Vs rbrawler/ratompush/walker 2.12 (38%) both, final pop 1772 vs 1678, t200 1042 vs 944.
+  Head to head (+ rpump, ratompush) the result flipped: **Scourge 2.50 (75%), Complacency 1.75 (12%)**.
+- `python sim/batch.py --set complacency-mirror` (the two swapped in the mix, seeds 1-16, 16 games, 516 s;
+  `sim/out/complacency-mirror-20261108-112938.md`): Complacency 2.25 (50%), final pop 1882; Scourge 2.19 (38%), 1445.
+  Paired by seed over both orders (32 games): Complacency finished ahead of Scourge in 8 of 16 per order and **on no
+  seed in both orders**, i.e. in the sim the head-to-head winner is fixed by the start slot, not by the cell. So the
+  "62% head to head" in 9.2 (and Woe's 2.38 vs 1.75 in 8.6, the same seeds and the same numbers) measure start luck,
+  not the change. What survives: same win rates, more land (final pop +7% to +30%, t200 pop +4% to +11% vs the rival
+  models), and no sign that dropping the hold costs anything in the sim.
+- Verdict (indicative): a free, low-risk change in the sim; whether it fixes the real t21-t200 deficit can only be
+  seen on the site (Sandbox, then the ladder with the user's approval).
