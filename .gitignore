@@ -10,3 +10,9 @@ cells/build/
 /data/pull3/replays/
 /data/pull4/replays/
 /.privacy-patterns
+
+# Agent tracking files (local only, not part of the project)
+/tasks.md
+/issues.md
+/planning.md
+/archive/
