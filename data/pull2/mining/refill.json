@@ -1,0 +1,1821 @@
+{
+ "fillers": {
+  "AtomPush": {
+   "refills": 130689,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 99.1,
+    "2": 0.5,
+    "3-5": 0.2,
+    "6-10": 0.0,
+    "11-50": 0.1,
+    ">50": 0.1
+   },
+   "movePct": 0.0,
+   "medianChildE": 6,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 27.8,
+    "6-8": 55.6,
+    "9-16": 10.8,
+    "17-24": 1.9,
+    "25": 3.9,
+    "26-255": 0.0
+   }
+  },
+  "AtomCrasher": {
+   "refills": 78364,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 97.8,
+    "2": 1.3,
+    "3-5": 0.6,
+    "6-10": 0.1,
+    "11-50": 0.1,
+    ">50": 0.1
+   },
+   "movePct": 0.0,
+   "medianChildE": 6.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 28.4,
+    "6-8": 43.4,
+    "9-16": 18.5,
+    "17-24": 4.9,
+    "25": 4.8,
+    "26-255": 0.0
+   }
+  },
+  "Sprint": {
+   "refills": 62721,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 82.4,
+    "2": 6.3,
+    "3-5": 8.1,
+    "6-10": 1.9,
+    "11-50": 0.7,
+    ">50": 0.7
+   },
+   "movePct": 0.0,
+   "medianChildE": 12,
+   "childEPct": {
+    "0-2": 0.1,
+    "3": 0.1,
+    "4-5": 0.1,
+    "6-8": 25.2,
+    "9-16": 38.0,
+    "17-24": 12.5,
+    "25": 24.1,
+    "26-255": 0.0
+   }
+  },
+  "Brawler": {
+   "refills": 28166,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 73.4,
+    "2": 16.9,
+    "3-5": 6.6,
+    "6-10": 0.3,
+    "11-50": 0.6,
+    ">50": 2.3
+   },
+   "movePct": 0.0,
+   "medianChildE": 3.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 53.6,
+    "4-5": 8.4,
+    "6-8": 9.6,
+    "9-16": 14.7,
+    "17-24": 3.5,
+    "25": 10.3,
+    "26-255": 0.0
+   }
+  },
+  "Brawler v2": {
+   "refills": 26012,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 80.7,
+    "2": 16.2,
+    "3-5": 3.1,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 7.0,
+   "childEPct": {
+    "0-2": 33.6,
+    "3": 5.5,
+    "4-5": 6.6,
+    "6-8": 9.1,
+    "9-16": 15.9,
+    "17-24": 9.2,
+    "25": 20.2,
+    "26-255": 0.0
+   }
+  },
+  "Bouncer": {
+   "refills": 21668,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 75.6,
+    "2": 13.9,
+    "3-5": 9.5,
+    "6-10": 0.2,
+    "11-50": 0.5,
+    ">50": 0.3
+   },
+   "movePct": 0.0,
+   "medianChildE": 3.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 51.1,
+    "4-5": 9.8,
+    "6-8": 10.8,
+    "9-16": 10.6,
+    "17-24": 5.0,
+    "25": 12.8,
+    "26-255": 0.0
+   }
+  },
+  "Aegis": {
+   "refills": 18405,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 82.9,
+    "2": 12.0,
+    "3-5": 2.9,
+    "6-10": 0.7,
+    "11-50": 0.7,
+    ">50": 0.8
+   },
+   "movePct": 0.0,
+   "medianChildE": 8,
+   "childEPct": {
+    "0-2": 17.9,
+    "3": 14.1,
+    "4-5": 9.4,
+    "6-8": 11.1,
+    "9-16": 17.5,
+    "17-24": 7.6,
+    "25": 21.4,
+    "26-255": 1.1
+   }
+  },
+  "Noob++": {
+   "refills": 12592,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 93.8,
+    "2": 2.1,
+    "3-5": 4.1,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 3.0,
+   "childEPct": {
+    "0-2": 32.5,
+    "3": 29.2,
+    "4-5": 20.5,
+    "6-8": 5.0,
+    "9-16": 2.0,
+    "17-24": 1.3,
+    "25": 9.6,
+    "26-255": 0.0
+   }
+  },
+  "Noob+": {
+   "refills": 9021,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 81.4,
+    "2": 11.0,
+    "3-5": 5.8,
+    "6-10": 0.3,
+    "11-50": 1.3,
+    ">50": 0.2
+   },
+   "movePct": 0.0,
+   "medianChildE": 5,
+   "childEPct": {
+    "0-2": 16.0,
+    "3": 20.1,
+    "4-5": 18.7,
+    "6-8": 12.4,
+    "9-16": 12.8,
+    "17-24": 5.4,
+    "25": 10.9,
+    "26-255": 3.7
+   }
+  },
+  "rooby": {
+   "refills": 8515,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 96.0,
+    "2": 3.3,
+    "3-5": 0.7,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 21,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 1.0,
+    "4-5": 11.2,
+    "6-8": 9.4,
+    "9-16": 19.1,
+    "17-24": 18.6,
+    "25": 40.9,
+    "26-255": 0.0
+   }
+  },
+  "Walker": {
+   "refills": 3142,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 70.5,
+    "2": 17.2,
+    "3-5": 10.3,
+    "6-10": 1.8,
+    "11-50": 0.1,
+    ">50": 0.0
+   },
+   "movePct": 30.8,
+   "medianChildE": 3,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 100.0,
+    "4-5": 0.0,
+    "6-8": 0.0,
+    "9-16": 0.0,
+    "17-24": 0.0,
+    "25": 0.0,
+    "26-255": 0.0
+   }
+  },
+  "Noob": {
+   "refills": 2046,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 65.0,
+    "2": 18.4,
+    "3-5": 13.9,
+    "6-10": 2.7,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 3.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 59.5,
+    "4-5": 13.5,
+    "6-8": 13.7,
+    "9-16": 10.5,
+    "17-24": 1.4,
+    "25": 1.4,
+    "26-255": 0.0
+   }
+  },
+  "squirtle": {
+   "refills": 1507,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 54.9,
+    "2": 19.8,
+    "3-5": 19.4,
+    "6-10": 4.2,
+    "11-50": 1.3,
+    ">50": 0.4
+   },
+   "movePct": 0.0,
+   "medianChildE": 3,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 77.1,
+    "4-5": 6.5,
+    "6-8": 4.3,
+    "9-16": 4.8,
+    "17-24": 1.5,
+    "25": 5.8,
+    "26-255": 0.0
+   }
+  },
+  "gemAlert_v4": {
+   "refills": 1495,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 76.0,
+    "2": 13.0,
+    "3-5": 10.0,
+    "6-10": 1.1,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 6,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 22.9,
+    "4-5": 20.3,
+    "6-8": 22.9,
+    "9-16": 23.1,
+    "17-24": 5.0,
+    "25": 5.8,
+    "26-255": 0.0
+   }
+  },
+  "zergling": {
+   "refills": 913,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 64.1,
+    "2": 17.7,
+    "3-5": 13.8,
+    "6-10": 2.7,
+    "11-50": 1.5,
+    ">50": 0.1
+   },
+   "movePct": 20.7,
+   "medianChildE": 4.0,
+   "childEPct": {
+    "0-2": 30.9,
+    "3": 13.5,
+    "4-5": 15.6,
+    "6-8": 10.8,
+    "9-16": 13.4,
+    "17-24": 3.2,
+    "25": 12.6,
+    "26-255": 0.0
+   }
+  },
+  "gemAlert_v3": {
+   "refills": 856,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 90.5,
+    "2": 6.8,
+    "3-5": 2.6,
+    "6-10": 0.1,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 10.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 19.6,
+    "4-5": 11.8,
+    "6-8": 13.0,
+    "9-16": 24.1,
+    "17-24": 10.9,
+    "25": 20.7,
+    "26-255": 0.0
+   }
+  },
+  "Medic": {
+   "refills": 541,
+   "medianDt": 1,
+   "dtPct": {
+    "0": 0.0,
+    "1": 81.5,
+    "2": 15.0,
+    "3-5": 3.3,
+    "6-10": 0.2,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 3,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 100.0,
+    "4-5": 0.0,
+    "6-8": 0.0,
+    "9-16": 0.0,
+    "17-24": 0.0,
+    "25": 0.0,
+    "26-255": 0.0
+   }
+  },
+  "Random": {
+   "refills": 120,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 57.5,
+    "2": 16.7,
+    "3-5": 22.5,
+    "6-10": 2.5,
+    "11-50": 0.8,
+    ">50": 0.0
+   },
+   "movePct": 50.8,
+   "medianChildE": 5,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 30.5,
+    "4-5": 22.0,
+    "6-8": 23.7,
+    "9-16": 18.6,
+    "17-24": 5.1,
+    "25": 0.0,
+    "26-255": 0.0
+   }
+  },
+  "Hunter": {
+   "refills": 82,
+   "medianDt": 1.0,
+   "dtPct": {
+    "0": 0.0,
+    "1": 72.0,
+    "2": 18.3,
+    "3-5": 9.8,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "movePct": 0.0,
+   "medianChildE": 3.0,
+   "childEPct": {
+    "0-2": 0.0,
+    "3": 87.8,
+    "4-5": 3.7,
+    "6-8": 2.4,
+    "9-16": 2.4,
+    "17-24": 1.2,
+    "25": 2.4,
+    "26-255": 0.0
+   }
+  }
+ },
+ "contested": {
+  "AtomPush": {
+   "replays": 17,
+   "races": 166410,
+   "wonPct": 78.3,
+   "lostPct": 21.7,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 6
+  },
+  "AtomCrasher": {
+   "replays": 15,
+   "races": 116206,
+   "wonPct": 67.1,
+   "lostPct": 32.9,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 6.0
+  },
+  "Brawler v2": {
+   "replays": 8,
+   "races": 41391,
+   "wonPct": 62.6,
+   "lostPct": 37.4,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 7
+  },
+  "Bouncer": {
+   "replays": 6,
+   "races": 34537,
+   "wonPct": 61.5,
+   "lostPct": 38.4,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 3
+  },
+  "Brawler": {
+   "replays": 7,
+   "races": 45610,
+   "wonPct": 58.8,
+   "lostPct": 41.2,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 3.0
+  },
+  "Sprint": {
+   "replays": 17,
+   "races": 146013,
+   "wonPct": 42.3,
+   "lostPct": 57.7,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 12
+  },
+  "Walker": {
+   "replays": 7,
+   "races": 8082,
+   "wonPct": 38.7,
+   "lostPct": 61.3,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 3
+  },
+  "Noob++": {
+   "replays": 4,
+   "races": 33223,
+   "wonPct": 37.9,
+   "lostPct": 62.1,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 3.0
+  },
+  "Noob+": {
+   "replays": 6,
+   "races": 25656,
+   "wonPct": 33.9,
+   "lostPct": 66.1,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 5
+  },
+  "gemAlert_v3": {
+   "replays": 3,
+   "races": 2525,
+   "wonPct": 33.9,
+   "lostPct": 66.1,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 10
+  },
+  "Medic": {
+   "replays": 2,
+   "races": 1905,
+   "wonPct": 28.4,
+   "lostPct": 71.6,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 3
+  },
+  "Noob": {
+   "replays": 5,
+   "races": 7180,
+   "wonPct": 28.0,
+   "lostPct": 72.0,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 3
+  },
+  "squirtle": {
+   "replays": 4,
+   "races": 5281,
+   "wonPct": 27.9,
+   "lostPct": 72.1,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1,
+   "medianChildEWon": 3.0
+  },
+  "gemAlert_v4": {
+   "replays": 4,
+   "races": 5945,
+   "wonPct": 24.4,
+   "lostPct": 75.6,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 6
+  },
+  "Aegis": {
+   "replays": 8,
+   "races": 75437,
+   "wonPct": 23.6,
+   "lostPct": 76.4,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 8.0
+  },
+  "Random": {
+   "replays": 2,
+   "races": 659,
+   "wonPct": 12.9,
+   "lostPct": 87.1,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 4
+  },
+  "rooby": {
+   "replays": 6,
+   "races": 73620,
+   "wonPct": 11.6,
+   "lostPct": 88.4,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 21
+  },
+  "zergling": {
+   "replays": 7,
+   "races": 12906,
+   "wonPct": 6.5,
+   "lostPct": 93.5,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1,
+   "medianDtLost": 1,
+   "medianChildEWon": 4
+  },
+  "Hunter": {
+   "replays": 3,
+   "races": 2040,
+   "wonPct": 4.0,
+   "lostPct": 96.0,
+   "unfilledPct": 0.0,
+   "medianDtWon": 1.0,
+   "medianDtLost": 1.0,
+   "medianChildEWon": 3.0
+  },
+  "Bulwark": {
+   "replays": 3,
+   "races": 2865,
+   "wonPct": 0.0,
+   "lostPct": 99.8,
+   "unfilledPct": 0.2,
+   "medianDtWon": null,
+   "medianDtLost": 5.0,
+   "medianChildEWon": null
+  }
+ },
+ "byDeadCell": {
+  "AtomPush": {
+   "deaths": 124966,
+   "ownPct": 93.8,
+   "killerPct": 6.2,
+   "otherPct": 0.0,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "AtomCrasher": {
+   "deaths": 71849,
+   "ownPct": 91.4,
+   "killerPct": 8.5,
+   "otherPct": 0.1,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Brawler": {
+   "deaths": 35085,
+   "ownPct": 52.2,
+   "killerPct": 47.5,
+   "otherPct": 0.2,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Sprint": {
+   "deaths": 24199,
+   "ownPct": 50.4,
+   "killerPct": 49.5,
+   "otherPct": 0.0,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Bouncer": {
+   "deaths": 23663,
+   "ownPct": 54.1,
+   "killerPct": 45.8,
+   "otherPct": 0.1,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "Aegis": {
+   "deaths": 20912,
+   "ownPct": 37.9,
+   "killerPct": 61.9,
+   "otherPct": 0.2,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Brawler v2": {
+   "deaths": 19785,
+   "ownPct": 57.6,
+   "killerPct": 42.2,
+   "otherPct": 0.2,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Noob++": {
+   "deaths": 18764,
+   "ownPct": 57.9,
+   "killerPct": 41.8,
+   "otherPct": 0.3,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "zergling": {
+   "deaths": 15416,
+   "ownPct": 2.7,
+   "killerPct": 80.8,
+   "otherPct": 16.5,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Noob+": {
+   "deaths": 12057,
+   "ownPct": 42.8,
+   "killerPct": 56.6,
+   "otherPct": 0.6,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "rooby": {
+   "deaths": 10390,
+   "ownPct": 14.1,
+   "killerPct": 85.3,
+   "otherPct": 0.6,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "Walker": {
+   "deaths": 8442,
+   "ownPct": 37.2,
+   "killerPct": 62.2,
+   "otherPct": 0.5,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Noob": {
+   "deaths": 5174,
+   "ownPct": 24.4,
+   "killerPct": 74.9,
+   "otherPct": 0.7,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "gemAlert_v4": {
+   "deaths": 5026,
+   "ownPct": 12.1,
+   "killerPct": 87.5,
+   "otherPct": 0.3,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "squirtle": {
+   "deaths": 4282,
+   "ownPct": 26.8,
+   "killerPct": 72.1,
+   "otherPct": 1.1,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "gemAlert_v3": {
+   "deaths": 2488,
+   "ownPct": 34.1,
+   "killerPct": 65.1,
+   "otherPct": 0.8,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Medic": {
+   "deaths": 1916,
+   "ownPct": 28.2,
+   "killerPct": 71.3,
+   "otherPct": 0.5,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Hunter": {
+   "deaths": 1759,
+   "ownPct": 4.3,
+   "killerPct": 94.8,
+   "otherPct": 0.9,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "Random": {
+   "deaths": 728,
+   "ownPct": 16.5,
+   "killerPct": 75.1,
+   "otherPct": 8.4,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  },
+  "Bulwark": {
+   "deaths": 51,
+   "ownPct": 0.0,
+   "killerPct": 100.0,
+   "otherPct": 0.0,
+   "unfilledPct": 0.0,
+   "medianDt": 1
+  },
+  "choochoo": {
+   "deaths": 6,
+   "ownPct": 0.0,
+   "killerPct": 83.3,
+   "otherPct": 16.7,
+   "unfilledPct": 0.0,
+   "medianDt": 1.0
+  }
+ },
+ "sprintVsAtom": {
+  "AtomCrasher|all": {
+   "races": 6915,
+   "sprintPct": 3.6,
+   "rivalPct": 96.0,
+   "thirdPct": 0.4,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 98.4,
+    "2": 0.8,
+    "3-5": 0.0,
+    "6-10": 0.8,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.8,
+    "2": 0.1,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 1.6,
+    "9-16": 10.5,
+    "17-24": 7.3,
+    "25": 80.6,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 27.2,
+    "6-8": 53.3,
+    "9-16": 11.6,
+    "17-24": 2.1,
+    "25": 5.7,
+    "26-255": 0.0
+   }
+  },
+  "AtomCrasher|t0-500": {
+   "races": 247,
+   "sprintPct": 17.0,
+   "rivalPct": 80.2,
+   "thirdPct": 2.8,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 15.0,
+   "rivalMedianChildE": 13.5,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 92.9,
+    "2": 4.8,
+    "3-5": 0.0,
+    "6-10": 2.4,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 96.5,
+    "2": 2.0,
+    "3-5": 1.0,
+    "6-10": 0.0,
+    "11-50": 0.5,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 7.1,
+    "9-16": 45.2,
+    "17-24": 9.5,
+    "25": 38.1,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 1.5,
+    "6-8": 15.2,
+    "9-16": 42.4,
+    "17-24": 12.6,
+    "25": 28.3,
+    "26-255": 0.0
+   }
+  },
+  "AtomCrasher|t1000-end": {
+   "races": 6155,
+   "sprintPct": 2.9,
+   "rivalPct": 97.1,
+   "thirdPct": 0.0,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 0.0,
+    "9-16": 1.1,
+    "17-24": 6.8,
+    "25": 92.1,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 28.5,
+    "6-8": 55.4,
+    "9-16": 10.5,
+    "17-24": 1.8,
+    "25": 3.8,
+    "26-255": 0.0
+   }
+  },
+  "AtomCrasher|t500-1000": {
+   "races": 513,
+   "sprintPct": 5.5,
+   "rivalPct": 90.1,
+   "thirdPct": 4.5,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 7.0,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 96.4,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 3.6,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.6,
+    "2": 0.4,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 3.6,
+    "9-16": 17.9,
+    "17-24": 7.1,
+    "25": 71.4,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 21.6,
+    "6-8": 43.5,
+    "9-16": 13.2,
+    "17-24": 1.1,
+    "25": 20.6,
+    "26-255": 0.0
+   }
+  },
+  "AtomPush|all": {
+   "races": 27339,
+   "sprintPct": 0.5,
+   "rivalPct": 99.3,
+   "thirdPct": 0.1,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 97.3,
+    "2": 2.0,
+    "3-5": 0.0,
+    "6-10": 0.7,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.9,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 4.7,
+    "9-16": 15.5,
+    "17-24": 18.2,
+    "25": 61.5,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 24.1,
+    "6-8": 68.0,
+    "9-16": 4.9,
+    "17-24": 0.9,
+    "25": 2.1,
+    "26-255": 0.0
+   }
+  },
+  "AtomPush|t0-500": {
+   "races": 2373,
+   "sprintPct": 2.4,
+   "rivalPct": 96.6,
+   "thirdPct": 1.1,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 18.5,
+   "rivalMedianChildE": 8.0,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 94.6,
+    "2": 5.4,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 98.8,
+    "2": 0.6,
+    "3-5": 0.5,
+    "6-10": 0.1,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 8.9,
+    "9-16": 32.1,
+    "17-24": 23.2,
+    "25": 35.7,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 12.3,
+    "6-8": 48.3,
+    "9-16": 26.3,
+    "17-24": 6.8,
+    "25": 6.3,
+    "26-255": 0.0
+   }
+  },
+  "AtomPush|t1000-end": {
+   "races": 20538,
+   "sprintPct": 0.3,
+   "rivalPct": 99.7,
+   "thirdPct": 0.0,
+   "unfilledPct": 0.1,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 0.0,
+    "9-16": 3.7,
+    "17-24": 13.0,
+    "25": 83.3,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 27.1,
+    "6-8": 71.1,
+    "9-16": 0.9,
+    "17-24": 0.0,
+    "25": 0.9,
+    "26-255": 0.0
+   }
+  },
+  "AtomPush|t500-1000": {
+   "races": 4428,
+   "sprintPct": 0.9,
+   "rivalPct": 99.1,
+   "thirdPct": 0.0,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6.0,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 97.4,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 2.6,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 5.3,
+    "9-16": 7.9,
+    "17-24": 18.4,
+    "25": 68.4,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 16.5,
+    "6-8": 63.8,
+    "9-16": 12.5,
+    "17-24": 1.8,
+    "25": 5.4,
+    "26-255": 0.0
+   }
+  },
+  "98983 AtomPush|all": {
+   "races": 413,
+   "sprintPct": 15.3,
+   "rivalPct": 84.0,
+   "thirdPct": 0.5,
+   "unfilledPct": 0.2,
+   "sprintMedianDt": 1,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25,
+   "rivalMedianChildE": 25,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 96.8,
+    "2": 1.6,
+    "3-5": 0.0,
+    "6-10": 1.6,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.1,
+    "2": 0.0,
+    "3-5": 0.3,
+    "6-10": 0.0,
+    "11-50": 0.3,
+    ">50": 0.3
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 3.2,
+    "9-16": 7.9,
+    "17-24": 25.4,
+    "25": 63.5,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 6.3,
+    "6-8": 6.6,
+    "9-16": 9.5,
+    "17-24": 2.9,
+    "25": 74.6,
+    "26-255": 0.0
+   }
+  },
+  "99061 AtomCrasher|all": {
+   "races": 968,
+   "sprintPct": 12.9,
+   "rivalPct": 84.8,
+   "thirdPct": 2.3,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25,
+   "rivalMedianChildE": 9,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 97.6,
+    "2": 0.8,
+    "3-5": 0.0,
+    "6-10": 1.6,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.6,
+    "2": 0.2,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.1,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 1.6,
+    "9-16": 8.8,
+    "17-24": 11.2,
+    "25": 78.4,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 1.7,
+    "6-8": 43.1,
+    "9-16": 21.3,
+    "17-24": 1.5,
+    "25": 32.4,
+    "26-255": 0.0
+   }
+  },
+  "99134 AtomPush|all": {
+   "races": 12968,
+   "sprintPct": 0.3,
+   "rivalPct": 99.6,
+   "thirdPct": 0.0,
+   "unfilledPct": 0.1,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 97.5,
+    "2": 2.5,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.9,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 2.5,
+    "9-16": 15.0,
+    "17-24": 7.5,
+    "25": 75.0,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 23.0,
+    "6-8": 68.2,
+    "9-16": 5.7,
+    "17-24": 0.9,
+    "25": 2.2,
+    "26-255": 0.0
+   }
+  },
+  "99239 AtomPush|all": {
+   "races": 13958,
+   "sprintPct": 0.3,
+   "rivalPct": 99.5,
+   "thirdPct": 0.2,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1,
+   "rivalMedianDt": 1,
+   "sprintMedianChildE": 22,
+   "rivalMedianChildE": 6,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 97.8,
+    "2": 2.2,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.9,
+    "2": 0.1,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 8.9,
+    "9-16": 26.7,
+    "17-24": 17.8,
+    "25": 46.7,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 25.6,
+    "6-8": 69.4,
+    "9-16": 4.0,
+    "17-24": 0.8,
+    "25": 0.2,
+    "26-255": 0.0
+   }
+  },
+  "99413 AtomCrasher|all": {
+   "races": 2456,
+   "sprintPct": 2.4,
+   "rivalPct": 97.6,
+   "thirdPct": 0.0,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6.0,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 100.0,
+    "2": 0.0,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 0.0,
+    "9-16": 0.0,
+    "17-24": 0.0,
+    "25": 100.0,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 35.3,
+    "6-8": 58.5,
+    "9-16": 6.1,
+    "17-24": 0.0,
+    "25": 0.0,
+    "26-255": 0.0
+   }
+  },
+  "99420 AtomCrasher|all": {
+   "races": 3491,
+   "sprintPct": 1.8,
+   "rivalPct": 97.9,
+   "thirdPct": 0.2,
+   "unfilledPct": 0.0,
+   "sprintMedianDt": 1.0,
+   "rivalMedianDt": 1.0,
+   "sprintMedianChildE": 25.0,
+   "rivalMedianChildE": 6.0,
+   "sprintDtPct": {
+    "0": 0.0,
+    "1": 98.4,
+    "2": 1.6,
+    "3-5": 0.0,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "rivalDtPct": {
+    "0": 0.0,
+    "1": 99.8,
+    "2": 0.1,
+    "3-5": 0.1,
+    "6-10": 0.0,
+    "11-50": 0.0,
+    ">50": 0.0
+   },
+   "sprintChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 0.0,
+    "6-8": 3.1,
+    "9-16": 23.4,
+    "17-24": 6.2,
+    "25": 67.2,
+    "26-255": 0.0
+   },
+   "rivalChildEPct": {
+    "0-2": 0.0,
+    "3": 0.0,
+    "4-5": 27.7,
+    "6-8": 52.1,
+    "9-16": 13.2,
+    "17-24": 3.7,
+    "25": 3.3,
+    "26-255": 0.0
+   }
+  }
+ },
+ "validation": {
+  "98766": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 9201319,
+   "gridConflicts": 0
+  },
+  "98790": {
+   "kfChecked": 51,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2557,
+   "events": 6511366,
+   "gridConflicts": 0
+  },
+  "98843": {
+   "kfChecked": 48,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2417,
+   "events": 8523480,
+   "gridConflicts": 0
+  },
+  "98844": {
+   "kfChecked": 23,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 1167,
+   "events": 725591,
+   "gridConflicts": 0
+  },
+  "98854": {
+   "kfChecked": 58,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2939,
+   "events": 9471427,
+   "gridConflicts": 0
+  },
+  "98862": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 4815798,
+   "gridConflicts": 0
+  },
+  "98879": {
+   "kfChecked": 50,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2517,
+   "events": 415433,
+   "gridConflicts": 0
+  },
+  "98911": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 9791869,
+   "gridConflicts": 0
+  },
+  "98964": {
+   "kfChecked": 30,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 1522,
+   "events": 1403184,
+   "gridConflicts": 0
+  },
+  "98983": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 4462961,
+   "gridConflicts": 0
+  },
+  "98989": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 3791694,
+   "gridConflicts": 0
+  },
+  "99021": {
+   "kfChecked": 45,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2254,
+   "events": 2519130,
+   "gridConflicts": 0
+  },
+  "99061": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 969699,
+   "gridConflicts": 0
+  },
+  "99074": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 4198254,
+   "gridConflicts": 0
+  },
+  "99082": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 4966223,
+   "gridConflicts": 0
+  },
+  "99097": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 848121,
+   "gridConflicts": 0
+  },
+  "99109": {
+   "kfChecked": 22,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 1120,
+   "events": 167305,
+   "gridConflicts": 0
+  },
+  "99119": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 2177600,
+   "gridConflicts": 0
+  },
+  "99122": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 2232698,
+   "gridConflicts": 0
+  },
+  "99134": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 1689057,
+   "gridConflicts": 0
+  },
+  "99168": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 1419803,
+   "gridConflicts": 0
+  },
+  "99198": {
+   "kfChecked": 17,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 891,
+   "events": 472255,
+   "gridConflicts": 0
+  },
+  "99208": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 7769091,
+   "gridConflicts": 0
+  },
+  "99211": {
+   "kfChecked": 40,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2047,
+   "events": 2084076,
+   "gridConflicts": 0
+  },
+  "99230": {
+   "kfChecked": 36,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 1830,
+   "events": 6123622,
+   "gridConflicts": 0
+  },
+  "99239": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 1788438,
+   "gridConflicts": 0
+  },
+  "99273": {
+   "kfChecked": 16,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 809,
+   "events": 733204,
+   "gridConflicts": 0
+  },
+  "99291": {
+   "kfChecked": 16,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 844,
+   "events": 613973,
+   "gridConflicts": 0
+  },
+  "99304": {
+   "kfChecked": 41,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 2077,
+   "events": 6899939,
+   "gridConflicts": 0
+  },
+  "99324": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 960354,
+   "gridConflicts": 0
+  },
+  "99365": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 1172993,
+   "gridConflicts": 0
+  },
+  "99371": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 1551839,
+   "gridConflicts": 0
+  },
+  "99388": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 2122537,
+   "gridConflicts": 0
+  },
+  "99413": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 2606664,
+   "gridConflicts": 0
+  },
+  "99420": {
+   "kfChecked": 59,
+   "kfMismatch": 0,
+   "countMismatch": 0,
+   "ticks": 3000,
+   "events": 2876440,
+   "gridConflicts": 0
+  }
+ }
+}

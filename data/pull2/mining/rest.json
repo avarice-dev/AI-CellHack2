@@ -1,0 +1,1214 @@
+{
+ "windows": [
+  "t0-500",
+  "t500-1000",
+  "t1000-end"
+ ],
+ "byCell": {
+  "Aegis": {
+   "t0-500": {
+    "eventFree": 1076722,
+    "eventFreeSharePct": 21.1,
+    "plus1Pct": 94.05,
+    "plus1PctBelow50": 96.5,
+    "otherPct": 0.66,
+    "medianColonyGainPerTick": 246.63,
+    "perReplayGainPerTick": [
+     389.48,
+     185.78,
+     115.81,
+     379.95,
+     448.25,
+     29.57,
+     168.98,
+     307.47
+    ],
+    "perReplayPlus1Pct": [
+     94.72,
+     92.69,
+     89.1,
+     95.71,
+     96.41,
+     84.93,
+     91.95,
+     92.79
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 1179374,
+    "eventFreeSharePct": 22.4,
+    "plus1Pct": 93.59,
+    "plus1PctBelow50": 97.01,
+    "otherPct": 0.28,
+    "medianColonyGainPerTick": 198.48,
+    "perReplayGainPerTick": [
+     680.34,
+     100.45,
+     143.42,
+     399.77,
+     648.64,
+     36.34,
+     198.48
+    ],
+    "perReplayPlus1Pct": [
+     94.22,
+     86.13,
+     91.33,
+     94.13,
+     96.92,
+     76.78,
+     89.52
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 3647034,
+    "eventFreeSharePct": 24.0,
+    "plus1Pct": 93.62,
+    "plus1PctBelow50": 97.69,
+    "otherPct": 0.11,
+    "medianColonyGainPerTick": 163.46,
+    "perReplayGainPerTick": [
+     858.78,
+     7.44,
+     52.1,
+     274.81,
+     732.21,
+     17.31
+    ],
+    "perReplayPlus1Pct": [
+     91.7,
+     51.51,
+     88.2,
+     92.84,
+     96.43,
+     76.88
+    ]
+   }
+  },
+  "AtomCrasher": {
+   "t0-500": {
+    "eventFree": 6317353,
+    "eventFreeSharePct": 73.8,
+    "plus1Pct": 12.18,
+    "plus1PctBelow50": 95.66,
+    "otherPct": 0.42,
+    "medianColonyGainPerTick": 100.45,
+    "perReplayGainPerTick": [
+     45.43,
+     63.61,
+     36.4,
+     138.04,
+     53.06,
+     94.72,
+     141.03,
+     100.45,
+     157.93,
+     185.46,
+     171.0,
+     55.43,
+     108.82,
+     78.84,
+     108.43
+    ],
+    "perReplayPlus1Pct": [
+     25.6,
+     19.09,
+     13.09,
+     12.3,
+     18.93,
+     14.29,
+     8.39,
+     17.39,
+     9.22,
+     12.99,
+     11.98,
+     17.42,
+     8.85,
+     12.76,
+     13.74
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 9862241,
+    "eventFreeSharePct": 85.5,
+    "plus1Pct": 2.5,
+    "plus1PctBelow50": 98.52,
+    "otherPct": 0.03,
+    "medianColonyGainPerTick": 35.64,
+    "perReplayGainPerTick": [
+     29.1,
+     27.16,
+     21.25,
+     50.99,
+     35.64,
+     41.09,
+     1.32,
+     55.68,
+     9.96,
+     37.79,
+     42.53,
+     31.3,
+     2.11,
+     54.4,
+     53.74
+    ],
+    "perReplayPlus1Pct": [
+     13.81,
+     9.2,
+     5.69,
+     3.44,
+     6.34,
+     4.99,
+     0.05,
+     7.5,
+     0.38,
+     1.26,
+     1.65,
+     7.93,
+     0.12,
+     4.89,
+     5.21
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 38288388,
+    "eventFreeSharePct": 85.9,
+    "plus1Pct": 2.26,
+    "plus1PctBelow50": 98.08,
+    "otherPct": 0.03,
+    "medianColonyGainPerTick": 31.25,
+    "perReplayGainPerTick": [
+     23.57,
+     12.43,
+     21.25,
+     50.6,
+     24.79,
+     33.8,
+     1.74,
+     43.25,
+     7.52,
+     42.23,
+     38.2,
+     31.25,
+     1.57,
+     55.61,
+     54.27
+    ],
+    "perReplayPlus1Pct": [
+     36.45,
+     13.11,
+     5.71,
+     3.69,
+     2.96,
+     6.0,
+     0.06,
+     9.16,
+     0.28,
+     1.26,
+     1.76,
+     7.52,
+     0.08,
+     5.25,
+     4.85
+    ]
+   }
+  },
+  "AtomPush": {
+   "t0-500": {
+    "eventFree": 6289578,
+    "eventFreeSharePct": 61.6,
+    "plus1Pct": 12.11,
+    "plus1PctBelow50": 95.16,
+    "otherPct": 0.49,
+    "medianColonyGainPerTick": 80.82,
+    "perReplayGainPerTick": [
+     68.91,
+     79.47,
+     100.06,
+     68.93,
+     73.54,
+     97.96,
+     115.27,
+     92.8,
+     80.82,
+     67.67,
+     53.57,
+     136.84,
+     51.29,
+     102.8,
+     70.81,
+     141.27,
+     121.31
+    ],
+    "perReplayPlus1Pct": [
+     13.54,
+     14.04,
+     11.79,
+     14.79,
+     9.74,
+     21.29,
+     8.13,
+     10.61,
+     12.34,
+     13.93,
+     14.42,
+     10.0,
+     18.82,
+     14.54,
+     11.29,
+     11.47,
+     12.61
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 9539284,
+    "eventFreeSharePct": 73.5,
+    "plus1Pct": 3.91,
+    "plus1PctBelow50": 98.14,
+    "otherPct": 0.06,
+    "medianColonyGainPerTick": 46.82,
+    "perReplayGainPerTick": [
+     37.26,
+     41.51,
+     55.15,
+     48.05,
+     27.48,
+     50.37,
+     35.43,
+     56.15,
+     46.82,
+     51.92,
+     23.74,
+     54.65,
+     27.46,
+     45.96,
+     37.22,
+     54.76,
+     51.96
+    ],
+    "perReplayPlus1Pct": [
+     5.14,
+     5.93,
+     4.49,
+     7.24,
+     2.51,
+     8.74,
+     1.52,
+     3.76,
+     5.05,
+     7.97,
+     7.8,
+     2.58,
+     10.58,
+     6.46,
+     3.39,
+     2.01,
+     3.53
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 35706249,
+    "eventFreeSharePct": 72.5,
+    "plus1Pct": 3.68,
+    "plus1PctBelow50": 97.51,
+    "otherPct": 0.07,
+    "medianColonyGainPerTick": 46.84,
+    "perReplayGainPerTick": [
+     23.02,
+     18.36,
+     55.38,
+     49.35,
+     20.15,
+     50.2,
+     56.52,
+     55.07,
+     46.49,
+     53.07,
+     10.43,
+     55.37,
+     11.16,
+     32.54,
+     33.2,
+     46.84,
+     51.34
+    ],
+    "perReplayPlus1Pct": [
+     7.27,
+     9.41,
+     4.48,
+     5.93,
+     1.59,
+     10.17,
+     2.2,
+     3.61,
+     5.12,
+     14.76,
+     15.79,
+     2.64,
+     18.24,
+     7.95,
+     2.26,
+     1.69,
+     3.82
+    ]
+   }
+  },
+  "Bouncer": {
+   "t0-500": {
+    "eventFree": 248383,
+    "eventFreeSharePct": 6.5,
+    "plus1Pct": 86.69,
+    "plus1PctBelow50": 90.01,
+    "otherPct": 5.18,
+    "medianColonyGainPerTick": 74.39,
+    "perReplayGainPerTick": [
+     58.67,
+     68.76,
+     27.09,
+     90.19,
+     105.91,
+     80.02
+    ],
+    "perReplayPlus1Pct": [
+     90.38,
+     86.2,
+     66.92,
+     82.53,
+     89.48,
+     95.31
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 187632,
+    "eventFreeSharePct": 5.5,
+    "plus1Pct": 84.72,
+    "plus1PctBelow50": 92.05,
+    "otherPct": 3.35,
+    "medianColonyGainPerTick": 63.22,
+    "perReplayGainPerTick": [
+     61.78,
+     76.01,
+     30.61,
+     63.22,
+     92.96
+    ],
+    "perReplayPlus1Pct": [
+     87.44,
+     83.98,
+     67.27,
+     73.95,
+     99.93
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 206578,
+    "eventFreeSharePct": 3.3,
+    "plus1Pct": 95.41,
+    "plus1PctBelow50": 97.7,
+    "otherPct": 1.28,
+    "medianColonyGainPerTick": 26.48,
+    "perReplayGainPerTick": [
+     50.57,
+     2.39,
+     1.68,
+     107.74
+    ],
+    "perReplayPlus1Pct": [
+     95.35,
+     59.63,
+     58.66,
+     99.93
+    ]
+   }
+  },
+  "Brawler": {
+   "t0-500": {
+    "eventFree": 310238,
+    "eventFreeSharePct": 7.0,
+    "plus1Pct": 89.33,
+    "plus1PctBelow50": 91.58,
+    "otherPct": 5.35,
+    "medianColonyGainPerTick": 77.08,
+    "perReplayGainPerTick": [
+     70.59,
+     106.21,
+     51.17,
+     77.08,
+     78.79,
+     99.26,
+     71.16
+    ],
+    "perReplayPlus1Pct": [
+     92.62,
+     95.1,
+     81.7,
+     88.01,
+     89.63,
+     89.19,
+     85.56
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 190663,
+    "eventFreeSharePct": 6.1,
+    "plus1Pct": 82.1,
+    "plus1PctBelow50": 89.83,
+    "otherPct": 3.46,
+    "medianColonyGainPerTick": 34.4,
+    "perReplayGainPerTick": [
+     45.47,
+     97.7,
+     12.02,
+     34.4,
+     80.81,
+     32.71,
+     32.64
+    ],
+    "perReplayPlus1Pct": [
+     77.41,
+     98.98,
+     59.94,
+     70.75,
+     90.72,
+     63.92,
+     65.08
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 371611,
+    "eventFreeSharePct": 3.8,
+    "plus1Pct": 95.16,
+    "plus1PctBelow50": 97.36,
+    "otherPct": 0.78,
+    "medianColonyGainPerTick": 39.52,
+    "perReplayGainPerTick": [
+     0.01,
+     97.78,
+     0.0,
+     79.03
+    ],
+    "perReplayPlus1Pct": [
+     16.67,
+     99.07,
+     5.56,
+     90.77
+    ]
+   }
+  },
+  "Brawler v2": {
+   "t0-500": {
+    "eventFree": 217972,
+    "eventFreeSharePct": 5.8,
+    "plus1Pct": 90.5,
+    "plus1PctBelow50": 92.05,
+    "otherPct": 4.63,
+    "medianColonyGainPerTick": 45.69,
+    "perReplayGainPerTick": [
+     47.72,
+     23.36,
+     92.48,
+     43.66,
+     20.02,
+     61.41,
+     25.38,
+     80.51
+    ],
+    "perReplayPlus1Pct": [
+     96.65,
+     84.15,
+     97.09,
+     95.77,
+     93.11,
+     84.1,
+     73.98,
+     90.31
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 261758,
+    "eventFreeSharePct": 4.5,
+    "plus1Pct": 94.75,
+    "plus1PctBelow50": 96.75,
+    "otherPct": 1.63,
+    "medianColonyGainPerTick": 76.41,
+    "perReplayGainPerTick": [
+     111.96,
+     1.48,
+     119.4,
+     48.19,
+     18.46,
+     76.41,
+     120.11
+    ],
+    "perReplayPlus1Pct": [
+     97.79,
+     37.78,
+     99.63,
+     99.74,
+     98.26,
+     84.36,
+     94.14
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 859329,
+    "eventFreeSharePct": 3.9,
+    "plus1Pct": 94.69,
+    "plus1PctBelow50": 97.59,
+    "otherPct": 0.68,
+    "medianColonyGainPerTick": 89.84,
+    "perReplayGainPerTick": [
+     124.26,
+     123.54,
+     48.46,
+     18.19,
+     56.15,
+     123.99
+    ],
+    "perReplayPlus1Pct": [
+     95.4,
+     95.82,
+     99.88,
+     99.16,
+     78.24,
+     95.41
+    ]
+   }
+  },
+  "Bulwark": {
+   "t0-500": {
+    "eventFree": 14962,
+    "eventFreeSharePct": 71.3,
+    "plus1Pct": 21.67,
+    "plus1PctBelow50": 68.82,
+    "otherPct": 0.48,
+    "medianColonyGainPerTick": 2.15,
+    "perReplayGainPerTick": [
+     1.93,
+     2.15,
+     2.4
+    ],
+    "perReplayPlus1Pct": [
+     41.36,
+     13.83,
+     24.81
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 9103,
+    "eventFreeSharePct": 75.9,
+    "plus1Pct": 2.11,
+    "plus1PctBelow50": 100.0,
+    "otherPct": 0.0,
+    "medianColonyGainPerTick": 0.38,
+    "perReplayGainPerTick": [
+     0.38
+    ],
+    "perReplayPlus1Pct": [
+     2.11
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 36406,
+    "eventFreeSharePct": 75.8,
+    "plus1Pct": 2.24,
+    "plus1PctBelow50": 100.0,
+    "otherPct": 0.0,
+    "medianColonyGainPerTick": 0.41,
+    "perReplayGainPerTick": [
+     0.41
+    ],
+    "perReplayPlus1Pct": [
+     2.24
+    ]
+   }
+  },
+  "Hunter": {
+   "t0-500": {
+    "eventFree": 70957,
+    "eventFreeSharePct": 92.1,
+    "plus1Pct": 13.87,
+    "plus1PctBelow50": 13.9,
+    "otherPct": 2.47,
+    "medianColonyGainPerTick": 3.93,
+    "perReplayGainPerTick": [
+     12.21,
+     3.93,
+     3.55
+    ],
+    "perReplayPlus1Pct": [
+     15.38,
+     34.93,
+     6.92
+    ]
+   }
+  },
+  "Medic": {
+   "t0-500": {
+    "eventFree": 78740,
+    "eventFreeSharePct": 95.9,
+    "plus1Pct": 11.52,
+    "plus1PctBelow50": 11.52,
+    "otherPct": 2.41,
+    "medianColonyGainPerTick": 9.07,
+    "perReplayGainPerTick": [
+     10.8,
+     7.35
+    ],
+    "perReplayPlus1Pct": [
+     9.22,
+     18.21
+    ]
+   }
+  },
+  "Noob": {
+   "t0-500": {
+    "eventFree": 300062,
+    "eventFreeSharePct": 90.6,
+    "plus1Pct": 6.88,
+    "plus1PctBelow50": 6.88,
+    "otherPct": 1.72,
+    "medianColonyGainPerTick": 8.71,
+    "perReplayGainPerTick": [
+     6.28,
+     3.81,
+     9.25,
+     13.24,
+     8.71
+    ],
+    "perReplayPlus1Pct": [
+     7.45,
+     13.24,
+     13.49,
+     4.67,
+     6.46
+    ]
+   }
+  },
+  "Noob+": {
+   "t0-500": {
+    "eventFree": 128456,
+    "eventFreeSharePct": 5.6,
+    "plus1Pct": 87.24,
+    "plus1PctBelow50": 88.52,
+    "otherPct": 7.72,
+    "medianColonyGainPerTick": 27.31,
+    "perReplayGainPerTick": [
+     88.69,
+     10.78,
+     36.69,
+     53.76,
+     16.29,
+     17.92
+    ],
+    "perReplayPlus1Pct": [
+     91.08,
+     86.23,
+     82.4,
+     87.57,
+     84.77,
+     81.87
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 58172,
+    "eventFreeSharePct": 3.2,
+    "plus1Pct": 95.58,
+    "plus1PctBelow50": 97.94,
+    "otherPct": 1.31,
+    "medianColonyGainPerTick": 11.04,
+    "perReplayGainPerTick": [
+     97.19,
+     2.97,
+     11.04
+    ],
+    "perReplayPlus1Pct": [
+     97.24,
+     83.51,
+     85.96
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 149257,
+    "eventFreeSharePct": 2.7,
+    "plus1Pct": 98.09,
+    "plus1PctBelow50": 99.78,
+    "otherPct": 0.23,
+    "medianColonyGainPerTick": 51.67,
+    "perReplayGainPerTick": [
+     103.31,
+     0.04
+    ],
+    "perReplayPlus1Pct": [
+     98.1,
+     67.86
+    ]
+   }
+  },
+  "Noob++": {
+   "t0-500": {
+    "eventFree": 210420,
+    "eventFreeSharePct": 8.3,
+    "plus1Pct": 97.37,
+    "plus1PctBelow50": 98.35,
+    "otherPct": 0.79,
+    "medianColonyGainPerTick": 107.06,
+    "perReplayGainPerTick": [
+     115.33,
+     120.1,
+     75.55,
+     98.8
+    ],
+    "perReplayPlus1Pct": [
+     95.97,
+     98.5,
+     97.99,
+     97.21
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 180986,
+    "eventFreeSharePct": 7.3,
+    "plus1Pct": 97.06,
+    "plus1PctBelow50": 98.41,
+    "otherPct": 0.6,
+    "medianColonyGainPerTick": 109.15,
+    "perReplayGainPerTick": [
+     124.43,
+     130.59,
+     2.43,
+     93.88
+    ],
+    "perReplayPlus1Pct": [
+     95.75,
+     98.27,
+     95.97,
+     97.19
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 326632,
+    "eventFreeSharePct": 9.4,
+    "plus1Pct": 96.96,
+    "plus1PctBelow50": 98.04,
+    "otherPct": 0.82,
+    "medianColonyGainPerTick": 72.94,
+    "perReplayGainPerTick": [
+     83.15,
+     72.94,
+     29.47
+    ],
+    "perReplayPlus1Pct": [
+     96.04,
+     98.56,
+     97.17
+    ]
+   }
+  },
+  "Random": {
+   "t0-500": {
+    "eventFree": 16055,
+    "eventFreeSharePct": 43.9,
+    "plus1Pct": 35.02,
+    "plus1PctBelow50": 35.04,
+    "otherPct": 4.01,
+    "medianColonyGainPerTick": 5.62,
+    "perReplayGainPerTick": [
+     5.87,
+     5.37
+    ],
+    "perReplayPlus1Pct": [
+     31.5,
+     39.9
+    ]
+   }
+  },
+  "Sprint": {
+   "t0-500": {
+    "eventFree": 10840267,
+    "eventFreeSharePct": 96.8,
+    "plus1Pct": 14.99,
+    "plus1PctBelow50": 96.72,
+    "otherPct": 0.39,
+    "medianColonyGainPerTick": 177.48,
+    "perReplayGainPerTick": [
+     253.72,
+     145.45,
+     177.48,
+     69.68,
+     170.4,
+     203.34,
+     173.5,
+     290.47,
+     270.66,
+     218.49,
+     290.93,
+     152.77,
+     134.43,
+     262.43,
+     265.09,
+     84.43,
+     85.58
+    ],
+    "perReplayPlus1Pct": [
+     14.43,
+     17.89,
+     15.38,
+     12.71,
+     12.38,
+     16.36,
+     13.38,
+     14.98,
+     14.84,
+     13.15,
+     15.93,
+     19.76,
+     12.68,
+     17.39,
+     17.3,
+     13.25,
+     11.76
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 19864537,
+    "eventFreeSharePct": 97.9,
+    "plus1Pct": 2.46,
+    "plus1PctBelow50": 95.67,
+    "otherPct": 0.09,
+    "medianColonyGainPerTick": 47.0,
+    "perReplayGainPerTick": [
+     71.93,
+     38.42,
+     86.84,
+     38.78,
+     34.97,
+     72.01,
+     47.0,
+     118.42,
+     36.16,
+     0.29,
+     74.25,
+     153.99,
+     0.04,
+     129.8,
+     110.65,
+     40.51,
+     22.87
+    ],
+    "perReplayPlus1Pct": [
+     2.04,
+     2.87,
+     2.86,
+     4.06,
+     1.7,
+     2.35,
+     2.01,
+     3.83,
+     0.94,
+     0.01,
+     1.92,
+     6.23,
+     0.0,
+     3.39,
+     2.92,
+     2.77,
+     1.81
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 52493173,
+    "eventFreeSharePct": 98.0,
+    "plus1Pct": 0.71,
+    "plus1PctBelow50": 94.85,
+    "otherPct": 0.04,
+    "medianColonyGainPerTick": 14.81,
+    "perReplayGainPerTick": [
+     31.29,
+     47.1,
+     52.91,
+     18.43,
+     43.84,
+     1.29,
+     14.16,
+     15.46,
+     6.69,
+     0.03,
+     58.76,
+     0.04,
+     13.58,
+     13.7
+    ],
+    "perReplayPlus1Pct": [
+     0.78,
+     1.65,
+     1.39,
+     1.31,
+     1.35,
+     0.04,
+     0.56,
+     0.38,
+     0.16,
+     0.0,
+     1.72,
+     0.0,
+     0.6,
+     0.63
+    ]
+   }
+  },
+  "Walker": {
+   "t0-500": {
+    "eventFree": 409638,
+    "eventFreeSharePct": 95.1,
+    "plus1Pct": 8.89,
+    "plus1PctBelow50": 8.89,
+    "otherPct": 2.03,
+    "medianColonyGainPerTick": 12.41,
+    "perReplayGainPerTick": [
+     12.41,
+     5.41,
+     15.75,
+     1.6,
+     2.49,
+     20.23,
+     14.96
+    ],
+    "perReplayPlus1Pct": [
+     15.58,
+     14.51,
+     7.33,
+     28.93,
+     33.55,
+     7.57,
+     7.22
+    ]
+   }
+  },
+  "choochoo": {},
+  "gemAlert_v3": {
+   "t0-500": {
+    "eventFree": 262809,
+    "eventFreeSharePct": 90.5,
+    "plus1Pct": 24.17,
+    "plus1PctBelow50": 95.13,
+    "otherPct": 0.94,
+    "medianColonyGainPerTick": 21.04,
+    "perReplayGainPerTick": [
+     18.11,
+     87.88,
+     21.04
+    ],
+    "perReplayPlus1Pct": [
+     43.54,
+     19.6,
+     58.81
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 12823,
+    "eventFreeSharePct": 73.1,
+    "plus1Pct": 1.43,
+    "plus1PctBelow50": 82.88,
+    "otherPct": 0.18,
+    "medianColonyGainPerTick": 0.37,
+    "perReplayGainPerTick": [
+     0.37
+    ],
+    "perReplayPlus1Pct": [
+     1.43
+    ]
+   }
+  },
+  "gemAlert_v4": {
+   "t0-500": {
+    "eventFree": 749891,
+    "eventFreeSharePct": 91.1,
+    "plus1Pct": 23.25,
+    "plus1PctBelow50": 96.13,
+    "otherPct": 0.67,
+    "medianColonyGainPerTick": 92.59,
+    "perReplayGainPerTick": [
+     96.24,
+     88.93,
+     127.64,
+     35.96
+    ],
+    "perReplayPlus1Pct": [
+     18.78,
+     36.21,
+     20.3,
+     31.79
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 132145,
+    "eventFreeSharePct": 87.3,
+    "plus1Pct": 0.09,
+    "plus1PctBelow50": 87.69,
+    "otherPct": 0.01,
+    "medianColonyGainPerTick": 0.11,
+    "perReplayGainPerTick": [
+     0.23,
+     0.0
+    ],
+    "perReplayPlus1Pct": [
+     0.42,
+     0.0
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 907,
+    "eventFreeSharePct": 65.1,
+    "plus1Pct": 0.0,
+    "plus1PctBelow50": null,
+    "otherPct": 0.0,
+    "medianColonyGainPerTick": 0.0,
+    "perReplayGainPerTick": [
+     0.0
+    ],
+    "perReplayPlus1Pct": [
+     0.0
+    ]
+   }
+  },
+  "rooby": {
+   "t0-500": {
+    "eventFree": 2383392,
+    "eventFreeSharePct": 93.7,
+    "plus1Pct": 14.79,
+    "plus1PctBelow50": 95.36,
+    "otherPct": 0.37,
+    "medianColonyGainPerTick": 100.9,
+    "perReplayGainPerTick": [
+     122.87,
+     58.14,
+     243.58,
+     129.69,
+     78.94,
+     71.83
+    ],
+    "perReplayPlus1Pct": [
+     16.99,
+     15.33,
+     14.25,
+     13.99,
+     16.06,
+     13.39
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 2581384,
+    "eventFreeSharePct": 92.7,
+    "plus1Pct": 0.83,
+    "plus1PctBelow50": 84.79,
+    "otherPct": 0.05,
+    "medianColonyGainPerTick": 4.85,
+    "perReplayGainPerTick": [
+     2.85,
+     6.69,
+     13.1,
+     16.7,
+     3.0,
+     0.74
+    ],
+    "perReplayPlus1Pct": [
+     0.72,
+     1.62,
+     0.51,
+     1.52,
+     1.44,
+     0.16
+    ]
+   },
+   "t1000-end": {
+    "eventFree": 7774085,
+    "eventFreeSharePct": 91.7,
+    "plus1Pct": 1.14,
+    "plus1PctBelow50": 90.6,
+    "otherPct": 0.06,
+    "medianColonyGainPerTick": 1.31,
+    "perReplayGainPerTick": [
+     0.79,
+     19.18,
+     1.76,
+     21.8,
+     0.86,
+     0.35
+    ],
+    "perReplayPlus1Pct": [
+     1.36,
+     1.64,
+     0.16,
+     1.51,
+     4.61,
+     0.1
+    ]
+   }
+  },
+  "squirtle": {
+   "t0-500": {
+    "eventFree": 232527,
+    "eventFreeSharePct": 92.6,
+    "plus1Pct": 8.05,
+    "plus1PctBelow50": 8.07,
+    "otherPct": 1.84,
+    "medianColonyGainPerTick": 9.4,
+    "perReplayGainPerTick": [
+     11.51,
+     14.4,
+     4.25,
+     7.29
+    ],
+    "perReplayPlus1Pct": [
+     6.9,
+     6.96,
+     25.78,
+     9.72
+    ]
+   }
+  },
+  "zergling": {
+   "t0-500": {
+    "eventFree": 674818,
+    "eventFreeSharePct": 47.1,
+    "plus1Pct": 12.0,
+    "plus1PctBelow50": 12.13,
+    "otherPct": 1.96,
+    "medianColonyGainPerTick": 24.45,
+    "perReplayGainPerTick": [
+     13.41,
+     24.78,
+     26.45,
+     23.79,
+     24.12,
+     24.45,
+     25.02
+    ],
+    "perReplayPlus1Pct": [
+     42.79,
+     17.29,
+     6.38,
+     14.05,
+     29.49,
+     6.51,
+     18.78
+    ]
+   },
+   "t500-1000": {
+    "eventFree": 21,
+    "eventFreeSharePct": 40.4,
+    "plus1Pct": 0.0,
+    "plus1PctBelow50": 0.0,
+    "otherPct": 0.0,
+    "medianColonyGainPerTick": 0.0,
+    "perReplayGainPerTick": [
+     0.0
+    ],
+    "perReplayPlus1Pct": [
+     0.0
+    ]
+   }
+  }
+ }
+}
