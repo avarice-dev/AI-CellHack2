@@ -120,6 +120,26 @@ def _med(xs):
     return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
 
 
+# Finish-line land check (2026-11-08): the 6 modelled rivals with the most colonies over the 63 matches.
+LAND_CELLS = ('AtomPush', 'AtomCrasher', 'Brawler v2', 'Brawler', 'Aegis', 'Noob+')
+
+
+def land_check(real_items, sim_items, cells=LAND_CELLS):
+    """Per cell: (cell, real min, real max, sim median, ok) of the population change t500 -> end as a fraction
+    of t500 (colonies with pop > 0 at t500); ok = the sim median lies inside the real [min, max].
+    items: [(cell name, opponents, colony metrics)] as for pool().  Cells with no real or sim colony are left out."""
+    def chg(items, n):
+        return [(m['pend'] - m['p500']) / m['p500'] for c, _, m in items if c == n and m['p500']]
+    out = []
+    for n in cells:
+        r, s = chg(real_items, n), chg(sim_items, n)
+        if not r or not s:
+            continue
+        med = round(_med(s), 6)
+        out.append((n, min(r), max(r), med, min(r) <= med <= max(r)))
+    return out
+
+
 def _pct(a, b):
     return '-' if not b else '%.0f' % (100.0 * a / b)
 
@@ -208,6 +228,11 @@ def main(argv=None):
     if args.models:
         print('models override:', args.models)
     report(pool(ri), pool(si))
+    lc = land_check(ri, si)
+    print('\nLand check (pop change t500 -> end, sim median inside the real range; %d of %d pass):'
+          % (sum(x[4] for x in lc), len(lc)))
+    for n, lo, hi, med, ok in lc:
+        print('  %-4s %-12s real %+.2f .. %+.2f   sim median %+.2f' % ('ok' if ok else 'FAIL', n, lo, hi, med))
     cmp = V.compare(table, res)
     V.print_report(cmp)
     for label, idset in (('FIT', fit), ('TEST', test)):

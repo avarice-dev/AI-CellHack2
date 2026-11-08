@@ -25,9 +25,15 @@ class MetricsTest(unittest.TestCase):
         self.assertEqual((m[1]['p500'], m[1]['pend']), (100, 50))
         self.assertEqual(m[0]['span'], [500, 500, 620])
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_land_check_sim_median_inside_real_range(self):
+        def m(p500, pend):
+            return {'p500': p500, 'pend': pend}
+        real = [('A', None, m(100, 0)), ('A', None, m(100, 50)), ('B', None, m(100, 100)), ('B', None, m(0, 0))]
+        sim = [('A', None, m(100, 40)), ('A', None, m(100, 20)), ('B', None, m(100, 150))]
+        rows = T.land_check(real, sim, ('A', 'B', 'C'))
+        self.assertEqual(rows[0], ('A', -1.0, -0.5, -0.7, True))     # median of -0.6 / -0.8 inside [-1, -0.5]
+        self.assertEqual(rows[1], ('B', 0.0, 0.0, 0.5, False))
+        self.assertEqual(len(rows), 2)                                # C: no colonies, left out
 
 
 class LoadRealTest(unittest.TestCase):
@@ -42,3 +48,7 @@ class LoadRealTest(unittest.TestCase):
             self.assertIsNotNone(r, m)
             self.assertEqual(len(r), 4)
         self.assertEqual(T.load_real(103128)[0]['pend'], 2957)
+
+
+if __name__ == '__main__':
+    unittest.main()
