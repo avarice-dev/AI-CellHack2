@@ -2,7 +2,10 @@
 Python reference in Unicorn.  Run inside WSL (needs nasm; Unicorn optional):
 
     cd <repo root, as seen from WSL>
-    $HOME/cellhack-venv/bin/python cells/check_cells.py           # assemble + static checks (+ diff if unicorn)
+    python3 cells/check_cells.py           # assemble + static checks (+ diff if unicorn is importable)
+
+(Unicorn: `pip install -r requirements-checker.txt` in a virtual environment; see README.md.)  The shelved VEX cells
+(EXPECTED_FAIL: woe, conceit, endemic) are reported as expected failures; the exit code is 0 when only they fail.
 
 For each cells/*.asm and cells/calib/*.asm a temp copy is built as
     bits 64 / org 0x00100000 / default rel / <docs/cellhack.inc> / <the source> / [map symbols ...]
@@ -48,7 +51,11 @@ STACK_BASE, STACK_SIZE = 0x200000, 0x4000
 VIEW_BASE, CELLMEM_BASE, EXIT_ADDR = 0x300000, 0x310000, 0x400000
 VALID = {0x00, 0x01} | {b + d for b in (0x10, 0x20, 0x30, 0x40) for d in range(4)}
 
-problems = []
+problems = []        # (cell name, message)
+CURRENT = ['']       # the cell being checked, for fail()
+# Shelved VEX cells: the site runs their VEX compares wrongly (calib-s), so the checker flags them on purpose.
+# Their problems are reported as expected failures and do not fail the run.
+EXPECTED_FAIL = {'woe', 'conceit', 'endemic'}
 
 # Instructions a cell may use: all run on the site (data/site-observations-2026-11-08.md, "VEX" and "calib-f").
 # Not allowed there (fault): popcnt, SSSE3 (pshufb), SSE4.1 (ptest), SSE4.2 (crc32), BMI1/2, AVX2 ymm and the VEX
@@ -109,7 +116,7 @@ def check_isa(name, src, vex):
 
 
 def fail(msg):
-    problems.append(msg)
+    problems.append((CURRENT[0], msg))
     print('  FAIL', msg)
 
 
@@ -568,6 +575,7 @@ def main():
     if have_uc:
         vex_selftest()
     for p in files:
+        CURRENT[0] = os.path.splitext(os.path.basename(p))[0]
         res = assemble(p)
         if not res:
             continue
@@ -613,8 +621,24 @@ def main():
                     print('  unicorn: faults (%s); calibration cell, not a cell problem' % e)
                     continue
                 print('  unicorn: rax=0x%x -> action 0x%02x, %d instructions (Unicorn hook count)' % (rax, act, n))
-    print('\n%s' % ('ALL CHECKS PASSED' if not problems else '%d PROBLEM(S)' % len(problems)))
-    return 1 if problems else 0
+    text, code = verdict(problems)
+    print('\n' + text)
+    return code
+
+
+def verdict(probs):
+    '''(summary text, exit code) for a list of (cell, message).  Problems of EXPECTED_FAIL cells only: exit 0.'''
+    exp = [p for p in probs if p[0] in EXPECTED_FAIL]
+    real = [p for p in probs if p[0] not in EXPECTED_FAIL]
+    lines = []
+    if exp:
+        lines.append('%d EXPECTED FAILURE(S) in the shelved VEX cells (%s; broken on the site, not submitted)'
+                     % (len(exp), ', '.join(sorted({c for c, _ in exp}))))
+    if real:
+        lines.append('%d PROBLEM(S) in: %s' % (len(real), ', '.join(sorted({c for c, _ in real}))))
+    else:
+        lines.append('ALL OTHER CHECKS PASSED' if exp else 'ALL CHECKS PASSED')
+    return '\n'.join(lines), 1 if real else 0
 
 
 if __name__ == '__main__':

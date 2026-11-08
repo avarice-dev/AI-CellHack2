@@ -228,7 +228,7 @@ The checker is `cells/check_cells.py`. It runs in a Linux shell, which is WSL on
 - It runs static checks. NASM must assemble the source. The source must be under 64 KB. The file may not contain forbidden directives. Every instruction must be on the allowed list. Every table entry must point to a valid label.
 - It runs an emulator comparison. Unicorn runs the cell and the Python reference on the same inputs, and the results must match. An emulator is a program that runs machine code in software. For Sprint, the inputs covered every combination of the four neighbour types, six energy values, an enemy two squares away or not, and two tick values. Complacency was compared on 200,512 cases with no mismatches.
 - It reports the instruction count of each probe, when Unicorn is installed.
-- It ends with `ALL CHECKS PASSED`, or with a count of problems.
+- It ends with `ALL CHECKS PASSED`, or with a count of problems and the names of the cells that failed. The shelved VEX cells Woe, Conceit and Endemic always fail. Their problems are listed as expected failures, and the run then ends with `ALL OTHER CHECKS PASSED`. The exit code is 1 only when another cell fails.
 
 The allowed list matters. Unicorn runs instructions that the site rejects, such as `popcnt`. The checker therefore rejects those instructions in any cell. Passing the checker does not show that a cell works on the site, so the last check is the Sandbox. The Sandbox runs a saved cell against up to three opponents on a 16 by 16 board for 500 ticks. Each match page shows the average and maximum instructions per call, and a log of any faults. Complacency's two Sandbox games reported no faults, with an average of 39 instructions per call and a maximum of 53.
 

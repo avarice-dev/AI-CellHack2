@@ -58,7 +58,7 @@ The checker does these things:
 - **Static checks.** The source is under 64 KB. The binary is under the size limit. There are no forbidden directives. Tables hold only valid actions. Table entries point to valid labels. Each cell uses only the instructions in an allowed list.
 - **Emulator comparison.** Unicorn runs each cell and the Python reference on the same inputs, and the results must match. For Sprint, the inputs cover every combination of the four neighbour types, six energy values, an enemy two squares away on or off, and two tick values. The same kind of comparison runs for each later cell, with more inputs for the later rules.
 - **Calibration probes.** With Unicorn installed, the instruction count of each probe in `cells/calib/` is reported.
-- **Result.** A full run ends with `ALL CHECKS PASSED`, or with a count of problems.
+- **Result.** A full run ends with `ALL CHECKS PASSED`, or with a count of problems and the names of the cells that failed. The shelved VEX cells Woe, Conceit and Endemic always fail. Their problems are listed as expected failures, and the run then ends with `ALL OTHER CHECKS PASSED`. The exit code is 1 only when another cell fails.
 
 The allowed-instruction list matters. Unicorn can run instructions that the site does not support, such as `popcnt` and the SSE4 and BMI sets. The checker therefore rejects them in any cell. Probes showed that the site faults on them.
 

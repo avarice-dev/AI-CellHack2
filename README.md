@@ -30,8 +30,17 @@ Run these commands from the root of the repository.
    python batch.py --set rivals
    ```
 
-3. Check the cells. Run this in a Linux shell, or in WSL on Windows. NASM, the assembler, must be installed. The Unicorn emulator is optional. At present the run ends with `3 PROBLEM(S)`. The three problems are the VEX cells Woe, Conceit and Endemic. The site runs their VEX compares incorrectly, so the checker flags them on purpose, and they are not submitted. Any other problem is a real failure.
+3. Check the cells. Run this in a Linux shell, or in WSL on Windows. NASM, the assembler, must be installed. The Unicorn emulator is optional. Without it, the checker skips the instruction-count and reference checks.
+
+   Install NASM with the system package manager. On Ubuntu or WSL: `sudo apt install nasm`. On Windows, `winget install NASM.NASM` installs NASM, but the checker has been run only in Linux and in WSL. Install Unicorn in a virtual environment, from `requirements-checker.txt`:
 
    ```
+   python3 -m venv .venv-checker
+   . .venv-checker/bin/activate
+   pip install -r requirements-checker.txt
    python3 cells/check_cells.py
    ```
+
+   Versions known to work: NASM 3.01, Unicorn 2.1.4, Python 3.12 (Python 3.14 also works). The VEX cells Woe, Conceit and Endemic always fail the check. The site runs their VEX compares incorrectly, so the checker flags them on purpose, and they are not submitted. The checker reports their problems as expected failures (3 without Unicorn, 33 with Unicorn). It ends with `ALL OTHER CHECKS PASSED` and exit code 0 when only these cells fail. Any problem in another cell is a real failure: the checker prints `PROBLEM(S) in:` with the cell names, and exits with code 1.
+
+4. Use the replay tools. The replays are not in the repository. To decode replays, do your own pull first: see "Doing your own pull" in [data-pulls.md](architecture/data-pulls.md). The tools without replays (for example `python -I tools/pull3/tab.py`) run on the stored match lists.

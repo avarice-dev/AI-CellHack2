@@ -1,0 +1,3 @@
+# Optional emulator for cells/check_cells.py (the instruction-count and reference diffs).
+# Known to work: unicorn 2.1.4 with Python 3.12 / 3.14 and NASM 3.01 (NASM is installed with the system package manager).
+unicorn==2.1.4
