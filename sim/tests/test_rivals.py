@@ -412,3 +412,36 @@ class SlowPathPadTest(unittest.TestCase):
 
     def test_ratompush_split_after_pad(self):
         self.check('ratompush[split_after=2]', 'ratompush[split_after=2,pad=7]', 7)
+
+
+class PumpSplitAfterTest(unittest.TestCase):
+    """rpump[split_after=k] (2026-11-08): the split check comes after the first k direction checks, as
+    in ratompush.  Replay birth order (t >= 300, FIT): Brawler / Brawler v2 / Bouncer births precede
+    Sprint's (19-23) in 100% of shared ticks, so their refill is <= 18, not the model's 21."""
+
+    def pol(self, k=2):
+        return policies.get('rpump[hold=none,target=richest,pump_min=5,pump_target_max=50,split_after=%d]' % k)
+
+    def test_first_bites_unchanged(self):
+        p = self.pol()
+        self.assertEqual(p(FakeView(9, cells=nb(up=EN)), bytearray(64))[:2], (0x30, 4))
+        self.assertEqual(p(FakeView(9, cells=nb(left=EN)), bytearray(64))[:2], (0x33, 6))
+
+    def test_split_at_17_before_right_down_bites(self):
+        p = self.pol()
+        a = p(FakeView(9, cells=nb(right=EN)), bytearray(64))
+        self.assertEqual(a[0] & 0xF0, E.ACT_SPLIT)
+        self.assertEqual(a[1], 17)
+        self.assertEqual(self.pol(3)(FakeView(9, cells=nb(down=EN)), bytearray(64))[1], 19)
+
+    def test_boxed_in_bites_late_then_pumps(self):
+        p = self.pol()
+        v = FakeView(20, fill=FR, fill_e=10, cells=nb(right=EN))
+        self.assertEqual(p(v, bytearray(64))[:2], (0x31, 4 + 8 + 4))     # 2 checks 4, failed split 8, R bite 4
+        v = FakeView(20, fill=FR, fill_e=10)
+        a = p(v, bytearray(64))
+        self.assertEqual(a[0] & 0xF0, E.ACT_FEED)
+
+    def test_rest_below_split_min(self):
+        a = self.pol()(FakeView(3), bytearray(64))
+        self.assertEqual(a[0], REST)

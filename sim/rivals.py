@@ -203,6 +203,11 @@ def _grow_pump(view, c, n, alt, split_min, pump_min, tmax, hold='view', target='
     res, n, alt = _split_or(view, c, n, alt)
     if res is not None:
         return res
+    return _pump_tail(view, c, e, n, alt, pump_min, tmax, hold, target)
+
+
+def _pump_tail(view, c, e, n, alt, pump_min, tmax, hold, target):
+    """_grow_pump after a split check that found no empty neighbour (e >= split_min)."""
     if hold == 'view':
         n += 8
         if CELL_ENEMY in c:
@@ -293,7 +298,7 @@ def _padded(pol, pad):
 # ---- rival families ----------------------------------------------------------------------------------
 def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', split_min=5, feed_min=6,
                   feed_margin=2, feed_target_max=48, pump_min=16, pump_target_max=48, hold='view',
-                  target='richest', pad=0):
+                  target='richest', pad=0, split_after=None):
     """Brawler-like (Striker): static front U, L, R, D (4/6/8/10, measured), split at 5.
 
     feed='poorest': heavy feeding, cells with e >= feed_min feed the poorest friend neighbour when the
@@ -304,6 +309,41 @@ def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', spl
     Pump: rest 13/12; split 21/21; enemy in view 26/24; e < pump_min 28/26; feed 43/42; declined 42/40.
     front='lock': see make_rlock5.
     """
+    if split_after is not None:
+        if front != 'static' or feed != 'pump' or not 0 <= split_after <= 4:
+            raise ValueError('split_after needs the static front, pump feeding and 0..4 checks')
+        checks = parse_order(order)
+        first, rest = checks[:split_after], checks[split_after:]
+
+        def rpump_sa(view, mem):
+            # same layout as ratompush split_after: k checks, split check (refill in 2k + 13), the rest
+            c = view.cells
+            n = 0
+            for i, d in first:
+                if c[i] == CELL_ENEMY:
+                    return ACT_EAT + d, n + 4, n + 3
+                n += 2
+            e = view.energy
+            boxed = False
+            if e < split_min:
+                n, alt = n + 3, n + 2
+            else:
+                r = view.rand & 3
+                for k in (0, 1, 2, 3):
+                    d = (r + k) & 3
+                    if c[NB[d]] == CELL_EMPTY:
+                        return ACT_SPLIT + d, n + 13, n + 13
+                n, alt = n + 8, n + 7
+                boxed = True
+            for i, d in rest:
+                if c[i] == CELL_ENEMY:
+                    return ACT_EAT + d, n + 4, alt + 3
+                n += 2
+                alt += 2
+            if not boxed:
+                return ACT_REST, n + 2, alt + 2
+            return _pump_tail(view, c, e, n, alt, pump_min, pump_target_max, hold, target)
+        return _padded(rpump_sa, pad)
     fr = _make_front(front, order, prearm)
     if feed == 'poorest':
         def rbrawler(view, mem):
