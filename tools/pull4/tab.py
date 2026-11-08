@@ -23,6 +23,7 @@ opp = collections.defaultdict(lambda: [0, 0, 0])        # wins, games, rival won
 beat_by = collections.Counter(); rows = []; h2h = []
 for m in D:
     col = {nm(c['name']): c for c in m['colonies']}
+    if ME not in col: continue          # a pull of several cells: names.json only
     me = col[ME]; pl = int(me['place']); places[pl] += 1; wins += pl == 1
     winner = [n for n, c in col.items() if c['place'] == '1'][0]
     if pl != 1: beat_by[winner] += 1
@@ -33,8 +34,10 @@ for m in D:
     rows.append((m['id'], pl, me['pop'], winner, col[winner]['pop'], a, b))
     if RIVAL in col:
         h2h.append((m['id'], pl, int(col[RIVAL]['place']), winner, me['pop'], col[RIVAL]['pop']))
-n = len(D)
-print(f'Games {n} (ids {D[0]["id"]}-{D[-1]["id"]}); won {wins} ({100*wins/n:.0f}%); places 1/2/3/4: '
+n = len(rows)
+if not n:
+    sys.exit('no games with %s in %s' % (ME, MF))
+print(f'Games {n} (ids {rows[0][0]}-{rows[-1][0]}); won {wins} ({100*wins/n:.0f}%); places 1/2/3/4: '
       + '/'.join(str(places[i]) for i in (1, 2, 3, 4)))
 peak = max(rows, key=lambda r: r[6])
 print(f'Rating {rows[0][5]} -> {rows[-1][6]}; peak in window {peak[6]} after match {peak[0]}')

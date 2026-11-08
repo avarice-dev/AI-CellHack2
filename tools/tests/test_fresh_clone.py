@@ -142,6 +142,28 @@ class TabArgs(Tree):
         res = self.check_args('tools/pull4/tab.py', '--rival', 'Alpha')
         self.assertIn('Foo vs Alpha in the same game: 4 games', res.stdout)
 
+    def check_mixed(self, script, *extra):
+        """A pull of several cells (pull 5): games without --cell are left out of the tables but kept in
+        names.json, so mine.py and valtab.py can name every replay of the pull."""
+        self.copy(script)
+        data = fake_matches('Foo')
+        other = fake_matches('Delta', 1)['matches'][0]
+        other['id'] = 300
+        data['matches'].append(other)
+        mf = self.write_matches('lists/mixed.json', data)
+        res = self.run_tool(script, '--pull', 'pull9', '--cell', 'Foo', '--matches', mf, *extra)
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertIn('Games 4 (ids 200-203); won 2', res.stdout)
+        names = json.load(open(self.path('data', 'pull9', 'names.json'), encoding='utf-8'))
+        self.assertEqual(sorted(names), ['200', '201', '202', '203', '300'])
+        self.assertEqual(names['300'], ['Delta', 'Alpha', 'Beta', 'Gamma'])
+
+    def test_pull3_tab_mixed_list(self):
+        self.check_mixed('tools/pull3/tab.py')
+
+    def test_pull4_tab_mixed_list(self):
+        self.check_mixed('tools/pull4/tab.py', '--rival', 'Alpha')
+
     def check_default(self, script, pull, matches):
         self.copy(script, 'data/%s/%s' % (pull, matches))
         res = self.run_tool(script)
