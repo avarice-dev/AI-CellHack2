@@ -1,0 +1,4787 @@
+{
+"utc": "2026-11-08T22:17:17.724Z",
+"source": "match list (kind=ladder, newest first) pages 1-12",
+"note": "all 480 finished ladder matches seen; id, cells (list order = colony order), winner",
+"matches": [
+{
+"id": 106358,
+"cells": [
+"🧫 Complacency",
+"🧨 Brawler v2",
+"🍬 Noob",
+"🐢 squirtle"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106357,
+"cells": [
+"🤖 Medic",
+"🦠 Contagion",
+"⚓ Aegis",
+"🦘 rooby"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106356,
+"cells": [
+"💎 gemAlert_v3",
+"💎 gemAlert_v4",
+"🚂 choochoo",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106355,
+"cells": [
+"🤖 Random",
+"👾 Noob++",
+"🎂 AtomPush",
+"🧨 Brawler"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106354,
+"cells": [
+"🤖 Walker",
+"🐋 Bulwark",
+"🦂 zergling",
+"🐢 squirtle"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106353,
+"cells": [
+"🦖 Noob+",
+"🍬 Noob",
+"🤖 Medic",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106352,
+"cells": [
+"💎 gemAlert_v4",
+"🤖 Hunter",
+"🦘 rooby",
+"⚓ Aegis"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106351,
+"cells": [
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🧨 Brawler v2",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106350,
+"cells": [
+"👾 Noob++",
+"🤖 Random",
+"🦠 Contagion",
+"🦂 zergling"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106349,
+"cells": [
+"🚂 choochoo",
+"🧨 Brawler",
+"🐋 Bulwark",
+"💎 gemAlert_v3"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106348,
+"cells": [
+"🐢 squirtle",
+"🤖 Walker",
+"🦘 rooby",
+"🤖 Medic"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106347,
+"cells": [
+"🎂 AtomPush",
+"⚓ Aegis",
+"🦖 Noob+",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106346,
+"cells": [
+"🤖 Hunter",
+"🦦 AtomCrasher",
+"🧨 Brawler v2",
+"💣 Bouncer"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106345,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Random",
+"💎 gemAlert_v4",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106344,
+"cells": [
+"🐋 Bulwark",
+"🧨 Brawler",
+"🤖 Walker",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106343,
+"cells": [
+"🦂 zergling",
+"🚂 choochoo",
+"🦘 rooby",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106342,
+"cells": [
+"⚓ Aegis",
+"🤖 Medic",
+"🦖 Noob+",
+"🐢 squirtle"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106341,
+"cells": [
+"💎 gemAlert_v4",
+"🧨 Brawler v2",
+"🍬 Noob",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106340,
+"cells": [
+"🦦 AtomCrasher",
+"💣 Bouncer",
+"🧨 Brawler",
+"💎 gemAlert_v3"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106339,
+"cells": [
+"🦂 zergling",
+"👾 Noob++",
+"🦘 rooby",
+"🤖 Hunter"
+],
+"winner": "🦂 zergling"
+},
+{
+"id": 106338,
+"cells": [
+"🐋 Bulwark",
+"🧫 Complacency",
+"🚂 choochoo",
+"🤖 Random"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106337,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"🦠 Contagion",
+"🤖 Walker"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106336,
+"cells": [
+"💎 gemAlert_v4",
+"🎂 AtomPush",
+"🤖 Medic",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106335,
+"cells": [
+"🤖 Hunter",
+"⚓ Aegis",
+"🦦 AtomCrasher",
+"🧨 Brawler"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106334,
+"cells": [
+"👾 Noob++",
+"💣 Bouncer",
+"🦂 zergling",
+"🧨 Brawler v2"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106333,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Walker",
+"🦘 rooby",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106332,
+"cells": [
+"🦠 Contagion",
+"🤖 Medic",
+"🤖 Random",
+"💎 gemAlert_v4"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106331,
+"cells": [
+"🐋 Bulwark",
+"🚂 choochoo",
+"🦖 Noob+",
+"🧨 Brawler"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106330,
+"cells": [
+"🦦 AtomCrasher",
+"🐢 squirtle",
+"🍬 Noob",
+"🤖 Hunter"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106329,
+"cells": [
+"🦂 zergling",
+"🧫 Complacency",
+"⚓ Aegis",
+"🤖 Random"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106328,
+"cells": [
+"🦘 rooby",
+"💣 Bouncer",
+"🧨 Brawler v2",
+"🎂 AtomPush"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106327,
+"cells": [
+"💎 gemAlert_v3",
+"🧨 Brawler",
+"🦖 Noob+",
+"👾 Noob++"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106326,
+"cells": [
+"🤖 Walker",
+"🤖 Medic",
+"🦦 AtomCrasher",
+"💎 gemAlert_v4"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106325,
+"cells": [
+"🤖 Random",
+"🐢 squirtle",
+"🐋 Bulwark",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106324,
+"cells": [
+"⚓ Aegis",
+"🍬 Noob",
+"🧨 Brawler v2",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106323,
+"cells": [
+"🚂 choochoo",
+"💎 gemAlert_v3",
+"🦂 zergling",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106322,
+"cells": [
+"🤖 Medic",
+"💎 gemAlert_v4",
+"🐢 squirtle",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106321,
+"cells": [
+"🧫 Complacency",
+"🦖 Noob+",
+"👾 Noob++",
+"🤖 Hunter"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106320,
+"cells": [
+"🐋 Bulwark",
+"🦠 Contagion",
+"🦦 AtomCrasher",
+"🧨 Brawler"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106319,
+"cells": [
+"⚓ Aegis",
+"🦘 rooby",
+"🚂 choochoo",
+"🤖 Random"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106318,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Walker",
+"💣 Bouncer",
+"🧨 Brawler v2"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106317,
+"cells": [
+"🦂 zergling",
+"🐋 Bulwark",
+"🤖 Medic",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106316,
+"cells": [
+"🎂 AtomPush",
+"🐢 squirtle",
+"🍬 Noob",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106315,
+"cells": [
+"🤖 Random",
+"🦦 AtomCrasher",
+"🦘 rooby",
+"💎 gemAlert_v4"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106314,
+"cells": [
+"🧨 Brawler v2",
+"🦖 Noob+",
+"💣 Bouncer",
+"⚓ Aegis"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106313,
+"cells": [
+"🤖 Hunter",
+"🐋 Bulwark",
+"🧫 Complacency",
+"🤖 Walker"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106312,
+"cells": [
+"🚂 choochoo",
+"🧨 Brawler",
+"🦂 zergling",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106311,
+"cells": [
+"⚓ Aegis",
+"🦘 rooby",
+"🤖 Medic",
+"🦖 Noob+"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106310,
+"cells": [
+"👾 Noob++",
+"🎂 AtomPush",
+"🍬 Noob",
+"💎 gemAlert_v3"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106309,
+"cells": [
+"💣 Bouncer",
+"🧫 Complacency",
+"🐢 squirtle",
+"🤖 Random"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106308,
+"cells": [
+"🧨 Brawler v2",
+"🚂 choochoo",
+"🤖 Hunter",
+"🤖 Walker"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106307,
+"cells": [
+"🦖 Noob+",
+"🤖 Medic",
+"🦂 zergling",
+"🧨 Brawler"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106306,
+"cells": [
+"🐋 Bulwark",
+"🦦 AtomCrasher",
+"🦠 Contagion",
+"💎 gemAlert_v4"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106305,
+"cells": [
+"🍬 Noob",
+"👾 Noob++",
+"🎂 AtomPush",
+"🐢 squirtle"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106304,
+"cells": [
+"🤖 Walker",
+"🧨 Brawler",
+"🤖 Random",
+"🤖 Hunter"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106303,
+"cells": [
+"🧫 Complacency",
+"🦘 rooby",
+"💎 gemAlert_v3",
+"⚓ Aegis"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106302,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"🚂 choochoo",
+"🦂 zergling"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106301,
+"cells": [
+"🧨 Brawler v2",
+"💎 gemAlert_v4",
+"🐋 Bulwark",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106300,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🤖 Medic",
+"🤖 Hunter"
+],
+"winner": "🤖 Hunter"
+},
+{
+"id": 106299,
+"cells": [
+"👾 Noob++",
+"🤖 Walker",
+"🦠 Contagion",
+"🍬 Noob"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106298,
+"cells": [
+"🎂 AtomPush",
+"🧫 Complacency",
+"🦂 zergling",
+"🦦 AtomCrasher"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106297,
+"cells": [
+"🦘 rooby",
+"💣 Bouncer",
+"🐢 squirtle",
+"🧨 Brawler"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106296,
+"cells": [
+"🧨 Brawler v2",
+"🤖 Hunter",
+"💎 gemAlert_v4",
+"💎 gemAlert_v3"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 106295,
+"cells": [
+"🦂 zergling",
+"🐋 Bulwark",
+"🤖 Medic",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106294,
+"cells": [
+"🦖 Noob+",
+"🚂 choochoo",
+"⚓ Aegis",
+"🍬 Noob"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106293,
+"cells": [
+"🦦 AtomCrasher",
+"🦘 rooby",
+"🤖 Walker",
+"💣 Bouncer"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106292,
+"cells": [
+"🐢 squirtle",
+"🤖 Random",
+"🧫 Complacency",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106291,
+"cells": [
+"🦂 zergling",
+"🤖 Medic",
+"💎 gemAlert_v3",
+"💎 gemAlert_v4"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 106290,
+"cells": [
+"🎂 AtomPush",
+"🤖 Hunter",
+"🐋 Bulwark",
+"🧨 Brawler"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106289,
+"cells": [
+"🦖 Noob+",
+"🦦 AtomCrasher",
+"💣 Bouncer",
+"🧨 Brawler v2"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106288,
+"cells": [
+"🦘 rooby",
+"⚓ Aegis",
+"🧫 Complacency",
+"🚂 choochoo"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106287,
+"cells": [
+"🐢 squirtle",
+"🎂 AtomPush",
+"🐋 Bulwark",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106286,
+"cells": [
+"🤖 Walker",
+"🦖 Noob+",
+"💎 gemAlert_v3",
+"🤖 Random"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106285,
+"cells": [
+"🦠 Contagion",
+"💎 gemAlert_v4",
+"🤖 Medic",
+"👾 Noob++"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106284,
+"cells": [
+"🚂 choochoo",
+"⚓ Aegis",
+"🧨 Brawler",
+"🦂 zergling"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106283,
+"cells": [
+"🤖 Hunter",
+"🐢 squirtle",
+"🧨 Brawler v2",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106282,
+"cells": [
+"🤖 Random",
+"🦠 Contagion",
+"🤖 Walker",
+"💎 gemAlert_v3"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106281,
+"cells": [
+"💣 Bouncer",
+"🦘 rooby",
+"🧫 Complacency",
+"🐋 Bulwark"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106280,
+"cells": [
+"🎂 AtomPush",
+"🚂 choochoo",
+"💎 gemAlert_v4",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106279,
+"cells": [
+"⚓ Aegis",
+"👾 Noob++",
+"🤖 Hunter",
+"🐢 squirtle"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106278,
+"cells": [
+"🦖 Noob+",
+"🦂 zergling",
+"🤖 Walker",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106277,
+"cells": [
+"🚂 choochoo",
+"🤖 Random",
+"🍬 Noob",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106276,
+"cells": [
+"🧫 Complacency",
+"🧨 Brawler",
+"🤖 Medic",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106275,
+"cells": [
+"🦂 zergling",
+"🐋 Bulwark",
+"👾 Noob++",
+"🤖 Hunter"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106274,
+"cells": [
+"💎 gemAlert_v3",
+"💣 Bouncer",
+"⚓ Aegis",
+"💎 gemAlert_v4"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106273,
+"cells": [
+"🎂 AtomPush",
+"🦦 AtomCrasher",
+"🦘 rooby",
+"🦖 Noob+"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106272,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"🤖 Walker",
+"🍬 Noob"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106271,
+"cells": [
+"🚂 choochoo",
+"🦂 zergling",
+"🐋 Bulwark",
+"🤖 Random"
+],
+"winner": "🦂 zergling"
+},
+{
+"id": 106270,
+"cells": [
+"🧨 Brawler v2",
+"👾 Noob++",
+"🧨 Brawler",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106269,
+"cells": [
+"💎 gemAlert_v3",
+"🎂 AtomPush",
+"🦖 Noob+",
+"💎 gemAlert_v4"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106268,
+"cells": [
+"🦂 zergling",
+"🤖 Hunter",
+"💣 Bouncer",
+"🍬 Noob"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106267,
+"cells": [
+"🤖 Medic",
+"🦠 Contagion",
+"🦘 rooby",
+"⚓ Aegis"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106266,
+"cells": [
+"🐢 squirtle",
+"🦖 Noob+",
+"🐋 Bulwark",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106265,
+"cells": [
+"🧨 Brawler",
+"🦦 AtomCrasher",
+"🤖 Walker",
+"🤖 Random"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106264,
+"cells": [
+"🚂 choochoo",
+"🎂 AtomPush",
+"👾 Noob++",
+"🦂 zergling"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106263,
+"cells": [
+"⚓ Aegis",
+"💎 gemAlert_v3",
+"🍬 Noob",
+"🐢 squirtle"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106262,
+"cells": [
+"💎 gemAlert_v4",
+"🦠 Contagion",
+"💣 Bouncer",
+"🧨 Brawler v2"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106261,
+"cells": [
+"🧫 Complacency",
+"🐋 Bulwark",
+"🤖 Walker",
+"🤖 Hunter"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106260,
+"cells": [
+"🤖 Random",
+"🧨 Brawler",
+"🤖 Medic",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106259,
+"cells": [
+"🍬 Noob",
+"🦂 zergling",
+"⚓ Aegis",
+"👾 Noob++"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106258,
+"cells": [
+"💎 gemAlert_v4",
+"🦦 AtomCrasher",
+"🦖 Noob+",
+"💎 gemAlert_v3"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106257,
+"cells": [
+"🎂 AtomPush",
+"🐋 Bulwark",
+"🚂 choochoo",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106256,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"🧫 Complacency",
+"🦘 rooby"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106255,
+"cells": [
+"🤖 Walker",
+"🤖 Hunter",
+"🧨 Brawler",
+"💣 Bouncer"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106254,
+"cells": [
+"⚓ Aegis",
+"🦂 zergling",
+"🦦 AtomCrasher",
+"🤖 Medic"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106253,
+"cells": [
+"🍬 Noob",
+"💎 gemAlert_v3",
+"🤖 Random",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106252,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"👾 Noob++",
+"🚂 choochoo"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106251,
+"cells": [
+"💎 gemAlert_v4",
+"🧫 Complacency",
+"🐋 Bulwark",
+"🦘 rooby"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106250,
+"cells": [
+"🤖 Medic",
+"🤖 Walker",
+"🎂 AtomPush",
+"🧨 Brawler"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106249,
+"cells": [
+"🤖 Hunter",
+"🧨 Brawler v2",
+"🤖 Random",
+"🦠 Contagion"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106248,
+"cells": [
+"💣 Bouncer",
+"👾 Noob++",
+"⚓ Aegis",
+"🦖 Noob+"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106247,
+"cells": [
+"🐢 squirtle",
+"💎 gemAlert_v3",
+"🦂 zergling",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106246,
+"cells": [
+"💎 gemAlert_v4",
+"🤖 Medic",
+"🍬 Noob",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106245,
+"cells": [
+"🤖 Walker",
+"🧨 Brawler v2",
+"🚂 choochoo",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106244,
+"cells": [
+"🦘 rooby",
+"🤖 Random",
+"🤖 Hunter",
+"🐋 Bulwark"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106243,
+"cells": [
+"👾 Noob++",
+"⚓ Aegis",
+"💎 gemAlert_v3",
+"🧨 Brawler"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106242,
+"cells": [
+"🦂 zergling",
+"💎 gemAlert_v4",
+"🦠 Contagion",
+"🦖 Noob+"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106241,
+"cells": [
+"🚂 choochoo",
+"🧫 Complacency",
+"🍬 Noob",
+"💣 Bouncer"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106240,
+"cells": [
+"🤖 Medic",
+"🤖 Walker",
+"🧨 Brawler v2",
+"🤖 Random"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106239,
+"cells": [
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🐢 squirtle",
+"🦘 rooby"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106238,
+"cells": [
+"🐋 Bulwark",
+"🧨 Brawler",
+"🤖 Hunter",
+"💎 gemAlert_v3"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106237,
+"cells": [
+"👾 Noob++",
+"💣 Bouncer",
+"💎 gemAlert_v4",
+"🦂 zergling"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106236,
+"cells": [
+"🤖 Random",
+"🤖 Walker",
+"🐢 squirtle",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106235,
+"cells": [
+"🦖 Noob+",
+"⚓ Aegis",
+"🚂 choochoo",
+"🍬 Noob"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106234,
+"cells": [
+"🧫 Complacency",
+"🤖 Medic",
+"🧨 Brawler v2",
+"🤖 Hunter"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106233,
+"cells": [
+"👾 Noob++",
+"🧨 Brawler",
+"🦘 rooby",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106232,
+"cells": [
+"🎂 AtomPush",
+"🤖 Walker",
+"🐋 Bulwark",
+"🤖 Random"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106231,
+"cells": [
+"🦖 Noob+",
+"🦠 Contagion",
+"💎 gemAlert_v3",
+"💣 Bouncer"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106230,
+"cells": [
+"🦂 zergling",
+"🧫 Complacency",
+"💎 gemAlert_v4",
+"🐢 squirtle"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106229,
+"cells": [
+"⚓ Aegis",
+"🍬 Noob",
+"🧨 Brawler",
+"🚂 choochoo"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106228,
+"cells": [
+"🤖 Random",
+"🦦 AtomCrasher",
+"🤖 Hunter",
+"🤖 Medic"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106227,
+"cells": [
+"🐋 Bulwark",
+"💎 gemAlert_v3",
+"🤖 Walker",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106226,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"🦘 rooby",
+"👾 Noob++"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106225,
+"cells": [
+"🚂 choochoo",
+"💣 Bouncer",
+"🧫 Complacency",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106224,
+"cells": [
+"⚓ Aegis",
+"🤖 Random",
+"🦦 AtomCrasher",
+"🦂 zergling"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106223,
+"cells": [
+"🦖 Noob+",
+"🍬 Noob",
+"🤖 Hunter",
+"🐋 Bulwark"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106222,
+"cells": [
+"🤖 Walker",
+"🦠 Contagion",
+"💎 gemAlert_v4",
+"🦘 rooby"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106221,
+"cells": [
+"🧨 Brawler v2",
+"🦂 zergling",
+"🤖 Medic",
+"🚂 choochoo"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106220,
+"cells": [
+"💣 Bouncer",
+"🎂 AtomPush",
+"🧨 Brawler",
+"🐢 squirtle"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106219,
+"cells": [
+"🤖 Hunter",
+"🧫 Complacency",
+"👾 Noob++",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106218,
+"cells": [
+"🦦 AtomCrasher",
+"🤖 Walker",
+"🍬 Noob",
+"🦖 Noob+"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106217,
+"cells": [
+"⚓ Aegis",
+"🤖 Random",
+"🦘 rooby",
+"🐋 Bulwark"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106216,
+"cells": [
+"🚂 choochoo",
+"💎 gemAlert_v4",
+"🎂 AtomPush",
+"🤖 Medic"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106215,
+"cells": [
+"🦂 zergling",
+"🧨 Brawler",
+"💣 Bouncer",
+"🦖 Noob+"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106214,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"🧨 Brawler v2",
+"🤖 Hunter"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106213,
+"cells": [
+"🦦 AtomCrasher",
+"🤖 Random",
+"🧫 Complacency",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106212,
+"cells": [
+"💎 gemAlert_v4",
+"⚓ Aegis",
+"🍬 Noob",
+"🤖 Walker"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106211,
+"cells": [
+"🐋 Bulwark",
+"👾 Noob++",
+"🚂 choochoo",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106210,
+"cells": [
+"🤖 Medic",
+"🦂 zergling",
+"🤖 Hunter",
+"🐢 squirtle"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106209,
+"cells": [
+"🦠 Contagion",
+"🦘 rooby",
+"🧨 Brawler",
+"💣 Bouncer"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106208,
+"cells": [
+"🧨 Brawler v2",
+"💎 gemAlert_v4",
+"🧫 Complacency",
+"🦖 Noob+"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106207,
+"cells": [
+"🦦 AtomCrasher",
+"👾 Noob++",
+"⚓ Aegis",
+"💎 gemAlert_v3"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106206,
+"cells": [
+"🤖 Random",
+"🎂 AtomPush",
+"🤖 Walker",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106205,
+"cells": [
+"🐋 Bulwark",
+"🦂 zergling",
+"🤖 Medic",
+"🤖 Hunter"
+],
+"winner": "🤖 Hunter"
+},
+{
+"id": 106204,
+"cells": [
+"🧨 Brawler",
+"💎 gemAlert_v3",
+"🐢 squirtle",
+"🦖 Noob+"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106203,
+"cells": [
+"🦘 rooby",
+"💣 Bouncer",
+"🧨 Brawler v2",
+"🚂 choochoo"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106202,
+"cells": [
+"⚓ Aegis",
+"🤖 Random",
+"🤖 Medic",
+"🤖 Hunter"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106201,
+"cells": [
+"🦠 Contagion",
+"💎 gemAlert_v4",
+"👾 Noob++",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106200,
+"cells": [
+"🦂 zergling",
+"🎂 AtomPush",
+"🧨 Brawler",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106199,
+"cells": [
+"💣 Bouncer",
+"🍬 Noob",
+"🤖 Walker",
+"🐢 squirtle"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106198,
+"cells": [
+"🦖 Noob+",
+"🤖 Medic",
+"🚂 choochoo",
+"🤖 Random"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106197,
+"cells": [
+"🤖 Hunter",
+"🐋 Bulwark",
+"🧨 Brawler v2",
+"💎 gemAlert_v3"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106196,
+"cells": [
+"👾 Noob++",
+"🦦 AtomCrasher",
+"💎 gemAlert_v4",
+"🦘 rooby"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106195,
+"cells": [
+"🧨 Brawler",
+"🤖 Walker",
+"🐢 squirtle",
+"🦖 Noob+"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106194,
+"cells": [
+"⚓ Aegis",
+"🦠 Contagion",
+"🧫 Complacency",
+"🍬 Noob"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106193,
+"cells": [
+"🐋 Bulwark",
+"🎂 AtomPush",
+"🤖 Medic",
+"🦂 zergling"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106192,
+"cells": [
+"💣 Bouncer",
+"🦦 AtomCrasher",
+"🤖 Random",
+"🧨 Brawler v2"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106191,
+"cells": [
+"🐢 squirtle",
+"💎 gemAlert_v4",
+"🚂 choochoo",
+"🤖 Hunter"
+],
+"winner": "🤖 Hunter"
+},
+{
+"id": 106190,
+"cells": [
+"⚓ Aegis",
+"🦘 rooby",
+"💎 gemAlert_v3",
+"🍬 Noob"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106189,
+"cells": [
+"👾 Noob++",
+"🧨 Brawler",
+"🤖 Medic",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106188,
+"cells": [
+"🤖 Walker",
+"🧨 Brawler v2",
+"🦖 Noob+",
+"🎂 AtomPush"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106187,
+"cells": [
+"🦦 AtomCrasher",
+"🦂 zergling",
+"🤖 Hunter",
+"💎 gemAlert_v4"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106186,
+"cells": [
+"⚓ Aegis",
+"🐋 Bulwark",
+"🚂 choochoo",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106185,
+"cells": [
+"🤖 Random",
+"💣 Bouncer",
+"👾 Noob++",
+"💎 gemAlert_v3"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106184,
+"cells": [
+"🤖 Medic",
+"🧨 Brawler",
+"🦘 rooby",
+"🐢 squirtle"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106183,
+"cells": [
+"🤖 Hunter",
+"🦖 Noob+",
+"🍬 Noob",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106182,
+"cells": [
+"🤖 Walker",
+"🚂 choochoo",
+"🧫 Complacency",
+"💎 gemAlert_v4"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106181,
+"cells": [
+"🦠 Contagion",
+"💎 gemAlert_v3",
+"⚓ Aegis",
+"🦂 zergling"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106180,
+"cells": [
+"🧨 Brawler v2",
+"🐋 Bulwark",
+"💣 Bouncer",
+"🦦 AtomCrasher"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106179,
+"cells": [
+"👾 Noob++",
+"🤖 Random",
+"🐢 squirtle",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106178,
+"cells": [
+"💎 gemAlert_v3",
+"⚓ Aegis",
+"🧨 Brawler",
+"🤖 Walker"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106177,
+"cells": [
+"🦖 Noob+",
+"🎂 AtomPush",
+"🤖 Hunter",
+"🤖 Medic"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106176,
+"cells": [
+"🦂 zergling",
+"🍬 Noob",
+"💎 gemAlert_v4",
+"🚂 choochoo"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106175,
+"cells": [
+"🤖 Random",
+"💣 Bouncer",
+"🐋 Bulwark",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106174,
+"cells": [
+"💎 gemAlert_v3",
+"🦠 Contagion",
+"🦦 AtomCrasher",
+"🦘 rooby"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106173,
+"cells": [
+"🤖 Walker",
+"🧨 Brawler",
+"👾 Noob++",
+"🦖 Noob+"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106172,
+"cells": [
+"🤖 Hunter",
+"🚂 choochoo",
+"🎂 AtomPush",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106171,
+"cells": [
+"⚓ Aegis",
+"🤖 Random",
+"💎 gemAlert_v4",
+"🐢 squirtle"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106170,
+"cells": [
+"🦦 AtomCrasher",
+"🤖 Medic",
+"🦂 zergling",
+"🍬 Noob"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106169,
+"cells": [
+"👾 Noob++",
+"🦘 rooby",
+"🐋 Bulwark",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106168,
+"cells": [
+"🦠 Contagion",
+"🤖 Walker",
+"💎 gemAlert_v3",
+"🧫 Complacency"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106167,
+"cells": [
+"🧨 Brawler",
+"🐢 squirtle",
+"🤖 Random",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106166,
+"cells": [
+"🚂 choochoo",
+"🎂 AtomPush",
+"💎 gemAlert_v4",
+"🦖 Noob+"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106165,
+"cells": [
+"🐋 Bulwark",
+"🦦 AtomCrasher",
+"🦂 zergling",
+"🤖 Hunter"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106164,
+"cells": [
+"💣 Bouncer",
+"🦠 Contagion",
+"🦘 rooby",
+"🧨 Brawler"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106163,
+"cells": [
+"🤖 Medic",
+"🧫 Complacency",
+"⚓ Aegis",
+"🍬 Noob"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106162,
+"cells": [
+"🤖 Hunter",
+"🤖 Random",
+"🐢 squirtle",
+"💎 gemAlert_v3"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106161,
+"cells": [
+"🎂 AtomPush",
+"🤖 Walker",
+"🧨 Brawler v2",
+"👾 Noob++"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106160,
+"cells": [
+"🚂 choochoo",
+"💎 gemAlert_v4",
+"🐋 Bulwark",
+"🦘 rooby"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 106159,
+"cells": [
+"🤖 Medic",
+"🦠 Contagion",
+"🦖 Noob+",
+"🦂 zergling"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106158,
+"cells": [
+"🐢 squirtle",
+"🧨 Brawler",
+"💎 gemAlert_v3",
+"🍬 Noob"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106157,
+"cells": [
+"🤖 Hunter",
+"🧨 Brawler v2",
+"🦦 AtomCrasher",
+"💣 Bouncer"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106156,
+"cells": [
+"🚂 choochoo",
+"🎂 AtomPush",
+"🧫 Complacency",
+"🤖 Walker"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106155,
+"cells": [
+"⚓ Aegis",
+"🦘 rooby",
+"🤖 Random",
+"🐋 Bulwark"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106154,
+"cells": [
+"🐢 squirtle",
+"🍬 Noob",
+"💎 gemAlert_v4",
+"🦖 Noob+"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106153,
+"cells": [
+"🧨 Brawler",
+"🤖 Medic",
+"🦠 Contagion",
+"👾 Noob++"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106152,
+"cells": [
+"🤖 Walker",
+"🦦 AtomCrasher",
+"🐋 Bulwark",
+"💎 gemAlert_v3"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106151,
+"cells": [
+"🧨 Brawler v2",
+"💣 Bouncer",
+"🎂 AtomPush",
+"🦂 zergling"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106150,
+"cells": [
+"🤖 Hunter",
+"🧫 Complacency",
+"🦘 rooby",
+"🤖 Random"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106149,
+"cells": [
+"🦖 Noob+",
+"🚂 choochoo",
+"🦠 Contagion",
+"🐢 squirtle"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106148,
+"cells": [
+"🧨 Brawler",
+"🤖 Medic",
+"🐋 Bulwark",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106147,
+"cells": [
+"💎 gemAlert_v4",
+"🦦 AtomCrasher",
+"🍬 Noob",
+"⚓ Aegis"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106146,
+"cells": [
+"👾 Noob++",
+"🦂 zergling",
+"🤖 Walker",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106145,
+"cells": [
+"🧫 Complacency",
+"🐢 squirtle",
+"🚂 choochoo",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106144,
+"cells": [
+"🤖 Medic",
+"🤖 Random",
+"⚓ Aegis",
+"🧨 Brawler"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106143,
+"cells": [
+"🤖 Hunter",
+"🐋 Bulwark",
+"🧨 Brawler v2",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106142,
+"cells": [
+"🦖 Noob+",
+"💎 gemAlert_v4",
+"🦘 rooby",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106141,
+"cells": [
+"🤖 Walker",
+"💣 Bouncer",
+"🎂 AtomPush",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106140,
+"cells": [
+"🦂 zergling",
+"🚂 choochoo",
+"🐢 squirtle",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106139,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🤖 Hunter",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106138,
+"cells": [
+"🧫 Complacency",
+"🐋 Bulwark",
+"💎 gemAlert_v3",
+"🤖 Medic"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106137,
+"cells": [
+"🦦 AtomCrasher",
+"💣 Bouncer",
+"🤖 Walker",
+"💎 gemAlert_v4"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106136,
+"cells": [
+"🦂 zergling",
+"⚓ Aegis",
+"🦖 Noob+",
+"🤖 Hunter"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106135,
+"cells": [
+"🧨 Brawler",
+"🐢 squirtle",
+"🦠 Contagion",
+"👾 Noob++"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106134,
+"cells": [
+"🚂 choochoo",
+"💣 Bouncer",
+"🍬 Noob",
+"💎 gemAlert_v3"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106133,
+"cells": [
+"🎂 AtomPush",
+"🤖 Random",
+"🤖 Medic",
+"🦘 rooby"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106132,
+"cells": [
+"🦦 AtomCrasher",
+"⚓ Aegis",
+"🧫 Complacency",
+"🧨 Brawler v2"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106131,
+"cells": [
+"🐢 squirtle",
+"👾 Noob++",
+"💎 gemAlert_v3",
+"🤖 Walker"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106130,
+"cells": [
+"🐋 Bulwark",
+"💎 gemAlert_v4",
+"🦖 Noob+",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106129,
+"cells": [
+"🧨 Brawler v2",
+"🎂 AtomPush",
+"🍬 Noob",
+"🦂 zergling"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106128,
+"cells": [
+"💣 Bouncer",
+"🤖 Hunter",
+"🤖 Random",
+"🦘 rooby"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106127,
+"cells": [
+"🦦 AtomCrasher",
+"🚂 choochoo",
+"🧨 Brawler",
+"💎 gemAlert_v3"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106126,
+"cells": [
+"🧨 Brawler v2",
+"⚓ Aegis",
+"🤖 Medic",
+"💎 gemAlert_v4"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106125,
+"cells": [
+"🧫 Complacency",
+"🐢 squirtle",
+"🦠 Contagion",
+"🦖 Noob+"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106124,
+"cells": [
+"🍬 Noob",
+"🚂 choochoo",
+"🐋 Bulwark",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106123,
+"cells": [
+"🦂 zergling",
+"👾 Noob++",
+"🤖 Walker",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106122,
+"cells": [
+"🧨 Brawler",
+"🦦 AtomCrasher",
+"🦘 rooby",
+"⚓ Aegis"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106121,
+"cells": [
+"🧫 Complacency",
+"🤖 Random",
+"🤖 Hunter",
+"🐢 squirtle"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106120,
+"cells": [
+"🐋 Bulwark",
+"🍬 Noob",
+"💎 gemAlert_v4",
+"💎 gemAlert_v3"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106119,
+"cells": [
+"🚂 choochoo",
+"🤖 Medic",
+"💣 Bouncer",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106118,
+"cells": [
+"🎂 AtomPush",
+"🤖 Walker",
+"🦠 Contagion",
+"🦖 Noob+"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106117,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🦂 zergling",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106116,
+"cells": [
+"🧫 Complacency",
+"🦘 rooby",
+"💣 Bouncer",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106115,
+"cells": [
+"🦦 AtomCrasher",
+"👾 Noob++",
+"🐢 squirtle",
+"🐋 Bulwark"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106114,
+"cells": [
+"🤖 Hunter",
+"🧨 Brawler v2",
+"🤖 Walker",
+"💎 gemAlert_v4"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106113,
+"cells": [
+"🍬 Noob",
+"⚓ Aegis",
+"🤖 Medic",
+"🦖 Noob+"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106112,
+"cells": [
+"🦠 Contagion",
+"🦘 rooby",
+"🚂 choochoo",
+"🧨 Brawler"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106111,
+"cells": [
+"🐢 squirtle",
+"🦂 zergling",
+"👾 Noob++",
+"🤖 Walker"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106110,
+"cells": [
+"💣 Bouncer",
+"🤖 Random",
+"🎂 AtomPush",
+"💎 gemAlert_v3"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106109,
+"cells": [
+"🤖 Medic",
+"💎 gemAlert_v4",
+"🦖 Noob+",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106108,
+"cells": [
+"🍬 Noob",
+"🦦 AtomCrasher",
+"🧫 Complacency",
+"🐋 Bulwark"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106107,
+"cells": [
+"🦘 rooby",
+"🚂 choochoo",
+"🤖 Hunter",
+"🐢 squirtle"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106106,
+"cells": [
+"⚓ Aegis",
+"🤖 Walker",
+"🦂 zergling",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106105,
+"cells": [
+"🦖 Noob+",
+"👾 Noob++",
+"🧨 Brawler",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106104,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Random",
+"🧨 Brawler v2",
+"🍬 Noob"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106103,
+"cells": [
+"🐋 Bulwark",
+"💣 Bouncer",
+"🦦 AtomCrasher",
+"💎 gemAlert_v4"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106102,
+"cells": [
+"🤖 Medic",
+"🦘 rooby",
+"🦠 Contagion",
+"🤖 Walker"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106101,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"🤖 Hunter",
+"🤖 Random"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106100,
+"cells": [
+"🚂 choochoo",
+"⚓ Aegis",
+"🧫 Complacency",
+"👾 Noob++"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106099,
+"cells": [
+"💎 gemAlert_v4",
+"🦂 zergling",
+"💣 Bouncer",
+"🧨 Brawler"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106098,
+"cells": [
+"🍬 Noob",
+"🦦 AtomCrasher",
+"🤖 Medic",
+"🎂 AtomPush"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106097,
+"cells": [
+"🤖 Random",
+"🚂 choochoo",
+"🤖 Hunter",
+"🐢 squirtle"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106096,
+"cells": [
+"💎 gemAlert_v3",
+"🧨 Brawler v2",
+"🤖 Walker",
+"🦠 Contagion"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106095,
+"cells": [
+"🦘 rooby",
+"👾 Noob++",
+"🐋 Bulwark",
+"🦖 Noob+"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106094,
+"cells": [
+"🎂 AtomPush",
+"🦂 zergling",
+"🧫 Complacency",
+"⚓ Aegis"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106093,
+"cells": [
+"🤖 Medic",
+"💣 Bouncer",
+"🦦 AtomCrasher",
+"🧨 Brawler"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106092,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Random",
+"🐢 squirtle",
+"🚂 choochoo"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106091,
+"cells": [
+"🦠 Contagion",
+"💎 gemAlert_v4",
+"🤖 Walker",
+"🐋 Bulwark"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106090,
+"cells": [
+"🤖 Hunter",
+"🧨 Brawler v2",
+"🍬 Noob",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106089,
+"cells": [
+"🦖 Noob+",
+"⚓ Aegis",
+"👾 Noob++",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106088,
+"cells": [
+"🦂 zergling",
+"🤖 Random",
+"🐢 squirtle",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106087,
+"cells": [
+"💣 Bouncer",
+"🧫 Complacency",
+"🚂 choochoo",
+"🤖 Medic"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106086,
+"cells": [
+"💎 gemAlert_v4",
+"🦦 AtomCrasher",
+"🧨 Brawler",
+"🤖 Hunter"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106085,
+"cells": [
+"🎂 AtomPush",
+"🤖 Walker",
+"💎 gemAlert_v3",
+"🐋 Bulwark"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106084,
+"cells": [
+"🦘 rooby",
+"🍬 Noob",
+"🤖 Random",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106083,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"🦂 zergling",
+"⚓ Aegis"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106082,
+"cells": [
+"👾 Noob++",
+"💣 Bouncer",
+"🤖 Medic",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106081,
+"cells": [
+"🤖 Hunter",
+"🎂 AtomPush",
+"💎 gemAlert_v4",
+"🦦 AtomCrasher"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106080,
+"cells": [
+"🧨 Brawler",
+"🐋 Bulwark",
+"🐢 squirtle",
+"🦂 zergling"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106079,
+"cells": [
+"🚂 choochoo",
+"🦠 Contagion",
+"💎 gemAlert_v3",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106078,
+"cells": [
+"🤖 Random",
+"💣 Bouncer",
+"👾 Noob++",
+"🦘 rooby"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106077,
+"cells": [
+"🦦 AtomCrasher",
+"🤖 Hunter",
+"🤖 Walker",
+"🦖 Noob+"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106076,
+"cells": [
+"🧫 Complacency",
+"🦂 zergling",
+"🍬 Noob",
+"🐢 squirtle"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106075,
+"cells": [
+"🐋 Bulwark",
+"🎂 AtomPush",
+"⚓ Aegis",
+"🤖 Medic"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106074,
+"cells": [
+"💎 gemAlert_v3",
+"🧨 Brawler v2",
+"💣 Bouncer",
+"💎 gemAlert_v4"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106073,
+"cells": [
+"🍬 Noob",
+"🤖 Walker",
+"🦠 Contagion",
+"👾 Noob++"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106072,
+"cells": [
+"🤖 Random",
+"🦘 rooby",
+"🚂 choochoo",
+"🧨 Brawler"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106071,
+"cells": [
+"🧫 Complacency",
+"⚓ Aegis",
+"🦂 zergling",
+"🤖 Hunter"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106070,
+"cells": [
+"🦦 AtomCrasher",
+"🐢 squirtle",
+"🦖 Noob+",
+"🐋 Bulwark"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106069,
+"cells": [
+"💎 gemAlert_v3",
+"💣 Bouncer",
+"🍬 Noob",
+"🤖 Medic"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106068,
+"cells": [
+"🦘 rooby",
+"🎂 AtomPush",
+"💎 gemAlert_v4",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106067,
+"cells": [
+"👾 Noob++",
+"🚂 choochoo",
+"🦂 zergling",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106066,
+"cells": [
+"🤖 Random",
+"🐋 Bulwark",
+"🤖 Medic",
+"🍬 Noob"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106065,
+"cells": [
+"🤖 Hunter",
+"🦠 Contagion",
+"🤖 Walker",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106064,
+"cells": [
+"💣 Bouncer",
+"⚓ Aegis",
+"🐢 squirtle",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106063,
+"cells": [
+"🧨 Brawler",
+"🦂 zergling",
+"💎 gemAlert_v3",
+"🤖 Medic"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106062,
+"cells": [
+"🦘 rooby",
+"🐋 Bulwark",
+"🦦 AtomCrasher",
+"🧨 Brawler v2"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106061,
+"cells": [
+"👾 Noob++",
+"🦖 Noob+",
+"🎂 AtomPush",
+"💎 gemAlert_v4"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106060,
+"cells": [
+"🚂 choochoo",
+"💣 Bouncer",
+"🐢 squirtle",
+"🍬 Noob"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106059,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🤖 Walker",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106058,
+"cells": [
+"🤖 Medic",
+"🧫 Complacency",
+"🤖 Hunter",
+"🧨 Brawler"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106057,
+"cells": [
+"🦖 Noob+",
+"💎 gemAlert_v3",
+"🍬 Noob",
+"🦂 zergling"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106056,
+"cells": [
+"🦘 rooby",
+"🧨 Brawler v2",
+"🐋 Bulwark",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106055,
+"cells": [
+"🐢 squirtle",
+"🤖 Walker",
+"🤖 Hunter",
+"💎 gemAlert_v4"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 106054,
+"cells": [
+"🦦 AtomCrasher",
+"👾 Noob++",
+"⚓ Aegis",
+"🚂 choochoo"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106053,
+"cells": [
+"💎 gemAlert_v3",
+"🤖 Random",
+"🧨 Brawler v2",
+"🦂 zergling"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106052,
+"cells": [
+"🧫 Complacency",
+"💣 Bouncer",
+"🧨 Brawler",
+"🦠 Contagion"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106051,
+"cells": [
+"🦘 rooby",
+"🤖 Medic",
+"🦖 Noob+",
+"💎 gemAlert_v4"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106050,
+"cells": [
+"🚂 choochoo",
+"🤖 Walker",
+"👾 Noob++",
+"🐋 Bulwark"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106049,
+"cells": [
+"🍬 Noob",
+"💎 gemAlert_v3",
+"🎂 AtomPush",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106048,
+"cells": [
+"💣 Bouncer",
+"🧨 Brawler",
+"🦦 AtomCrasher",
+"🐢 squirtle"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106047,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🧫 Complacency",
+"🤖 Hunter"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106046,
+"cells": [
+"🦂 zergling",
+"🦖 Noob+",
+"💎 gemAlert_v4",
+"🚂 choochoo"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106045,
+"cells": [
+"🦠 Contagion",
+"🐋 Bulwark",
+"🎂 AtomPush",
+"🤖 Medic"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106044,
+"cells": [
+"💣 Bouncer",
+"💎 gemAlert_v3",
+"🦘 rooby",
+"🍬 Noob"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106043,
+"cells": [
+"🐢 squirtle",
+"🧨 Brawler",
+"🦖 Noob+",
+"🤖 Random"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106042,
+"cells": [
+"👾 Noob++",
+"🤖 Walker",
+"🧨 Brawler v2",
+"🤖 Hunter"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106041,
+"cells": [
+"🐋 Bulwark",
+"💎 gemAlert_v4",
+"🧫 Complacency",
+"🦦 AtomCrasher"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106040,
+"cells": [
+"🦘 rooby",
+"🤖 Medic",
+"⚓ Aegis",
+"🦂 zergling"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106039,
+"cells": [
+"💎 gemAlert_v3",
+"🐢 squirtle",
+"🤖 Hunter",
+"🍬 Noob"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 106038,
+"cells": [
+"🦠 Contagion",
+"🎂 AtomPush",
+"🚂 choochoo",
+"💣 Bouncer"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106037,
+"cells": [
+"🤖 Random",
+"🧨 Brawler v2",
+"👾 Noob++",
+"🦖 Noob+"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106036,
+"cells": [
+"💎 gemAlert_v4",
+"🐋 Bulwark",
+"🦂 zergling",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106035,
+"cells": [
+"🧨 Brawler",
+"🐢 squirtle",
+"🤖 Medic",
+"🤖 Walker"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106034,
+"cells": [
+"🤖 Hunter",
+"🍬 Noob",
+"⚓ Aegis",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106033,
+"cells": [
+"🦖 Noob+",
+"🦘 rooby",
+"💣 Bouncer",
+"🤖 Random"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106032,
+"cells": [
+"🚂 choochoo",
+"🎂 AtomPush",
+"🦂 zergling",
+"👾 Noob++"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106031,
+"cells": [
+"🦠 Contagion",
+"💎 gemAlert_v3",
+"🧫 Complacency",
+"🧨 Brawler v2"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106030,
+"cells": [
+"🤖 Walker",
+"🐋 Bulwark",
+"💎 gemAlert_v4",
+"⚓ Aegis"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 106029,
+"cells": [
+"🤖 Hunter",
+"🍬 Noob",
+"💣 Bouncer",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 106028,
+"cells": [
+"🧨 Brawler",
+"🐢 squirtle",
+"🤖 Medic",
+"🦖 Noob+"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106027,
+"cells": [
+"💎 gemAlert_v3",
+"🎂 AtomPush",
+"🦂 zergling",
+"🚂 choochoo"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106026,
+"cells": [
+"🧨 Brawler v2",
+"🤖 Random",
+"🦦 AtomCrasher",
+"👾 Noob++"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106025,
+"cells": [
+"🤖 Hunter",
+"🐢 squirtle",
+"🍬 Noob",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106024,
+"cells": [
+"⚓ Aegis",
+"🤖 Walker",
+"🦘 rooby",
+"🧫 Complacency"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 106023,
+"cells": [
+"💎 gemAlert_v4",
+"🧨 Brawler",
+"🐋 Bulwark",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106022,
+"cells": [
+"🦖 Noob+",
+"🚂 choochoo",
+"🤖 Medic",
+"💎 gemAlert_v3"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 106021,
+"cells": [
+"🤖 Walker",
+"🦠 Contagion",
+"👾 Noob++",
+"🍬 Noob"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106020,
+"cells": [
+"🤖 Random",
+"💣 Bouncer",
+"🦦 AtomCrasher",
+"🦂 zergling"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106019,
+"cells": [
+"🦘 rooby",
+"⚓ Aegis",
+"🧨 Brawler v2",
+"🤖 Hunter"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106018,
+"cells": [
+"🐢 squirtle",
+"🎂 AtomPush",
+"💎 gemAlert_v4",
+"💎 gemAlert_v3"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 106017,
+"cells": [
+"🦖 Noob+",
+"🤖 Walker",
+"🚂 choochoo",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106016,
+"cells": [
+"🧨 Brawler",
+"🧫 Complacency",
+"👾 Noob++",
+"🐋 Bulwark"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106015,
+"cells": [
+"🦘 rooby",
+"🦦 AtomCrasher",
+"🤖 Medic",
+"🤖 Hunter"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106014,
+"cells": [
+"🍬 Noob",
+"💎 gemAlert_v4",
+"🦠 Contagion",
+"🧨 Brawler v2"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106013,
+"cells": [
+"💣 Bouncer",
+"⚓ Aegis",
+"🦂 zergling",
+"🤖 Random"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106012,
+"cells": [
+"🦖 Noob+",
+"🐢 squirtle",
+"💎 gemAlert_v3",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106011,
+"cells": [
+"🤖 Hunter",
+"🦦 AtomCrasher",
+"💎 gemAlert_v4",
+"🤖 Walker"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 106010,
+"cells": [
+"🤖 Medic",
+"🚂 choochoo",
+"🧫 Complacency",
+"🎂 AtomPush"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106009,
+"cells": [
+"🧨 Brawler",
+"🐋 Bulwark",
+"🧨 Brawler v2",
+"⚓ Aegis"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 106008,
+"cells": [
+"🍬 Noob",
+"💣 Bouncer",
+"🦂 zergling",
+"🦘 rooby"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106007,
+"cells": [
+"💎 gemAlert_v3",
+"🦖 Noob+",
+"👾 Noob++",
+"🤖 Hunter"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 106006,
+"cells": [
+"🚂 choochoo",
+"🤖 Medic",
+"🐢 squirtle",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106005,
+"cells": [
+"🤖 Random",
+"🎂 AtomPush",
+"🦠 Contagion",
+"💎 gemAlert_v4"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 106004,
+"cells": [
+"🧫 Complacency",
+"🦘 rooby",
+"🤖 Walker",
+"🦦 AtomCrasher"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106003,
+"cells": [
+"⚓ Aegis",
+"💣 Bouncer",
+"🐋 Bulwark",
+"💎 gemAlert_v3"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 106002,
+"cells": [
+"🐢 squirtle",
+"🦖 Noob+",
+"🧨 Brawler v2",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 106001,
+"cells": [
+"🧫 Complacency",
+"🍬 Noob",
+"🤖 Hunter",
+"👾 Noob++"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 106000,
+"cells": [
+"🎂 AtomPush",
+"🦠 Contagion",
+"🤖 Medic",
+"🦂 zergling"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105999,
+"cells": [
+"🤖 Random",
+"⚓ Aegis",
+"🦖 Noob+",
+"💣 Bouncer"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 105998,
+"cells": [
+"🐋 Bulwark",
+"🦘 rooby",
+"🚂 choochoo",
+"🦦 AtomCrasher"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105997,
+"cells": [
+"🍬 Noob",
+"🧨 Brawler v2",
+"💎 gemAlert_v4",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105996,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"🤖 Walker",
+"💎 gemAlert_v3"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105995,
+"cells": [
+"🦖 Noob+",
+"🤖 Medic",
+"🧫 Complacency",
+"🧨 Brawler"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105994,
+"cells": [
+"🤖 Hunter",
+"🚂 choochoo",
+"🦂 zergling",
+"🐋 Bulwark"
+],
+"winner": "🤖 Hunter"
+},
+{
+"id": 105993,
+"cells": [
+"🐢 squirtle",
+"🍬 Noob",
+"🎂 AtomPush",
+"💎 gemAlert_v4"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105992,
+"cells": [
+"🦦 AtomCrasher",
+"⚓ Aegis",
+"🧨 Brawler v2",
+"🤖 Random"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 105991,
+"cells": [
+"💣 Bouncer",
+"🤖 Walker",
+"🦘 rooby",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105990,
+"cells": [
+"🐋 Bulwark",
+"👾 Noob++",
+"💎 gemAlert_v3",
+"🦖 Noob+"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105989,
+"cells": [
+"🦂 zergling",
+"🦠 Contagion",
+"🤖 Hunter",
+"🧨 Brawler"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105988,
+"cells": [
+"🤖 Walker",
+"🚂 choochoo",
+"🤖 Random",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105987,
+"cells": [
+"🤖 Medic",
+"🐢 squirtle",
+"🎂 AtomPush",
+"🦦 AtomCrasher"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105986,
+"cells": [
+"💎 gemAlert_v4",
+"👾 Noob++",
+"🍬 Noob",
+"🧫 Complacency"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 105985,
+"cells": [
+"🦖 Noob+",
+"⚓ Aegis",
+"🧨 Brawler",
+"💣 Bouncer"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 105984,
+"cells": [
+"🚂 choochoo",
+"💎 gemAlert_v3",
+"🤖 Random",
+"🐋 Bulwark"
+],
+"winner": "💎 gemAlert_v3"
+},
+{
+"id": 105983,
+"cells": [
+"🤖 Hunter",
+"🦠 Contagion",
+"🧨 Brawler v2",
+"🦘 rooby"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105982,
+"cells": [
+"🎂 AtomPush",
+"🦦 AtomCrasher",
+"🦂 zergling",
+"🐢 squirtle"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105981,
+"cells": [
+"💣 Bouncer",
+"🧨 Brawler",
+"🤖 Walker",
+"🍬 Noob"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105980,
+"cells": [
+"👾 Noob++",
+"🤖 Medic",
+"🧫 Complacency",
+"⚓ Aegis"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105979,
+"cells": [
+"🦘 rooby",
+"🚂 choochoo",
+"💎 gemAlert_v4",
+"🤖 Hunter"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105978,
+"cells": [
+"💎 gemAlert_v3",
+"🧨 Brawler v2",
+"🦖 Noob+",
+"🤖 Random"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 105977,
+"cells": [
+"🦦 AtomCrasher",
+"🐋 Bulwark",
+"🐢 squirtle",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105976,
+"cells": [
+"🍬 Noob",
+"🦂 zergling",
+"🎂 AtomPush",
+"🤖 Walker"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105975,
+"cells": [
+"🧫 Complacency",
+"🤖 Hunter",
+"🧨 Brawler v2",
+"💣 Bouncer"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105974,
+"cells": [
+"🚂 choochoo",
+"🤖 Medic",
+"🧨 Brawler",
+"⚓ Aegis"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105973,
+"cells": [
+"💎 gemAlert_v4",
+"🤖 Random",
+"👾 Noob++",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105972,
+"cells": [
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🐢 squirtle",
+"🦘 rooby"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105971,
+"cells": [
+"💣 Bouncer",
+"💎 gemAlert_v3",
+"🦖 Noob+",
+"🦂 zergling"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 105970,
+"cells": [
+"🐋 Bulwark",
+"🍬 Noob",
+"🧨 Brawler",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105969,
+"cells": [
+"👾 Noob++",
+"⚓ Aegis",
+"🤖 Walker",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105968,
+"cells": [
+"🚂 choochoo",
+"🤖 Hunter",
+"🤖 Medic",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105967,
+"cells": [
+"🤖 Random",
+"🦂 zergling",
+"🦘 rooby",
+"🦖 Noob+"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105966,
+"cells": [
+"🎂 AtomPush",
+"🐢 squirtle",
+"💎 gemAlert_v3",
+"💎 gemAlert_v4"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105965,
+"cells": [
+"🐋 Bulwark",
+"🦦 AtomCrasher",
+"🧨 Brawler v2",
+"🍬 Noob"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105964,
+"cells": [
+"🤖 Walker",
+"💣 Bouncer",
+"🧫 Complacency",
+"⚓ Aegis"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105963,
+"cells": [
+"🧨 Brawler",
+"🦖 Noob+",
+"🦠 Contagion",
+"🤖 Medic"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105962,
+"cells": [
+"🐢 squirtle",
+"🤖 Random",
+"💎 gemAlert_v4",
+"🦘 rooby"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 105961,
+"cells": [
+"🧫 Complacency",
+"🍬 Noob",
+"🦂 zergling",
+"🚂 choochoo"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105960,
+"cells": [
+"🧨 Brawler v2",
+"👾 Noob++",
+"🎂 AtomPush",
+"🤖 Hunter"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105959,
+"cells": [
+"🦦 AtomCrasher",
+"💎 gemAlert_v3",
+"🤖 Walker",
+"⚓ Aegis"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105958,
+"cells": [
+"🤖 Random",
+"🦖 Noob+",
+"🚂 choochoo",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105957,
+"cells": [
+"🦠 Contagion",
+"🐢 squirtle",
+"💣 Bouncer",
+"🐋 Bulwark"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105956,
+"cells": [
+"🦂 zergling",
+"🧫 Complacency",
+"💎 gemAlert_v4",
+"🧨 Brawler v2"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105955,
+"cells": [
+"🍬 Noob",
+"🤖 Hunter",
+"🦖 Noob+",
+"⚓ Aegis"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 105954,
+"cells": [
+"🤖 Medic",
+"👾 Noob++",
+"🦘 rooby",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105953,
+"cells": [
+"🤖 Walker",
+"🚂 choochoo",
+"💎 gemAlert_v3",
+"🐢 squirtle"
+],
+"winner": "🐢 squirtle"
+},
+{
+"id": 105952,
+"cells": [
+"🤖 Random",
+"🦦 AtomCrasher",
+"💣 Bouncer",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105951,
+"cells": [
+"🧨 Brawler v2",
+"🐋 Bulwark",
+"🧫 Complacency",
+"🤖 Hunter"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105950,
+"cells": [
+"🤖 Medic",
+"💎 gemAlert_v4",
+"🦖 Noob+",
+"🦂 zergling"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 105949,
+"cells": [
+"🍬 Noob",
+"🦘 rooby",
+"🦠 Contagion",
+"⚓ Aegis"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105948,
+"cells": [
+"👾 Noob++",
+"💣 Bouncer",
+"🤖 Walker",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105947,
+"cells": [
+"🚂 choochoo",
+"💎 gemAlert_v3",
+"🧨 Brawler v2",
+"🐢 squirtle"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105946,
+"cells": [
+"🧨 Brawler",
+"🐋 Bulwark",
+"🤖 Hunter",
+"💎 gemAlert_v4"
+],
+"winner": "💎 gemAlert_v4"
+},
+{
+"id": 105945,
+"cells": [
+"🤖 Random",
+"🧫 Complacency",
+"🦦 AtomCrasher",
+"🦂 zergling"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105944,
+"cells": [
+"🦘 rooby",
+"🦖 Noob+",
+"🦠 Contagion",
+"⚓ Aegis"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 105943,
+"cells": [
+"🎂 AtomPush",
+"🤖 Walker",
+"👾 Noob++",
+"🍬 Noob"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105942,
+"cells": [
+"💣 Bouncer",
+"🐢 squirtle",
+"🤖 Medic",
+"🧨 Brawler v2"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 105941,
+"cells": [
+"🤖 Random",
+"💎 gemAlert_v4",
+"🧫 Complacency",
+"🐋 Bulwark"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105940,
+"cells": [
+"🚂 choochoo",
+"🦖 Noob+",
+"🦠 Contagion",
+"🤖 Hunter"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105939,
+"cells": [
+"🧨 Brawler",
+"💣 Bouncer",
+"🍬 Noob",
+"🐢 squirtle"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 105938,
+"cells": [
+"⚓ Aegis",
+"💎 gemAlert_v3",
+"🦂 zergling",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105937,
+"cells": [
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🦘 rooby",
+"🤖 Walker"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105936,
+"cells": [
+"🤖 Random",
+"🤖 Medic",
+"🚂 choochoo",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105935,
+"cells": [
+"🧫 Complacency",
+"🐢 squirtle",
+"🦖 Noob+",
+"💎 gemAlert_v4"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105934,
+"cells": [
+"🐋 Bulwark",
+"🦠 Contagion",
+"💣 Bouncer",
+"🤖 Hunter"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105933,
+"cells": [
+"👾 Noob++",
+"🍬 Noob",
+"🧨 Brawler",
+"💎 gemAlert_v3"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105932,
+"cells": [
+"🎂 AtomPush",
+"🧨 Brawler v2",
+"⚓ Aegis",
+"🦂 zergling"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105931,
+"cells": [
+"🐢 squirtle",
+"🦘 rooby",
+"🦦 AtomCrasher",
+"🤖 Walker"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105930,
+"cells": [
+"👾 Noob++",
+"🤖 Medic",
+"🚂 choochoo",
+"💎 gemAlert_v4"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105929,
+"cells": [
+"🐋 Bulwark",
+"🧫 Complacency",
+"🦖 Noob+",
+"🤖 Random"
+],
+"winner": "🦖 Noob+"
+},
+{
+"id": 105928,
+"cells": [
+"🤖 Hunter",
+"💣 Bouncer",
+"⚓ Aegis",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105927,
+"cells": [
+"🧨 Brawler v2",
+"🍬 Noob",
+"🤖 Walker",
+"🧨 Brawler"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105926,
+"cells": [
+"🤖 Medic",
+"🎂 AtomPush",
+"🤖 Random",
+"💎 gemAlert_v3"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105925,
+"cells": [
+"💎 gemAlert_v4",
+"🦘 rooby",
+"🦂 zergling",
+"🐢 squirtle"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105924,
+"cells": [
+"🚂 choochoo",
+"🦦 AtomCrasher",
+"👾 Noob++",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105923,
+"cells": [
+"🦠 Contagion",
+"🤖 Hunter",
+"🤖 Random",
+"🐋 Bulwark"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105922,
+"cells": [
+"🤖 Walker",
+"🦖 Noob+",
+"💣 Bouncer",
+"⚓ Aegis"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 105921,
+"cells": [
+"🧨 Brawler v2",
+"🧨 Brawler",
+"🤖 Medic",
+"🍬 Noob"
+],
+"winner": "🧨 Brawler"
+},
+{
+"id": 105920,
+"cells": [
+"💎 gemAlert_v3",
+"🎂 AtomPush",
+"🚂 choochoo",
+"🦦 AtomCrasher"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105919,
+"cells": [
+"🐢 squirtle",
+"🦘 rooby",
+"🧫 Complacency",
+"💎 gemAlert_v4"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105918,
+"cells": [
+"🦠 Contagion",
+"🤖 Hunter",
+"🤖 Random",
+"🦂 zergling"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105917,
+"cells": [
+"🤖 Walker",
+"🤖 Medic",
+"👾 Noob++",
+"🍬 Noob"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 105916,
+"cells": [
+"💣 Bouncer",
+"🦦 AtomCrasher",
+"🦖 Noob+",
+"🐋 Bulwark"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105915,
+"cells": [
+"🧨 Brawler",
+"⚓ Aegis",
+"🧫 Complacency",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105914,
+"cells": [
+"🦠 Contagion",
+"🦘 rooby",
+"🧨 Brawler v2",
+"🤖 Hunter"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105913,
+"cells": [
+"🤖 Random",
+"🐢 squirtle",
+"🚂 choochoo",
+"🎂 AtomPush"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105912,
+"cells": [
+"💎 gemAlert_v4",
+"🦂 zergling",
+"🍬 Noob",
+"🤖 Walker"
+],
+"winner": "🍬 Noob"
+},
+{
+"id": 105911,
+"cells": [
+"⚓ Aegis",
+"🧫 Complacency",
+"🤖 Medic",
+"💣 Bouncer"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105910,
+"cells": [
+"🦦 AtomCrasher",
+"💎 gemAlert_v3",
+"🐋 Bulwark",
+"👾 Noob++"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105909,
+"cells": [
+"🦠 Contagion",
+"🧨 Brawler v2",
+"🦖 Noob+",
+"🚂 choochoo"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105908,
+"cells": [
+"🤖 Hunter",
+"🧨 Brawler",
+"🎂 AtomPush",
+"🦂 zergling"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105907,
+"cells": [
+"🤖 Random",
+"💣 Bouncer",
+"💎 gemAlert_v4",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105906,
+"cells": [
+"🦘 rooby",
+"🐢 squirtle",
+"🤖 Walker",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105905,
+"cells": [
+"🍬 Noob",
+"⚓ Aegis",
+"🦦 AtomCrasher",
+"🦖 Noob+"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105904,
+"cells": [
+"🧨 Brawler",
+"🤖 Medic",
+"🐋 Bulwark",
+"🦠 Contagion"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105903,
+"cells": [
+"👾 Noob++",
+"🦂 zergling",
+"💣 Bouncer",
+"🚂 choochoo"
+],
+"winner": "💣 Bouncer"
+},
+{
+"id": 105902,
+"cells": [
+"🎂 AtomPush",
+"💎 gemAlert_v4",
+"💎 gemAlert_v3",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105901,
+"cells": [
+"🤖 Random",
+"🤖 Walker",
+"🤖 Hunter",
+"🦘 rooby"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105900,
+"cells": [
+"🧨 Brawler",
+"🤖 Medic",
+"🐢 squirtle",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105899,
+"cells": [
+"🦠 Contagion",
+"🍬 Noob",
+"🦖 Noob+",
+"🦦 AtomCrasher"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105898,
+"cells": [
+"🚂 choochoo",
+"⚓ Aegis",
+"👾 Noob++",
+"💎 gemAlert_v4"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 105897,
+"cells": [
+"🤖 Random",
+"🐋 Bulwark",
+"🎂 AtomPush",
+"💣 Bouncer"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105896,
+"cells": [
+"🦘 rooby",
+"🧨 Brawler v2",
+"🤖 Medic",
+"🦂 zergling"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105895,
+"cells": [
+"🐢 squirtle",
+"🤖 Hunter",
+"💎 gemAlert_v3",
+"🤖 Walker"
+],
+"winner": "🤖 Hunter"
+},
+{
+"id": 105894,
+"cells": [
+"🧫 Complacency",
+"🦖 Noob+",
+"💎 gemAlert_v4",
+"🚂 choochoo"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105893,
+"cells": [
+"⚓ Aegis",
+"🧨 Brawler",
+"🦠 Contagion",
+"🦦 AtomCrasher"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105892,
+"cells": [
+"🍬 Noob",
+"🦂 zergling",
+"🐋 Bulwark",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105891,
+"cells": [
+"🎂 AtomPush",
+"🦘 rooby",
+"🤖 Random",
+"💣 Bouncer"
+],
+"winner": "🎂 AtomPush"
+},
+{
+"id": 105890,
+"cells": [
+"🤖 Hunter",
+"🤖 Medic",
+"💎 gemAlert_v4",
+"🧫 Complacency"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105889,
+"cells": [
+"🤖 Walker",
+"🐢 squirtle",
+"⚓ Aegis",
+"🧨 Brawler v2"
+],
+"winner": "🧨 Brawler v2"
+},
+{
+"id": 105888,
+"cells": [
+"💎 gemAlert_v3",
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🐋 Bulwark"
+],
+"winner": "🦦 AtomCrasher"
+},
+{
+"id": 105887,
+"cells": [
+"🦠 Contagion",
+"🚂 choochoo",
+"🦖 Noob+",
+"🧨 Brawler"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105886,
+"cells": [
+"🤖 Medic",
+"🦘 rooby",
+"👾 Noob++",
+"🦂 zergling"
+],
+"winner": "🦘 rooby"
+},
+{
+"id": 105885,
+"cells": [
+"💣 Bouncer",
+"🧫 Complacency",
+"🐢 squirtle",
+"💎 gemAlert_v3"
+],
+"winner": "🧫 Complacency"
+},
+{
+"id": 105884,
+"cells": [
+"💎 gemAlert_v4",
+"🍬 Noob",
+"⚓ Aegis",
+"🤖 Random"
+],
+"winner": "⚓ Aegis"
+},
+{
+"id": 105883,
+"cells": [
+"🤖 Hunter",
+"🤖 Walker",
+"🦠 Contagion",
+"🚂 choochoo"
+],
+"winner": "🦠 Contagion"
+},
+{
+"id": 105882,
+"cells": [
+"💣 Bouncer",
+"🐢 squirtle",
+"🦂 zergling",
+"👾 Noob++"
+],
+"winner": "👾 Noob++"
+},
+{
+"id": 105881,
+"cells": [
+"🦦 AtomCrasher",
+"🎂 AtomPush",
+"🧨 Brawler",
+"🧨 Brawler v2"
+],
+"winner": "🎂 AtomPush"
+}
+]
+}

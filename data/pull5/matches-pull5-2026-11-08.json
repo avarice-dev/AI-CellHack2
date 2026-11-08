@@ -1,0 +1,4039 @@
+{
+ "utc": "2026-11-08T22:35:11.586Z",
+ "source": "match list (kind=ladder, newest first) pages 1-12 (480 finished ladder matches, ids 105881-106358) + one match page per chosen game, 2 s apart",
+ "note": "72 chosen games (selection: data/pull5-games-2026-11-08.md); colonies in match-page table order",
+ "matches": [
+  {
+   "id": 106357,
+   "cells": [
+    "🤖 Medic",
+    "🦠 Contagion",
+    "⚓ Aegis",
+    "🦘 rooby"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "548",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "369 → 369"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "199966",
+     "faults": "0",
+     "insns": "80 (90)",
+     "rating": "1544 → 1548"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "1106",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (47)",
+     "rating": "1050 → 1041"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "1075",
+     "energy": "0",
+     "faults": "0",
+     "insns": "75 (101)",
+     "rating": "1190 → 1195"
+    }
+   ]
+  },
+  {
+   "id": 106355,
+   "cells": [
+    "🤖 Random",
+    "👾 Noob++",
+    "🎂 AtomPush",
+    "🧨 Brawler"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "114",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "301 → 300"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "926",
+     "energy": "0",
+     "faults": "0",
+     "insns": "78 (111)",
+     "rating": "1089 → 1077"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "3453",
+     "peak": "3456",
+     "energy": "161628",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1469 → 1475"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "642",
+     "peak": "1786",
+     "energy": "9586",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1146 → 1153"
+    }
+   ]
+  },
+  {
+   "id": 106351,
+   "cells": [
+    "🦦 AtomCrasher",
+    "🎂 AtomPush",
+    "🧨 Brawler v2",
+    "🧫 Complacency"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "3",
+     "pop": "1269",
+     "peak": "1614",
+     "energy": "62475",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1488 → 1470"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1324",
+     "peak": "1325",
+     "energy": "65795",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1460 → 1469"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "698",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (24)",
+     "rating": "1215 → 1204"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "1500",
+     "peak": "1791",
+     "energy": "64168",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1571 → 1592"
+    }
+   ]
+  },
+  {
+   "id": 106346,
+   "cells": [
+    "🤖 Hunter",
+    "🦦 AtomCrasher",
+    "🧨 Brawler v2",
+    "💣 Bouncer"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "306",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "613 → 612"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1255",
+     "peak": "1261",
+     "energy": "58220",
+     "faults": "0",
+     "insns": "34 (47)",
+     "rating": "1504 → 1488"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "2589",
+     "peak": "2592",
+     "energy": "21513",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1180 → 1215"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "251",
+     "peak": "368",
+     "energy": "2944",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1236 → 1219"
+    }
+   ]
+  },
+  {
+   "id": 106335,
+   "cells": [
+    "🤖 Hunter",
+    "⚓ Aegis",
+    "🦦 AtomCrasher",
+    "🧨 Brawler"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "750",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "627 → 624"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "2536",
+     "energy": "0",
+     "faults": "0",
+     "insns": "34 (49)",
+     "rating": "1011 → 1005"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204675",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1492 → 1497"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "0",
+     "peak": "834",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (23)",
+     "rating": "1142 → 1148"
+    }
+   ]
+  },
+  {
+   "id": 106328,
+   "cells": [
+    "🦘 rooby",
+    "💣 Bouncer",
+    "🧨 Brawler v2",
+    "🎂 AtomPush"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "615",
+     "energy": "0",
+     "faults": "0",
+     "insns": "67 (101)",
+     "rating": "1285 → 1271"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "300",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (23)",
+     "rating": "1240 → 1208"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "2557",
+     "peak": "2559",
+     "energy": "31251",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1122 → 1176"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1539",
+     "peak": "1636",
+     "energy": "73690",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1455 → 1446"
+    }
+   ]
+  },
+  {
+   "id": 106321,
+   "cells": [
+    "🧫 Complacency",
+    "🦖 Noob+",
+    "👾 Noob++",
+    "🤖 Hunter"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "3041",
+     "peak": "3041",
+     "energy": "149490",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1559 → 1564"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "1053",
+     "peak": "1729",
+     "energy": "23565",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1147 → 1160"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1680",
+     "energy": "0",
+     "faults": "0",
+     "insns": "82 (111)",
+     "rating": "1181 → 1167"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "385",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "647 → 645"
+    }
+   ]
+  },
+  {
+   "id": 106314,
+   "cells": [
+    "🧨 Brawler v2",
+    "🦖 Noob+",
+    "💣 Bouncer",
+    "⚓ Aegis"
+   ],
+   "winner": "💣 Bouncer",
+   "colonies": [
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1188",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1199 → 1179"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "4",
+     "pop": "0",
+     "peak": "539",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (33)",
+     "rating": "1190 → 1147"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "59846",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1179 → 1210"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "3277",
+     "energy": "0",
+     "faults": "0",
+     "insns": "35 (49)",
+     "rating": "962 → 995"
+    }
+   ]
+  },
+  {
+   "id": 106311,
+   "cells": [
+    "⚓ Aegis",
+    "🦘 rooby",
+    "🤖 Medic",
+    "🦖 Noob+"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "1728",
+     "energy": "0",
+     "faults": "0",
+     "insns": "34 (49)",
+     "rating": "944 → 962"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204612",
+     "faults": "0",
+     "insns": "80 (101)",
+     "rating": "1268 → 1282"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "96",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "360 → 359"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1060",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1221 → 1190"
+    }
+   ]
+  },
+  {
+   "id": 106303,
+   "cells": [
+    "🧫 Complacency",
+    "🦘 rooby",
+    "💎 gemAlert_v3",
+    "⚓ Aegis"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1821",
+     "peak": "1885",
+     "energy": "79624",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1576 → 1556"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "2271",
+     "peak": "2271",
+     "energy": "113409",
+     "faults": "0",
+     "insns": "79 (101)",
+     "rating": "1242 → 1268"
+    },
+    {
+     "name": "💎 gemAlert_v3",
+     "player": "gschweers",
+     "place": "4",
+     "pop": "0",
+     "peak": "482",
+     "energy": "0",
+     "faults": "0",
+     "insns": "37 (47)",
+     "rating": "751 → 743"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "1683",
+     "energy": "0",
+     "faults": "0",
+     "insns": "34 (48)",
+     "rating": "943 → 944"
+    }
+   ]
+  },
+  {
+   "id": 106293,
+   "cells": [
+    "🦦 AtomCrasher",
+    "🦘 rooby",
+    "🤖 Walker",
+    "💣 Bouncer"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204720",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1518 → 1525"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "1047",
+     "energy": "0",
+     "faults": "0",
+     "insns": "75 (101)",
+     "rating": "1215 → 1222"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "840",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "346 → 346"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "558",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (24)",
+     "rating": "1168 → 1155"
+    }
+   ]
+  },
+  {
+   "id": 106292,
+   "cells": [
+    "🐢 squirtle",
+    "🤖 Random",
+    "🧫 Complacency",
+    "👾 Noob++"
+   ],
+   "winner": "👾 Noob++",
+   "colonies": [
+    {
+     "name": "🐢 squirtle",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "1054",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "699 → 700"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "358",
+     "energy": "0",
+     "faults": "0",
+     "insns": "12 (14)",
+     "rating": "331 → 328"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "762",
+     "peak": "762",
+     "energy": "37195",
+     "faults": "0",
+     "insns": "45 (53)",
+     "rating": "1578 → 1556"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "1",
+     "pop": "3334",
+     "peak": "3350",
+     "energy": "69994",
+     "faults": "0",
+     "insns": "98 (111)",
+     "rating": "1125 → 1150"
+    }
+   ]
+  },
+  {
+   "id": 106289,
+   "cells": [
+    "🦖 Noob+",
+    "🦦 AtomCrasher",
+    "💣 Bouncer",
+    "🧨 Brawler v2"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "1476",
+     "peak": "1480",
+     "energy": "32574",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1175 → 1199"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "1733",
+     "peak": "1736",
+     "energy": "73375",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1507 → 1518"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "630",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1193 → 1168"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "880",
+     "peak": "1586",
+     "energy": "8935",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1261 → 1251"
+    }
+   ]
+  },
+  {
+   "id": 106281,
+   "cells": [
+    "💣 Bouncer",
+    "🦘 rooby",
+    "🧫 Complacency",
+    "🐋 Bulwark"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "674",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (23)",
+     "rating": "1232 → 1193"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "2760",
+     "peak": "2760",
+     "energy": "137179",
+     "faults": "0",
+     "insns": "80 (101)",
+     "rating": "1175 → 1213"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1310",
+     "peak": "1312",
+     "energy": "52931",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1594 → 1575"
+    },
+    {
+     "name": "🐋 Bulwark",
+     "player": "myles777",
+     "place": "3",
+     "pop": "24",
+     "peak": "25",
+     "energy": "1194",
+     "faults": "0",
+     "insns": "33 (56)",
+     "rating": "789 → 809"
+    }
+   ]
+  },
+  {
+   "id": 106276,
+   "cells": [
+    "🧫 Complacency",
+    "🧨 Brawler",
+    "🤖 Medic",
+    "🦠 Contagion"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1753",
+     "peak": "1757",
+     "energy": "85412",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1608 → 1594"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "819",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1136 → 1132"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "485",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "370 → 370"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2343",
+     "peak": "2367",
+     "energy": "113447",
+     "faults": "0",
+     "insns": "79 (88)",
+     "rating": "1507 → 1525"
+    }
+   ]
+  },
+  {
+   "id": 106273,
+   "cells": [
+    "🎂 AtomPush",
+    "🦦 AtomCrasher",
+    "🦘 rooby",
+    "🦖 Noob+"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "3",
+     "pop": "501",
+     "peak": "1134",
+     "energy": "21275",
+     "faults": "0",
+     "insns": "33 (47)",
+     "rating": "1481 → 1452"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2961",
+     "peak": "2964",
+     "energy": "146186",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1479 → 1498"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "627",
+     "peak": "928",
+     "energy": "30845",
+     "faults": "0",
+     "insns": "75 (101)",
+     "rating": "1143 → 1175"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "4",
+     "pop": "0",
+     "peak": "1161",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1195 → 1173"
+    }
+   ]
+  },
+  {
+   "id": 106270,
+   "cells": [
+    "🧨 Brawler v2",
+    "👾 Noob++",
+    "🧨 Brawler",
+    "🧫 Complacency"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "2",
+     "pop": "334",
+     "peak": "1574",
+     "energy": "3496",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1248 → 1262"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1054",
+     "energy": "0",
+     "faults": "0",
+     "insns": "75 (111)",
+     "rating": "1099 → 1105"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "523",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (23)",
+     "rating": "1160 → 1136"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "3761",
+     "peak": "3761",
+     "energy": "181609",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1602 → 1608"
+    }
+   ]
+  },
+  {
+   "id": 106267,
+   "cells": [
+    "🤖 Medic",
+    "🦠 Contagion",
+    "🦘 rooby",
+    "⚓ Aegis"
+   ],
+   "winner": "⚓ Aegis",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "159",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "371 → 370"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1705",
+     "peak": "1705",
+     "energy": "83632",
+     "faults": "0",
+     "insns": "75 (87)",
+     "rating": "1526 → 1506"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "765",
+     "energy": "0",
+     "faults": "0",
+     "insns": "74 (101)",
+     "rating": "1164 → 1143"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "1",
+     "pop": "2391",
+     "peak": "2488",
+     "energy": "44149",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "940 → 983"
+    }
+   ]
+  },
+  {
+   "id": 106250,
+   "cells": [
+    "🤖 Medic",
+    "🤖 Walker",
+    "🎂 AtomPush",
+    "🧨 Brawler"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "3",
+     "pop": "0",
+     "peak": "912",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "380 → 391"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "390",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "342 → 331"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2168",
+     "peak": "2445",
+     "energy": "104371",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1464 → 1467"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1928",
+     "peak": "1930",
+     "energy": "18363",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1136 → 1134"
+    }
+   ]
+  },
+  {
+   "id": 106249,
+   "cells": [
+    "🤖 Hunter",
+    "🧨 Brawler v2",
+    "🤖 Random",
+    "🦠 Contagion"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "485",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "639 → 641"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "3437",
+     "peak": "3437",
+     "energy": "27174",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1244 → 1265"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "73",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "315 → 312"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "657",
+     "peak": "659",
+     "energy": "32026",
+     "faults": "0",
+     "insns": "74 (90)",
+     "rating": "1545 → 1525"
+    }
+   ]
+  },
+  {
+   "id": 106248,
+   "cells": [
+    "💣 Bouncer",
+    "👾 Noob++",
+    "⚓ Aegis",
+    "🦖 Noob+"
+   ],
+   "winner": "🦖 Noob+",
+   "colonies": [
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "539",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1244 → 1217"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "2046",
+     "energy": "0",
+     "faults": "0",
+     "insns": "85 (111)",
+     "rating": "1073 → 1091"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "4",
+     "pop": "0",
+     "peak": "589",
+     "energy": "0",
+     "faults": "0",
+     "insns": "31 (49)",
+     "rating": "1005 → 984"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "1",
+     "pop": "4094",
+     "peak": "4094",
+     "energy": "90291",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1174 → 1204"
+    }
+   ]
+  },
+  {
+   "id": 106234,
+   "cells": [
+    "🧫 Complacency",
+    "🤖 Medic",
+    "🧨 Brawler v2",
+    "🤖 Hunter"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "194824",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1577 → 1581"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "3",
+     "pop": "0",
+     "peak": "519",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "369 → 388"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "56",
+     "energy": "0",
+     "faults": "0",
+     "insns": "16 (23)",
+     "rating": "1300 → 1249"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "2",
+     "pop": "0",
+     "peak": "819",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "604 → 633"
+    }
+   ]
+  },
+  {
+   "id": 106233,
+   "cells": [
+    "👾 Noob++",
+    "🧨 Brawler",
+    "🦘 rooby",
+    "🦦 AtomCrasher"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1031",
+     "energy": "0",
+     "faults": "0",
+     "insns": "65 (111)",
+     "rating": "1028 → 1036"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "421",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (23)",
+     "rating": "1224 → 1187"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "1329",
+     "energy": "0",
+     "faults": "0",
+     "insns": "76 (101)",
+     "rating": "1159 → 1177"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204731",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1468 → 1478"
+    }
+   ]
+  },
+  {
+   "id": 106225,
+   "cells": [
+    "🚂 choochoo",
+    "💣 Bouncer",
+    "🧫 Complacency",
+    "🎂 AtomPush"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🚂 choochoo",
+     "player": "andrew",
+     "place": "4",
+     "pop": "0",
+     "peak": "1",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (58)",
+     "rating": "-94 → -94"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1152",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1288 → 1277"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "0",
+     "peak": "407",
+     "energy": "0",
+     "faults": "0",
+     "insns": "42 (53)",
+     "rating": "1589 → 1576"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204540",
+     "faults": "0",
+     "insns": "37 (47)",
+     "rating": "1441 → 1465"
+    }
+   ]
+  },
+  {
+   "id": 106209,
+   "cells": [
+    "🦠 Contagion",
+    "🦘 rooby",
+    "🧨 Brawler",
+    "💣 Bouncer"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2838",
+     "peak": "2841",
+     "energy": "134954",
+     "faults": "0",
+     "insns": "78 (90)",
+     "rating": "1536 → 1546"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "1345",
+     "energy": "0",
+     "faults": "0",
+     "insns": "76 (101)",
+     "rating": "1133 → 1138"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1256",
+     "peak": "1512",
+     "energy": "12389",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1174 → 1199"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "914",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (24)",
+     "rating": "1335 → 1293"
+    }
+   ]
+  },
+  {
+   "id": 106192,
+   "cells": [
+    "💣 Bouncer",
+    "🦦 AtomCrasher",
+    "🤖 Random",
+    "🧨 Brawler v2"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "2",
+     "pop": "803",
+     "peak": "803",
+     "energy": "9260",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1340 → 1342"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "3293",
+     "peak": "3295",
+     "energy": "163293",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1456 → 1470"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "20",
+     "energy": "0",
+     "faults": "0",
+     "insns": "10 (14)",
+     "rating": "364 → 364"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1474",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1285 → 1269"
+    }
+   ]
+  },
+  {
+   "id": 106189,
+   "cells": [
+    "👾 Noob++",
+    "🧨 Brawler",
+    "🤖 Medic",
+    "🧫 Complacency"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "2030",
+     "energy": "0",
+     "faults": "0",
+     "insns": "86 (111)",
+     "rating": "1020 → 1036"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1234",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1170 → 1150"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "173",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "374 → 373"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198725",
+     "faults": "0",
+     "insns": "47 (53)",
+     "rating": "1541 → 1545"
+    }
+   ]
+  },
+  {
+   "id": 106188,
+   "cells": [
+    "🤖 Walker",
+    "🧨 Brawler v2",
+    "🦖 Noob+",
+    "🎂 AtomPush"
+   ],
+   "winner": "🦖 Noob+",
+   "colonies": [
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "208",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "349 → 348"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "610",
+     "peak": "712",
+     "energy": "6388",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1310 → 1285"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "1",
+     "pop": "1788",
+     "peak": "1797",
+     "energy": "39162",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1122 → 1161"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1687",
+     "peak": "2167",
+     "energy": "72602",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1470 → 1455"
+    }
+   ]
+  },
+  {
+   "id": 106177,
+   "cells": [
+    "🦖 Noob+",
+    "🎂 AtomPush",
+    "🤖 Hunter",
+    "🤖 Medic"
+   ],
+   "winner": "🦖 Noob+",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "1",
+     "pop": "3576",
+     "peak": "3577",
+     "energy": "80285",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1096 → 1120"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "515",
+     "peak": "887",
+     "energy": "11079",
+     "faults": "0",
+     "insns": "33 (47)",
+     "rating": "1488 → 1466"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "838",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "624 → 628"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "274",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "384 → 379"
+    }
+   ]
+  },
+  {
+   "id": 106173,
+   "cells": [
+    "🤖 Walker",
+    "🧨 Brawler",
+    "👾 Noob++",
+    "🦖 Noob+"
+   ],
+   "winner": "🧨 Brawler",
+   "colonies": [
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "409",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "352 → 351"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "88709",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1153 → 1171"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "961",
+     "energy": "0",
+     "faults": "0",
+     "insns": "78 (111)",
+     "rating": "1042 → 1024"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "2156",
+     "energy": "0",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1096 → 1096"
+    }
+   ]
+  },
+  {
+   "id": 106164,
+   "cells": [
+    "💣 Bouncer",
+    "🦠 Contagion",
+    "🦘 rooby",
+    "🧨 Brawler"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "2",
+     "pop": "0",
+     "peak": "1692",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1286 → 1295"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198789",
+     "faults": "0",
+     "insns": "78 (88)",
+     "rating": "1517 → 1528"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "4",
+     "pop": "0",
+     "peak": "558",
+     "energy": "0",
+     "faults": "0",
+     "insns": "71 (101)",
+     "rating": "1133 → 1113"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "340",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (24)",
+     "rating": "1158 → 1159"
+    }
+   ]
+  },
+  {
+   "id": 106161,
+   "cells": [
+    "🎂 AtomPush",
+    "🤖 Walker",
+    "🧨 Brawler v2",
+    "👾 Noob++"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1595",
+     "peak": "1600",
+     "energy": "69795",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1494 → 1478"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "95",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "354 → 354"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "2497",
+     "peak": "2505",
+     "energy": "22317",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1276 → 1301"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "1",
+     "peak": "1261",
+     "energy": "1",
+     "faults": "0",
+     "insns": "76 (111)",
+     "rating": "1086 → 1078"
+    }
+   ]
+  },
+  {
+   "id": 106157,
+   "cells": [
+    "🤖 Hunter",
+    "🧨 Brawler v2",
+    "🦦 AtomCrasher",
+    "💣 Bouncer"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "49",
+     "energy": "0",
+     "faults": "0",
+     "insns": "17 (20)",
+     "rating": "601 → 600"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1838",
+     "peak": "1844",
+     "energy": "15415",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1267 → 1276"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2257",
+     "peak": "2272",
+     "energy": "109366",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1483 → 1495"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1175",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (24)",
+     "rating": "1305 → 1286"
+    }
+   ]
+  },
+  {
+   "id": 106153,
+   "cells": [
+    "🧨 Brawler",
+    "🤖 Medic",
+    "🦠 Contagion",
+    "👾 Noob++"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "365",
+     "peak": "2739",
+     "energy": "3828",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1144 → 1152"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "386",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "395 → 394"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "3728",
+     "peak": "3729",
+     "energy": "180049",
+     "faults": "0",
+     "insns": "79 (87)",
+     "rating": "1510 → 1515"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1847",
+     "energy": "0",
+     "faults": "0",
+     "insns": "84 (111)",
+     "rating": "1098 → 1086"
+    }
+   ]
+  },
+  {
+   "id": 106150,
+   "cells": [
+    "🤖 Hunter",
+    "🧫 Complacency",
+    "🦘 rooby",
+    "🤖 Random"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "36",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "622 → 601"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "200790",
+     "faults": "0",
+     "insns": "47 (53)",
+     "rating": "1558 → 1560"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "1314",
+     "energy": "0",
+     "faults": "0",
+     "insns": "76 (101)",
+     "rating": "1166 → 1165"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "3",
+     "pop": "0",
+     "peak": "730",
+     "energy": "0",
+     "faults": "0",
+     "insns": "13 (14)",
+     "rating": "352 → 372"
+    }
+   ]
+  },
+  {
+   "id": 106132,
+   "cells": [
+    "🦦 AtomCrasher",
+    "⚓ Aegis",
+    "🧫 Complacency",
+    "🧨 Brawler v2"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "1643",
+     "peak": "1644",
+     "energy": "72039",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1468 → 1491"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "4",
+     "pop": "270",
+     "peak": "1280",
+     "energy": "5683",
+     "faults": "0",
+     "insns": "31 (47)",
+     "rating": "985 → 980"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1605",
+     "peak": "1712",
+     "energy": "72383",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1568 → 1557"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "572",
+     "peak": "582",
+     "energy": "7315",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1287 → 1280"
+    }
+   ]
+  },
+  {
+   "id": 106122,
+   "cells": [
+    "🧨 Brawler",
+    "🦦 AtomCrasher",
+    "🦘 rooby",
+    "⚓ Aegis"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "440",
+     "peak": "598",
+     "energy": "5501",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1159 → 1152"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1215",
+     "peak": "2206",
+     "energy": "55077",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1480 → 1464"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "2436",
+     "peak": "2436",
+     "energy": "120881",
+     "faults": "0",
+     "insns": "79 (101)",
+     "rating": "1184 → 1222"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "4",
+     "pop": "0",
+     "peak": "353",
+     "energy": "0",
+     "faults": "0",
+     "insns": "31 (48)",
+     "rating": "1021 → 1005"
+    }
+   ]
+  },
+  {
+   "id": 106118,
+   "cells": [
+    "🎂 AtomPush",
+    "🤖 Walker",
+    "🦠 Contagion",
+    "🦖 Noob+"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2381",
+     "peak": "2399",
+     "energy": "118547",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1514 → 1527"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "112",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "371 → 370"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1707",
+     "peak": "1712",
+     "energy": "79896",
+     "faults": "0",
+     "insns": "77 (88)",
+     "rating": "1514 → 1503"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1481",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1032 → 1030"
+    }
+   ]
+  },
+  {
+   "id": 106105,
+   "cells": [
+    "🦖 Noob+",
+    "👾 Noob++",
+    "🧨 Brawler",
+    "🎂 AtomPush"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "4",
+     "pop": "0",
+     "peak": "483",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (25)",
+     "rating": "1086 → 1064"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "860",
+     "energy": "0",
+     "faults": "0",
+     "insns": "79 (111)",
+     "rating": "1098 → 1122"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "893",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1169 → 1160"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204085",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1501 → 1509"
+    }
+   ]
+  },
+  {
+   "id": 106102,
+   "cells": [
+    "🤖 Medic",
+    "🦘 rooby",
+    "🦠 Contagion",
+    "🤖 Walker"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "3",
+     "pop": "0",
+     "peak": "1090",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "404 → 414"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "4",
+     "pop": "0",
+     "peak": "90",
+     "energy": "0",
+     "faults": "0",
+     "insns": "52 (101)",
+     "rating": "1262 → 1209"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4094",
+     "peak": "4094",
+     "energy": "192690",
+     "faults": "0",
+     "insns": "79 (90)",
+     "rating": "1501 → 1505"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "2",
+     "pop": "0",
+     "peak": "916",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "347 → 385"
+    }
+   ]
+  },
+  {
+   "id": 106093,
+   "cells": [
+    "🤖 Medic",
+    "💣 Bouncer",
+    "🦦 AtomCrasher",
+    "🧨 Brawler"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "371",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "408 → 408"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "725",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (24)",
+     "rating": "1282 → 1259"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2749",
+     "peak": "2749",
+     "energy": "137280",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1425 → 1437"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1347",
+     "peak": "1369",
+     "energy": "13584",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1185 → 1195"
+    }
+   ]
+  },
+  {
+   "id": 106089,
+   "cells": [
+    "🦖 Noob+",
+    "⚓ Aegis",
+    "👾 Noob++",
+    "🦘 rooby"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "1289",
+     "energy": "0",
+     "faults": "0",
+     "insns": "22 (33)",
+     "rating": "1079 → 1098"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "1295",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (48)",
+     "rating": "1031 → 1032"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "4",
+     "pop": "0",
+     "peak": "450",
+     "energy": "0",
+     "faults": "0",
+     "insns": "68 (111)",
+     "rating": "1206 → 1161"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204320",
+     "faults": "0",
+     "insns": "80 (101)",
+     "rating": "1220 → 1245"
+    }
+   ]
+  },
+  {
+   "id": 106082,
+   "cells": [
+    "👾 Noob++",
+    "💣 Bouncer",
+    "🤖 Medic",
+    "🧫 Complacency"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "1781",
+     "energy": "0",
+     "faults": "0",
+     "insns": "84 (111)",
+     "rating": "1193 → 1206"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "349",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1279 → 1261"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "288",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "408 → 407"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198509",
+     "faults": "0",
+     "insns": "47 (53)",
+     "rating": "1589 → 1595"
+    }
+   ]
+  },
+  {
+   "id": 106078,
+   "cells": [
+    "🤖 Random",
+    "💣 Bouncer",
+    "👾 Noob++",
+    "🦘 rooby"
+   ],
+   "winner": "💣 Bouncer",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "250",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "372 → 372"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "1",
+     "pop": "3883",
+     "peak": "3885",
+     "energy": "52282",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1257 → 1279"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1342",
+     "energy": "0",
+     "faults": "0",
+     "insns": "81 (111)",
+     "rating": "1215 → 1193"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "211",
+     "peak": "847",
+     "energy": "10267",
+     "faults": "0",
+     "insns": "77 (101)",
+     "rating": "1229 → 1230"
+    }
+   ]
+  },
+  {
+   "id": 106065,
+   "cells": [
+    "🤖 Hunter",
+    "🦠 Contagion",
+    "🤖 Walker",
+    "🦦 AtomCrasher"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "328",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "614 → 619"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1685",
+     "peak": "1689",
+     "energy": "82593",
+     "faults": "0",
+     "insns": "77 (88)",
+     "rating": "1553 → 1536"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "293",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "374 → 369"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2407",
+     "peak": "2506",
+     "energy": "113373",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1402 → 1419"
+    }
+   ]
+  },
+  {
+   "id": 106059,
+   "cells": [
+    "🤖 Random",
+    "⚓ Aegis",
+    "🤖 Walker",
+    "🦠 Contagion"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "3",
+     "pop": "0",
+     "peak": "255",
+     "energy": "0",
+     "faults": "0",
+     "insns": "12 (14)",
+     "rating": "323 → 337"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "1499",
+     "energy": "0",
+     "faults": "0",
+     "insns": "34 (48)",
+     "rating": "1058 → 1058"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "99",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "389 → 374"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "199543",
+     "faults": "0",
+     "insns": "79 (90)",
+     "rating": "1551 → 1553"
+    }
+   ]
+  },
+  {
+   "id": 106058,
+   "cells": [
+    "🤖 Medic",
+    "🧫 Complacency",
+    "🤖 Hunter",
+    "🧨 Brawler"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "225",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "431 → 424"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198768",
+     "faults": "0",
+     "insns": "47 (53)",
+     "rating": "1581 → 1583"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "574",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "609 → 614"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "2",
+     "pop": "0",
+     "peak": "1143",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1170 → 1170"
+    }
+   ]
+  },
+  {
+   "id": 106052,
+   "cells": [
+    "🧫 Complacency",
+    "💣 Bouncer",
+    "🧨 Brawler",
+    "🦠 Contagion"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2197",
+     "peak": "2210",
+     "energy": "104664",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1564 → 1581"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "1319",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1254 → 1232"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "226",
+     "peak": "485",
+     "energy": "2441",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1159 → 1170"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1669",
+     "peak": "1676",
+     "energy": "81144",
+     "faults": "0",
+     "insns": "77 (88)",
+     "rating": "1557 → 1551"
+    }
+   ]
+  },
+  {
+   "id": 106047,
+   "cells": [
+    "🤖 Random",
+    "⚓ Aegis",
+    "🧫 Complacency",
+    "🤖 Hunter"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "103",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "332 → 328"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "1943",
+     "energy": "0",
+     "faults": "0",
+     "insns": "35 (51)",
+     "rating": "1069 → 1070"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4093",
+     "peak": "4093",
+     "energy": "199520",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1562 → 1564"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "106",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "616 → 618"
+    }
+   ]
+  },
+  {
+   "id": 106037,
+   "cells": [
+    "🤖 Random",
+    "🧨 Brawler v2",
+    "👾 Noob++",
+    "🦖 Noob+"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "220",
+     "energy": "0",
+     "faults": "0",
+     "insns": "12 (14)",
+     "rating": "337 → 336"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "71252",
+     "faults": "0",
+     "insns": "23 (24)",
+     "rating": "1220 → 1239"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "0",
+     "peak": "641",
+     "energy": "0",
+     "faults": "0",
+     "insns": "73 (111)",
+     "rating": "1178 → 1177"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1423",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (29)",
+     "rating": "1081 → 1065"
+    }
+   ]
+  },
+  {
+   "id": 106033,
+   "cells": [
+    "🦖 Noob+",
+    "🦘 rooby",
+    "💣 Bouncer",
+    "🤖 Random"
+   ],
+   "winner": "🦘 rooby",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1021",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1095 → 1081"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "1",
+     "pop": "3969",
+     "peak": "3974",
+     "energy": "197018",
+     "faults": "0",
+     "insns": "80 (102)",
+     "rating": "1238 → 1257"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "2",
+     "pop": "126",
+     "peak": "676",
+     "energy": "2282",
+     "faults": "0",
+     "insns": "18 (24)",
+     "rating": "1219 → 1216"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "477",
+     "energy": "0",
+     "faults": "0",
+     "insns": "13 (14)",
+     "rating": "338 → 337"
+    }
+   ]
+  },
+  {
+   "id": 106026,
+   "cells": [
+    "🧨 Brawler v2",
+    "🤖 Random",
+    "🦦 AtomCrasher",
+    "👾 Noob++"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1516",
+     "peak": "1516",
+     "energy": "21960",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1222 → 1226"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "4",
+     "energy": "0",
+     "faults": "0",
+     "insns": "10 (14)",
+     "rating": "338 → 338"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2580",
+     "peak": "2769",
+     "energy": "124163",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1375 → 1389"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1576",
+     "energy": "0",
+     "faults": "0",
+     "insns": "84 (111)",
+     "rating": "1197 → 1180"
+    }
+   ]
+  },
+  {
+   "id": 106024,
+   "cells": [
+    "⚓ Aegis",
+    "🤖 Walker",
+    "🦘 rooby",
+    "🧫 Complacency"
+   ],
+   "winner": "⚓ Aegis",
+   "colonies": [
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "1",
+     "pop": "1726",
+     "peak": "1853",
+     "energy": "30916",
+     "faults": "0",
+     "insns": "34 (47)",
+     "rating": "1069 → 1109"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "504",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "382 → 382"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "1283",
+     "peak": "1293",
+     "energy": "63438",
+     "faults": "0",
+     "insns": "77 (101)",
+     "rating": "1219 → 1224"
+    },
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "3",
+     "pop": "1082",
+     "peak": "1082",
+     "energy": "47301",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1607 → 1563"
+    }
+   ]
+  },
+  {
+   "id": 106019,
+   "cells": [
+    "🦘 rooby",
+    "⚓ Aegis",
+    "🧨 Brawler v2",
+    "🤖 Hunter"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "716",
+     "energy": "0",
+     "faults": "0",
+     "insns": "74 (92)",
+     "rating": "1223 → 1219"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "1394",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (49)",
+     "rating": "1083 → 1069"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "63327",
+     "faults": "0",
+     "insns": "23 (24)",
+     "rating": "1200 → 1222"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "352",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "625 → 622"
+    }
+   ]
+  },
+  {
+   "id": 106004,
+   "cells": [
+    "🧫 Complacency",
+    "🦘 rooby",
+    "🤖 Walker",
+    "🦦 AtomCrasher"
+   ],
+   "winner": "🧫 Complacency",
+   "colonies": [
+    {
+     "name": "🧫 Complacency",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2408",
+     "peak": "2411",
+     "energy": "107855",
+     "faults": "0",
+     "insns": "46 (53)",
+     "rating": "1586 → 1595"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "50",
+     "peak": "1263",
+     "energy": "2500",
+     "faults": "0",
+     "insns": "68 (101)",
+     "rating": "1251 → 1241"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "638",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "390 → 390"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1634",
+     "peak": "1636",
+     "energy": "76860",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1381 → 1383"
+    }
+   ]
+  },
+  {
+   "id": 105999,
+   "cells": [
+    "🤖 Random",
+    "⚓ Aegis",
+    "🦖 Noob+",
+    "💣 Bouncer"
+   ],
+   "winner": "🦖 Noob+",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "165",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "345 → 344"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "953",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (47)",
+     "rating": "1105 → 1108"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "91167",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1115 → 1141"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "884",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1186 → 1157"
+    }
+   ]
+  },
+  {
+   "id": 105992,
+   "cells": [
+    "🦦 AtomCrasher",
+    "⚓ Aegis",
+    "🧨 Brawler v2",
+    "🤖 Random"
+   ],
+   "winner": "⚓ Aegis",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1907",
+     "peak": "2254",
+     "energy": "83085",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1412 → 1398"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "1",
+     "pop": "2187",
+     "peak": "2187",
+     "energy": "45436",
+     "faults": "0",
+     "insns": "35 (49)",
+     "rating": "1065 → 1105"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "710",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (23)",
+     "rating": "1266 → 1240"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "79",
+     "energy": "0",
+     "faults": "0",
+     "insns": "10 (14)",
+     "rating": "345 → 345"
+    }
+   ]
+  },
+  {
+   "id": 105985,
+   "cells": [
+    "🦖 Noob+",
+    "⚓ Aegis",
+    "🧨 Brawler",
+    "💣 Bouncer"
+   ],
+   "winner": "💣 Bouncer",
+   "colonies": [
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "10",
+     "peak": "1362",
+     "energy": "216",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1089 → 1108"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "530",
+     "energy": "0",
+     "faults": "0",
+     "insns": "30 (49)",
+     "rating": "1067 → 1065"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "470",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (23)",
+     "rating": "1246 → 1197"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "1",
+     "pop": "4086",
+     "peak": "4086",
+     "energy": "55070",
+     "faults": "0",
+     "insns": "23 (24)",
+     "rating": "1166 → 1199"
+    }
+   ]
+  },
+  {
+   "id": 105983,
+   "cells": [
+    "🤖 Hunter",
+    "🦠 Contagion",
+    "🧨 Brawler v2",
+    "🦘 rooby"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "176",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "588 → 587"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4037",
+     "peak": "4039",
+     "energy": "196905",
+     "faults": "0",
+     "insns": "80 (88)",
+     "rating": "1523 → 1532"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "2",
+     "pop": "57",
+     "peak": "907",
+     "energy": "916",
+     "faults": "0",
+     "insns": "18 (24)",
+     "rating": "1258 → 1265"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "1321",
+     "energy": "0",
+     "faults": "0",
+     "insns": "76 (101)",
+     "rating": "1239 → 1224"
+    }
+   ]
+  },
+  {
+   "id": 105963,
+   "cells": [
+    "🧨 Brawler",
+    "🦖 Noob+",
+    "🦠 Contagion",
+    "🤖 Medic"
+   ],
+   "winner": "🧨 Brawler",
+   "colonies": [
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "1",
+     "pop": "2346",
+     "peak": "2346",
+     "energy": "22844",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1205 → 1234"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "862",
+     "peak": "1434",
+     "energy": "18999",
+     "faults": "0",
+     "insns": "21 (37)",
+     "rating": "1082 → 1073"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "884",
+     "peak": "1128",
+     "energy": "34715",
+     "faults": "0",
+     "insns": "71 (88)",
+     "rating": "1530 → 1511"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "481",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "420 → 419"
+    }
+   ]
+  },
+  {
+   "id": 105960,
+   "cells": [
+    "🧨 Brawler v2",
+    "👾 Noob++",
+    "🎂 AtomPush",
+    "🤖 Hunter"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1830",
+     "peak": "1849",
+     "energy": "23417",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1259 → 1262"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "1528",
+     "energy": "0",
+     "faults": "0",
+     "insns": "81 (111)",
+     "rating": "1145 → 1135"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2266",
+     "peak": "2266",
+     "energy": "113157",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1465 → 1474"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "298",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "587 → 585"
+    }
+   ]
+  },
+  {
+   "id": 105954,
+   "cells": [
+    "🤖 Medic",
+    "👾 Noob++",
+    "🦘 rooby",
+    "🎂 AtomPush"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "545",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "421 → 420"
+    },
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "2",
+     "pop": "1536",
+     "peak": "1824",
+     "energy": "31782",
+     "faults": "0",
+     "insns": "92 (111)",
+     "rating": "1131 → 1145"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "172",
+     "energy": "0",
+     "faults": "0",
+     "insns": "63 (101)",
+     "rating": "1280 → 1257"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2553",
+     "peak": "2560",
+     "energy": "113351",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1456 → 1465"
+    }
+   ]
+  },
+  {
+   "id": 105952,
+   "cells": [
+    "🤖 Random",
+    "🦦 AtomCrasher",
+    "💣 Bouncer",
+    "🧨 Brawler"
+   ],
+   "winner": "🧨 Brawler",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "247",
+     "energy": "0",
+     "faults": "0",
+     "insns": "12 (14)",
+     "rating": "373 → 373"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1977",
+     "peak": "2044",
+     "energy": "95755",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1444 → 1428"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "771",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (23)",
+     "rating": "1149 → 1134"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "1",
+     "pop": "2118",
+     "peak": "2130",
+     "energy": "22132",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1164 → 1196"
+    }
+   ]
+  },
+  {
+   "id": 105948,
+   "cells": [
+    "👾 Noob++",
+    "💣 Bouncer",
+    "🤖 Walker",
+    "🎂 AtomPush"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "👾 Noob++",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "918",
+     "energy": "0",
+     "faults": "0",
+     "insns": "70 (111)",
+     "rating": "1147 → 1131"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "2",
+     "pop": "0",
+     "peak": "1384",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1140 → 1149"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "454",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "407 → 407"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204726",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1449 → 1456"
+    }
+   ]
+  },
+  {
+   "id": 105944,
+   "cells": [
+    "🦘 rooby",
+    "🦖 Noob+",
+    "🦠 Contagion",
+    "⚓ Aegis"
+   ],
+   "winner": "⚓ Aegis",
+   "colonies": [
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "277",
+     "peak": "677",
+     "energy": "13401",
+     "faults": "0",
+     "insns": "72 (99)",
+     "rating": "1267 → 1251"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "4",
+     "pop": "0",
+     "peak": "498",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (33)",
+     "rating": "1079 → 1058"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1902",
+     "peak": "1902",
+     "energy": "92379",
+     "faults": "0",
+     "insns": "76 (88)",
+     "rating": "1563 → 1546"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "1",
+     "pop": "1908",
+     "peak": "2115",
+     "energy": "34028",
+     "faults": "0",
+     "insns": "34 (47)",
+     "rating": "1039 → 1094"
+    }
+   ]
+  },
+  {
+   "id": 105937,
+   "cells": [
+    "🦦 AtomCrasher",
+    "🎂 AtomPush",
+    "🦘 rooby",
+    "🤖 Walker"
+   ],
+   "winner": "🦦 AtomCrasher",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "1779",
+     "peak": "1783",
+     "energy": "83164",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1431 → 1451"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1688",
+     "peak": "1697",
+     "energy": "79619",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1450 → 1444"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "619",
+     "peak": "852",
+     "energy": "30583",
+     "faults": "0",
+     "insns": "75 (101)",
+     "rating": "1281 → 1267"
+    },
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "252",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "385 → 385"
+    }
+   ]
+  },
+  {
+   "id": 105928,
+   "cells": [
+    "🤖 Hunter",
+    "💣 Bouncer",
+    "⚓ Aegis",
+    "🦠 Contagion"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "695",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "603 → 600"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "2",
+     "pop": "1167",
+     "peak": "1267",
+     "energy": "12557",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1144 → 1152"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "913",
+     "energy": "0",
+     "faults": "0",
+     "insns": "32 (47)",
+     "rating": "1054 → 1046"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2928",
+     "peak": "3028",
+     "energy": "131285",
+     "faults": "0",
+     "insns": "78 (88)",
+     "rating": "1556 → 1560"
+    }
+   ]
+  },
+  {
+   "id": 105922,
+   "cells": [
+    "🤖 Walker",
+    "🦖 Noob+",
+    "💣 Bouncer",
+    "⚓ Aegis"
+   ],
+   "winner": "💣 Bouncer",
+   "colonies": [
+    {
+     "name": "🤖 Walker",
+     "player": "BOT Alice",
+     "place": "4",
+     "pop": "0",
+     "peak": "461",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "394 → 392"
+    },
+    {
+     "name": "🦖 Noob+",
+     "player": "Assembler",
+     "place": "3",
+     "pop": "0",
+     "peak": "2452",
+     "energy": "0",
+     "faults": "0",
+     "insns": "22 (37)",
+     "rating": "1065 → 1043"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "1",
+     "pop": "3495",
+     "peak": "3495",
+     "energy": "56629",
+     "faults": "0",
+     "insns": "22 (24)",
+     "rating": "1124 → 1144"
+    },
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "597",
+     "peak": "2344",
+     "energy": "12074",
+     "faults": "0",
+     "insns": "34 (49)",
+     "rating": "1051 → 1054"
+    }
+   ]
+  },
+  {
+   "id": 105914,
+   "cells": [
+    "🦠 Contagion",
+    "🦘 rooby",
+    "🧨 Brawler v2",
+    "🤖 Hunter"
+   ],
+   "winner": "🧨 Brawler v2",
+   "colonies": [
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "784",
+     "peak": "1129",
+     "energy": "31818",
+     "faults": "0",
+     "insns": "76 (88)",
+     "rating": "1573 → 1556"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "882",
+     "energy": "0",
+     "faults": "0",
+     "insns": "69 (101)",
+     "rating": "1302 → 1283"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "1",
+     "pop": "3310",
+     "peak": "3310",
+     "energy": "43774",
+     "faults": "0",
+     "insns": "23 (24)",
+     "rating": "1208 → 1245"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "360",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "581 → 580"
+    }
+   ]
+  },
+  {
+   "id": 105893,
+   "cells": [
+    "⚓ Aegis",
+    "🧨 Brawler",
+    "🦠 Contagion",
+    "🦦 AtomCrasher"
+   ],
+   "winner": "🦠 Contagion",
+   "colonies": [
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "439",
+     "energy": "0",
+     "faults": "0",
+     "insns": "32 (47)",
+     "rating": "1014 → 1027"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "4",
+     "pop": "0",
+     "peak": "609",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1148 → 1126"
+    },
+    {
+     "name": "🦠 Contagion",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "201913",
+     "faults": "0",
+     "insns": "79 (88)",
+     "rating": "1545 → 1557"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "0",
+     "peak": "1686",
+     "energy": "0",
+     "faults": "0",
+     "insns": "35 (47)",
+     "rating": "1424 → 1422"
+    }
+   ]
+  },
+  {
+   "id": 105891,
+   "cells": [
+    "🎂 AtomPush",
+    "🦘 rooby",
+    "🤖 Random",
+    "💣 Bouncer"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "204725",
+     "faults": "0",
+     "insns": "36 (47)",
+     "rating": "1428 → 1440"
+    },
+    {
+     "name": "🦘 rooby",
+     "player": "patrickHakun",
+     "place": "2",
+     "pop": "0",
+     "peak": "495",
+     "energy": "0",
+     "faults": "0",
+     "insns": "70 (101)",
+     "rating": "1321 → 1319"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "86",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "433 → 432"
+    },
+    {
+     "name": "💣 Bouncer",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "1161",
+     "energy": "0",
+     "faults": "0",
+     "insns": "20 (24)",
+     "rating": "1126 → 1117"
+    }
+   ]
+  },
+  {
+   "id": 105881,
+   "cells": [
+    "🦦 AtomCrasher",
+    "🎂 AtomPush",
+    "🧨 Brawler",
+    "🧨 Brawler v2"
+   ],
+   "winner": "🎂 AtomPush",
+   "colonies": [
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "1393",
+     "peak": "1524",
+     "energy": "61064",
+     "faults": "0",
+     "insns": "34 (47)",
+     "rating": "1411 → 1410"
+    },
+    {
+     "name": "🎂 AtomPush",
+     "player": "HammerSpb",
+     "place": "1",
+     "pop": "2100",
+     "peak": "2102",
+     "energy": "91183",
+     "faults": "0",
+     "insns": "34 (47)",
+     "rating": "1419 → 1440"
+    },
+    {
+     "name": "🧨 Brawler",
+     "player": "Striker",
+     "place": "3",
+     "pop": "497",
+     "peak": "846",
+     "energy": "6998",
+     "faults": "0",
+     "insns": "21 (24)",
+     "rating": "1132 → 1140"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "4",
+     "pop": "103",
+     "peak": "435",
+     "energy": "2336",
+     "faults": "0",
+     "insns": "17 (24)",
+     "rating": "1230 → 1202"
+    }
+   ]
+  }
+ ]
+}

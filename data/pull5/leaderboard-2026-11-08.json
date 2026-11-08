@@ -1,0 +1,258 @@
+{
+ "utc": "2026-11-08T22:20:59.126Z",
+ "columns": [
+  "#",
+  "cell",
+  "player",
+  "rating",
+  "games",
+  "wins",
+  "avg place",
+  "insns/call",
+  "last played"
+ ],
+ "rows": [
+  [
+   "1",
+   "🧫 Complacency AI-assisted",
+   "rjclay",
+   "1576",
+   "282",
+   "210",
+   "1.27",
+   "46",
+   "2s ago"
+  ],
+  [
+   "2",
+   "🦠 Contagion AI-assisted",
+   "rjclay",
+   "1550",
+   "460",
+   "343",
+   "1.29",
+   "78",
+   "32s ago"
+  ],
+  [
+   "3",
+   "🎂 AtomPush v5 hand-crafted",
+   "HammerSpb",
+   "1483",
+   "17757",
+   "13614",
+   "1.26",
+   "35",
+   "11s ago"
+  ],
+  [
+   "4",
+   "🦦 AtomCrasher v7 hand-crafted",
+   "HammerSpb",
+   "1432",
+   "17666",
+   "12841",
+   "1.31",
+   "35",
+   "45s ago"
+  ],
+  [
+   "5",
+   "💣 Bouncer hand-crafted",
+   "Striker",
+   "1267",
+   "8353",
+   "4239",
+   "1.70",
+   "21",
+   "2s ago"
+  ],
+  [
+   "6",
+   "🧨 Brawler v2 hand-crafted",
+   "Striker",
+   "1212",
+   "8415",
+   "4011",
+   "1.74",
+   "21",
+   "45s ago"
+  ],
+  [
+   "7",
+   "🦘 rooby v5 AI-assisted",
+   "patrickHakun",
+   "1191",
+   "7808",
+   "3756",
+   "1.69",
+   "77",
+   "2s ago"
+  ],
+  [
+   "8",
+   "🦖 Noob+ v3 hand-crafted",
+   "Assembler",
+   "1161",
+   "22006",
+   "9604",
+   "1.82",
+   "22",
+   "11s ago"
+  ],
+  [
+   "9",
+   "🧨 Brawler hand-crafted",
+   "Striker",
+   "1138",
+   "8527",
+   "3828",
+   "1.79",
+   "21",
+   "33s ago"
+  ],
+  [
+   "10",
+   "👾 Noob++ v2 hand-crafted",
+   "Assembler",
+   "1066",
+   "20189",
+   "8809",
+   "1.78",
+   "88",
+   "41s ago"
+  ],
+  [
+   "11",
+   "⚓ Aegis v18 hand-crafted",
+   "myles777",
+   "1026",
+   "23344",
+   "8829",
+   "1.88",
+   "34",
+   "32s ago"
+  ],
+  [
+   "12",
+   "💎 gemAlert_v4 AI-assisted",
+   "gschweers",
+   "993",
+   "3256",
+   "361",
+   "2.50",
+   "34",
+   "32s ago"
+  ],
+  [
+   "13",
+   "🦂 zergling v44 hand-crafted",
+   "andrew",
+   "801",
+   "19051",
+   "1180",
+   "2.72",
+   "19",
+   "2s ago"
+  ],
+  [
+   "14",
+   "🐋 Bulwark v5 hand-crafted",
+   "myles777",
+   "794",
+   "19020",
+   "0",
+   "2.80",
+   "27",
+   "55s ago"
+  ],
+  [
+   "15",
+   "🐢 squirtle hand-crafted",
+   "patrickHakun",
+   "778",
+   "8442",
+   "622",
+   "3.09",
+   "19",
+   "33s ago"
+  ],
+  [
+   "16",
+   "💎 gemAlert_v3 hand-crafted",
+   "gschweers",
+   "755",
+   "3350",
+   "45",
+   "2.87",
+   "39",
+   "41s ago"
+  ],
+  [
+   "17",
+   "🍬 Noob hand-crafted",
+   "Assembler",
+   "727",
+   "29853",
+   "9820",
+   "2.16",
+   "14",
+   "11s ago"
+  ],
+  [
+   "18",
+   "🤖 Hunter AI-assisted",
+   "🤖 BOT Eve",
+   "600",
+   "35582",
+   "8936",
+   "2.55",
+   "19",
+   "33s ago"
+  ],
+  [
+   "19",
+   "🤖 Medic AI-assisted",
+   "🤖 BOT Carol",
+   "365",
+   "35551",
+   "519",
+   "3.31",
+   "9",
+   "11s ago"
+  ],
+  [
+   "20",
+   "🤖 Walker AI-assisted",
+   "🤖 BOT Alice",
+   "302",
+   "35571",
+   "1000",
+   "3.26",
+   "7",
+   "32s ago"
+  ],
+  [
+   "21",
+   "🤖 Random AI-assisted",
+   "🤖 BOT Bob",
+   "301",
+   "35617",
+   "80",
+   "3.31",
+   "12",
+   "55s ago"
+  ],
+  [
+   "22",
+   "🚂 choochoo v2 hand-crafted",
+   "andrew",
+   "-90",
+   "25483",
+   "0",
+   "3.93",
+   "13",
+   "33s ago"
+  ]
+ ]
+}
