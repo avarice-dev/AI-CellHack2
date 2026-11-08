@@ -142,3 +142,27 @@ Its simulator runs are simplified (Python policies, naive feeders) and are treat
   (live energy); add to the sandbox list.
 - F20 accept as E8 starting values: stop long-range feed 2950, fill from 2980, last-tick children near an
   enemy only if >= 3.
+
+## Round 3: the reviewer's G1-G20 (reviews/r3-review.md), decided 2026-11-08 by the lead (Claude)
+
+Covetous (quick Sprint successor, user request) is kept OUT of these changes: user said to turn it around fast and save major design changes for later cells.
+
+| ID | Decision | Reason |
+|---|---|---|
+| G1 | Accept: drop Dogma; feeding depth D in 12-20, not ~6 | pull 2: fronts move until ~t2076; deep pumps are the field's losing economy |
+| G2 | Accept: post-lock refill is the kernel's main feature, in every slot | Sprint vs AtomPush (99239 etc.) lost on refills, not bite order |
+| G3 | Accept: post lock at 5 everywhere; drop checked lock and pre-arm; blind 3 only as a rival model | checked lock refills at ~20 and loses races; flat 5 without memory needs >= 6 by count (to confirm from the Covetous build) |
+| G4 | Accept: +1/+3 are REST gains not logged in replays; no bonus or passive gain in the sim | matches the sim smoke (fed +3 from feed 2 + rest 1); keep sim feed-bonus / idle-gain off |
+| G5 | Accept for the kernel: donors >= 47 feed the poorest neighbour at margin >= 2; never feed >= 47; locked cells first; D in {12,16} | income only from cells below 50 that rest; Aegis wastes 34% of feeds on full cells |
+| G6 | Accept: rewrite designs.md item 2 and 2.1 | each rival is 4 in one direction only; 5 wins the tie, never the 4 |
+| G7 | Accept: trio = Scourge, Contagion, Avarice/Sprint (Covetous interim); later the third slot becomes the D-variant named Doctrine | data favours conversion + grab; keep Sprint until >= 50 games of the new cells |
+| G8 | Accept: grab weighted up | t200 leader wins 22/36, t500 leader 28/36; contact ~tick 37 |
+| G9 | Accept: S <= 2, only from starts within 10 of an edge | S = 4 was a corner-board artefact |
+| G10 | Accept: keep children >= 8 near enemies | refill child size predicts duels |
+| G11 | Accept: judge cells on >= 50 games | direction luck ~16 points of win rate |
+| G12 | Accept: slow-path split <= ~15 instructions, ahead of feeding | Sprint's late gains came from fast re-occupation |
+| G13-G16 | Accept as the sim experiment queue (4 workers max, below-normal priority) | refill race, feeding depth, grab, counter-moves |
+| G17 | Defer: harvesting only as an experiment; a "Famine" slot only if it pays | unproven |
+| G18 | Accept: offline re-analysis of stored replays only, no new downloads | site is fetched gently; data already on disk |
+| G19 | Accept: carry the risks into designs.md 1.5 and the first kernel cell's checks | stun memory, low-energy refills, birth-tick bites, feed-to-death, feeds lost at cap |
+| G20 | Accept: update designs.md 1.2/1.3 with pull-2 facts; close 1.3.4, 1.3.5 | pull 2 supersedes pull 1 |
