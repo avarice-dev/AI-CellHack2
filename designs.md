@@ -5,6 +5,12 @@ Planning only. Round 3 is the first round built on real site data: `data/site-ob
 History: `reviews/designs-r1-snapshot.md`, `reviews/designs-r2-snapshot.md`, the reviews in `reviews/`,
 and every decision in `reviews/decisions-r1.md` (round 1 and the reviewer's F1-F20).
 
+**Names** (2026-11-08, user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to
+behaviour. Dogma = the slot formerly called Hold (feeds its front, never gives ground); Contagion = formerly Spore
+(scouts, spreads fast); Scourge = formerly Breach (kill, refill, keep eating forward). Our ladder cell Sprint is called
+Avarice in the docs (eats greedily, never feeds); its ladder name and `cells/sprint.asm` stay Sprint. The simulator
+may still use the old names in code.
+
 **What changed since round 2, and why**
 1. Starts are random, not corners. All corner, home and "outward from the corner" logic is replaced by an
    origin each colony records for itself (2.3).
@@ -57,7 +63,7 @@ Both forms use the VIEW_W sentinel (review F14): zero memory points the check at
 is 64 on the ladder and 16 in the sandbox, never a cell type. Lock byte `[rdx]` = VIEW_CELLS + idx - 12,
 so UP 27, LEFT 31, RIGHT 33, DOWN 37.
 
-**Checked lock (Hold, Spore).**
+**Checked lock (Dogma, Contagion).**
 ```
 movsx  rcx, byte [rdx]
 cmp    byte [rdi+rcx+12], CELL_ENEMY   ; unlocked: reads VIEW_W
@@ -70,7 +76,7 @@ straight line (view idx 2, 10, 14, 22) with the square between empty sets its lo
 When the enemy or its child steps in, the first bite is already 5. A pre-armed checked lock pointing at
 an empty square just falls through (+3), so it is harmless.
 
-**Post lock (Breach).** The reviewer's form with the decision-r1 corrections:
+**Post lock (Scourge).** The reviewer's form with the decision-r1 corrections:
 ```
 movzx  ecx, byte [rdx]                ; 0 = unlocked
 movzx  eax, byte [rdi+rcx+12]         ; target type, or VIEW_W when unlocked
@@ -88,7 +94,7 @@ gain: a freed square is refilled at 5, and the child inherits the lock pointing 
 Multi-enemy choice is encoded in the fight table at no cost: two enemies D, L, U, R order; three enemies
 bite opposite the friend side; four enemies any.
 
-| Path | Checked (Hold, Spore) | Post (Breach) |
+| Path | Checked (Dogma, Contagion) | Post (Scourge) |
 |---|---|---|
 | Engaged bite | 5 | 5 |
 | First contact, pre-armed | 5 | n/a |
@@ -124,7 +130,7 @@ AtomPush-like fat reserves (D ~ 20, mean ~45). E1 and E7 decide.
 ### 2.5 Growth
 - Split at e >= 5 into an empty neighbour, outward directions first.
 - Prey rule: with an enemy in the 5x5, split only if the child gets >= 8 (parent e >= 16). Exception:
-  Breach's post-lock refill.
+  Scourge's post-lock refill.
 - Scouts (parameter S, 0-4): the root's early children with e >= 12 get the scout flag and a bearing
   (one outward axis each). A scout MOVEs along its bearing for up to L squares (parameter, ~15), stops on
   seeing an enemy in its 5x5 or when blocked, then clears the flag and grows as a normal cell.
@@ -141,7 +147,7 @@ memory except the lock store on the first bite; check ABI_VERSION = 4 at build t
 ---------------------------------------------------------------------------------------------------
 ## 3. The three slots
 
-| | Hold | Spore | Breach |
+| | Dogma | Contagion | Scourge |
 |---|---|---|---|
 | Bet | Fronts freeze; defence and land at freeze time decide | The grab decides | Kills convert into land |
 | Lock | checked + pre-arm | checked + pre-arm | post (refill at 5) |
@@ -150,13 +156,13 @@ memory except the lock store on the first bite; check ABI_VERSION = 4 at build t
 | Scouts S | 0 | 4 | 0 |
 | Prey rule | child >= 8 near enemies | child >= 8 | child >= 8, except lock refills |
 
-**Hold.** Every front contact is 5 from the first tick; deep feeding keeps front cells topped up. Loses
+**Dogma.** Every front contact is 5 from the first tick; deep feeding keeps front cells topped up. Loses
 least against a 5-rival; gains least against weak ones.
 
-**Spore.** Four scouts along the outward axes, strong grab assist. With random starts, a colony that
+**Contagion.** Four scouts along the outward axes, strong grab assist. With random starts, a colony that
 starts near an edge has fewer directions to grow; scouts move the growth front away from neighbours early.
 
-**Breach.** Post lock: a kill is followed by a refill at 5 and the child keeps eating forward. Pays off
+**Scourge.** Post lock: a kill is followed by a refill at 5 and the child keeps eating forward. Pays off
 against rivals that are slower than 5 or that feed thinly; risks wasted ticks on refills below 5 energy.
 
 All three share the endgame, origin, memory layout, multi-enemy table and code rules.
@@ -170,9 +176,9 @@ statistics, checked against the real match 98753.
 Experiments, each with the decision it changes:
 | # | Question | Setup | Changes |
 |---|---|---|---|
-| E1 | How much feeding does a front need? | Hold with D = 4/6/10/20 vs R-Lock5 and R-FatGrab, 4-way, random starts | D per slot |
-| E2 | Do scouts and grab assist pay with random starts? | Spore with S = 0/2/4, G = 6/8/12, mirrors and vs rivals | Spore's slot; S, G |
-| E3 | Checked + pre-arm vs post lock | Hold vs Breach head to head and vs rivals | which lock goes into the other slots |
+| E1 | How much feeding does a front need? | Dogma with D = 4/6/10/20 vs R-Lock5 and R-FatGrab, 4-way, random starts | D per slot |
+| E2 | Do scouts and grab assist pay with random starts? | Contagion with S = 0/2/4, G = 6/8/12, mirrors and vs rivals | Contagion's slot; S, G |
+| E3 | Checked + pre-arm vs post lock | Dogma vs Scourge head to head and vs rivals | which lock goes into the other slots |
 | E4 | Multi-enemy table vs kill-first handler | breach and salient setups | keep table at 6 |
 | E5 | Does it matter if stunned writes are lost? | E3 with the memory flag flipped | lock design robustness |
 | E6 | How bad is a blind-3 rival? | our designs vs R-Blind3 | whether to build our own blind lock |
