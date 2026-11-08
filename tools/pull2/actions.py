@@ -2,7 +2,7 @@
 that ate in each direction, fed, split (a same-colony birth next to it that it could be the parent of), moved, or had
 no event (rested / stunned / blocked). Measured from the replay events, start-of-tick board.
 
-Usage: python -I tools/pull2/actions.py <replay id> [colony ...]   (reads data/<CH_PULL or pull2>/replays/<id>.chr2.gz)
+Usage: python -I tools/pull2/actions.py <replay id> [colony ...] [--tmin=T] [--tmax=T] [--emin=E] [--emax=E] [--vs=enemy colony]   (reads data/<CH_PULL or pull2>/replays/<id>.chr2.gz)
 Prints one table per colony: key = enemy directions at start of tick (U R D L), then counts and shares.
 Splits are attributed to every same-colony neighbour of the child that is not otherwise busy (ambiguous when
 several), so 'split' is an upper bound. Event order is turn order; 'bitten first' = eaten before its own action.
@@ -16,7 +16,7 @@ DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))   # U R D L
 DN = 'URDL'
 
 
-def run(rid, want, tmin=0, tmax=10 ** 9, emin=0, emax=255):
+def run(rid, want, tmin=0, tmax=10 ** 9, emin=0, emax=255, vs=None):
     raw = gzip.decompress(open(os.path.join(REP, f'{rid}.chr2.gz'), 'rb').read())
     version, ruleset, W, H, ncol, kfe, seed, maxt = struct.unpack_from('<HHHHBHQI', raw, 4)
     p = 4 + struct.calcsize('<HHHHBHQI') + 16
@@ -103,7 +103,7 @@ def run(rid, want, tmin=0, tmax=10 ** 9, emin=0, emax=255):
                         nx, ny = x + dx, y + dy
                         if 0 <= nx < W and 0 <= ny < H:
                             g = snap[ny * W + nx]
-                            if g and colOf[g - 1] != c:
+                            if g and colOf[g - 1] != c and (vs is None or colOf[g - 1] == vs):
                                 mask += DN[i]
                     if not mask:
                         continue
@@ -132,7 +132,7 @@ def main():
     want = {int(a) for a in sys.argv[2:] if not a.startswith('-')}
     opt = dict(a[2:].split('=') for a in sys.argv[2:] if a.startswith('--'))
     st = run(rid, want, int(opt.get('tmin', 0)), int(opt.get('tmax', 10 ** 9)), int(opt.get('emin', 0)),
-             int(opt.get('emax', 255)))
+             int(opt.get('emax', 255)), int(opt['vs']) if 'vs' in opt else None)
     for (c, mask), d in sorted(st.items(), key=lambda kv: (kv[0][0], -sum(kv[1].values()))):
         tot = sum(d.values())
         if tot < 200:

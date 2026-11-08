@@ -203,8 +203,7 @@ def main(argv=None):
     for r in res:
         for q in r['ranking']:
             ins.setdefault(r['cells'][q['colony']], []).append(round(q['avg_insn'], 1))
-    print('
-sim avg insns per call by cell (match page has the real ones):')
+    print('\nsim avg insns per call by cell (match page has the real ones):')
     for n in sorted(ins):
         print('  %-12s %s' % (n, sorted(ins[n])))
     print('\n%.0fs wall' % (time.perf_counter() - t0))
