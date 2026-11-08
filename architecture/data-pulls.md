@@ -100,6 +100,98 @@ Run each tool from the repository root. Most read files with paths that start wi
 | `tools/pull4/games.py` | Builds a timeline for each Contagion game. |
 | `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
 
+## Doing your own pull
+
+The repository does not contain the replays. They are too large (25 to 53 MB each, gzipped). To use the replay tools, collect your own pull. The tools that need replays stop with the message "run a pull first" when the files are missing.
+
+**What you need.** The site is https://cellhack2.hostbin.org/. You must log in with a class account to read the match pages and the replays. You also need Python 3.12. The decoder uses only the standard library.
+
+Follow the [pacing rules](#pacing-rules-for-the-site) in the next section during every step that reads the site.
+
+### Step 1: choose a pull name
+
+Use the next free name, for example `pull5`. All files of the pull go into `data/pull5/`. The steps below use `<pull>` for this name.
+
+### Step 2: save the match list as JSON
+
+Open the site's match list for the cell you study, and open the match page of each game. Write the data into one JSON file, for example `data/<pull>/matches-<cell>-<date>.json`. The tab scripts read this schema:
+
+```json
+{
+  "utc": "2026-11-08T14:49:23.507Z",
+  "source": "where the list came from (free text)",
+  "note": "what the list holds (free text)",
+  "matches": [
+    {
+      "id": 103747,
+      "cells": ["Noob+", "Brawler", "zergling", "Scourge"],
+      "winner": "Scourge",
+      "colonies": [
+        {"name": "Noob+", "player": "Assembler", "place": "2", "pop": "0", "peak": "1768",
+         "energy": "0", "faults": "0", "insns": "22 (37)", "rating": "1202 → 1210"}
+      ]
+    }
+  ]
+}
+```
+
+- `colonies` has one entry for each of the four colonies. Each value is the text from the match page table.
+- Keep `colonies` in the order of the match page table. This order is the colony order of the replay (colony 0 to 3). The project checked this on all 27 replays of pull 3 and pull 4: the places and the final populations agree.
+- The tab scripts use `id`, and for each colony `name`, `place`, `pop` and `rating`. `place` is the text `"1"` to `"4"`. `rating` holds two numbers: the rating before and after the match.
+- A name can start with an emoji, as on the site. The tools remove it.
+- `lists.py` reads only `id`, `cells` and `winner`. It reads only pull 2.
+
+### Step 3: build names.json
+
+Run the tab script on your list. It prints the tables and writes `data/<pull>/names.json`, which maps each match id to the four colony names in colony order.
+
+```
+python -I tools/pull3/tab.py --pull <pull> --cell <your cell> --matches data/<pull>/matches-<cell>-<date>.json
+```
+
+`tools/pull4/tab.py` takes the same arguments and also `--rival <cell>`, to compare two of your cells in the same games. Every replay you download must have its match id in this list. Else `mine.py` and `valtab.py` cannot name its colonies.
+
+### Step 4: download the replays
+
+The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a logged-in session. Save each replay as `data/<pull>/replays/<id>.chr2.gz`. The tools read this file with gzip.
+
+- The file must be gzip-compressed. A replay that the browser has already decompressed starts with the bytes `CHR2` (about 100 MB for 3000 ticks). Compress it with this command:
+
+  ```
+  python -c "import gzip,shutil,sys; f=sys.argv[1]; g=gzip.open(f+'.gz','wb'); shutil.copyfileobj(open(f,'rb'),g); g.close()" 103747.chr2
+  ```
+
+  Then move `103747.chr2.gz` into `data/<pull>/replays/`.
+- A file that already starts with the bytes `1f 8b` is gzip-compressed. Keep it as it is.
+- Only format version 4 is decoded. The tools stop with an error for other versions.
+- Wait between downloads (see the pacing rules). Do not download in parallel.
+- Do not commit the replays. `.gitignore` ignores `data/pull*/replays/`.
+
+### Step 5: decode the replays
+
+```
+CH_PULL=<pull> python -I tools/pull2/mine.py
+```
+
+On Windows PowerShell, set the variable first: `$env:CH_PULL = "<pull>"`, then run `python -I tools/pull2/mine.py`. The decoder reads every replay that has no output yet. It writes `data/<pull>/mining/<id>.json` and `data/<pull>/mining/races/<id>.csv.gz`. For each replay it prints the keyframe check. `kfMismatch` and `countMismatch` must be 0. If not, the replay format changed, and the outputs are not reliable.
+
+### Step 6: build the validation table
+
+```
+CH_PULL=<pull> python -I tools/valtab.py
+```
+
+This writes `data/<pull>/validation-table.md` and `data/<pull>/starts.json` for all replays of the pull. `sim/validate.py` reads only the pulls named in its `PULLS` list, so a new pull must be added there before the simulator uses it.
+
+### Step 7: tables for each game
+
+`tools/pull3/losses.py` and `tools/pull4/games.py` read the `mine.py` output. Both take `--pull <pull>` and `--cell <your cell>`. `games.py` also takes `--rival <cell>`.
+
+```
+python -I tools/pull3/losses.py --pull <pull> --cell <your cell>
+python -I tools/pull4/games.py --pull <pull> --cell <your cell> --rival <other cell>
+```
+
 ## Pacing rules for the site
 
 The project keeps its requests to the site slow. It follows these rules, which come from the pull write-ups and the decision records.

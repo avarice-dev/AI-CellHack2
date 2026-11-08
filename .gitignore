@@ -9,6 +9,7 @@ cells/build/
 /ops/
 /data/pull3/replays/
 /data/pull4/replays/
+/data/pull*/replays/
 /.privacy-patterns
 
 # Agent tracking files (local only, not part of the project)
@@ -17,3 +18,4 @@ cells/build/
 /planning.md
 /archive/
 /.tracking-git/
+.venv*/
