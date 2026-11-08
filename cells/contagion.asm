@@ -79,6 +79,8 @@ special:					; flags 0 (start cell, tick 0) or scout bit set
 	test		byte [rdx + 1], 2
 	jnz		scout
 	mov		byte [rdx + 1], 1		; initialised
+	cmp		dword [rdi + VIEW_TICK], 0
+	jne		.plain				; only the start cell (tick 0) may send a scout
 	movzx		ecx, word [rdi + VIEW_X]	; room LEFT
 	movzx		r8d, word [rdi + VIEW_W]
 	sub		r8d, ecx

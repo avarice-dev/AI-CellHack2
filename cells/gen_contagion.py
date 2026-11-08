@@ -14,7 +14,9 @@ Contagion = Scourge (cells/gen_scourge.py) plus grab tools (designs.md round 4, 
      holding next to an enemy in the 5x5, then grows normally.
 Memory (designs 2.6): [1] flags (bit 0 = initialised, bit 1 = scout), [2] origin x, [3] origin y,
 [4] bearing, [5] steps left.  Children copy memory; the origin cell recognises itself by its position
-and clears its scout bit on its first plain split (tick 1).
+and clears its scout bit on its first plain split (tick 1).  Only a tick-0 call may start a scout, so if the
+site copied memory to a child BEFORE the parent's writes of that tick, the colony still gets at most one
+scout (the origin's tick-1 child) instead of a chain of re-initialising cells.
 """
 
 import os
@@ -122,6 +124,8 @@ special:					; flags 0 (start cell, tick 0) or scout bit set
 	test		byte [rdx + 1], 2
 	jnz		scout
 	mov		byte [rdx + 1], 1		; initialised
+	cmp		dword [rdi + VIEW_TICK], 0
+	jne		.plain				; only the start cell (tick 0) may send a scout
 	movzx		ecx, word [rdi + VIEW_X]	; room LEFT
 	movzx		r8d, word [rdi + VIEW_W]
 	sub		r8d, ecx

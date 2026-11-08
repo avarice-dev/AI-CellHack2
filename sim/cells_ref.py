@@ -263,12 +263,14 @@ def make_contagion(refill_min=SCOURGE_REFILL_MIN, threat_min=SCOURGE_THREAT_MIN,
             return act, 26, 26
         if not mem[1] & 2:                     # special (taken, 25): test, jnz (26, 27): init
             mem[1] = 1
+            if view.tick != 0:                 # mov flag, cmp tick, jne .plain (taken), ret
+                return act, 31, 29
             x, y = view.x, view.y
             room = {LEFT: x, RIGHT: view.w - x - 1, UP: y, DOWN: view.h - y - 1}
-            # mov flag, 4 movzx, 2 sub, 2 dec, mov esi, 3 x (cmp, cmova), cmp edge, ja = 45
+            # mov flag, cmp tick, jne, 4 movzx, 2 sub, 2 dec, mov esi, 3 x (cmp, cmova), cmp edge, ja = 47
             if min(room.values()) > edge:
-                return act, 46, 44             # ja .plain (taken), ret
-            n, t = 47, 1                       # mov r11d, xor esi
+                return act, 48, 46             # ja .plain (taken), ret
+            n, t = 49, 1                       # mov r11d, xor esi
             bear, best = UP, room[UP]
             for d, more in ((RIGHT, 2), (DOWN, 2), (LEFT, 1)):
                 n += 2                         # cmp, jbe

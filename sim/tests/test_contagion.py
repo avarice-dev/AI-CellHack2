@@ -112,7 +112,7 @@ class ContagionPathTest(unittest.TestCase):
 
     def test_start_cell_far_from_edges_is_not_a_scout(self):
         (a, m) = run(mem=bytes([0, 0]), energy=10, x=30, y=31)
-        self.assertEqual(a, (0x22, 46, 44))
+        self.assertEqual(a, (0x22, 48, 46))
         self.assertEqual(bytes(m[:6]), bytes([0, 1, 0, 0, 0, 0]))
         self.assertEqual(run(mem=bytes([0, 0]), energy=10, x=11, y=52)[0][0], 0x22)   # 11 from the nearest edges
 
@@ -123,7 +123,13 @@ class ContagionPathTest(unittest.TestCase):
             self.assertEqual(a[0], 0x20 + bear, (x, y))
             self.assertEqual(bytes(m[:6]), bytes([0, 3, x, y, bear, 10]), (x, y))
         # (3, 31): RIGHT more room than UP -> jbe .b1 not taken; DOWN 32 < 60, LEFT 3: two taken
-        self.assertEqual(run(mem=bytes([0, 0]), energy=10, x=3, y=31)[0], (0x21, 62, 59))
+        self.assertEqual(run(mem=bytes([0, 0]), energy=10, x=3, y=31)[0], (0x21, 64, 61))
+
+    def test_only_tick_0_starts_a_scout(self):
+        # memory 0 after tick 0 (a child that got its parent's memory from before the parent's writes)
+        (a, m) = run(mem=bytes([0, 0]), energy=5, x=3, y=31, tick=1)
+        self.assertEqual(a, (0x22, 31, 29))
+        self.assertEqual(bytes(m[:6]), bytes([0, 1, 0, 0, 0, 0]))
 
     def test_scout_moves_along_its_bearing(self):
         (a, m) = run(mem=bytes([0, 3, 30, 31, 1, 4]), energy=5, x=31, y=31)
