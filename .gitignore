@@ -4,3 +4,5 @@ __pycache__/
 /sim/out/
 
 cells/build/
+/data/pull2/replays/
+/data/pull2/keyframes/

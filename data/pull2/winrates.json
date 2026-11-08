@@ -1,0 +1,1739 @@
+{
+ "summary": {
+  "matches": 593,
+  "id_range": [
+   98830,
+   99422
+  ],
+  "cells": {
+   "AtomCrasher": {
+    "new": [
+     89,
+     112
+    ],
+    "old": [
+     62,
+     83
+    ],
+    "all": [
+     151,
+     195
+    ]
+   },
+   "AtomPush": {
+    "new": [
+     76,
+     109
+    ],
+    "old": [
+     61,
+     79
+    ],
+    "all": [
+     137,
+     188
+    ]
+   },
+   "Bouncer": {
+    "new": [
+     64,
+     108
+    ],
+    "old": [
+     43,
+     82
+    ],
+    "all": [
+     107,
+     190
+    ]
+   },
+   "Brawler v2": {
+    "new": [
+     54,
+     104
+    ],
+    "old": [
+     40,
+     77
+    ],
+    "all": [
+     94,
+     181
+    ]
+   },
+   "Sprint": {
+    "new": [
+     52,
+     116
+    ],
+    "old": [
+     12,
+     24
+    ],
+    "all": [
+     64,
+     140
+    ]
+   },
+   "rooby": {
+    "new": [
+     42,
+     107
+    ],
+    "old": [
+     37,
+     71
+    ],
+    "all": [
+     79,
+     178
+    ]
+   },
+   "Brawler": {
+    "new": [
+     51,
+     114
+    ],
+    "old": [
+     31,
+     75
+    ],
+    "all": [
+     82,
+     189
+    ]
+   },
+   "Noob+": {
+    "new": [
+     36,
+     111
+    ],
+    "old": [
+     33,
+     76
+    ],
+    "all": [
+     69,
+     187
+    ]
+   },
+   "Noob++": {
+    "new": [
+     39,
+     109
+    ],
+    "old": [
+     18,
+     72
+    ],
+    "all": [
+     57,
+     181
+    ]
+   },
+   "Aegis": {
+    "new": [
+     28,
+     112
+    ],
+    "old": [
+     27,
+     73
+    ],
+    "all": [
+     55,
+     185
+    ]
+   },
+   "Noob": {
+    "new": [
+     27,
+     117
+    ],
+    "old": [
+     16,
+     83
+    ],
+    "all": [
+     43,
+     200
+    ]
+   },
+   "Hunter": {
+    "new": [
+     12,
+     114
+    ],
+    "old": [
+     7,
+     79
+    ],
+    "all": [
+     19,
+     193
+    ]
+   },
+   "gemAlert_v4": {
+    "new": [
+     10,
+     108
+    ],
+    "old": [
+     8,
+     75
+    ],
+    "all": [
+     18,
+     183
+    ]
+   },
+   "squirtle": {
+    "new": [
+     7,
+     120
+    ],
+    "old": [
+     4,
+     80
+    ],
+    "all": [
+     11,
+     200
+    ]
+   },
+   "gemAlert_v3": {
+    "new": [
+     3,
+     116
+    ],
+    "old": [
+     1,
+     81
+    ],
+    "all": [
+     4,
+     197
+    ]
+   },
+   "zergling": {
+    "new": [
+     3,
+     118
+    ],
+    "old": [
+     1,
+     81
+    ],
+    "all": [
+     4,
+     199
+    ]
+   },
+   "Medic": {
+    "new": [
+     0,
+     117
+    ],
+    "old": [
+     1,
+     83
+    ],
+    "all": [
+     1,
+     200
+    ]
+   },
+   "choochoo": {
+    "new": [
+     0,
+     120
+    ],
+    "old": [
+     0,
+     81
+    ],
+    "all": [
+     0,
+     201
+    ]
+   },
+   "Random": {
+    "new": [
+     0,
+     115
+    ],
+    "old": [
+     0,
+     85
+    ],
+    "all": [
+     0,
+     200
+    ]
+   },
+   "Walker": {
+    "new": [
+     0,
+     114
+    ],
+    "old": [
+     0,
+     80
+    ],
+    "all": [
+     0,
+     194
+    ]
+   },
+   "Bulwark": {
+    "new": [
+     0,
+     111
+    ],
+    "old": [
+     0,
+     79
+    ],
+    "all": [
+     0,
+     190
+    ]
+   }
+  }
+ },
+ "h2h": {
+  "Aegis | Noob++": [
+   4,
+   6,
+   7
+  ],
+  "Aegis | Sprint": [
+   0,
+   11,
+   8
+  ],
+  "Aegis | squirtle": [
+   5,
+   0,
+   9
+  ],
+  "Noob++ | Sprint": [
+   5,
+   12,
+   7
+  ],
+  "Noob++ | squirtle": [
+   5,
+   0,
+   11
+  ],
+  "Sprint | squirtle": [
+   14,
+   0,
+   10
+  ],
+  "Brawler | Medic": [
+   5,
+   0,
+   10
+  ],
+  "Brawler | Noob+": [
+   5,
+   4,
+   8
+  ],
+  "Brawler | rooby": [
+   7,
+   8,
+   3
+  ],
+  "Medic | Noob+": [
+   0,
+   6,
+   16
+  ],
+  "Medic | rooby": [
+   0,
+   5,
+   7
+  ],
+  "Noob+ | rooby": [
+   0,
+   12,
+   8
+  ],
+  "AtomCrasher | Hunter": [
+   18,
+   0,
+   4
+  ],
+  "AtomCrasher | choochoo": [
+   20,
+   0,
+   4
+  ],
+  "AtomCrasher | gemAlert_v4": [
+   9,
+   0,
+   1
+  ],
+  "Hunter | choochoo": [
+   3,
+   0,
+   15
+  ],
+  "Hunter | gemAlert_v4": [
+   4,
+   0,
+   10
+  ],
+  "choochoo | gemAlert_v4": [
+   0,
+   4,
+   14
+  ],
+  "AtomPush | Bouncer": [
+   8,
+   6,
+   3
+  ],
+  "AtomPush | gemAlert_v3": [
+   10,
+   0,
+   4
+  ],
+  "AtomPush | zergling": [
+   15,
+   0,
+   3
+  ],
+  "Bouncer | gemAlert_v3": [
+   11,
+   0,
+   7
+  ],
+  "Bouncer | zergling": [
+   15,
+   0,
+   8
+  ],
+  "gemAlert_v3 | zergling": [
+   0,
+   2,
+   23
+  ],
+  "Aegis | Noob": [
+   6,
+   1,
+   13
+  ],
+  "Aegis | Random": [
+   6,
+   0,
+   10
+  ],
+  "Aegis | Walker": [
+   4,
+   0,
+   11
+  ],
+  "Noob | Random": [
+   10,
+   0,
+   9
+  ],
+  "Noob | Walker": [
+   4,
+   0,
+   15
+  ],
+  "Random | Walker": [
+   0,
+   0,
+   12
+  ],
+  "Brawler v2 | Bulwark": [
+   7,
+   0,
+   6
+  ],
+  "Brawler v2 | Sprint": [
+   9,
+   6,
+   2
+  ],
+  "Brawler v2 | squirtle": [
+   9,
+   0,
+   9
+  ],
+  "Bulwark | Sprint": [
+   0,
+   11,
+   8
+  ],
+  "Bulwark | squirtle": [
+   0,
+   2,
+   10
+  ],
+  "Brawler | Hunter": [
+   5,
+   0,
+   8
+  ],
+  "Brawler | Noob++": [
+   6,
+   9,
+   4
+  ],
+  "Hunter | Medic": [
+   4,
+   0,
+   14
+  ],
+  "Hunter | Noob++": [
+   0,
+   10,
+   6
+  ],
+  "Medic | Noob++": [
+   0,
+   11,
+   9
+  ],
+  "Noob | choochoo": [
+   7,
+   0,
+   14
+  ],
+  "Noob | gemAlert_v4": [
+   6,
+   0,
+   7
+  ],
+  "Random | choochoo": [
+   0,
+   0,
+   19
+  ],
+  "Random | gemAlert_v4": [
+   0,
+   4,
+   17
+  ],
+  "Aegis | AtomCrasher": [
+   4,
+   9,
+   1
+  ],
+  "Aegis | Bouncer": [
+   2,
+   15,
+   4
+  ],
+  "Aegis | zergling": [
+   7,
+   2,
+   9
+  ],
+  "AtomCrasher | Bouncer": [
+   2,
+   1,
+   1
+  ],
+  "AtomCrasher | zergling": [
+   15,
+   0,
+   6
+  ],
+  "Noob+ | Sprint": [
+   5,
+   8,
+   9
+  ],
+  "Noob+ | squirtle": [
+   9,
+   0,
+   7
+  ],
+  "Sprint | rooby": [
+   9,
+   6,
+   8
+  ],
+  "rooby | squirtle": [
+   9,
+   1,
+   7
+  ],
+  "AtomPush | Brawler v2": [
+   8,
+   3,
+   4
+  ],
+  "AtomPush | Walker": [
+   12,
+   0,
+   4
+  ],
+  "Brawler v2 | Walker": [
+   8,
+   0,
+   7
+  ],
+  "Brawler v2 | gemAlert_v3": [
+   14,
+   0,
+   7
+  ],
+  "Walker | gemAlert_v3": [
+   0,
+   2,
+   22
+  ],
+  "Bulwark | Hunter": [
+   0,
+   4,
+   17
+  ],
+  "Bulwark | choochoo": [
+   0,
+   0,
+   16
+  ],
+  "Bulwark | gemAlert_v4": [
+   0,
+   3,
+   15
+  ],
+  "Brawler | Random": [
+   8,
+   0,
+   11
+  ],
+  "Medic | Random": [
+   0,
+   0,
+   13
+  ],
+  "Noob++ | Random": [
+   8,
+   0,
+   11
+  ],
+  "AtomCrasher | Noob": [
+   19,
+   0,
+   3
+  ],
+  "AtomCrasher | Noob+": [
+   11,
+   2,
+   2
+  ],
+  "Noob | Noob+": [
+   2,
+   4,
+   10
+  ],
+  "Noob | zergling": [
+   8,
+   0,
+   10
+  ],
+  "Noob+ | zergling": [
+   4,
+   0,
+   8
+  ],
+  "Aegis | Brawler v2": [
+   3,
+   7,
+   9
+  ],
+  "Sprint | Walker": [
+   8,
+   0,
+   9
+  ],
+  "Bouncer | Bulwark": [
+   9,
+   0,
+   4
+  ],
+  "Bouncer | Hunter": [
+   9,
+   0,
+   4
+  ],
+  "Bouncer | rooby": [
+   4,
+   8,
+   1
+  ],
+  "Bulwark | rooby": [
+   0,
+   6,
+   6
+  ],
+  "Hunter | rooby": [
+   1,
+   5,
+   9
+  ],
+  "Noob++ | choochoo": [
+   10,
+   0,
+   13
+  ],
+  "Noob++ | gemAlert_v4": [
+   8,
+   0,
+   12
+  ],
+  "choochoo | squirtle": [
+   0,
+   3,
+   18
+  ],
+  "gemAlert_v4 | squirtle": [
+   2,
+   2,
+   10
+  ],
+  "Aegis | AtomPush": [
+   3,
+   13,
+   6
+  ],
+  "Aegis | Brawler": [
+   2,
+   8,
+   4
+  ],
+  "AtomPush | Brawler": [
+   7,
+   5,
+   5
+  ],
+  "AtomPush | Random": [
+   18,
+   0,
+   2
+  ],
+  "AtomCrasher | Sprint": [
+   10,
+   3,
+   0
+  ],
+  "AtomCrasher | gemAlert_v3": [
+   14,
+   0,
+   2
+  ],
+  "Sprint | gemAlert_v3": [
+   7,
+   0,
+   10
+  ],
+  "Sprint | zergling": [
+   7,
+   0,
+   8
+  ],
+  "Medic | Noob": [
+   0,
+   8,
+   5
+  ],
+  "Medic | choochoo": [
+   0,
+   0,
+   18
+  ],
+  "Medic | squirtle": [
+   0,
+   3,
+   14
+  ],
+  "Noob | squirtle": [
+   7,
+   0,
+   10
+  ],
+  "Brawler v2 | Hunter": [
+   10,
+   2,
+   4
+  ],
+  "Brawler v2 | gemAlert_v4": [
+   12,
+   1,
+   3
+  ],
+  "Hunter | Walker": [
+   4,
+   0,
+   11
+  ],
+  "Walker | gemAlert_v4": [
+   0,
+   2,
+   10
+  ],
+  "Bouncer | Noob+": [
+   11,
+   2,
+   3
+  ],
+  "Bouncer | Noob++": [
+   7,
+   0,
+   2
+  ],
+  "Noob+ | Noob++": [
+   9,
+   6,
+   6
+  ],
+  "Noob++ | zergling": [
+   8,
+   0,
+   8
+  ],
+  "Aegis | Bulwark": [
+   7,
+   0,
+   16
+  ],
+  "AtomCrasher | Bulwark": [
+   14,
+   0,
+   3
+  ],
+  "Brawler | gemAlert_v3": [
+   10,
+   0,
+   5
+  ],
+  "Random | gemAlert_v3": [
+   0,
+   0,
+   18
+  ],
+  "Random | rooby": [
+   0,
+   5,
+   7
+  ],
+  "gemAlert_v3 | rooby": [
+   0,
+   10,
+   4
+  ],
+  "AtomPush | Hunter": [
+   18,
+   0,
+   3
+  ],
+  "AtomPush | Noob": [
+   10,
+   0,
+   8
+  ],
+  "Brawler v2 | Noob": [
+   7,
+   0,
+   6
+  ],
+  "Hunter | Noob": [
+   0,
+   7,
+   12
+  ],
+  "Medic | Walker": [
+   0,
+   0,
+   26
+  ],
+  "Walker | choochoo": [
+   0,
+   0,
+   14
+  ],
+  "Walker | squirtle": [
+   0,
+   5,
+   14
+  ],
+  "Aegis | gemAlert_v4": [
+   3,
+   3,
+   13
+  ],
+  "Sprint | gemAlert_v4": [
+   6,
+   0,
+   5
+  ],
+  "Brawler | Bulwark": [
+   8,
+   0,
+   8
+  ],
+  "Brawler | zergling": [
+   15,
+   0,
+   6
+  ],
+  "Bulwark | gemAlert_v3": [
+   0,
+   3,
+   11
+  ],
+  "Bulwark | zergling": [
+   0,
+   2,
+   13
+  ],
+  "Bouncer | Walker": [
+   12,
+   0,
+   8
+  ],
+  "Noob+ | Walker": [
+   7,
+   0,
+   8
+  ],
+  "Walker | rooby": [
+   0,
+   8,
+   13
+  ],
+  "AtomCrasher | Medic": [
+   20,
+   0,
+   1
+  ],
+  "Brawler | Brawler v2": [
+   8,
+   4,
+   2
+  ],
+  "Brawler | choochoo": [
+   16,
+   0,
+   6
+  ],
+  "Brawler v2 | Random": [
+   11,
+   0,
+   12
+  ],
+  "Brawler v2 | choochoo": [
+   11,
+   0,
+   4
+  ],
+  "Bouncer | squirtle": [
+   11,
+   0,
+   13
+  ],
+  "gemAlert_v3 | squirtle": [
+   0,
+   2,
+   21
+  ],
+  "squirtle | zergling": [
+   1,
+   0,
+   23
+  ],
+  "AtomPush | Noob+": [
+   10,
+   1,
+   3
+  ],
+  "AtomPush | Noob++": [
+   9,
+   1,
+   3
+  ],
+  "AtomPush | rooby": [
+   12,
+   1,
+   2
+  ],
+  "Noob++ | rooby": [
+   1,
+   9,
+   9
+  ],
+  "Aegis | Hunter": [
+   6,
+   2,
+   9
+  ],
+  "Bulwark | Walker": [
+   0,
+   0,
+   16
+  ],
+  "Noob | Sprint": [
+   1,
+   9,
+   2
+  ],
+  "Medic | gemAlert_v3": [
+   0,
+   3,
+   17
+  ],
+  "Medic | gemAlert_v4": [
+   0,
+   1,
+   16
+  ],
+  "gemAlert_v3 | gemAlert_v4": [
+   0,
+   4,
+   10
+  ],
+  "Bouncer | Brawler v2": [
+   5,
+   7,
+   2
+  ],
+  "Bulwark | Noob++": [
+   0,
+   5,
+   7
+  ],
+  "Bulwark | Random": [
+   0,
+   0,
+   20
+  ],
+  "Hunter | Random": [
+   4,
+   0,
+   15
+  ],
+  "AtomCrasher | Brawler": [
+   16,
+   2,
+   4
+  ],
+  "Brawler | Noob": [
+   4,
+   2,
+   8
+  ],
+  "Walker | zergling": [
+   0,
+   2,
+   12
+  ],
+  "Bouncer | Brawler": [
+   5,
+   8,
+   2
+  ],
+  "Bouncer | Medic": [
+   17,
+   0,
+   7
+  ],
+  "Bouncer | gemAlert_v4": [
+   17,
+   0,
+   4
+  ],
+  "Brawler | gemAlert_v4": [
+   7,
+   0,
+   14
+  ],
+  "Hunter | gemAlert_v3": [
+   1,
+   0,
+   14
+  ],
+  "Noob++ | gemAlert_v3": [
+   9,
+   0,
+   7
+  ],
+  "choochoo | gemAlert_v3": [
+   0,
+   1,
+   16
+  ],
+  "Brawler v2 | Noob+": [
+   7,
+   1,
+   0
+  ],
+  "AtomCrasher | Random": [
+   16,
+   0,
+   2
+  ],
+  "AtomCrasher | rooby": [
+   16,
+   1,
+   3
+  ],
+  "Random | Sprint": [
+   0,
+   7,
+   13
+  ],
+  "Brawler | Walker": [
+   10,
+   0,
+   9
+  ],
+  "Medic | zergling": [
+   0,
+   0,
+   20
+  ],
+  "Noob | Noob++": [
+   1,
+   5,
+   7
+  ],
+  "AtomPush | squirtle": [
+   15,
+   0,
+   4
+  ],
+  "Random | squirtle": [
+   0,
+   2,
+   14
+  ],
+  "Noob+ | choochoo": [
+   5,
+   0,
+   13
+  ],
+  "Sprint | choochoo": [
+   13,
+   0,
+   8
+  ],
+  "choochoo | rooby": [
+   0,
+   5,
+   12
+  ],
+  "AtomCrasher | Walker": [
+   20,
+   0,
+   3
+  ],
+  "gemAlert_v4 | zergling": [
+   4,
+   0,
+   16
+  ],
+  "AtomPush | Bulwark": [
+   13,
+   0,
+   3
+  ],
+  "Aegis | Medic": [
+   9,
+   0,
+   9
+  ],
+  "Aegis | rooby": [
+   2,
+   3,
+   6
+  ],
+  "AtomCrasher | AtomPush": [
+   11,
+   6,
+   1
+  ],
+  "AtomCrasher | squirtle": [
+   13,
+   0,
+   0
+  ],
+  "Hunter | squirtle": [
+   4,
+   0,
+   15
+  ],
+  "Brawler v2 | Medic": [
+   5,
+   0,
+   6
+  ],
+  "Brawler v2 | rooby": [
+   11,
+   4,
+   7
+  ],
+  "Aegis | Noob+": [
+   3,
+   4,
+   7
+  ],
+  "Noob+ | Random": [
+   8,
+   0,
+   7
+  ],
+  "Noob+ | gemAlert_v4": [
+   12,
+   0,
+   11
+  ],
+  "Hunter | zergling": [
+   3,
+   1,
+   15
+  ],
+  "Bouncer | choochoo": [
+   7,
+   0,
+   5
+  ],
+  "AtomPush | Medic": [
+   13,
+   0,
+   1
+  ],
+  "AtomPush | gemAlert_v4": [
+   8,
+   1,
+   2
+  ],
+  "Random | zergling": [
+   0,
+   0,
+   13
+  ],
+  "Bulwark | Noob": [
+   0,
+   6,
+   17
+  ],
+  "Brawler v2 | Noob++": [
+   8,
+   3,
+   4
+  ],
+  "Noob | gemAlert_v3": [
+   8,
+   0,
+   13
+  ],
+  "Bouncer | Sprint": [
+   9,
+   4,
+   2
+  ],
+  "Bulwark | Medic": [
+   0,
+   0,
+   18
+  ],
+  "Bulwark | Noob+": [
+   0,
+   11,
+   8
+  ],
+  "Noob | rooby": [
+   0,
+   13,
+   8
+  ],
+  "choochoo | zergling": [
+   0,
+   0,
+   21
+  ],
+  "AtomCrasher | Noob++": [
+   5,
+   1,
+   3
+  ],
+  "Bouncer | Random": [
+   8,
+   0,
+   5
+  ],
+  "Aegis | choochoo": [
+   5,
+   0,
+   7
+  ],
+  "AtomCrasher | Brawler v2": [
+   9,
+   3,
+   2
+  ],
+  "Hunter | Sprint": [
+   0,
+   7,
+   8
+  ],
+  "gemAlert_v4 | rooby": [
+   1,
+   4,
+   6
+  ],
+  "Noob++ | Walker": [
+   6,
+   0,
+   4
+  ],
+  "Brawler | Sprint": [
+   6,
+   6,
+   2
+  ],
+  "Brawler v2 | zergling": [
+   9,
+   0,
+   4
+  ],
+  "rooby | zergling": [
+   4,
+   0,
+   4
+  ],
+  "Hunter | Noob+": [
+   0,
+   6,
+   11
+  ],
+  "Medic | Sprint": [
+   0,
+   7,
+   7
+  ],
+  "Brawler | squirtle": [
+   10,
+   0,
+   7
+  ],
+  "AtomPush | choochoo": [
+   10,
+   0,
+   3
+  ],
+  "Noob+ | gemAlert_v3": [
+   8,
+   0,
+   5
+  ],
+  "Bouncer | Noob": [
+   13,
+   3,
+   3
+  ],
+  "AtomPush | Sprint": [
+   13,
+   1,
+   2
+  ],
+  "Aegis | gemAlert_v3": [
+   3,
+   0,
+   10
+  ]
+ },
+ "hammer_upsets": [
+  [
+   98833,
+   "Bouncer",
+   [
+    "gemAlert_v3",
+    "zergling",
+    "Bouncer",
+    "AtomPush"
+   ]
+  ],
+  [
+   98838,
+   "Aegis",
+   [
+    "AtomCrasher",
+    "zergling",
+    "Aegis",
+    "Bouncer"
+   ]
+  ],
+  [
+   98843,
+   "Noob+",
+   [
+    "Noob+",
+    "Noob",
+    "AtomCrasher",
+    "zergling"
+   ]
+  ],
+  [
+   98847,
+   "Brawler",
+   [
+    "Brawler",
+    "Random",
+    "Aegis",
+    "AtomPush"
+   ]
+  ],
+  [
+   98854,
+   "Brawler v2",
+   [
+    "Noob",
+    "Brawler v2",
+    "AtomPush",
+    "Hunter"
+   ]
+  ],
+  [
+   98862,
+   "rooby",
+   [
+    "AtomPush",
+    "Noob++",
+    "rooby",
+    "Noob+"
+   ]
+  ],
+  [
+   98899,
+   "Aegis",
+   [
+    "Bulwark",
+    "Noob",
+    "Aegis",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   98911,
+   "Brawler",
+   [
+    "Brawler",
+    "gemAlert_v3",
+    "choochoo",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   98926,
+   "Brawler v2",
+   [
+    "Brawler v2",
+    "gemAlert_v4",
+    "rooby",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   98927,
+   "Aegis",
+   [
+    "Noob+",
+    "Aegis",
+    "Bulwark",
+    "AtomPush"
+   ]
+  ],
+  [
+   98934,
+   "Bouncer",
+   [
+    "Hunter",
+    "gemAlert_v3",
+    "Bouncer",
+    "AtomPush"
+   ]
+  ],
+  [
+   98963,
+   "Bouncer",
+   [
+    "Hunter",
+    "Walker",
+    "Bouncer",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   98972,
+   "Aegis",
+   [
+    "Bulwark",
+    "Walker",
+    "AtomCrasher",
+    "Aegis"
+   ]
+  ],
+  [
+   98977,
+   "Bouncer",
+   [
+    "Aegis",
+    "Brawler",
+    "AtomPush",
+    "Bouncer"
+   ]
+  ],
+  [
+   98978,
+   "Brawler v2",
+   [
+    "zergling",
+    "Hunter",
+    "AtomCrasher",
+    "Brawler v2"
+   ]
+  ],
+  [
+   98983,
+   "Sprint",
+   [
+    "Bulwark",
+    "Sprint",
+    "AtomPush",
+    "Aegis"
+   ]
+  ],
+  [
+   99001,
+   "Brawler v2",
+   [
+    "AtomPush",
+    "Brawler",
+    "Brawler v2",
+    "gemAlert_v3"
+   ]
+  ],
+  [
+   99006,
+   "Brawler",
+   [
+    "gemAlert_v3",
+    "Bouncer",
+    "AtomPush",
+    "Brawler"
+   ]
+  ],
+  [
+   99061,
+   "Sprint",
+   [
+    "Brawler",
+    "zergling",
+    "AtomCrasher",
+    "Sprint"
+   ]
+  ],
+  [
+   99082,
+   "rooby",
+   [
+    "AtomCrasher",
+    "rooby",
+    "Brawler",
+    "Brawler v2"
+   ]
+  ],
+  [
+   99094,
+   "Brawler",
+   [
+    "squirtle",
+    "Brawler v2",
+    "Brawler",
+    "AtomPush"
+   ]
+  ],
+  [
+   99101,
+   "Noob++",
+   [
+    "Noob++",
+    "AtomPush",
+    "Brawler",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   99107,
+   "Brawler",
+   [
+    "Brawler v2",
+    "AtomCrasher",
+    "Brawler",
+    "Random"
+   ]
+  ],
+  [
+   99138,
+   "Brawler v2",
+   [
+    "Noob+",
+    "choochoo",
+    "AtomCrasher",
+    "Brawler v2"
+   ]
+  ],
+  [
+   99153,
+   "Noob+",
+   [
+    "Noob+",
+    "gemAlert_v3",
+    "zergling",
+    "AtomCrasher"
+   ]
+  ],
+  [
+   99190,
+   "Bouncer",
+   [
+    "Noob",
+    "Noob++",
+    "AtomPush",
+    "Bouncer"
+   ]
+  ],
+  [
+   99208,
+   "Aegis",
+   [
+    "zergling",
+    "squirtle",
+    "Aegis",
+    "AtomPush"
+   ]
+  ],
+  [
+   99230,
+   "Bouncer",
+   [
+    "AtomPush",
+    "zergling",
+    "Bouncer",
+    "Walker"
+   ]
+  ],
+  [
+   99248,
+   "Noob+",
+   [
+    "Brawler",
+    "Noob++",
+    "Noob+",
+    "AtomPush"
+   ]
+  ],
+  [
+   99251,
+   "Aegis",
+   [
+    "choochoo",
+    "AtomCrasher",
+    "Medic",
+    "Aegis"
+   ]
+  ],
+  [
+   99259,
+   "Brawler",
+   [
+    "Brawler v2",
+    "AtomPush",
+    "Brawler",
+    "gemAlert_v4"
+   ]
+  ],
+  [
+   99264,
+   "gemAlert_v4",
+   [
+    "Aegis",
+    "Bulwark",
+    "AtomPush",
+    "gemAlert_v4"
+   ]
+  ],
+  [
+   99278,
+   "Aegis",
+   [
+    "Aegis",
+    "AtomPush",
+    "Bouncer",
+    "choochoo"
+   ]
+  ],
+  [
+   99284,
+   "Brawler",
+   [
+    "AtomPush",
+    "choochoo",
+    "Brawler",
+    "Sprint"
+   ]
+  ],
+  [
+   99304,
+   "Brawler v2",
+   [
+    "Walker",
+    "Aegis",
+    "AtomPush",
+    "Brawler v2"
+   ]
+  ],
+  [
+   99360,
+   "Bouncer",
+   [
+    "Aegis",
+    "AtomPush",
+    "Bouncer",
+    "Noob"
+   ]
+  ],
+  [
+   99413,
+   "Sprint",
+   [
+    "zergling",
+    "Aegis",
+    "AtomCrasher",
+    "Sprint"
+   ]
+  ],
+  [
+   99420,
+   "Sprint",
+   [
+    "Noob++",
+    "Noob+",
+    "AtomCrasher",
+    "Sprint"
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Move finished downloads into data/pull2/. "name (1).ext" duplicates replace the older file.
+D=$HOME/Downloads; P=$REPO/data/pull2
+shopt -s nullglob
+mv_one() { # file destdir
+  f="$1"; b="$(basename "$f")"; clean="$(echo "$b" | sed -E 's/ \([0-9]+\)//')"; mv -f "$f" "$2/$clean"; }
+for f in $D/[0-9]*.chr2.gz $D/[0-9]*chr2*.gz; do [ -f "$f" ] && mv_one "$f" $P/replays; done
+for f in $D/[0-9]*.kf*.json.gz; do [ -f "$f" ] && mv_one "$f" $P/keyframes; done
+for f in $D/[0-9]*.json; do [ -f "$f" ] && mv_one "$f" $P/summaries; done
+rm -f "$P/replays/"*" ("*")."* "$P/summaries/"*" ("*")."* 2>/dev/null
+echo "replays: $(ls $P/replays | wc -l)  kf: $(ls $P/keyframes | wc -l)  summaries: $(ls $P/summaries | wc -l)"
+du -sh $P
