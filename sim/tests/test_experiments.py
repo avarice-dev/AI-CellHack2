@@ -5,9 +5,12 @@ import io
 import json
 import os
 import tempfile
+import subprocess
+import sys
 import unittest
 
 from . import helpers  # noqa: F401  (puts sim/ on sys.path)
+from .helpers import SIM_DIR
 import experiments as X
 
 SMALL = dict(width=24, height=24, max_ticks=120, start_mode='random', start_min_dist=8)
@@ -138,6 +141,15 @@ class WorkerLimitTest(unittest.TestCase):
     def test_lower_priority_is_safe_to_call(self):
         X.lower_priority()
         X.lower_priority()
+
+    @unittest.skipUnless(sys.platform == 'win32', 'Windows priority classes')
+    def test_lower_priority_really_lowers_it(self):
+        """Regression 2026-11-08: the call returned silently while the batch ran at Normal (priority 8)."""
+        code = ('import ctypes, experiments as X; X.lower_priority(); k = ctypes.WinDLL("kernel32"); '
+                'k.GetCurrentProcess.restype = ctypes.c_void_p; k.GetPriorityClass.argtypes = [ctypes.c_void_p]; '
+                'print(k.GetPriorityClass(ctypes.c_void_p(k.GetCurrentProcess())))')
+        out = subprocess.run([sys.executable, '-c', code], cwd=SIM_DIR, capture_output=True, text=True)
+        self.assertEqual(out.stdout.strip(), str(0x4000), out.stderr)
 
 
 class ParallelTest(unittest.TestCase):

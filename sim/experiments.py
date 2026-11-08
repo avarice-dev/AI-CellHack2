@@ -58,8 +58,13 @@ def lower_priority():
         return
     try:
         import ctypes
-        k32 = ctypes.windll.kernel32
-        k32.SetPriorityClass(k32.GetCurrentProcess(), _BELOW_NORMAL_PRIORITY_CLASS)
+        # Own WinDLL with explicit types: with ctypes' default int restype the pseudo-handle -1 of
+        # GetCurrentProcess was truncated to 32 bits and SetPriorityClass failed silently (found 2026-11-08).
+        k32 = ctypes.WinDLL('kernel32', use_last_error=True)
+        k32.GetCurrentProcess.restype = ctypes.c_void_p
+        k32.SetPriorityClass.argtypes = [ctypes.c_void_p, ctypes.c_uint32]
+        k32.SetPriorityClass.restype = ctypes.c_int
+        k32.SetPriorityClass(ctypes.c_void_p(k32.GetCurrentProcess()), _BELOW_NORMAL_PRIORITY_CLASS)
     except Exception:
         pass
 
