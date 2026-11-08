@@ -7,6 +7,7 @@ pages, and **36 replays** (35 raw `.chr2.gz` kept; the raw file of 98797 was del
 keyframes and summary are kept). Replays were decoded and analysed in the page with the site's `CellHackViewer.decode`;
 the analyzer is `tools/pull2/analyze.js`, the aggregation is `tools/pull2/report.py`, `lists.py`, `late.py`, `sec8.py`.
 Replay pace was 17 s and later 8 s between fetches (the user allowed faster); no HTTP errors, no 429, no 5xx.
+Current pacing (2026-11-08): see "Pacing rules for the site" in `architecture/data-pulls.md`.
 The analyzer's start-of-tick state matched the file's keyframes in every replay (kfMismatch = 0 in all 36), so the
 per-tick `energies` mapping (order of cells = keyframe order, births appended, deaths removed, values at the END of
 the tick) is reliable.

@@ -2,6 +2,8 @@
 
 Source: My cells page and cell pages 155 / 149 (3 small fetches, 4 s apart). The cell page lists only the last 50 games.
 
+Current pacing (2026-11-08): see "Pacing rules for the site" in `architecture/data-pulls.md`.
+
 | Cell | Rating | Games | Won | Win % |
 |---|---|---|---|---|
 | Covetous (155, F5 bite + capped feeding) | 1348 | 217 | 131 | 60.4 |

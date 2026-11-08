@@ -155,7 +155,7 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 - Covetous's first ~50 games: win rate and head-to-heads vs Sprint's (scheduled check), and its bite-first share in
   each rival's "6" direction (1.3.1), from one or two chosen replays only.
 - Offline mining of the 35 stored replays: done (data/replay-mining-2026-11-08.md, tools/pull2/mine.py, a pure-Python decoder).
-- Watch the leaderboard (small page) for rival version changes before fetching anything large. Fetch gently.
+- Watch the leaderboard (small page) for rival version changes before fetching anything large. Fetch at the pace in "Pacing rules for the site" (architecture/data-pulls.md).
 
 ---------------------------------------------------------------------------------------------------
 ## 6. Rejected or retired

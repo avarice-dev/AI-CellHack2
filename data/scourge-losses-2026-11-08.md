@@ -4,6 +4,7 @@ Data: Scourge's newest 100 finished ladder games (matches 103128-103747, `data/p
 from the rjclay match list plus one match page per game, 6 s apart) and 15 loss replays decoded offline
 (`data/pull3/replays/`, git-ignored, 278 MB; decoder `tools/pull2/mine.py` with `CH_PULL=pull3`, 0 keyframe mismatches in
 all 15; outputs `data/pull3/mining/`). Tables: `python -I tools/pull3/tab.py` and `python -I tools/pull3/losses.py`.
+Current pacing (2026-11-08): see "Pacing rules for the site" in `architecture/data-pulls.md`.
 
 ## Findings
 

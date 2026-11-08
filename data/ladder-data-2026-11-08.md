@@ -5,6 +5,7 @@ ladder matches, ids 98432-98829), 13 replay downloads (~12 MB each, 12-20 s apar
 pages and the leaderboard. Earlier facts (calibration, first replay, site mechanics) are in
 `data/site-observations-2026-11-08.md`. Replays were decoded with the site's own `CellHackViewer.decode`
 and analysed in the page; event order within a tick is turn order (verified).
+Current pacing (2026-11-08): see "Pacing rules for the site" in `architecture/data-pulls.md`.
 
 ## 1. Headline findings
 1. **Every strong rival checks directions in a fixed order (Hunter-style static checks).** Against Sprint,
