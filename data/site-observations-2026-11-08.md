@@ -27,6 +27,7 @@
 - Cells 150 and 151 were created by a scripted POST (fetch) to /cells/new. That build said only
   "Built OK." and did NOT put them on the ladder; the browser form's submit does ladder a new cell.
 - calib-e-jexit (cell 150 id reused, created 2026-11-08 by scripted POST, not laddered; Sandbox match 99887 vs Idle): `mov al,ACT_REST / jmp EXIT_ADDR` = 2 (2) insns/call, 0 faults, energy 50. => a call may end with a jump to EXIT_ADDR instead of ret (1 instruction either way). Clears Covetous's `jnz EXIT_ADDR` bite exit. Sprint at that time: rating 1355, 223 games.
+- Re-uploaded 2026-11-08 for a full site history, all by scripted POST, none laddered: calib-a-rest, calib-b-jmp, calib-c-rax, calib-d-rep (plus calib-e-jexit). The site rate-limits cell creation: two POSTs 4 s apart got HTTP 429; 30 s apart worked. A built page's text can mention the ladder without laddering, so check the My cells list, not the response text.
 - calib-a-rest accidentally played 1 ladder game (placed 4th, rating 1000 -> 912) before it was taken off.
   It is retired now.
 
