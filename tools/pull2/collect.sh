@@ -1,6 +1,8 @@
 #!/bin/bash
 # Move finished downloads into data/pull2/. "name (1).ext" duplicates replace the older file.
-D=$HOME/Downloads; P=$REPO/data/pull2
+# Usage: collect.sh [DOWNLOADS_DIR]   (default: $DOWNLOADS_DIR, else $HOME/Downloads)
+D="${1:-${DOWNLOADS_DIR:-$HOME/Downloads}}"
+P="$(cd "$(dirname "$0")/../.." && pwd)/data/pull2"
 shopt -s nullglob
 mv_one() { # file destdir
   f="$1"; b="$(basename "$f")"; clean="$(echo "$b" | sed -E 's/ \([0-9]+\)//')"; mv -f "$f" "$2/$clean"; }

@@ -1,0 +1,11 @@
+#!/bin/sh
+# Block commits whose staged content has local paths or personal data (see tools/privacy_check.py).
+# Install once per clone:  git config core.hooksPath tools/hooks
+root="$(git rev-parse --show-toplevel)" || exit 1
+for py in python python3 py; do
+    if command -v "$py" >/dev/null 2>&1 && "$py" -c "import sys" >/dev/null 2>&1; then
+        exec "$py" "$root/tools/privacy_check.py" --staged
+    fi
+done
+echo "pre-commit: no working Python found; privacy check skipped" >&2
+exit 0

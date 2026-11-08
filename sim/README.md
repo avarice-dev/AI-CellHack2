@@ -110,7 +110,7 @@ The limit was 2 until 2026-11-08; the run times below were measured with 2 worke
 Unattended runs: one command; the console prints only the summary path at the end. Output goes to
 `sim/out/` (git-ignored): `<set>-<time>.md` (under 60 lines) and `<set>-<time>.json` (every match).
 ```
-cd sim
+cd sim                                # from the repo root
 python batch.py --set rivals          # 3 mixes x 8 seeds = 24 full games, about 12-15 min
 python batch.py --set hypothetical    # 2 mixes x 8 seeds = 16 games, about 8-10 min
 python batch.py --set validate        # the 36 ladder matches re-played, about 18-20 min
