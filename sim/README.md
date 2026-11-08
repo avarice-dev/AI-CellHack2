@@ -263,3 +263,18 @@ left) always died first. Always rotate slots when comparing policies.
   Sprint t500/t1000 pops. Stopped (it5, it6 no gain). Blocker: thin pump colonies keep their land after t500
   (sim Brawler/Noob+ t1000 900-1600 vs 2-16 real) whatever their economy, so the fight/refill model, not the
   feeding, is what is off; do not trust the sim for Sprint-vs-pump outcomes or late-game land.
+- 2026-11-08 treadmill pass (`treadmill.py`, outputs `out/treadmill-{fit,test}-*.txt`, not committed). Measured first: the
+  engine matches the rules (no cell acts after being bitten in 562k real turns of 98964; refills only next tick), so
+  the gap is in the rival models. Evidence: (a) match-page avg insns: Noob++ 73-90, rooby 58-79, Aegis 32-35 vs the
+  models' ~20-24 (Sprint 19 (21/23), Hunter, Medic, Walker match exactly, so the column is reliable); (b) contested
+  refills (FIT, real / sim): Sprint vs Noob++ 77 / 50%, Aegis vs rooby 81-97 / 38-46%; (c) real birth order
+  (`tools/pull2/birth_order.py`, t >= 300): Brawler, Brawler v2, Bouncer and the Atoms split before Sprint in 100% of
+  shared ticks, Noob+ / Aegis / rooby / Noob++ after it in 94-100%.
+  pad1 (non-bite pad: Noob++ 66, rooby 56, Aegis 12): FIT 49/63. pad3 (also slow-direction bites:
+  `pad_bites_from` 1 / 2 / 1): FIT 46/63, TEST 49/62 (base TEST 47/62); land t500->end now right for Noob++,
+  Aegis, rooby (-1.00 like real), contested shares vs Sprint match (Noob++ 74-79 vs 77-78%). pad2 / pad4 (pad3 +
+  pump `split_after` 2 / 3 from (c)): FIT 48 / 47; overshoot (Sprint vs Brawler contested 31-35% vs real 43-57%).
+  Not adopted (FIT does not improve; defaults unchanged). Still off: Noob+ and Brawler v2 keep land (t500->end
+  +0.06 / +0.85 vs -1.00 / -0.49 FIT), front deaths per tick of thin pumps about half of real early (Brawler 3.5 vs
+  6.7, Noob+ 0.8 vs 3.7), Atom f/eat 2-6x. Candidate (pad3, `--models`): Noob++ = Noob+ spec + `pad=66,pad_bites_from=1`; rooby = its spec +
+  `pad=56,pad_bites_from=2`; Aegis = its spec + `pad=12,pad_bites_from=1`.
