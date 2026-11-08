@@ -479,5 +479,19 @@ Retired: the VEX variants (section 8); Doctrine (feeding depth is item 2 now); F
    approval). The rival-model simulator only for questions after contact, with its validation state in view (10.6).
 Unchanged: the F5 bite, the refill race, capped-donor feeding and no prey hold (all confirmed by pull 5).
 
-### 10.6 Simulator state
-To be filled in from the measurement run on the 135-match pool.
+### 10.6 Simulator state (measured 2026-11-08 on the 135-match pool; no tuning, no code change)
+| Set | n | Sim same winner | Checks | Rating baseline | Win-share baseline |
+|---|---|---|---|---|---|
+| Old TEST (rerun) | 21 | 81% | 48/62 | 33% | 48% |
+| TEST | 45 | 71% | 51/63 | 49% | 53% |
+| TEST, pull 5 only (never seen in tuning) | 24 | 62% | 46/59 | 62% | 58% |
+| FIT | 90 | 70% | 47/63 | 44% | 59% |
+Unit tests 295/295. On fully held-out pull 5 games the simulator picks the winner no more often than "the higher
+pre-match rating wins". Main causes: the Atom models feed 4-5x too much (36-38 feeds per eat against 7-9 real) and
+grow 25-30% too slowly to t100; the pump models feed about half the real amount and hold about 6 more energy at t200;
+Noob+ keeps its land late in the sim (real median end 0, sim 1821; 8 wrong winners); Scourge over-wins in games the
+real winner fills by t300; rooby dies too often. Next tuning targets when the pause ends: (1) the Atom economy,
+(2) Noob+'s late land loss (add a rival t500/end check), (3) pump feeding. Ceiling not rerun (about 65-90 min; needs
+a workers option and its seed-0 input file, which a fresh checkout lacks).
+Consequence for design work: trust the simulator for own-colony growth before contact (10.2, the Schism study), not
+for win rates against the rival field until the Atom and Noob+ models are fixed.
