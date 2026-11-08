@@ -195,7 +195,8 @@ class Engine(object):
                  record_events=False,         # keep the bite-order pair matrix (bite_first)
                  feed_bonus=0,                # OPTION: extra energy a fed cell gains (pull 2: often +3)
                  idle_gain_prob=0.0,          # OPTION: P(+1) for a cell with no event and no REST
-                 record_deltas=False):        # per-cell-tick energy change histograms (deltas)
+                 record_deltas=False,         # per-cell-tick energy change histograms (deltas)
+                 record_races=False):         # one row per death: who refilled the square (race_rows)
         if len(policies) > MAX_COLONIES:
             raise ValueError('at most 4 colonies')
         if split_child_rounding not in ('floor', 'ceil'):
@@ -285,6 +286,12 @@ class Engine(object):
         self.bite_first = [[0] * MAX_COLONIES for _ in range(MAX_COLONIES)] if record_events else None
         # record_events: split_energy[c] = {parent energy just before a successful split: count}
         self.split_energy = [dict() for _ in range(MAX_COLONIES)] if record_events else None
+        # record_races: rows (tDeath, deadCol, killerCol, contMask, fillCol, dt, fillKind, fillE) as in
+        # tools/pull2/mine.py; killer = colony of the last cell that ever ate the dead cell (-1 none),
+        # contMask = colonies with a living cell orthogonally adjacent at the moment of death.
+        self.races = [] if record_races else None
+        self._race_pending = {}         # grid index -> (tDeath, deadCol, killerCol, contMask)
+        self._last_eater = {}           # cell id -> colony of its last eater
         self.start_positions = {}
 
         if place_start:
@@ -543,6 +550,7 @@ class Engine(object):
         fedn = self._fed
         rested = self._rested
         bonus = self.feed_bonus
+        races = self.races
         if bf is not None:
             seen = [0] * MAX_COLONIES      # successful eats so far this tick, per colony
             others = [tuple(o for o in range(MAX_COLONIES) if o != b) for b in range(MAX_COLONIES)]
@@ -569,6 +577,8 @@ class Engine(object):
                     grid[p] = GRID_EMPTY
                     grid[tp] = i
                     pos[i] = tp
+                    if races is not None:
+                        self._race_fill(t, tp, col[i], 2, en[i])
                     moves[col[i]] += 1
                     if ev is not None:
                         ev[i] = ev.get(i, 0) + 1
@@ -595,9 +605,13 @@ class Engine(object):
                         for o in others[ci]:
                             bf[o][ci] += seen[o]
                         seen[ci] += 1
+                    if races is not None:
+                        self._last_eater[g] = ci
                     if eg == 0:
                         alive[g] = False
                         deaths[cg] += 1
+                        if races is not None:
+                            self._race_death(t, g)
                     if done[g] != t:          # bitten before its turn: stunned
                         done[g] = t
                         stuns[cg] += 1
@@ -621,6 +635,8 @@ class Engine(object):
                     if e == 0:
                         alive[i] = False
                         deaths[col[i]] += 1
+                        if races is not None:
+                            self._race_death(t, i)
             else:  # ACT_SPLIT
                 e = en[i]
                 if g == GRID_EMPTY and e >= SPLIT_MIN:
@@ -638,10 +654,39 @@ class Engine(object):
                     live.append(k)
                     grid[tp] = k
                     self.births[c] += 1
+                    if races is not None:
+                        self._race_fill(t, tp, c, 1, child)
                     if sh is not None:
                         sh[c][e] = sh[c].get(e, 0) + 1
                     if ev is not None:
                         ev[i] = ev.get(i, 0) + 1
+
+    def _race_death(self, t, g):
+        p = self.c_pos[g]
+        mask = 0
+        grid = self.grid
+        alive = self.c_alive
+        col = self.c_col
+        for d in self.dirs:
+            k = grid[p + d]
+            if k >= 0 and alive[k]:
+                mask |= 1 << col[k]
+        self._race_pending[p] = (t, col[g], self._last_eater.pop(g, -1), mask)
+
+    def _race_fill(self, t, p, c, kind, e):
+        pr = self._race_pending.pop(p, None)
+        if pr is not None:
+            self.races.append((pr[0], pr[1], pr[2], pr[3], c, t - pr[0], kind, e))
+
+    def race_rows(self):
+        """Recorded races plus the squares still unfilled (fillCol -1, dt = ticks run since the death)."""
+        if self.races is None:
+            return None
+        out = list(self.races)
+        for pr in self._race_pending.values():
+            out.append((pr[0], pr[1], pr[2], pr[3], -1, self.tick - pr[0], 0, -1))
+        out.sort()
+        return out
 
     def _fault(self, c, t, p, kind, insn):
         f = self.faults[c]
