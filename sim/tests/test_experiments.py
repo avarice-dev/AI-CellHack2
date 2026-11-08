@@ -116,18 +116,22 @@ class FreezeTickTest(unittest.TestCase):
 
 
 class WorkerLimitTest(unittest.TestCase):
-    """CPU limit (user, 2026-11-07): at most 2 worker processes, 2 by default, low priority."""
+    """CPU limit (user, 2026-11-08): at most 4 worker processes (never 6, the machine's total), 4 by
+    default, low priority.  Was 2 until 2026-11-08."""
 
     def test_default_and_cap(self):
-        self.assertEqual(X.DEFAULT_WORKERS, 2)
-        self.assertEqual(X.worker_count(None), 2)
-        self.assertEqual(X.worker_count(6), 2)
+        self.assertEqual(X.DEFAULT_WORKERS, 4)
+        self.assertEqual(X.MAX_WORKERS, 4)
+        self.assertEqual(X.worker_count(None), 4)
+        self.assertEqual(X.worker_count(6), 4)
+        self.assertEqual(X.worker_count(5), 4)
+        self.assertEqual(X.worker_count(3), 3)
         self.assertEqual(X.worker_count(1), 1)
         self.assertEqual(X.worker_count(0), 1)
 
     def test_cli_default(self):
         args = X.build_parser().parse_args(['--mix', 'idle'])
-        self.assertEqual(X.worker_count(args.workers), 2)
+        self.assertEqual(X.worker_count(args.workers), 4)
 
     def test_lower_priority_is_safe_to_call(self):
         X.lower_priority()

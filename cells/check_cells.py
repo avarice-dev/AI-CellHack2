@@ -14,7 +14,9 @@ SSE constants 16-byte aligned, no 0xCC byte inside fight_tbl/split_tbl, every fi
 one of slow/eat_*/stub, the table jmp is encoded FF 24 C5 disp32 (absolute, no RIP-relative), split_tbl
 holds only valid actions.  With Unicorn: every calibration cell's instruction count, and Sprint vs
 sim/cells_ref.sprint over all 4^4 adjacent types x energies {0,4,5,15,16,50} x enemy at distance 2
-on/off x tick {0,2980}, comparing action and instruction count.
+on/off x tick {0,2980}, comparing action and instruction count.  For covetous: SSE constants aligned, bite_tbl
+holds only 0 or eat actions (entry 0 = 0), split_tbl only valid actions, the bite exit is `jnz rel32` to EXIT_ADDR,
+and a Unicorn diff against sim/cells_ref.covetous that also varies neighbour energies.
 """
 
 import itertools
@@ -156,11 +158,13 @@ class Runner(object):
         return uc.reg_read(X.UC_X86_REG_RAX) & 0xFF, self.n
 
 
-def view_bytes(tick, energy, cells):
+def view_bytes(tick, energy, cells, energies=None):
     b = bytearray(128)
     struct.pack_into('<I', b, 0, tick)
     b[4] = energy
     b[32:57] = bytes(cells)
+    if energies is not None:
+        b[64:89] = bytes(energies)
     return bytes(b)
 
 
@@ -196,6 +200,70 @@ def diff_sprint(blob):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
+def check_covetous(blob, syms, lst):
+    off = {k: v - CODE_BASE for k, v in syms.items() if v >= CODE_BASE}
+    for k in ('kEnemy', 'kEmpty', 'kTwoLo', 'kTwoHi'):
+        if syms[k] % 16:
+            fail('covetous %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
+    bt, be, st, se = off['bite_tbl'], off['bite_tbl_end'], off['split_tbl'], off['split_tbl_end']
+    if be - bt != 1106 or se - st != 1106:
+        fail('covetous table sizes %d / %d' % (be - bt, se - st))
+    if blob[bt] != 0:
+        fail('covetous bite_tbl[0] is not 0')
+    bad = [i for i, b in enumerate(blob[bt:be]) if b != 0 and not 0x30 <= b <= 0x33]
+    if bad:
+        fail('covetous bite_tbl entries neither 0 nor an eat: %s' % bad[:10])
+    badact = [i for i, b in enumerate(blob[st:se]) if b not in VALID]
+    if badact:
+        fail('covetous split_tbl invalid actions at %s' % badact[:10])
+    # bite exit: the 6 bytes before `slow` must be jnz rel32 (0F 85) whose target is EXIT_ADDR
+    j = off['slow'] - 6
+    code = blob[j:j + 6]
+    ok = code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == EXIT_ADDR
+    if not ok:
+        fail('covetous: bite exit is not `jnz rel32` to EXIT_ADDR: %s' % code.hex())
+    else:
+        print('  bite exit: %s at 0x%x -> 0x%x' % (code.hex(' '), CODE_BASE + j, EXIT_ADDR))
+    print('  constants at', ', '.join('%s=0x%x' % (k, syms[k]) for k in ('kEnemy', 'kEmpty', 'kTwoLo', 'kTwoHi')))
+
+
+def diff_covetous(blob):
+    """Covetous vs sim/cells_ref.covetous: all 4^4 adjacent types x energies x far enemy x tick x
+    friend-energy patterns (equal, one poorer, ties, rich)."""
+    import cells_ref
+    r = Runner(blob)
+    adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
+    pats = ((20, 20, 20, 20), (20, 5, 9, 5), (50, 40, 1, 0), (47, 46, 48, 50), (47, 47, 47, 47), (46, 50, 46, 9))
+    n = mism = 0
+    for types in itertools.product(range(4), repeat=4):
+        for energy in (0, 4, 5, 15, 16, 46, 47, 50):
+            for far in (None, 0, 14, 24):
+                for tick in (0, 2980):
+                    for pat in pats:
+                        cells = [0] * 25
+                        cells[12] = 1
+                        ens = [0] * 25
+                        ens[12] = energy
+                        for i, t, pe in zip(adj, types, pat):
+                            cells[i] = t
+                            if t in (1, 2):
+                                ens[i] = pe
+                        if far is not None:
+                            cells[far] = 2
+                            ens[far] = 9
+                        v = V()
+                        v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+                        want = cells_ref.covetous(v, bytearray(64))[:2]
+                        got = r.call(view_bytes(tick, energy, cells, ens), energy)
+                        n += 1
+                        if got != want:
+                            mism += 1
+                            if mism <= 10:
+                                fail('covetous diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
+                                     % (types, energy, far, tick, pat, got, want))
+    print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
@@ -216,6 +284,10 @@ def main():
             check_sprint(blob, syms, lst)
             if have_uc:
                 diff_sprint(blob)
+        elif name == 'covetous':
+            check_covetous(blob, syms, lst)
+            if have_uc:
+                diff_covetous(blob)
         elif have_uc:
             base = view_bytes(5, 10, [0] * 12 + [1] + [0] * 12)
             for rax in ((0, 0x1234) if name.startswith('c_') else (0,)):

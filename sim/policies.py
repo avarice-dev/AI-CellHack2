@@ -15,7 +15,7 @@ import importlib
 import bots
 import cells_ref
 
-POLICY_MODULES = ['rivals']
+POLICY_MODULES = ['rivals', 'cells_ref']
 
 REGISTRY = dict(bots.BOTS)
 REGISTRY['sprint'] = cells_ref.sprint

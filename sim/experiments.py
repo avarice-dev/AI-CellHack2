@@ -15,7 +15,7 @@ population ("land") at ticks 50/100/200/300/500/1000/2000/3000/end, the freeze t
 "who bites first" pair counts (for each ordered pair of colonies, same-tick pairs of successful eats in
 which A's eat came before B's).  "At tick t" = state after t ticks; a match that ended earlier reports
 its final state.  Engine options are the same as run.py's (random starts are the default).
-At most 2 worker processes (default 2), all at below-normal priority.
+At most 4 worker processes (default 4), all at below-normal priority.
 """
 
 import argparse
@@ -38,9 +38,10 @@ STAT_KEYS = ('splits', 'moves', 'eats_enemy', 'eats_friend', 'feeds', 'deaths', 
 FRONT_TICKS = (200, 500, 1000)
 FREEZE_TOL = 0.05
 
-# CPU limit (user, 2026-11-07): never more than 2 worker processes, all at below-normal priority.
-DEFAULT_WORKERS = 2
-MAX_WORKERS = 2
+# CPU limit (user, 2026-11-08; was 2 from 2026-11-07): never more than 4 worker processes (the PC has 6),
+# all at below-normal priority.
+DEFAULT_WORKERS = 4
+MAX_WORKERS = 4
 _BELOW_NORMAL_PRIORITY_CLASS = 0x4000
 
 

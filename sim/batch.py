@@ -4,7 +4,7 @@
   python batch.py --set validate               # re-play the 36 pull-2 ladder matches (validate.py)
   python batch.py --set rivals --seeds 1-16 --stun-memory drop --feed-bonus 1
 
-Prints only the summary path when done.  At most 2 worker processes (default 2), all at below-normal
+Prints only the summary path when done.  At most 4 worker processes (default 4), all at below-normal
 priority.  Engine options as run.py (random starts by default; the validate set uses the real starts).
 """
 

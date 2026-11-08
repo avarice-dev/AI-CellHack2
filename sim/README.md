@@ -103,8 +103,9 @@ flat-3 variants are labelled hypotheticals, for comparison only.
 Options: `order=ULRD`, `front=static|flat3|lock`, thresholds (see the factories), e.g. `rpump[pump_min=12]`.
 
 ## Experiments
-**CPU limit:** every runner uses at most 2 worker processes (default 2; `--workers 1` runs in-process)
-and puts itself and its workers at below-normal priority (Windows; a no-op elsewhere).
+**CPU limit:** every runner uses at most 4 worker processes (default 4; never 6, the PC's total; `--workers 1`
+runs in-process) and puts itself and its workers at below-normal priority (Windows; a no-op elsewhere).
+The limit was 2 until 2026-11-08; the run times below were measured with 2 workers.
 
 Unattended runs: one command; the console prints only the summary path at the end. Output goes to
 `sim/out/` (git-ignored): `<set>-<time>.md` (under 60 lines) and `<set>-<time>.json` (every match).
@@ -120,7 +121,7 @@ Runtime estimate from the smoke run (2026-11-07, this PC, 2 workers): 2 full 64x
 
 Interactive runs:
 ```
-python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8                # 2 workers
+python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8                # 4 workers
 python experiments.py --mix a,b,c,d --mix a,b,c,e --seeds 1-16 --json out.json
 python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8 --detail        # replay stats
 python validate.py --matches 98844,99388                                                 # a few matches
