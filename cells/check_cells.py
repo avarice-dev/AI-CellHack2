@@ -2,7 +2,7 @@
 Python reference in Unicorn.  Run inside WSL (needs nasm; Unicorn optional):
 
     cd <repo root, as seen from WSL>
-    $HOME/cellhack-venv/bin/python cells/check_cells.py            # assemble + static checks (+ diff if unicorn)
+    $HOME/cellhack-venv/bin/python cells/check_cells.py           # assemble + static checks (+ diff if unicorn)
 
 For each cells/*.asm and cells/calib/*.asm a temp copy is built as
     bits 64 / org 0x00100000 / default rel / <docs/cellhack.inc> / <the source> / [map symbols ...]
@@ -336,7 +336,7 @@ def diff_covetous(blob, ref='covetous'):
                             ens[far] = 9
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
-                        want = getattr(cells_ref, ref)(v, bytearray(64))[:2]
+                        want = policy(v, bytearray(64))[:2]
                         got = r.call(view_bytes(tick, energy, cells, ens), energy)
                         n += 1
                         if got != want:
@@ -344,13 +344,36 @@ def diff_covetous(blob, ref='covetous'):
                             if mism <= 10:
                                 fail(ref + ' diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
                                      % (types, energy, far, tick, pat, got, want))
+                        if bet_until is not None:
+                            s_act, s_n = cells_ref.scourge(v, bytearray(64))[:2]
+                            exp = s_act
+                            if s_act == 0x01 and s_n == 27 and tick < bet_until:
+                                nbet += 1
+                                order = (17, 13, 7, 11)       # DOWN RIGHT UP LEFT
+                                dirs = {17: 2, 13: 1, 7: 0, 11: 3}
+                                empty = [i for i in order if cells[i] == 0]
+                                freed = [i for i in empty if any(cells[k] == 2 for k in
+                                                                 {7: (6, 8), 13: (8, 14, 18), 17: (16, 18),
+                                                                  11: (6, 10, 16)}[i])]
+                                exp = 0x20 + dirs[(freed or empty)[0]]
+                            if got[0] != exp:
+                                bmism += 1
+                                if bmism <= 10:
+                                    fail(ref + ' vs scourge types=%s e=%d far=%s tick=%d: asm 0x%02x want 0x%02x'
+                                         % (types, energy, far, tick, got[0], exp))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+    if bet_until is not None:
+        print('  action vs scourge: %d cases, %d where the bet applies (expected split), %d mismatches'
+              % (n, nbet, bmism))
 
 
 def check_scourge(blob, syms, lst, vex=False):
     import gen_scourge
     off = {k: v - CODE_BASE for k, v in syms.items() if v >= CODE_BASE}
-    for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'):
+    consts = [k for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi') if k in syms]   # Complacency (never hold): no kTwo*
+    if 'kEnemy' not in syms or 'kRefill' not in syms:
+        fail('scourge-type cell lacks kEnemy / kRefill')
+    for k in consts:
         if syms[k] % 16 and not vex:
             fail('scourge %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
     n = gen_scourge.N_REFILL
@@ -384,14 +407,19 @@ def check_scourge(blob, syms, lst, vex=False):
     if not jl or not jl[0].split()[2].upper().startswith('0F83'):
         fail('scourge: gate-1 exit not `jae rel32`: %r' % jl)
     print('  bite exit: %s; constants at %s' % (code.hex(' '), ', '.join(
-        '%s=0x%x' % (k, syms[k]) for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'))))
+        '%s=0x%x' % (k, syms[k]) for k in consts)))
 
 
-def diff_scourge(blob, ref='scourge'):
-    """Scourge (or Woe) vs sim/cells_ref.<ref>: all 4^4 adjacent types x energies x enemy placements (refill
-    window squares, unread squares 2/22, corners, pairs) x tick x friend-energy patterns."""
+def diff_scourge(blob, ref='scourge', ticks=(0, 2980), policy=None, bet_until=None):
+    """Scourge (or Woe, Complacency) vs sim/cells_ref.<ref> (or `policy`): all 4^4 adjacent types x energies x
+    enemy placements (refill window squares, unread squares 2/22, corners, pairs) x tick x friend-energy patterns.
+    bet_until (Complacency): also compare the asm's ACTION with cells_ref.scourge's on every case: equal, except
+    where Scourge holds (rest on its 27-instruction prey-hold path) and tick < bet_until, where the asm must split
+    into the first freed, else first empty, neighbour of DOWN, RIGHT, UP, LEFT."""
     import cells_ref
+    policy = policy or getattr(cells_ref, ref)
     r = Runner(blob)
+    nbet = bmism = 0
     adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
     pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0), (47, 46, 48, 50), (42, 46, 43, 46))
     fars = ((), (0,), (24,), (2,), (22,), (6,), (8,), (10,), (14,), (16,), (18,), (6, 18), (2, 22, 9))
@@ -399,7 +427,7 @@ def diff_scourge(blob, ref='scourge'):
     for types in itertools.product(range(4), repeat=4):
         for energy in (0, 4, 5, 11, 12, 15, 16, 46, 47, 50):
             for far in fars:
-                for tick in (0, 2980):
+                for tick in ticks:
                     for pat in (pats if energy >= 16 and 0 not in types else pats[:1]):
                         cells = [0] * 25
                         cells[12] = 1
@@ -414,7 +442,7 @@ def diff_scourge(blob, ref='scourge'):
                             ens[i] = 9
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
-                        want = getattr(cells_ref, ref)(v, bytearray(64))[:2]
+                        want = policy(v, bytearray(64))[:2]
                         got = r.call(view_bytes(tick, energy, cells, ens), energy)
                         n += 1
                         if got != want:
@@ -422,7 +450,27 @@ def diff_scourge(blob, ref='scourge'):
                             if mism <= 10:
                                 fail(ref + ' diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
                                      % (types, energy, far, tick, pat, got, want))
+                        if bet_until is not None:
+                            s_act, s_n = cells_ref.scourge(v, bytearray(64))[:2]
+                            exp = s_act
+                            if s_act == 0x01 and s_n == 27 and tick < bet_until:
+                                nbet += 1
+                                order = (17, 13, 7, 11)       # DOWN RIGHT UP LEFT
+                                dirs = {17: 2, 13: 1, 7: 0, 11: 3}
+                                empty = [i for i in order if cells[i] == 0]
+                                freed = [i for i in empty if any(cells[k] == 2 for k in
+                                                                 {7: (6, 8), 13: (8, 14, 18), 17: (16, 18),
+                                                                  11: (6, 10, 16)}[i])]
+                                exp = 0x20 + dirs[(freed or empty)[0]]
+                            if got[0] != exp:
+                                bmism += 1
+                                if bmism <= 10:
+                                    fail(ref + ' vs scourge types=%s e=%d far=%s tick=%d: asm 0x%02x want 0x%02x'
+                                         % (types, energy, far, tick, got[0], exp))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+    if bet_until is not None:
+        print('  action vs scourge: %d cases, %d where the bet applies (expected split), %d mismatches'
+              % (n, nbet, bmism))
 
 
 def check_contagion(blob, syms, lst, vex=False):
@@ -560,6 +608,16 @@ def main():
             check_scourge(blob, syms, lst, vex)
             if have_uc:
                 diff_scourge(blob, name)
+        elif name == 'complacency':
+            import gen_complacency
+            import cells_ref
+            T = gen_complacency.FREE_UNTIL
+            check_scourge(blob, syms, lst)
+            if open(p).read() != gen_complacency.generate():
+                fail('complacency.asm differs from gen_complacency.generate()')
+            if have_uc:
+                ticks = sorted({0, 1, T - 1, T, 2979, 2980} - {-1} if T < 2980 else {0, 1, 2979, 2980})
+                diff_scourge(blob, name, ticks, cells_ref.make_complacency(free_until=T), bet_until=T)
         elif kind == 'contagion':
             check_contagion(blob, syms, lst, vex)
             if have_uc:
