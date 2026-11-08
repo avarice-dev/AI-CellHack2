@@ -12,7 +12,7 @@ import validate as V
 class DataTest(unittest.TestCase):
     def test_table_parsed(self):
         t = V.load_table()
-        self.assertEqual(len(t), 63)                             # pull 2: 36, pull 3: 15, pull 4: 12
+        self.assertEqual(len(t), 135)                            # pull 2: 36, pull 3: 15, pull 4: 12, pull 5: 72
         self.assertTrue(all(len(d['rows']) == 4 for d in t.values()))
         row = [r for r in t[98854]['rows'] if r['cell'] == 'Brawler v2'][0]
         self.assertEqual((row['t50'], row['t1000'], row['end']), (350, 3234, 4095))
@@ -23,7 +23,9 @@ class DataTest(unittest.TestCase):
         row = t[103128]['rows'][0]                              # pull 3, tools/valtab.py
         self.assertEqual((row['cell'], row['t50'], row['end'], row['E200']), ('AtomPush', 392, 2957, 40.184))
         self.assertEqual(t[103128]['freeze'], 927)
-        self.assertEqual({V.pull_of(m) for m in t}, {'pull2', 'pull3', 'pull4'})
+        self.assertEqual({V.pull_of(m) for m in t}, {'pull2', 'pull3', 'pull4', 'pull5'})
+        row = t[106357]['rows'][1]                              # pull 5
+        self.assertEqual((row['cell'], row['end']), ('Contagion', 4095))
 
     def test_starts_match_table_order(self):
         t = V.load_table()
@@ -79,16 +81,46 @@ class RunTest(unittest.TestCase):
     def test_fit_test_split_stratified_and_fixed(self):
         t = V.load_table()
         fit, test = V.split_sets(t)
-        self.assertEqual((len(fit), len(test)), (42, 21))
+        self.assertEqual((len(fit), len(test)), (90, 45))
         self.assertFalse(set(fit) & set(test))
         self.assertEqual(sorted(fit + test), sorted(t))
-        self.assertEqual(V.split_sets(t), (fit, test))          # fixed seed: same split every call
-        for p, n in (('pull2', 12), ('pull3', 5), ('pull4', 4)):  # a third of each pull is TEST
+        self.assertEqual(V.split_sets(t), (fit, test))          # fixed file: same split every call
+        for p, n in (('pull2', 12), ('pull3', 5), ('pull4', 4), ('pull5', 24)):  # a third of each pull is TEST
             self.assertEqual(sum(V.pull_of(m) == p for m in test), n, p)
         for w in {V.cells_of(t, m)[V.winner(t[m]['rows'])] for m in t}:   # winners spread over both sets
             k = [m for m in t if V.cells_of(t, m)[V.winner(t[m]['rows'])] == w]
             if len(k) >= 3:
                 self.assertTrue(set(k) & set(test) and set(k) & set(fit), w)
+
+    def test_old_matches_keep_their_set(self):
+        # The sim was tuned on the FIT set of pulls 2-4 (63 matches, FIT 42 / TEST 21): adding pull 5 must not
+        # move any of them.  Pulls 2-4 keep the rule applied to their own 63 ids; pull 5 is split on its own.
+        t = V.load_table()
+        sets = V.load_split()
+        old = [m for m in t if V.pull_of(m) in ('pull2', 'pull3', 'pull4')]
+        fit, test = V.stratified_split(t, old)
+        self.assertEqual((len(fit), len(test)), (42, 21))
+        self.assertEqual({m: sets[m] for m in old}, dict([(m, 'FIT') for m in fit] + [(m, 'TEST') for m in test]))
+        new = [m for m in t if V.pull_of(m) == 'pull5']
+        fit, test = V.stratified_split(t, new)
+        self.assertEqual({m: sets[m] for m in new}, dict([(m, 'FIT') for m in fit] + [(m, 'TEST') for m in test]))
+
+    def test_extend_split_keeps_existing_sets(self):
+        import json, os, tempfile
+        t = V.load_table()
+        sets = V.load_split()
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'split.json')
+            flipped = {m: ('TEST' if v == 'FIT' else 'FIT') for m, v in sets.items() if V.pull_of(m) != 'pull5'}
+            with open(path, 'w') as f:
+                json.dump({'sets': {str(m): v for m, v in flipped.items()}}, f)
+            with self.assertRaises(ValueError):                 # pull 5 has no set yet
+                V.split_sets(t, path)
+            V.extend_split(t, path)
+            got = V.load_split(path)
+            self.assertEqual({m: got[m] for m in flipped}, flipped)   # existing entries untouched
+            self.assertEqual({m: got[m] for m in t if V.pull_of(m) == 'pull5'},
+                             {m: sets[m] for m in t if V.pull_of(m) == 'pull5'})
 
     def test_threshold_helpers(self):
         self.assertTrue(V.within_pct(100, 125, 0.25))
