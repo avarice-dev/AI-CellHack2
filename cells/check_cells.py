@@ -16,7 +16,10 @@ holds only valid actions.  With Unicorn: every calibration cell's instruction co
 sim/cells_ref.sprint over all 4^4 adjacent types x energies {0,4,5,15,16,50} x enemy at distance 2
 on/off x tick {0,2980}, comparing action and instruction count.  For covetous: SSE constants aligned, bite_tbl
 holds only 0 or eat actions (entry 0 = 0), split_tbl only valid actions, the bite exit is `jnz rel32` to EXIT_ADDR,
-and a Unicorn diff against sim/cells_ref.covetous that also varies neighbour energies.
+and a Unicorn diff against sim/cells_ref.covetous that also varies neighbour energies.  For scourge: the same
+static checks plus act_tbl (only 0 or split actions, bytes equal to gen_scourge.refill_tables()) and thr_tbl,
+the gate-1 exit is `jae rel32` to EXIT_ADDR, and a Unicorn diff against sim/cells_ref.scourge that also places
+enemies on the refill window's squares and on the unread squares 2 and 22.
 """
 
 import itertools
@@ -31,6 +34,7 @@ ROOT = os.path.dirname(HERE)
 BUILD = os.path.join(HERE, 'build')
 INC = os.path.join(ROOT, 'docs', 'cellhack.inc')
 sys.path.insert(0, os.path.join(ROOT, 'sim'))
+sys.path.insert(0, HERE)
 
 CODE_BASE, CODE_SIZE, CODE_MAX = 0x100000, 0x10000, 0x8000
 STACK_BASE, STACK_SIZE = 0x200000, 0x4000
@@ -264,6 +268,77 @@ def diff_covetous(blob):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
+def check_scourge(blob, syms, lst):
+    import gen_scourge
+    off = {k: v - CODE_BASE for k, v in syms.items() if v >= CODE_BASE}
+    for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'):
+        if syms[k] % 16:
+            fail('scourge %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
+    n = gen_scourge.N_REFILL
+    bt, be = off['bite_tbl'], off['bite_tbl_end']
+    at, ae, tt, te = off['act_tbl'], off['act_tbl_end'], off['thr_tbl'], off['thr_tbl_end']
+    if be - bt != 1106 or ae - at != n or te - tt != n:
+        fail('scourge table sizes %d / %d / %d' % (be - bt, ae - at, te - tt))
+    if blob[bt] != 0:
+        fail('scourge bite_tbl[0] is not 0')
+    bad = [i for i, b in enumerate(blob[bt:be]) if b != 0 and not 0x30 <= b <= 0x33]
+    if bad:
+        fail('scourge bite_tbl entries neither 0 nor an eat: %s' % bad[:10])
+    bad = [i for i, b in enumerate(blob[at:ae]) if b != 0 and not 0x20 <= b <= 0x23]
+    if bad:
+        fail('scourge act_tbl entries neither 0 nor a split: %s' % bad[:10])
+    act, thr = gen_scourge.refill_tables()
+    if any(blob[at + m] != a for m, a in act.items()) or any(blob[tt + m] != t for m, t in thr.items()):
+        fail('scourge act_tbl/thr_tbl bytes differ from gen_scourge.refill_tables()')
+    j = off['slow'] - 6
+    code = blob[j:j + 6]
+    if not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == EXIT_ADDR):
+        fail('scourge: bite exit is not `jnz rel32` to EXIT_ADDR: %s' % code.hex())
+    jl = [l for l in open(lst) if re.search(r'\bjae\s+EXIT_ADDR\s+;\s*refill', l)]
+    if not jl or not jl[0].split()[2].upper().startswith('0F83'):
+        fail('scourge: gate-1 exit not `jae rel32`: %r' % jl)
+    print('  bite exit: %s; constants at %s' % (code.hex(' '), ', '.join(
+        '%s=0x%x' % (k, syms[k]) for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'))))
+
+
+def diff_scourge(blob):
+    """Scourge vs sim/cells_ref.scourge: all 4^4 adjacent types x energies x enemy placements (refill
+    window squares, unread squares 2/22, corners, pairs) x tick x friend-energy patterns."""
+    import cells_ref
+    r = Runner(blob)
+    adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
+    pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0), (47, 46, 48, 50), (42, 46, 43, 46))
+    fars = ((), (0,), (24,), (2,), (22,), (6,), (8,), (10,), (14,), (16,), (18,), (6, 18), (2, 22, 9))
+    n = mism = 0
+    for types in itertools.product(range(4), repeat=4):
+        for energy in (0, 4, 5, 11, 12, 15, 16, 46, 47, 50):
+            for far in fars:
+                for tick in (0, 2980):
+                    for pat in (pats if energy >= 16 and 0 not in types else pats[:1]):
+                        cells = [0] * 25
+                        cells[12] = 1
+                        ens = [0] * 25
+                        ens[12] = energy
+                        for i, t, pe in zip(adj, types, pat):
+                            cells[i] = t
+                            if t in (1, 2):
+                                ens[i] = pe
+                        for i in far:
+                            cells[i] = 2
+                            ens[i] = 9
+                        v = V()
+                        v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+                        want = cells_ref.scourge(v, bytearray(64))[:2]
+                        got = r.call(view_bytes(tick, energy, cells, ens), energy)
+                        n += 1
+                        if got != want:
+                            mism += 1
+                            if mism <= 10:
+                                fail('scourge diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
+                                     % (types, energy, far, tick, pat, got, want))
+    print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
@@ -288,6 +363,10 @@ def main():
             check_covetous(blob, syms, lst)
             if have_uc:
                 diff_covetous(blob)
+        elif name == 'scourge':
+            check_scourge(blob, syms, lst)
+            if have_uc:
+                diff_scourge(blob)
         elif have_uc:
             base = view_bytes(5, 10, [0] * 12 + [1] + [0] * 12)
             for rax in ((0, 0x1234) if name.startswith('c_') else (0,)):
