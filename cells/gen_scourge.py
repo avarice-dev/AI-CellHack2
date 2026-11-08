@@ -7,7 +7,8 @@ round 4, 2.1-2.5 and 3):
   1. Bite: Covetous's F5 (5 instructions in every direction, no memory).
   2. Gate 1, right after the F5 miss: ONE unaligned 16-byte window of view idx 6..21 compared against
      kRefill (0 = empty at the four neighbour lanes, 2 = enemy at the six squares 6, 8, 10, 14, 16, 18)
-     gives a 10-bit mask (max 7607).  act_tbl[mask] is the split to take, thr_tbl[mask] the energy it
+     gives a mask of 10 lanes (bits 0, 1, 2, 4, 5, 7, 8, 10, 11, 12: 13 bits wide, max 7607).
+     act_tbl[mask] is the split to take, thr_tbl[mask] the energy it
      needs, and `cmp sil, [thr_tbl+rcx]` / `jae EXIT_ADDR` takes it: 11 instructions for
        - a refill: an empty neighbour with an enemy beside or beyond it (freed front square) when the
          child gets >= R = 6 (e >= REFILL_MIN = 12); first freed square of DOWN, RIGHT, UP, LEFT;
