@@ -30,4 +30,4 @@ for (a, b), (x, y, z) in sorted(h2h.items(), key=lambda kv: -sum(kv[1])):
         print('  %s vs %s: %d/%d/%d (n%d)' % (a, b, x, y, z, x+y+z))
 print('\nHammerSpb upsets (new): %d of %d matches containing them' % (len(ups), sum(1 for m in D if ham & {nm(c) for c in m['cells']})))
 print(collections.Counter(u[1] for u in ups).most_common())
-json.dump({'summary': out, 'h2h': {a+' | '+b: v for (a, b), v in h2h.items()}, 'hammer_upsets': ups}, open('data/pull2/winrates.json', 'w'), indent=1)
+json.dump({'summary': out, 'h2h': {a+' | '+b: v for (a, b), v in h2h.items()}, 'hammer_upsets': ups}, open('data/pull2/winrates.json', 'w', encoding='utf-8', newline='\n'), indent=1)

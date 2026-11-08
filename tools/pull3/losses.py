@@ -1,10 +1,17 @@
 """Pull 3: per-loss timeline and fight/refill numbers from tools/pull2/mine.py output (CH_PULL=pull3).
 Reads data/pull3/mining/<id>.json (pop per tick, names, end) and races/<id>.csv.gz. Prints markdown.
-Run: python -I tools/pull3/losses.py"""
-import csv, glob, gzip, json, os
+Run: python -I tools/pull3/losses.py [--pull P] [--cell NAME]   (defaults: pull3, Scourge)"""
+import argparse, csv, glob, gzip, json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, 'data', 'pull3', 'mining')
-ME = 'Scourge'
+ap = argparse.ArgumentParser(description='Per-loss timelines of one cell from mine.py output.')
+ap.add_argument('--pull', default='pull3', help='reads data/<pull>/mining (default pull3)')
+ap.add_argument('--cell', default='Scourge', help='the cell whose losses are shown (default Scourge)')
+A = ap.parse_args()
+OUT = os.path.join(ROOT, 'data', A.pull, 'mining')
+ME = A.cell
+if not glob.glob(os.path.join(OUT, '[0-9]*.json')):
+    sys.exit(f'no mine.py output in data/{A.pull}/mining: run a pull first, then '
+             f'CH_PULL={A.pull} python -I tools/pull2/mine.py (architecture/data-pulls.md)')
 TS = (50, 100, 200, 500, 1000)
 W = ((0, 500), (500, 1000), (1000, 10 ** 9))
 agg = {k: [0] * 8 for k in ('w0', 'w1', 'w2')}

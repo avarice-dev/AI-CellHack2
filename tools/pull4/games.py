@@ -1,11 +1,19 @@
 """Pull 4: per-game timeline, growth, fights/refills and early child energy for Contagion (C), Scourge (S, when present)
 and the key rival X (the winner when C lost, the runner-up when C won), from tools/pull2/mine.py output (CH_PULL=pull4).
 Same measures as tools/pull3/losses.py. Reads data/pull4/mining/<id>.json and races/<id>.csv.gz. Prints markdown.
-Run: python -I tools/pull4/games.py"""
-import collections, csv, glob, gzip, json, os, statistics
+Run: python -I tools/pull4/games.py [--pull P] [--cell NAME] [--rival NAME]   (defaults: pull4, Contagion, Scourge)"""
+import argparse, collections, csv, glob, gzip, json, os, statistics, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, 'data', 'pull4', 'mining')
-ME, RIVAL = 'Contagion', 'Scourge'
+ap = argparse.ArgumentParser(description='Per-game timelines of one cell (and a second own cell) from mine.py output.')
+ap.add_argument('--pull', default='pull4', help='reads data/<pull>/mining (default pull4)')
+ap.add_argument('--cell', default='Contagion', help='the cell C (default Contagion)')
+ap.add_argument('--rival', default='Scourge', help='the second own cell S, when present (default Scourge)')
+A = ap.parse_args()
+OUT = os.path.join(ROOT, 'data', A.pull, 'mining')
+ME, RIVAL = A.cell, A.rival
+if not glob.glob(os.path.join(OUT, '[0-9]*.json')):
+    sys.exit(f'no mine.py output in data/{A.pull}/mining: run a pull first, then '
+             f'CH_PULL={A.pull} python -I tools/pull2/mine.py (architecture/data-pulls.md)')
 TS = (50, 100, 200, 500, 1000)
 games = []
 for jp in sorted(glob.glob(os.path.join(OUT, '[0-9]*.json'))):

@@ -184,8 +184,10 @@ def main():
             j = jrest[n][WN[w]]
             print(f"| {n} | {WN[w]} | {free} | {j['eventFreeSharePct']} | {j['plus1Pct']} | {j['plus1PctBelow50']} | {j['otherPct']} | {j['medianColonyGainPerTick']} | {round(min(v), 1) if v else ''}-{round(max(v), 1) if v else ''} |")
     val = {rid: r['validation'] for rid, (r, _) in reps.items()}
-    json.dump(dict(fillers=jfill, contested=jcont, byDeadCell=jdead, sprintVsAtom=jpair, validation=val), open(os.path.join(OUT, 'refill.json'), 'w'), indent=1)
-    json.dump(dict(windows=WN, byCell=jrest), open(os.path.join(OUT, 'rest.json'), 'w'), indent=1)
+    json.dump(dict(fillers=jfill, contested=jcont, byDeadCell=jdead, sprintVsAtom=jpair, validation=val),
+              open(os.path.join(OUT, 'refill.json'), 'w', encoding='utf-8', newline='\n'), indent=1)
+    json.dump(dict(windows=WN, byCell=jrest), open(os.path.join(OUT, 'rest.json'), 'w', encoding='utf-8', newline='\n'),
+              indent=1)
     bad = {k: v for k, v in val.items() if v['kfMismatch'] or v['countMismatch'] or v['gridConflicts']}
     print(f"\nValidation: {len(val)} replays, keyframes checked {sum(v['kfChecked'] for v in val.values())}, problems: {bad or 'none'}")
 
