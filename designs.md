@@ -8,7 +8,7 @@ History: `reviews/designs-r1..r3-snapshot.md`.
 **Names** (user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to behaviour.
 Avarice = our ladder cell Sprint (eats greedily, never feeds; ladder name and `cells/sprint.asm` stay Sprint).
 Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
-Ladder now (2026-11-08): Contagion, Complacency (section 9). Covetous, Scourge and Sprint are retired from the ladder; "Avarice" is the design name of the cell published as Sprint.
+Ladder now (2026-11-08): Complacency (1st), Contagion (2nd) (section 9); the third slot is free. Round 7 review and current plan: section 10. Covetous, Scourge and Sprint are retired from the ladder; "Avarice" is the design name of the cell published as Sprint.
 Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
 Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, Contagion (same decisions, fewer instructions).
 
@@ -385,3 +385,99 @@ one Sandbox game, then the ladder (user approval).
   models), and no sign that dropping the hold costs anything in the sim.
 - Verdict (indicative): a free, low-risk change in the sim; whether it fixes the real t21-t200 deficit can only be
   seen on the site (Sandbox, then the ladder with the user's approval).
+
+---------------------------------------------------------------------------------------------------
+## 10. Round 7: full review after pull 5 (2026-11-08)
+Sources: pulls 1-5 (148 replays; 135 in the validation pool), `data/pull5-games-2026-11-08.md`, `data/site-checks.md`,
+the docs re-review (note before section 1), and sections 1-9. Planning only: no cell is built and no ladder change
+is made without the user's approval.
+
+### 10.1 Where things stand
+- Ladder at pull 5: **Complacency 1576 (1st, 282 games)**, Contagion 1550 (2nd, 460 games), AtomPush 1483, AtomCrasher
+  1432. In the 480-game list (about 80 minutes) Complacency won 81% and Contagion 77%, against AtomPush 73% and
+  AtomCrasher 64%. No rival changed version since the simulator was tuned.
+- Our two cells have the best late game on the board. Median final population in pull 5: Contagion 2590 and
+  Complacency 2302, against AtomPush 2168 and AtomCrasher 1942. The pumps (Aegis, Noob+, Noob++, Bouncer) are at
+  or near 0 by t1000-t2000.
+- Our losses are almost all 2nd places with a frozen front. In 14 of the 15 pull 5 losses the winner was
+  ahead at t200, by 1.5x or more in 10 of them (for example 106249: 620 against 2496), and in most of them the land
+  then changed little.
+  Late fights hardly ever cost us a game. The grab does.
+
+### 10.2 The grab deficit is in the first ~35 ticks, and it is about geometry, not energy
+Median over pull 5 (all games of each cell):
+
+| Cell | t25 | t50 | t100 | t200 | first tick at 128 / 512 | win % (sample) |
+|---|---|---|---|---|---|---|
+| Complacency | 69 | 239 | 664 | 1213 | 36 / 84 | 61 |
+| Contagion | 71 | 274 | 751 | 1344 | 34 / 72 | 56 |
+| AtomPush | 96 | 348 | 994 | 1579 | 29 / 63 | 59 |
+| AtomCrasher | 78 | 295 | 899 | 1565 | 32 / 68 | 60 |
+| Noob++ (pump) | 100 | 331 | 799 | 1266 | 29 / 70 | 5 |
+| Aegis (pump) | 85 | 357 | 961 | 1322 | 30 / 63 | 19 |
+
+(The sample over-samples our losses; the win % column is for this sample only.)
+
+What the replay mining rules out (pulls 3-5, cells that rest or fail with no event, t < 500):
+- **Not failed actions.** Our cells' share of zero-gain ticks below the cap is 0.6-0.8%, lower than every rival
+  (Atoms 1.2-1.3%, pumps 1.5-4.5%).
+- **Not fat interiors.** Untouched AtomPush and AtomCrasher cells sit at the cap 87-89% of the time (mean energy
+  48), more than ours (36-43% at the cap, mean 42-43), and they still grow fastest. Pumps keep interiors at 2-6
+  energy and grow about as fast as the Atoms, but then lose everything.
+- **Not child size.** The mean child energy at birth is 4.0-4.7 for every strong cell, ours included.
+
+What is left: the first 30 ticks, when almost every cell is on the edge and the shape of the colony decides how many
+cells can split next tick. Our cells split into the first empty neighbour in the order DOWN, RIGHT, UP, LEFT. This
+packs children against each other, so fewer of them have an empty neighbour when they reach 5. The Atoms "split
+spread out" (section 1.2). Before t35 no rival model is involved: the simulator models own-colony growth exactly
+(its Scourge and Complacency reach 128 at t37, real t36-44), so this question can be settled offline.
+
+### 10.3 What the new rule facts change
+- **Move-freed squares open the same tick** (Rules p.2), death-freed squares the next tick. A front cell that moves
+  forward can be replaced by a split from behind in the same tick. This makes Pestilence (7.1) cheaper than thought.
+- **Feed reaches enemies.** It gives energy away, so it is no attack; a feed into an enemy is a wasted action, and
+  the feed code must keep checking the target's owner (it does today).
+- **Cell memory and the stack are allowed.** "No memory on the hot path" stays a speed rule. Memory makes Conviction
+  (7.2) and a stored origin (Contagion) safe to rely on. Stun survival is implied by Decide-before-Act.
+- **Matches are deterministic from the seed.** A Sandbox game with the same seed and the same opponents is an exact
+  A/B: swap only our cell, and every difference comes from the change. Use it for mechanical changes; the ladder
+  (>= 300 games) is still the judge of strength.
+- **Total instructions break ties** after population and energy. Exact ties only: no design change.
+- **SSE3** adds nothing the cells need.
+
+### 10.4 Updated plan (replaces the follow-ups in 8.7 and 9.6)
+Ladder: Complacency and Contagion stay. The third slot is free (Scourge retired). Ranked:
+
+1. **Schism** (new; S-M, fits K): Complacency with a growth opening, changing only the split direction. While there
+   is no enemy in the 5x5 view, a cell splits into the empty neighbour with the **most empty squares around it**
+   (counted in the 5x5 view; ties away from the stored origin, else the fixed order). Bite, refill, feeding and
+   endgame as Complacency. Target: first tick at 128 / 512 of 29-30 / 63-65 (AtomPush), against 36 / 84. Cost: a
+   table lookup on a mask of the 5x5 empties (`pcmpeqb` + `pmovmskb`, as gate 1 does), about +3 to +5 instructions
+   on the grab split path only; bite (5) and refill (11) unchanged. Tests: (a) a solo-colony simulator study of
+   split rules (no rivals, so no rival-model error; 50 starts x 200 ticks, minutes of CPU); (b) Unicorn check;
+   (c) one Sandbox A/B pair against Complacency on the same seed; (d) the ladder only with the user's approval.
+2. **Early outward feeding for Schism** (only if 1 still trails at t50-t100): during the grab, cells with no empty
+   square in the 5x5 view feed outward from the stored origin at a low floor (D = 6-8), only to a friend with an
+   empty neighbour, and stop at first contact so the interior fattens for the refill race. "Pump first, fort
+   later": the pumps show the opening speed; the Atoms and our cells show that fat interiors win from t500 on.
+3. **Pestilence** (7.1): refill by MOVE of a fat front cell, backfilled from behind in the same tick (10.3).
+4. **Conviction light** (7.2): a queued refill after the F5 miss, only if the refill race shows up again as a cause
+   of lost games. Pull 5 shows grab losses, not race losses.
+5. **Anxiety, Abasement, Misfortune** (7.3-7.5): unchanged, lower value than 1-2.
+Retired: the VEX variants (section 8); Doctrine (feeding depth is item 2 now); Famine and Bane (as in 7).
+
+### 10.5 Fresh-start design (if the project started over today)
+1. **Growth curve first.** Write the opening for the shape of the colony, measured against the best real curve
+   (AtomPush: 128 at t29, 512 at t63). The grab decides most games we lose, and the simulator models it exactly.
+2. **Two-phase kernel, per cell, with no colony-wide state.** Phase 1 (no enemy in the 5x5): spread-out splits,
+   optional outward feeding. Phase 2 (enemy in view): F5 bite, fast refill of freed front squares, capped-donor
+   feeding, fat interior. Each cell decides from its own view: no colony timer to tune.
+3. **Split directions from the view, not a fixed order.** The main thing our cells lack (10.2).
+4. **Instruction budget on contested paths only.** Turn order follows that call's count, so only the bite (5) and
+   refill (11) race. The per-call average (Complacency 46, Contagion 78, Atoms 35) matters only for the tie-break.
+5. **Work order.** Solo-growth simulator, then Unicorn, then a fixed-seed Sandbox A/B (10.3), then the ladder (user
+   approval). The rival-model simulator only for questions after contact, with its validation state in view (10.6).
+Unchanged: the F5 bite, the refill race, capped-donor feeding and no prey hold (all confirmed by pull 5).
+
+### 10.6 Simulator state
+To be filled in from the measurement run on the 135-match pool.
