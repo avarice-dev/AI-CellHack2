@@ -236,3 +236,14 @@ left) always died first. Always rotate slots when comparing policies.
   pump f/eat 14-27 vs 18-59; Sprint t500 1699 vs 2504.
 - it4, pumps `pump_min=5` (feed whenever boxed in). FIT sw 3/7, 16/24; fz 2212 vs 2106; Sp 7/12; 49/63 checks.
   Interior t500 15-17 vs 9-19. Still: pumps hold land after t500 (Noob+ t1000 1606 vs 2, Brawler 915 vs 11).
+- it5 (reverted), Atoms `donor_min=50` (+ AtomCrasher `assist_min=20`): f/eat 32/23 vs 17/7, fed +3 share fell
+  to 10% (receivers busy), 47/63 checks. No improvement.
+- it6 (reverted), pumps `pump_target_max=30` (front t500 too fat for Aegis/Noob+): interior filled to 49, f/eat 2-6,
+  29/63 checks. Same winners as it4 (16/24, Sp 7/12): winners barely react to the pump economy.
+- Final (it4 models), full 36 (`out/final-it4.txt`, not committed): all sw 26/36, no-rough 6/12; fz 2272 vs 2061;
+  f500 1 vs 2; Sp 10/17 vs 15/17 (baseline 26/36, 6/12, 2617, 13/17). TEST 47/62 checks: pass winner(all) 10/12,
+  Sprint wins 3/5, Sprint pops, fed +3 77%; fail winner(no rough) 3/5, freeze 2302 vs 1810, f/eat of Aegis,
+  AtomCrasher, Bouncer, Brawler, Brawler v2, Noob++, some t200 pops. FIT 49/63; fails Sprint wins 7/12 and
+  Sprint t500/t1000 pops. Stopped (it5, it6 no gain). Blocker: thin pump colonies keep their land after t500
+  (sim Brawler/Noob+ t1000 900-1600 vs 2-16 real) whatever their economy, so the fight/refill model, not the
+  feeding, is what is off; do not trust the sim for Sprint-vs-pump outcomes or late-game land.
