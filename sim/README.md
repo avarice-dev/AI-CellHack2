@@ -12,6 +12,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 |---|---|
 | `engine.py` | the rules engine (`Engine`, `View`, constants from cellhack.inc) |
 | `bots.py` | the five open bots, ported line by line from `docs/bots/*.asm`, with exact per-path instruction counts |
+| `cells_ref.py` | Python references of our own asm cells (`sprint` = `../cells/sprint.asm`, exact path counts) |
 | `run.py` | CLI: one match or a seed series, summary tables, optional CSV and ASCII snapshots |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 

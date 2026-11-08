@@ -3,3 +3,4 @@ __pycache__/
 *.out
 /sim/out/
 
+cells/build/
