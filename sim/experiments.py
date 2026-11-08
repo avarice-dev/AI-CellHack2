@@ -194,6 +194,12 @@ def play_job(job):
         out['freeze_tick'] = freeze_tick(hist)
         if eng.deltas is not None:
             out['deltas'] = {k: dict(v) for k, v in eng.deltas.items()}
+        if eng.races is not None:
+            import treadmill
+            pops = [[hist[c][k] if c < ncol else 0 for c in range(E.MAX_COLONIES)]
+                    for k in range(0, len(hist[0]), 10)]
+            out['treadmill'] = treadmill.metrics(eng.race_rows(), pops)
+            out['cells'] = job.get('cells')
     return out
 
 
