@@ -66,7 +66,7 @@ data/
     other-match-pages.json          small match pages, the other set
     winrates.json                   win rate data (see lists.py)
     validation-table.md             table read by sim/validate.py
-    site/viewer.js                  copy of the site's replay decoder
+    site/viewer.js                  copy of the site's replay decoder (local only, not in the repository)
     replays/<id>.chr2.gz            raw replays (35 kept)
     keyframes/<id>.kf.json.gz       keyframes for each replay
     summaries/<id>.json             one summary per replay
