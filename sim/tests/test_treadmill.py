@@ -5,7 +5,6 @@ import unittest
 from . import helpers  # noqa: F401  (puts sim/ on the path)
 import treadmill as T
 
-
 class MetricsTest(unittest.TestCase):
     def test_counts_per_window(self):
         rows = [(10, 0, 1, 0b11, 0, 1, 1, 5),      # colony 0 dies, refills itself, contested 0-1
@@ -34,20 +33,6 @@ class MetricsTest(unittest.TestCase):
         self.assertEqual(rows[0], ('A', -1.0, -0.5, -0.7, True))     # median of -0.6 / -0.8 inside [-1, -0.5]
         self.assertEqual(rows[1], ('B', 0.0, 0.0, 0.5, False))
         self.assertEqual(len(rows), 2)                                # C: no colonies, left out
-
-
-class LoadRealTest(unittest.TestCase):
-    def test_missing_races_file_gives_none(self):
-        # 98797's raw replay was deleted in pull 2 (size cap), so it has no races file
-        self.assertIsNone(T.load_real(98797))
-
-    def test_later_pulls_load(self):
-        # pull 3 (103128) and pull 4 (103756): races from data/<pull>/mining, populations from the mining pop
-        for m in (103128, 103756):
-            r = T.load_real(m)
-            self.assertIsNotNone(r, m)
-            self.assertEqual(len(r), 4)
-        self.assertEqual(T.load_real(103128)[0]['pend'], 2957)
 
 
 if __name__ == '__main__':

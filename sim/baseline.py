@@ -1,23 +1,27 @@
-"""Naive baseline: the cell with the highest pre-match ladder rating (match page) wins.  Compared with the real winner
+"""Naive baseline (every data pull): the cell with the highest pre-match ladder rating (match page) wins.  Compared with the real winner
 (largest final population, as validate.winner).  Also the sim winner rate from the pad3 / default runs and Wilson 95%."""
 import json, math, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import validate as V
 
-D = os.path.join(V.ROOT, 'data')
 nm = lambda s: re.sub(r'^\W+\s*', '', s).strip()
 pre = {}
-for f in ('pull2/other-match-pages.json', 'pull2/sprint-match-pages.json'):
-    for k, p in json.load(open(os.path.join(D, f), encoding='utf-8'))['pages'].items():
-        if p and p.get('rows'):
-            pre[int(k)] = {nm(r[1]): int(re.findall(r'\d+', r[9])[0]) for r in p['rows']}
 import glob
-for f in glob.glob(os.path.join(D, 'pull2', 'summaries', '[0-9]*.json')):
-    d = json.load(open(f, encoding='utf-8'))
-    pre.setdefault(int(d['id']), {nm(r['cell']): int(re.findall(r'\d+', r['rating'])[0]) for r in d['facts']['rows']})
-for f in ('pull3/matches-scourge-2026-11-08.json', 'pull4/matches-contagion-2026-11-08.json'):
-    for m in json.load(open(os.path.join(D, f), encoding='utf-8'))['matches']:
-        pre.setdefault(m['id'], {nm(c['name']): int(re.findall(r'\d+', c['rating'])[0]) for c in m['colonies']})
+# Pre-match ratings from every data pull (validate.pulls()): saved match pages (*match-pages.json, pull 2 format),
+# summaries/<id>.json (pull 2 format), and match lists (matches-*.json) whose matches carry 'colonies'.
+for p in V.pulls():
+    d = os.path.join(V.DATA, p)
+    for f in sorted(glob.glob(os.path.join(d, '*match-pages.json'))):
+        for k, pg in json.load(open(f, encoding='utf-8'))['pages'].items():
+            if pg and pg.get('rows'):
+                pre.setdefault(int(k), {nm(r[1]): int(re.findall(r'\d+', r[9])[0]) for r in pg['rows']})
+    for f in glob.glob(os.path.join(d, 'summaries', '[0-9]*.json')):
+        s = json.load(open(f, encoding='utf-8'))
+        pre.setdefault(int(s['id']), {nm(r['cell']): int(re.findall(r'\d+', r['rating'])[0]) for r in s['facts']['rows']})
+    for f in sorted(glob.glob(os.path.join(d, 'matches-*.json'))):
+        for m in json.load(open(f, encoding='utf-8'))['matches']:
+            if m.get('colonies'):
+                pre.setdefault(m['id'], {nm(c['name']): int(re.findall(r'\d+', c['rating'])[0]) for c in m['colonies']})
 
 
 def wilson(k, n, z=1.96):

@@ -1,7 +1,7 @@
 """Run a named experiment set unattended: short markdown summary + full JSON in sim/out/.
 
   python batch.py --set rivals                 # sim/out/rivals-<time>.md and .json
-  python batch.py --set validate               # re-play the 36 pull-2 ladder matches (validate.py)
+  python batch.py --set validate               # re-play every validation match (validate.py)
   python batch.py --set rivals --seeds 1-16 --stun-memory drop --feed-bonus 1
 
 Prints only the summary path when done.  At most 4 worker processes (default 4), all at below-normal
@@ -65,7 +65,8 @@ SETS = {
                              + [[c, 'rpump', 'ratompush', 'rblind3'] for c in ('complacency', 'scourge')]
                              + [[c, 'rbrawler', 'ratompush', 'walker'] for c in ('complacency', 'scourge')]},
     'smoke': {'about': 'tiny set for tests', 'seeds': '1-2', 'mixes': [['sprint', 'rpump'], ['idle', 'walker']]},
-    'validate': {'about': 'the 36 pull-2 ladder matches re-played with their real starts (validate.py)',
+    'validate': {'about': 'the validation matches of every data pull re-played with their real starts '
+                          '(validate.py)',
                  'seeds': '1'},
 }
 
@@ -143,7 +144,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--set', required=True, choices=sorted(SETS))
     ap.add_argument('--seeds', help='seed list for mix sets (e.g. 1-8), or seeds per match for validate')
-    ap.add_argument('--matches', help='validate set: comma list of match ids (default all 36)')
+    ap.add_argument('--matches', help='validate set: comma list of match ids (default: every match)')
     ap.add_argument('--workers', type=int, default=X.DEFAULT_WORKERS,
                     help='worker processes (default and maximum %d)' % X.MAX_WORKERS)
     ap.add_argument('--out', default=OUT_DIR, help='output folder (default sim/out)')
@@ -158,8 +159,7 @@ def main(argv=None):
     if args.set == 'validate':
         table = V.load_table()
         if args.matches:
-            keep = {int(x) for x in args.matches.split(',')}
-            table = {m: d for m, d in table.items() if m in keep}
+            table = V.keep_matches(table, args.matches)
         jobs = V.make_jobs(table, V.load_starts(), kw, int(seeds))
         results = X.run_jobs(jobs, workers)
         cmp = V.compare(table, results)

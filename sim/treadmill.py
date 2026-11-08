@@ -68,25 +68,26 @@ def metrics(rows, pop10, ncol=4):
 
 
 def load_real(mid):
-    """Real metrics of a match, or None when it has no races file (98797: raw replay deleted).
-    Pull 2: races and pop10 from data/pull2/mining/races and summaries; later pulls: races from
-    data/<pull>/mining/races, populations from data/<pull>/mining/<id>.json (per tick, sampled every 10 ticks as
-    pop10 is)."""
-    for p in ('pull2', 'pull3', 'pull4'):
-        rp = os.path.join(ROOT, 'data', p, 'mining', 'races', '%d.csv.gz' % mid)
+    """Real metrics of a match, or None when no pull has its races file (for example a replay that was never
+    decoded).  Races from data/<pull>/mining/races/<id>.csv.gz (tools/replay/mine.py); populations from
+    data/<pull>/summaries/<id>.json (pop10, pull 2 format) when it exists, else from data/<pull>/mining/<id>.json
+    (per tick, sampled every 10 ticks as pop10 is).  The pulls are validate.pulls(), in its order."""
+    import validate as V
+    for p in V.pulls():
+        rp = os.path.join(V.DATA, p, 'mining', 'races', '%d.csv.gz' % mid)
         if os.path.exists(rp):
             break
     else:
         return None
     with gzip.open(rp, 'rt') as f:
         rows = [tuple(int(v) for v in d.values()) for d in csv.DictReader(f)]
-    sp = os.path.join(ROOT, 'data', p, 'summaries', '%d.json' % mid)
+    sp = os.path.join(V.DATA, p, 'summaries', '%d.json' % mid)
     if os.path.exists(sp):
         with open(sp, encoding='utf-8') as f:
             p10 = json.load(f)['pop10']
         pops = [[p10[c][k] for c in range(4)] for k in range(len(p10[0]))]
     else:
-        with open(os.path.join(ROOT, 'data', p, 'mining', '%d.json' % mid), encoding='utf-8') as f:
+        with open(os.path.join(V.DATA, p, 'mining', '%d.json' % mid), encoding='utf-8') as f:
             pops = json.load(f)['pop'][::10]
     return metrics(rows, pops)
 
@@ -120,8 +121,22 @@ def _med(xs):
     return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
 
 
-# Finish-line land check (2026-11-08): the 6 modelled rivals with the most colonies over the 63 matches.
+# Finish-line land check (2026-11-08): the 6 modelled rivals with the most colonies over the 63 matches of pulls 2-4.
 LAND_CELLS = ('AtomPush', 'AtomCrasher', 'Brawler v2', 'Brawler', 'Aegis', 'Noob+')
+
+
+def land_cells(real_items, n=6):
+    """The cells for the land check: LAND_CELLS when any of them is in real_items, else the n cells with quality
+    'model' (validate.model_of) that have the most colonies in real_items (how LAND_CELLS was chosen)."""
+    import validate as V
+    names = [c for c, _, _ in real_items]
+    if any(c in names for c in LAND_CELLS):
+        return list(LAND_CELLS)
+    count = {}
+    for c in names:
+        if V.MODELS.get(c, V.ROUGH)[1] == 'model':
+            count[c] = count.get(c, 0) + 1
+    return sorted(count, key=lambda c: (-count[c], c))[:n]
 
 
 def land_check(real_items, sim_items, cells=LAND_CELLS):
@@ -193,7 +208,7 @@ def main(argv=None):
     ap.add_argument('--matches', help='comma list of match ids')
     ap.add_argument('--workers', type=int, default=2)
     ap.add_argument('--json', help='write per-match real and sim metrics here')
-    ap.add_argument('--models', help='json {cell name: sim spec} overriding validate.MODELS')
+    ap.add_argument('--models', help='JSON {cell name: sim spec}, or a file with it, overriding validate.MODELS')
     R.add_engine_args(ap)
     args = ap.parse_args(argv)
     X.lower_priority()
@@ -201,11 +216,11 @@ def main(argv=None):
     fit, test = V.split_sets(table)
     ids = sorted(table) if args.set == 'all' else (fit if args.set == 'fit' else test)
     if args.matches:
-        keep = {int(x) for x in args.matches.split(',')}
+        keep = set(V.keep_matches(table, args.matches))
         ids = [m for m in ids if m in keep]
     table = {m: table[m] for m in ids}
     if args.models:
-        V.MODELS.update({k: (v, 'model') for k, v in json.loads(args.models).items()})
+        V.apply_models(args.models)
     kw = R.engine_kwargs(args)
     kw['record_races'] = True
     jobs = V.make_jobs(table, V.load_starts(), kw, 1)
@@ -228,7 +243,7 @@ def main(argv=None):
     if args.models:
         print('models override:', args.models)
     report(pool(ri), pool(si))
-    lc = land_check(ri, si)
+    lc = land_check(ri, si, land_cells(ri))
     print('\nLand check (pop change t500 -> end, sim median inside the real range; %d of %d pass):'
           % (sum(x[4] for x in lc), len(lc)))
     for n, lo, hi, med, ok in lc:

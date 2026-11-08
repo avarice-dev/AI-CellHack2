@@ -1,13 +1,15 @@
-"""Sanity check of the simulator against real ladder replays (data pulls 2 to 5).
+"""Sanity check of the simulator against real ladder replays.
 
-Re-plays the 135 analysed ladder matches (pull 2: 36, pull 3: 15 Scourge losses, pull 4: 12 Contagion games,
-pull 5: 72 games of Contagion, Complacency and the top rivals) with
-the same start squares and the nearest sim model of each cell, then compares the replay-style statistics with
-data/<pull>/validation-table.md and the rule statistics of data/ladder-data-2-2026-11-08.md (section 6).  Start
-squares: pull 2 from section 5 of that report, later pulls from data/<pull>/starts.json (tools/valtab.py builds
-both files of a later pull from its replays).  Reads the data files; writes nothing there.
+A data pull is any folder data/<pull>/ that has a validation-table.md and a starts.json (tools/replay/valtab.py
+builds both from the pull's replays).  The pulls are found there, not listed here (pulls(), --pull).  Re-plays
+every match of the chosen pulls with the same start squares and the nearest sim model of each cell, then compares
+the replay-style statistics with the table.  The rule statistics and rival fingerprints printed as reference are
+our pull 2 measurements (data/ladder-data-2-2026-11-08.md sections 4 and 6), whatever pulls are re-played.
+FIT/TEST: data/splits/split.json (--split), never re-drawn; --extend-split gives new matches a set.  Reads the
+data files and writes nothing there, except --extend-split.  Set CH_DATA to use another data folder.
 
-  python validate.py                          # all 135 matches, 1 sim seed each, 2 workers
+  python validate.py                          # every match of every pull, 1 sim seed each, 2 workers
+  python validate.py --pull pull5 --set test  # the TEST matches of one pull
   python validate.py --seeds 3 --json v.json  # 3 sim seeds per match
   python validate.py --feed-bonus 1 --idle-gain 0.08   # the two unexplained effects switched on
 
@@ -30,9 +32,7 @@ import experiments as X  # noqa: E402
 import run as R  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TABLE = os.path.join(ROOT, 'data', 'pull2', 'validation-table.md')
-REPORT = os.path.join(ROOT, 'data', 'ladder-data-2-2026-11-08.md')
-PULLS = ('pull2', 'pull3', 'pull4', 'pull5')   # validation sets; later pulls: data/<pull>/validation-table.md + starts.json
+DATA = os.environ.get('CH_DATA') or os.path.join(ROOT, 'data')
 SPLIT_SEED = 20261108
 
 # cell name -> (sim spec, quality).  Profiles from data/ladder-data-2-2026-11-08.md sections 3-4.
@@ -92,9 +92,21 @@ def _num(text):
     return float(text)
 
 
+def _natural(name):
+    return [int(t) if t.isdigit() else t for t in re.split(r'(\d+)', name)]
+
+
+def pulls():
+    """The data pulls: every folder of DATA with a validation-table.md, in natural name order (pull2 before
+    pull10).  Nothing is listed in the code, so a new pull is used as soon as its table exists."""
+    if not os.path.isdir(DATA):
+        return []
+    return sorted((p for p in os.listdir(DATA) if os.path.isfile(_table_path(p))), key=_natural)
+
+
 def pull_of(m):
-    """Data pull of a match id: the first of PULLS whose table has it."""
-    for p in PULLS:
+    """Data pull of a match id: the first pull whose table has it."""
+    for p in pulls():
         if m in _pull_ids(p):
             return p
     return None
@@ -104,20 +116,22 @@ _IDS = {}
 
 
 def _pull_ids(p):
-    if p not in _IDS:
-        _IDS[p] = set(load_table(_table_path(p)))
-    return _IDS[p]
+    key = (DATA, p)
+    if key not in _IDS:
+        _IDS[key] = set(load_table(_table_path(p)))
+    return _IDS[key]
 
 
 def _table_path(p):
-    return os.path.join(ROOT, 'data', p, 'validation-table.md')
+    return os.path.join(DATA, p, 'validation-table.md')
 
 
-def load_table(path=None):
-    """{match id: {'freeze': int, 'rows': [{'cell', 't50', ..., 'fpe'}] in colony order}}.  Default: every pull."""
+def load_table(path=None, pulls=None):
+    """{match id: {'freeze': int, 'rows': [{'cell', 't50', ..., 'fpe'}] in colony order}}.  Default: every pull
+    (pulls: the names of the pulls to read instead)."""
     if path is None:
         out = {}
-        for p in PULLS:
+        for p in (globals()['pulls']() if pulls is None else pulls):
             for m, d in load_table(_table_path(p)).items():
                 out.setdefault(m, d)
         return out
@@ -136,24 +150,56 @@ def load_table(path=None):
     return out
 
 
-def load_starts(path=REPORT):
-    """{match id: [(cell, (x, y)), ...]} (colony order): section 5 of the pull 2 report, then the starts.json of
-    each later pull."""
-    with open(path, encoding='utf-8') as f:
-        txt = f.read()
-    sec = txt.split('## 5.')[1].split('```')[1]
+def load_starts(pulls=None):
+    """{match id: [(cell, (x, y)), ...]} (colony order) from data/<pull>/starts.json of every pull (or of pulls)."""
     out = {}
-    for line in sec.strip().splitlines():
-        m, rest = line.split(':', 1)
-        out[int(m)] = [(n.strip(), (int(x), int(y))) for n, x, y in
-                       re.findall(r'([^;]+?) \((\d+),(\d+)\)', rest)]
-    for p in PULLS[1:]:
-        sp = os.path.join(ROOT, 'data', p, 'starts.json')
+    for p in (globals()['pulls']() if pulls is None else pulls):
+        sp = os.path.join(DATA, p, 'starts.json')
         if os.path.exists(sp):
             with open(sp, encoding='utf-8') as f:
                 for m, v in json.load(f).items():
                     out.setdefault(int(m), [(n, (x, y)) for n, x, y in v])
     return out
+
+
+ROUGH = ('hunter', 'rough')
+_WARNED = set()
+
+
+def model_of(name):
+    """(sim spec, quality) of a cell name.  A cell with no entry in MODELS (a rival we never measured, or your
+    own cell) is stood in for by the hunter bot ('rough'), with a one-line warning.  Give it a model with
+    --models."""
+    if name in MODELS:
+        return MODELS[name]
+    if name not in _WARNED:
+        _WARNED.add(name)
+        print('no sim model for cell %r: stood in for by hunter (rough); give one with --models' % name,
+              file=sys.stderr)
+    return ROUGH
+
+
+def apply_models(text):
+    """--models: a JSON object {cell name: sim spec}, or the path of a file that holds one.  Adds to or replaces
+    entries of MODELS (quality 'model')."""
+    if os.path.isfile(text):
+        with open(text, encoding='utf-8') as f:
+            extra = json.load(f)
+    else:
+        extra = json.loads(text)
+    MODELS.update({k: (v, 'model') for k, v in extra.items()})
+    return extra
+
+
+def keep_matches(table, text):
+    """table cut down to the comma list of match ids in text.  Exits non-zero, naming them, when some id is in
+    no table."""
+    keep = {int(x) for x in text.split(',')}
+    missing = sorted(keep - set(table))
+    if missing:
+        sys.exit('match id(s) %s not in any validation table (data/<pull>/validation-table.md of %s)'
+                 % (', '.join(map(str, missing)), ', '.join(pulls()) or 'no pull found'))
+    return {m: d for m, d in table.items() if m in keep}
 
 
 def make_jobs(table, starts, engine_kw, seeds=1):
@@ -162,7 +208,7 @@ def make_jobs(table, starts, engine_kw, seeds=1):
         cells = [r['cell'] for r in table[m]['rows']]
         if m not in starts or [n for n, _ in starts[m]] != cells:
             raise ValueError('start list of %d does not match the table' % m)
-        specs = [MODELS[n][0] for n in cells]
+        specs = [model_of(n)[0] for n in cells]
         kw = dict(engine_kw, start_mode='fixed', start_positions=[xy for _, xy in starts[m]],
                   record_deltas=True)
         for k in range(seeds):
@@ -211,7 +257,7 @@ def compare(table, results):
     for m in sorted(by_match):
         real = table[m]['rows']
         cells = [x['cell'] for x in real]
-        clean = all(MODELS[n][1] != 'rough' for n in cells)
+        clean = all(model_of(n)[1] != 'rough' for n in cells)
         for r in by_match[m]:
             sim = [sim_row(r, c) for c in range(len(cells))]
             out['matches'].append({
@@ -223,7 +269,7 @@ def compare(table, results):
             for c, n in enumerate(cells):
                 a = out['cells'].setdefault(n, {'real': {k: [] for k in COLS},
                                                 'sim': {k: [] for k in COLS + FP_COLS},
-                                                'quality': MODELS[n][1], 'spec': MODELS[n][0],
+                                                'quality': model_of(n)[1], 'spec': model_of(n)[0],
                                                 'feeds': 0, 'eats_enemy': 0})
                 for k in COLS:
                     a['real'][k].append(real[c][k])
@@ -243,7 +289,9 @@ def cells_of(table, m):
     return [r['cell'] for r in table[m]['rows']]
 
 
-SPLIT_FILE = os.path.join(ROOT, 'data', 'splits', 'split.json')
+def split_file():
+    """The default FIT/TEST file: data/splits/split.json (in DATA)."""
+    return os.path.join(DATA, 'splits', 'split.json')
 
 
 def stratified_split(table, ids):
@@ -258,28 +306,30 @@ def stratified_split(table, ids):
     return (sorted(m for j, m in enumerate(ids) if j % 3 != 2), sorted(m for j, m in enumerate(ids) if j % 3 == 2))
 
 
-def load_split(path=SPLIT_FILE):
-    """{match id: 'FIT' | 'TEST'} from data/splits/split.json."""
-    with open(path, encoding='utf-8') as f:
+def load_split(path=None):
+    """{match id: 'FIT' | 'TEST'} from data/splits/split.json (or path)."""
+    with open(path or split_file(), encoding='utf-8') as f:
         return {int(k): v for k, v in json.load(f)['sets'].items()}
 
 
-def split_sets(table, path=SPLIT_FILE):
+def split_sets(table, path=None):
     """FIT and TEST ids of table, from the fixed assignment in data/splits/split.json.  A match keeps its set
     once assigned (the sim was tuned on FIT, so a FIT match must never move to TEST).  Pulls 2-4 (63 matches:
     FIT 42, TEST 21) were split by stratified_split over their 63 ids; pull 5 (72 matches) by stratified_split
     over its own ids only (`python validate.py --extend-split`).  Returns (fit, test) as sorted lists."""
+    path = path or split_file()
     sets = load_split(path)
     missing = sorted(set(table) - set(sets))
     if missing:
         raise ValueError('match id(s) %s have no FIT/TEST set in %s: run python validate.py --extend-split'
-                         % (', '.join(map(str, missing)), os.path.relpath(path, ROOT)))
+                         % (', '.join(map(str, missing)), path))
     return (sorted(m for m in table if sets[m] == 'FIT'), sorted(m for m in table if sets[m] == 'TEST'))
 
 
-def extend_split(table, path=SPLIT_FILE):
+def extend_split(table, path=None):
     """Give the matches of table that have no set yet a set (stratified_split over the new ids only); the
     existing entries are not changed.  Writes path; returns (new fit, new test)."""
+    path = path or split_file()
     old = load_split(path) if os.path.exists(path) else {}
     fit, test = stratified_split(table, [m for m in table if m not in old])
     sets = dict(old)
@@ -448,34 +498,35 @@ def main(argv=None):
     ap.add_argument('--seeds', type=int, default=1, help='sim seeds per real match')
     ap.add_argument('--workers', type=int, default=X.DEFAULT_WORKERS,
                     help='worker processes (default and maximum %d)' % X.MAX_WORKERS)
-    ap.add_argument('--matches', help='comma list of match ids (default: all in the table)')
+    ap.add_argument('--pull', action='append',
+                    help='data pull to re-play (repeat for several; default: every folder of data/ with a '
+                         'validation-table.md)')
+    ap.add_argument('--matches', help='comma list of match ids (default: all in the tables)')
     ap.add_argument('--set', choices=('all', 'fit', 'test'), default='all',
-                    help='which matches (split_sets: data/splits/split.json); '
-                         'thresholds per set')
+                    help='which matches (split_sets: the --split file); thresholds per set')
+    ap.add_argument('--split', help='FIT/TEST file (default data/splits/split.json)')
     ap.add_argument('--extend-split', action='store_true',
-                    help='give matches with no FIT/TEST set one (data/splits/split.json; old entries kept) and stop')
+                    help='give matches with no FIT/TEST set one (in the --split file; old entries kept) and stop')
+    ap.add_argument('--models', help='JSON {cell name: sim spec}, or a file with it, added to MODELS')
     ap.add_argument('--json', help='write the comparison to this file')
     R.add_engine_args(ap)
     args = ap.parse_args(argv)
     X.lower_priority()
-    table = load_table()
+    if args.models:
+        apply_models(args.models)
+    table = load_table(pulls=args.pull)
     if args.extend_split:
-        fit, test = extend_split(table)
-        print('new matches: FIT %d, TEST %d; data/splits/split.json' % (len(fit), len(test)))
+        fit, test = extend_split(table, args.split)
+        print('new matches: FIT %d, TEST %d; %s' % (len(fit), len(test), args.split or 'data/splits/split.json'))
         return
     if args.matches:
-        keep = {int(x) for x in args.matches.split(',')}
-        missing = sorted(keep - set(table))
-        if missing:
-            sys.exit('match id(s) %s not in any validation table (data/<pull>/validation-table.md of %s)'
-                     % (', '.join(map(str, missing)), ', '.join(PULLS)))
-        table = {m: d for m, d in table.items() if m in keep}
-    fit, test = split_sets(load_table())   # split over every match, whatever --matches keeps
+        table = keep_matches(table, args.matches)
+    fit, test = split_sets(load_table(pulls=args.pull), args.split)   # every match of the pulls, whatever --matches keeps
     if args.set != 'all':
         keep = set(fit if args.set == 'fit' else test)
         table = {m: d for m, d in table.items() if m in keep}
     kw = R.engine_kwargs(args)
-    jobs = make_jobs(table, load_starts(), kw, args.seeds)
+    jobs = make_jobs(table, load_starts(args.pull), kw, args.seeds)
     t0 = time.perf_counter()
     res = X.run_jobs(jobs, args.workers, lambda r: print('match %d seed %d %.0fs' % (r['mix'], r['seed'], r['secs']),
                                                          flush=True))

@@ -1,7 +1,8 @@
 """Self-agreement ceiling: the sim against itself with another seed (same real starts, same models).
 
-python ceiling.py run   -> out/ceiling.json  (the 21 TEST matches x seeds k=1,2,3; seed 0 = stored s63-pad3-test.json)
-python ceiling.py report
+python ceiling.py run   -> out/ceiling.json  (the TEST matches x seeds k=1,2,3)
+python ceiling.py report [SEED0.json]   (seed 0: a stored validate run of the TEST set, default out/s63-pad3-test.json,
+                                         a local output file, not in the repository)
 """
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -29,6 +30,10 @@ def main():
         res = X.run_jobs(jobs, 4, lambda r: print('match %d seed %d %.0fs' % (r['mix'], r['seed'], r['secs']), flush=True))
         json.dump(X._jsonable(res), open(OUT, 'w'))
         return
+    seed0 = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(OUT), 's63-pad3-test.json')
+    if not os.path.exists(seed0) or not os.path.exists(OUT):
+        sys.exit('ceiling report needs %s and %s: run "python ceiling.py run" and a stored TEST run first'
+                 % (OUT, seed0))
     res = json.load(open(OUT))
     ik = lambda d: {int(k) if str(k).isdigit() else k: v for k, v in d.items()}
     for r in res:
@@ -37,7 +42,7 @@ def main():
         r['deltas'] = {k: ik(v) for k, v in r.get('deltas', {}).items()}
     by = {k: {r['mix']: r for r in res if r['game'] == k} for k in (1, 2, 3)}
     base = {}
-    for m, v in json.load(open(os.path.join(os.path.dirname(OUT), 's63-pad3-test.json'))).items():
+    for m, v in json.load(open(seed0)).items():
         base[int(m)] = [v['sim'][str(c)]['pend'] for c in range(4)]
     win = lambda p: max(range(4), key=lambda c: p[c])
     pend = lambda r: [r['treadmill'][str(c)]['pend'] for c in range(4)]
