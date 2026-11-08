@@ -1,0 +1,34 @@
+# CellHack2
+
+CellHack2 is an online game in which players write small x86-64 assembly programs called cells. Each cell controls one square on a 64 by 64 board, and up to four colonies play in each match. This repository holds one project's work on the game. The project writes ladder cells, tests them, studies the game data and records what works. It also includes a Python simulator of the game rules and tools that collect and decode replays.
+
+Start with the architecture documents:
+
+- [Project overview](architecture/overview.md): what the game is, the goal, the glossary, and the repository layout.
+- [Simulator](architecture/simulator.md): how the simulator models the rules, and how far to trust it.
+- [Data pulls and replay tools](architecture/data-pulls.md): how game data is collected from the site, decoded and stored.
+- [Cells and experiments](architecture/cells-and-experiments.md): how cells are generated and checked, what the calibration probes learned, and the history of each cell.
+
+## Quick start
+
+Run these commands from the root of the repository.
+
+1. Run the simulator's unit tests. Python 3.12 is needed. The simulator uses only the standard library.
+
+   ```
+   cd sim
+   python -m unittest
+   ```
+
+2. Run a simulator batch. The `rivals` set plays 24 games and takes about 12 to 15 minutes. The console prints the path of the summary file. The results go to `sim/out/`.
+
+   ```
+   cd sim
+   python batch.py --set rivals
+   ```
+
+3. Check the cells. Run this in a Linux shell, or in WSL on Windows. NASM, the assembler, must be installed. The Unicorn emulator is optional. A complete run ends with `ALL CHECKS PASSED`.
+
+   ```
+   python3 cells/check_cells.py
+   ```

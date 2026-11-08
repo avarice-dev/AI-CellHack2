@@ -8,6 +8,7 @@ History: `reviews/designs-r1..r3-snapshot.md`.
 **Names** (user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to behaviour.
 Avarice = our ladder cell Sprint (eats greedily, never feeds; ladder name and `cells/sprint.asm` stay Sprint).
 Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
+Ladder now (2026-11-08): Scourge, Contagion, Complacency (section 9). Covetous and Sprint are retired from the ladder; "Avarice" is the design name of the cell published as Sprint.
 Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
 Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, Contagion (same decisions, fewer instructions).
 
