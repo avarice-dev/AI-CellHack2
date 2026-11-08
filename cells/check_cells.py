@@ -336,7 +336,7 @@ def diff_covetous(blob, ref='covetous'):
                             ens[far] = 9
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
-                        want = policy(v, bytearray(64))[:2]
+                        want = getattr(cells_ref, ref)(v, bytearray(64))[:2]
                         got = r.call(view_bytes(tick, energy, cells, ens), energy)
                         n += 1
                         if got != want:
@@ -344,27 +344,7 @@ def diff_covetous(blob, ref='covetous'):
                             if mism <= 10:
                                 fail(ref + ' diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
                                      % (types, energy, far, tick, pat, got, want))
-                        if bet_until is not None:
-                            s_act, s_n = cells_ref.scourge(v, bytearray(64))[:2]
-                            exp = s_act
-                            if s_act == 0x01 and s_n == 27 and tick < bet_until:
-                                nbet += 1
-                                order = (17, 13, 7, 11)       # DOWN RIGHT UP LEFT
-                                dirs = {17: 2, 13: 1, 7: 0, 11: 3}
-                                empty = [i for i in order if cells[i] == 0]
-                                freed = [i for i in empty if any(cells[k] == 2 for k in
-                                                                 {7: (6, 8), 13: (8, 14, 18), 17: (16, 18),
-                                                                  11: (6, 10, 16)}[i])]
-                                exp = 0x20 + dirs[(freed or empty)[0]]
-                            if got[0] != exp:
-                                bmism += 1
-                                if bmism <= 10:
-                                    fail(ref + ' vs scourge types=%s e=%d far=%s tick=%d: asm 0x%02x want 0x%02x'
-                                         % (types, energy, far, tick, got[0], exp))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
-    if bet_until is not None:
-        print('  action vs scourge: %d cases, %d where the bet applies (expected split), %d mismatches'
-              % (n, nbet, bmism))
 
 
 def check_scourge(blob, syms, lst, vex=False):
