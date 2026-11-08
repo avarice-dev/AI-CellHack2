@@ -445,3 +445,19 @@ class PumpSplitAfterTest(unittest.TestCase):
     def test_rest_below_split_min(self):
         a = self.pol()(FakeView(3), bytearray(64))
         self.assertEqual(a[0], REST)
+
+
+class PadSlowBitesTest(unittest.TestCase):
+    """pad_bites_from=k: bites in check positions >= k also pay the pad (the direction profile only says
+    '>= 8' there; Noob++ D only fast, rooby U/R, Aegis U)."""
+
+    def test_rpump_only_first_direction_fast(self):
+        p = policies.get('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pad=60,pad_bites_from=1]')
+        self.assertEqual(p(FakeView(20, cells=nb(down=EN)), bytearray(64))[:2], (0x32, 4))
+        self.assertEqual(p(FakeView(20, cells=nb(left=EN)), bytearray(64))[:2], (0x33, 66))
+        self.assertEqual(p(FakeView(20, cells=nb(up=EN)), bytearray(64))[:2], (0x30, 70))
+
+    def test_ratompush_two_fast(self):
+        p = policies.get('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=56,pad_bites_from=2]')
+        self.assertEqual(p(FakeView(20, cells=nb(right=EN)), bytearray(64))[:2], (0x31, 6))
+        self.assertEqual(p(FakeView(20, cells=nb(down=EN)), bytearray(64))[:2], (0x32, 64))
