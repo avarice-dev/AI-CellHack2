@@ -10,6 +10,7 @@ Start with the architecture documents:
 - [Simulator](architecture/simulator.md): how the simulator models the rules, and how far to trust it.
 - [Data pulls and replay tools](architecture/data-pulls.md): how game data is collected from the site, decoded and stored.
 - [Cells and experiments](architecture/cells-and-experiments.md): how cells are generated and checked, what the calibration probes learned, and the history of each cell.
+- [Cell assembly](architecture/cell-assembly.md): the x86-64 instructions in the cells, why each one was chosen, and how each decision is written in code.
 
 ## Quick start
 

@@ -155,3 +155,5 @@ Win rates are a rough guide only. The design notes say that direction luck is wo
 - `data/replay-mining-2026-11-08.md`: the refill race numbers.
 - [data-pulls.md](data-pulls.md): where the replay data came from.
 - [simulator.md](simulator.md): how the simulator models these cells.
+
+See also: [cell-assembly.md](cell-assembly.md), which explains the assembly instructions in the cells and why each one was chosen.
