@@ -22,6 +22,11 @@ the gate-1 exit is `jae rel32` to EXIT_ADDR, and a Unicorn diff against sim/cell
 enemies on the refill window's squares and on the unread squares 2 and 22.  For contagion: Scourge's checks,
 its bite and gate-1 source lines verbatim (no memory access there), and a Unicorn diff against
 sim/cells_ref.contagion that also varies memory state and position and compares memory after the call.
+VEX variants (designs.md round 5): woe (of scourge), conceit (of covetous), endemic (of contagion) get their parent's
+static checks (without the 16-byte rule: they have no legacy-SSE memory operand, which is checked instead) and the
+parent's Unicorn diff against sim/cells_ref.woe / conceit / endemic.  Every cell (not calib/) must use only the
+instructions in ALLOWED: Unicorn runs popcnt, SSSE3, SSE4.x and BMI, but the site faults on them, so the emulator
+alone would not catch them.  A calibration cell that faults in Unicorn (l_avx2: ymm) is reported, not fatal.
 """
 
 import itertools
@@ -44,6 +49,49 @@ VIEW_BASE, CELLMEM_BASE, EXIT_ADDR = 0x300000, 0x310000, 0x400000
 VALID = {0x00, 0x01} | {b + d for b in (0x10, 0x20, 0x30, 0x40) for d in range(4)}
 
 problems = []
+
+# Instructions a cell may use: all run on the site (data/site-observations-2026-11-08.md, "VEX" and "calib-f").
+# Not allowed there (fault): popcnt, SSSE3 (pshufb), SSE4.1 (ptest), SSE4.2 (crc32), BMI1/2, AVX2 ymm and the VEX
+# forms of SSSE3/SSE4.1 ops.  Add a mnemonic here only once it is known to run on the site.
+ALLOWED = {'db', 'dw', 'dd', 'dq', 'times', 'align',
+           'mov', 'movzx', 'lea', 'or', 'and', 'xor', 'sub', 'add', 'inc', 'dec', 'shl', 'shr', 'cmp', 'test',
+           'ja', 'jae', 'jb', 'jbe', 'je', 'jne', 'jz', 'jnz', 'jmp', 'ret', 'cmova', 'cmovae', 'rep', 'stosb',
+           'movdqu', 'movdqa', 'pcmpeqb', 'pmovmskb', 'por', 'pxor', 'pand',          # SSE2
+           'vpcmpeqb', 'vpmovmskb', 'vpxor'}                                       # AVX-128, site-verified
+LEGACY_SSE = {'movdqa', 'pcmpeqb', 'por', 'pxor', 'pand'}   # a memory operand of these must be 16-byte aligned
+VEX_OF = {'woe': 'scourge', 'conceit': 'covetous', 'endemic': 'contagion'}
+
+
+def _code_lines(src):
+    for line in src.splitlines():
+        code = line.split(';', 1)[0].strip()
+        code = re.sub(r'^[.\w]+:\s*', '', code)          # leading label
+        if code:
+            yield code
+
+
+def mnemonics(src):
+    """The set of mnemonics / directives a source uses (lower case)."""
+    return {c.split()[0].lower() for c in _code_lines(src)}
+
+
+def uses_ymm(src):
+    return any(re.search(r'\bymm\d', c, re.I) for c in _code_lines(src))
+
+
+def legacy_sse_memory(src):
+    """Lines with a legacy-SSE memory operand (needs 16-byte alignment); movdqu is exempt."""
+    return [c for c in _code_lines(src) if c.split()[0].lower() in LEGACY_SSE and '[' in c]
+
+
+def check_isa(name, src, vex):
+    bad = mnemonics(src) - ALLOWED
+    if bad:
+        fail('%s uses instructions not on the site allow-list: %s' % (name, sorted(bad)))
+    if uses_ymm(src):
+        fail('%s uses ymm registers (AVX2 faults on the site)' % name)
+    if vex and legacy_sse_memory(src):
+        fail('%s has legacy-SSE memory operands (alignment rule): %s' % (name, legacy_sse_memory(src)[:3]))
 
 
 def fail(msg):
@@ -138,9 +186,20 @@ class Runner(object):
         except Exception:
             pass
         self.n = 0
+        import vex_emu
+        xmm = [getattr(X, 'UC_X86_REG_XMM%d' % i) for i in range(16)]
+        gpr = {g: getattr(X, 'UC_X86_REG_' + g.upper()) for g in vex_emu.GPR}
 
         def hook(uc_, addr, size, ud):
             self.n += 1
+            # Unicorn ignores VEX.vvvv (runs vpcmpeqb as the 2-operand legacy form): emulate VEX ops here
+            ins = vex_emu.decode(bytes(uc_.mem_read(addr, 15)))
+            if ins is not None:
+                nxt = vex_emu.execute(
+                    ins, addr, lambda n: uc_.reg_read(xmm[n]).to_bytes(16, 'little'),
+                    lambda n, v: uc_.reg_write(xmm[n], int.from_bytes(v, 'little')),
+                    lambda g: uc_.reg_read(gpr[g]), lambda a: bytes(uc_.mem_read(a, 16)))
+                uc_.reg_write(X.UC_X86_REG_RIP, nxt)
         uc.hook_add(U.UC_HOOK_CODE, hook, begin=CODE_BASE, end=CODE_BASE + CODE_SIZE - 1)
         self.uc = uc
 
@@ -210,10 +269,10 @@ def diff_sprint(blob):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
-def check_covetous(blob, syms, lst):
+def check_covetous(blob, syms, lst, vex=False):
     off = {k: v - CODE_BASE for k, v in syms.items() if v >= CODE_BASE}
     for k in ('kEnemy', 'kEmpty', 'kTwoLo', 'kTwoHi'):
-        if syms[k] % 16:
+        if syms[k] % 16 and not vex:
             fail('covetous %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
     bt, be, st, se = off['bite_tbl'], off['bite_tbl_end'], off['split_tbl'], off['split_tbl_end']
     if be - bt != 1106 or se - st != 1106:
@@ -237,8 +296,8 @@ def check_covetous(blob, syms, lst):
     print('  constants at', ', '.join('%s=0x%x' % (k, syms[k]) for k in ('kEnemy', 'kEmpty', 'kTwoLo', 'kTwoHi')))
 
 
-def diff_covetous(blob):
-    """Covetous vs sim/cells_ref.covetous: all 4^4 adjacent types x energies x far enemy x tick x
+def diff_covetous(blob, ref='covetous'):
+    """Covetous (or Conceit) vs sim/cells_ref.<ref>: all 4^4 adjacent types x energies x far enemy x tick x
     friend-energy patterns (equal, one poorer, ties, rich)."""
     import cells_ref
     r = Runner(blob)
@@ -263,27 +322,34 @@ def diff_covetous(blob):
                             ens[far] = 9
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
-                        want = cells_ref.covetous(v, bytearray(64))[:2]
+                        want = getattr(cells_ref, ref)(v, bytearray(64))[:2]
                         got = r.call(view_bytes(tick, energy, cells, ens), energy)
                         n += 1
                         if got != want:
                             mism += 1
                             if mism <= 10:
-                                fail('covetous diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
+                                fail(ref + ' diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
                                      % (types, energy, far, tick, pat, got, want))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
-def check_scourge(blob, syms, lst):
+def check_scourge(blob, syms, lst, vex=False):
     import gen_scourge
     off = {k: v - CODE_BASE for k, v in syms.items() if v >= CODE_BASE}
     for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'):
-        if syms[k] % 16:
+        if syms[k] % 16 and not vex:
             fail('scourge %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
     n = gen_scourge.N_REFILL
     bt, be = off['bite_tbl'], off['bite_tbl_end']
     at, ae, tt, te = off['act_tbl'], off['act_tbl_end'], off['thr_tbl'], off['thr_tbl_end']
-    if be - bt != 1106 or ae - at != n or te - tt != n:
+    nbite = 1106
+    if vex:                             # Woe / Endemic: bite mask of window 6, Covetous's table shifted one lane
+        import gen_woe
+        nbite = gen_woe.N_BITE
+        want = gen_woe.bite_table()
+        if any(blob[bt + m] != want.get(m, 0) for m in range(nbite)):
+            fail('vex bite_tbl bytes differ from gen_woe.bite_table()')
+    if be - bt != nbite or ae - at != n or te - tt != n:
         fail('scourge table sizes %d / %d / %d' % (be - bt, ae - at, te - tt))
     if blob[bt] != 0:
         fail('scourge bite_tbl[0] is not 0')
@@ -307,8 +373,8 @@ def check_scourge(blob, syms, lst):
         '%s=0x%x' % (k, syms[k]) for k in ('kEnemy', 'kRefill', 'kTwoLo', 'kTwoHi'))))
 
 
-def diff_scourge(blob):
-    """Scourge vs sim/cells_ref.scourge: all 4^4 adjacent types x energies x enemy placements (refill
+def diff_scourge(blob, ref='scourge'):
+    """Scourge (or Woe) vs sim/cells_ref.<ref>: all 4^4 adjacent types x energies x enemy placements (refill
     window squares, unread squares 2/22, corners, pairs) x tick x friend-energy patterns."""
     import cells_ref
     r = Runner(blob)
@@ -334,34 +400,34 @@ def diff_scourge(blob):
                             ens[i] = 9
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
-                        want = cells_ref.scourge(v, bytearray(64))[:2]
+                        want = getattr(cells_ref, ref)(v, bytearray(64))[:2]
                         got = r.call(view_bytes(tick, energy, cells, ens), energy)
                         n += 1
                         if got != want:
                             mism += 1
                             if mism <= 10:
-                                fail('scourge diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
+                                fail(ref + ' diff types=%s e=%d far=%s tick=%d pat=%s: asm %s ref %s'
                                      % (types, energy, far, tick, pat, got, want))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
-def check_contagion(blob, syms, lst):
-    """Scourge's static checks, plus: the bite and gate-1 source lines are Scourge's verbatim."""
-    import gen_scourge
-    check_scourge(blob, syms, lst)
+def check_contagion(blob, syms, lst, vex=False):
+    """Scourge's static checks, plus: the bite and gate-1 source lines are Scourge's verbatim (Endemic: Woe's)."""
+    me, base = ('endemic', 'woe') if vex else ('contagion', 'scourge')
+    check_scourge(blob, syms, lst, vex)
     def fast(path):
         txt = open(path).read()
         return txt[txt.index('start:'):txt.index('	test		al, al')]
-    if fast(os.path.join(HERE, 'contagion.asm')) != fast(os.path.join(HERE, 'scourge.asm')):
-        fail('contagion: bite / gate-1 source differs from scourge.asm')
-    gate = fast(os.path.join(HERE, 'contagion.asm'))
+    if fast(os.path.join(HERE, me + '.asm')) != fast(os.path.join(HERE, base + '.asm')):
+        fail('%s: bite / gate-1 source differs from %s.asm' % (me, base))
+    gate = fast(os.path.join(HERE, me + '.asm'))
     if 'rdx' in gate:
         fail('contagion: bite / gate-1 path touches the cell memory')
-    print('  bite + gate-1 source identical to scourge.asm (%d instructions)'
-          % sum(1 for l in gate.splitlines() if l.startswith('	') and l.strip()))
+    print('  bite + gate-1 source identical to %s.asm (%d instructions)'
+          % (base, sum(1 for l in gate.splitlines() if l.startswith('	') and l.strip())))
 
 
-def diff_contagion(blob):
+def diff_contagion(blob, ref='contagion'):
     """Contagion vs sim/cells_ref.contagion: Scourge's grid of adjacent types x energies x enemy placements x
     tick x friend-energy patterns, under several memory states (plain, start cell, scout at / off origin, out of
     steps) and positions (centre, near each edge), comparing action, instruction count and memory after."""
@@ -402,7 +468,7 @@ def diff_contagion(blob):
                                     mref = bytearray(64)
                                     mref[:len(m0)] = m0
                                     masm = bytes(mref)
-                                    want = cells_ref.contagion(v, mref)[:2]
+                                    want = getattr(cells_ref, ref)(v, mref)[:2]
                                     got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)),
                                                  energy, mem=masm)
                                     gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
@@ -410,11 +476,37 @@ def diff_contagion(blob):
                                     if got != want or gmem != bytes(mref):
                                         mism += 1
                                         if mism <= 10:
-                                            fail('contagion diff types=%s e=%d far=%s tick=%d ring=%d pat=%s mem=%s '
+                                            fail(ref + ' diff types=%s e=%d far=%s tick=%d ring=%d pat=%s mem=%s '
                                                  'pos=%s: asm %s %s ref %s %s'
                                                  % (types, energy, far, tick, len(ring), pat, m0.hex(), pos, got,
                                                     gmem[:6].hex(), want, bytes(mref[:6]).hex()))
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+
+
+VEX_SELFTEST = '''	movdqu		xmm3, [rdi + 64]		; src1: view energies 0..15
+	movdqu		xmm0, [rdi + 96]		; old dst: garbage Unicorn would compare
+	vpcmpeqb	xmm0, xmm3, [rdi + 33]		; unaligned memory operand
+	pmovmskb	eax, xmm0
+	ret
+'''
+
+
+def vex_selftest():
+    """Run a 5-instruction VEX program through Runner: three-operand semantics, unaligned operand, count."""
+    path = os.path.join(BUILD, 'vex_selftest.asm')
+    os.makedirs(BUILD, exist_ok=True)
+    with open(path, 'w') as f:
+        f.write(VEX_SELFTEST)
+    blob = assemble(path)[0]
+    view = bytearray(128)
+    view[64:80] = bytes([2, 0, 2, 0, 1, 1, 2, 2] + [0] * 8)
+    view[96:112] = bytes([2, 9] * 8)
+    view[33:49] = bytes([2, 2, 2, 2, 1, 0, 2, 0] + [7] * 8)
+    act, n = Runner(blob).call(bytes(view), 0)      # lanes 0, 2, 4, 6 equal; Unicorn alone gives 0x45
+    if (act, n) != (0b01010101, 5):
+        fail('VEX self-test: asm (0x%02x, %d), want (0x55, 5): vpcmpeqb not emulated correctly' % (act, n))
+    else:
+        print('  VEX self-test: vpcmpeqb xmm0, xmm3, [unaligned] -> mask 0x%02x, %d instructions: ok' % (act, n))
 
 
 def main():
@@ -427,32 +519,43 @@ def main():
     except ImportError:
         have_uc = False
         print('unicorn not importable: emulator checks skipped')
+    if have_uc:
+        vex_selftest()
     for p in files:
         res = assemble(p)
         if not res:
             continue
         blob, syms, lst = res
         name = os.path.splitext(os.path.basename(p))[0]
+        if os.path.dirname(p) == HERE:
+            check_isa(name, open(p).read(), name in VEX_OF)
+        kind, vex = VEX_OF.get(name, name), name in VEX_OF
         if name == 'sprint':
             check_sprint(blob, syms, lst)
             if have_uc:
                 diff_sprint(blob)
-        elif name == 'covetous':
-            check_covetous(blob, syms, lst)
+        elif kind == 'covetous':
+            check_covetous(blob, syms, lst, vex)
             if have_uc:
-                diff_covetous(blob)
-        elif name == 'scourge':
-            check_scourge(blob, syms, lst)
+                diff_covetous(blob, name)
+        elif kind == 'scourge':
+            check_scourge(blob, syms, lst, vex)
             if have_uc:
-                diff_scourge(blob)
-        elif name == 'contagion':
-            check_contagion(blob, syms, lst)
+                diff_scourge(blob, name)
+        elif kind == 'contagion':
+            check_contagion(blob, syms, lst, vex)
             if have_uc:
-                diff_contagion(blob)
+                diff_contagion(blob, name)
         elif have_uc:
             base = view_bytes(5, 10, [0] * 12 + [1] + [0] * 12)
+            import unicorn
+            import vex_emu
             for rax in ((0, 0x1234) if name.startswith('c_') else (0,)):
-                act, n = Runner(blob).call(base, 10, rax=rax)
+                try:
+                    act, n = Runner(blob).call(base, 10, rax=rax)
+                except (unicorn.UcError, vex_emu.UnsupportedVex) as e:   # l_avx2 (ymm), VEX ops not emulated
+                    print('  unicorn: faults (%s); calibration cell, not a cell problem' % e)
+                    continue
                 print('  unicorn: rax=0x%x -> action 0x%02x, %d instructions (Unicorn hook count)' % (rax, act, n))
     print('\n%s' % ('ALL CHECKS PASSED' if not problems else '%d PROBLEM(S)' % len(problems)))
     return 1 if problems else 0

@@ -24,6 +24,8 @@ import validate as V  # noqa: E402
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out')
 
+VEX_CELLS = ('scourge', 'woe', 'covetous', 'conceit', 'contagion', 'endemic')
+
 SETS = {
     'rivals': {'about': 'Sprint vs the direction-ordered rival models (+ hypothetical R-Blind3)',
                'seeds': '1-8',
@@ -34,6 +36,14 @@ SETS = {
                      'seeds': '1-8',
                      'mixes': [['rblind3', 'rpump', 'ratompush', 'sprint'],
                                ['rlock5', 'rpump', 'ratompush', 'sprint']]},
+    'vex': {'about': 'round 5: VEX variants vs their parents (Woe/Scourge, Conceit/Covetous, Endemic/Contagion), '
+                     'head to head and each against the two rivals-set fields',
+            'seeds': '1-8',
+            'mixes': [['woe', 'scourge', 'rpump', 'ratompush'],
+                      ['conceit', 'covetous', 'rpump', 'ratompush'],
+                      ['endemic', 'contagion', 'rpump', 'ratompush']]
+                     + [[c, 'rpump', 'ratompush', 'rblind3'] for c in VEX_CELLS]
+                     + [[c, 'rbrawler', 'ratompush', 'walker'] for c in VEX_CELLS]},
     'smoke': {'about': 'tiny set for tests', 'seeds': '1-2', 'mixes': [['sprint', 'rpump'], ['idle', 'walker']]},
     'validate': {'about': 'the 36 pull-2 ladder matches re-played with their real starts (validate.py)',
                  'seeds': '1'},

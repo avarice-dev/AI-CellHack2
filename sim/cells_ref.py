@@ -302,4 +302,54 @@ def make_contagion(refill_min=SCOURGE_REFILL_MIN, threat_min=SCOURGE_THREAT_MIN,
 
 
 contagion = make_contagion()
-FACTORIES = {'covetous': make_covetous, 'scourge': make_scourge, 'contagion': make_contagion}
+# ---- VEX/AVX-128 variants (designs.md round 5; cells/gen_woe.py, gen_conceit.py, gen_endemic.py) --------------
+# Same decisions as the parent; the bite still takes 5.  The VEX compare is non-destructive and takes an unaligned
+# memory operand, so one raw view window loaded by the bite is reused later:
+#   Woe (of Scourge) and Endemic (of Contagion): the bite reads window 6..21 (bite mask shifted one lane) and gate 1
+#     compares that register again (vpcmpeqb xmm1, xmm3, [kRefill]): -1 on every path after the bite.  Endemic's
+#     boxed block also builds its empty masks with vpcmpeqb against a zero constant instead of pxor + pcmpeqb: -2 more
+#     there (boxed, e >= grab_g).
+#   Conceit (of Covetous): the split check compares the bite's raw window 7..22 again: -1 on every path through it.
+def _vex_saved(view, kind, grab_g):
+    c = view.cells
+    if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
+        return 0
+    e = view.energy
+    if kind == 'gate':
+        return 1
+    if kind == 'endemic':
+        boxed = not any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4))
+        return 3 if boxed and e >= grab_g else 1
+    if e < SPRINT_SPLIT_MIN:                   # conceit: rest before the split check
+        return 0
+    seen = any(c[i] == CELL_ENEMY for i in range(25) if i != VIEW_CENTER)
+    if seen and e < SPRINT_THREAT_MIN and view.tick < SPRINT_LATE_TICK:
+        return 0                               # holding: straight to the feed block
+    return 1
+
+
+def _vex(parent, kind, grab_g=CONTAGION_GRAB_G):
+    def policy(view, mem):
+        act, n, t = parent(view, mem)
+        d = _vex_saved(view, kind, grab_g)
+        return act, n - d, t - d
+    return policy
+
+
+def make_woe(**kw):
+    return _vex(make_scourge(**kw), 'gate')
+
+
+def make_conceit(**kw):
+    return _vex(make_covetous(**kw), 'conceit')
+
+
+def make_endemic(**kw):
+    return _vex(make_contagion(**kw), 'endemic', kw.get('grab_g', CONTAGION_GRAB_G))
+
+
+woe = make_woe()
+conceit = make_conceit()
+endemic = make_endemic()
+FACTORIES = {'covetous': make_covetous, 'scourge': make_scourge, 'contagion': make_contagion,
+             'woe': make_woe, 'conceit': make_conceit, 'endemic': make_endemic}
