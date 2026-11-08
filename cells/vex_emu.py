@@ -2,7 +2,12 @@
 
 Unicorn 2.1.4 (QEMU 5 based) ignores the VEX vvvv register: it runs `vpcmpeqb xmm0, xmm3, [k]` as
 xmm0 = (xmm0 == k), and `vpcmpeqb xmm1, xmm3, xmm4` gave all zeros (probe 2026-11-08).  So the runner's code hook
-decodes every VEX instruction here, executes it itself and moves rip past it.  Only vpcmpeqb (VEX.128.66.0F 74,
+decodes every VEX instruction here, executes it itself and moves rip past it.
+Semantics emulated = THE SITE'S (calib-s, Sandbox 104136, 2026-11-08): its QEMU has the same bug, it runs
+`vpcmpeqb xmm2, xmm0, xmm1` as xmm2 = (xmm2 == xmm1): the first source (vvvv) is ignored and the old destination is
+compared.  (Until 2026-11-08 this module emulated the documented three-operand form; Woe/Conceit/Endemic were checked
+against that and die on the site.)  cells/check_cells.py also rejects any VEX op whose destination differs from its
+first source, the only form that means the same on the site and on real hardware.  Only vpcmpeqb (VEX.128.66.0F 74,
 the one VEX op our cells use) is supported; any other VEX instruction raises UnsupportedVex, so nothing VEX is ever
 run by Unicorn's wrong semantics without notice.  Pure Python, no I/O: unit-tested in sim/tests/test_vex_emu.py.
 """
@@ -101,7 +106,7 @@ def execute(insn, addr, read_xmm, write_xmm, read_gpr, read_mem16):
     """Run insn located at addr; read_xmm(n)/write_xmm(n, 16 bytes), read_gpr(name), read_mem16(address) -> 16
     bytes.  Returns the address of the next instruction."""
     nxt = addr + insn.length
-    a = read_xmm(insn.src1)
+    a = read_xmm(insn.dst)              # the site's QEMU: old destination, insn.src1 (vvvv) ignored (calib-s)
     if insn.src2[0] == 'xmm':
         bb = read_xmm(insn.src2[1])
     else:

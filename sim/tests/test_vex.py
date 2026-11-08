@@ -155,6 +155,19 @@ class VexGenTest(unittest.TestCase):
             self.assertTrue(self.check.mnemonics(src) - self.check.ALLOWED or 'ymm' in bad
                             and self.check.uses_ymm(src), bad)
 
+    def test_checker_rejects_vex_dst_not_first_source(self):
+        # calib-s (2026-11-08): on the site a VEX op ignores its first source and uses the old destination, so a
+        # cell may only use VEX forms with destination == first source.
+        for bad in ('vpcmpeqb xmm0, xmm3, [kEnemy]', 'vpcmpeqb\txmm2, xmm0, xmm1', 'vpxor xmm1, xmm2, xmm1'):
+            self.assertTrue(self.check.vex_dst_not_src1('start:\n\t%s\n\tret\n' % bad), bad)
+        for ok in ('vpcmpeqb xmm1, xmm1, [kTwoLo]', 'vpmovmskb eax, xmm0', 'pcmpeqb xmm0, [k]',
+                   '; vpcmpeqb xmm0, xmm3, xmm1 in a comment'):
+            self.assertEqual(self.check.vex_dst_not_src1('start:\n\t%s\n\tret\n' % ok), [], ok)
+
+    def test_round5_variants_are_flagged_broken(self):
+        for n, src in self.srcs.items():
+            self.assertNotEqual(self.check.vex_dst_not_src1(src), [], n)
+
     def test_tables_equal_the_parents(self):
         import gen_covetous, gen_scourge
         woe, conceit, endemic = self.gens['woe'], self.gens['conceit'], self.gens['endemic']

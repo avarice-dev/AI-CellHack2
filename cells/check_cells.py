@@ -84,7 +84,21 @@ def legacy_sse_memory(src):
     return [c for c in _code_lines(src) if c.split()[0].lower() in LEGACY_SSE and '[' in c]
 
 
+def vex_dst_not_src1(src):
+    """Code lines with a VEX op (v...) whose destination differs from its first source.  On the site (calib-s,
+    Sandbox 104136) such an op ignores the first source and uses the old destination, so the form is unreliable."""
+    bad = []
+    for c in _code_lines(src):
+        m = re.match(r'(v\w+)\s+([^,]+),\s*([^,]+),', c, re.I)
+        if m and m.group(2).strip().lower() != m.group(3).strip().lower():
+            bad.append(c)
+    return bad
+
+
 def check_isa(name, src, vex):
+    if vex_dst_not_src1(src):
+        fail('%s has VEX ops with destination != first source (site ignores the first source, calib-s): %s'
+             % (name, vex_dst_not_src1(src)[:3]))
     bad = mnemonics(src) - ALLOWED
     if bad:
         fail('%s uses instructions not on the site allow-list: %s' % (name, sorted(bad)))
@@ -492,7 +506,8 @@ VEX_SELFTEST = '''	movdqu		xmm3, [rdi + 64]		; src1: view energies 0..15
 
 
 def vex_selftest():
-    """Run a 5-instruction VEX program through Runner: three-operand semantics, unaligned operand, count."""
+    """Run a 5-instruction VEX program through Runner: the site's semantics (calib-s: first source ignored, old
+    destination compared), unaligned operand, count."""
     path = os.path.join(BUILD, 'vex_selftest.asm')
     os.makedirs(BUILD, exist_ok=True)
     with open(path, 'w') as f:
@@ -502,11 +517,14 @@ def vex_selftest():
     view[64:80] = bytes([2, 0, 2, 0, 1, 1, 2, 2] + [0] * 8)
     view[96:112] = bytes([2, 9] * 8)
     view[33:49] = bytes([2, 2, 2, 2, 1, 0, 2, 0] + [7] * 8)
-    act, n = Runner(blob).call(bytes(view), 0)      # lanes 0, 2, 4, 6 equal; Unicorn alone gives 0x45
-    if (act, n) != (0b01010101, 5):
-        fail('VEX self-test: asm (0x%02x, %d), want (0x55, 5): vpcmpeqb not emulated correctly' % (act, n))
+    act, n = Runner(blob).call(bytes(view), 0)
+    # the site (calib-s) compares the OLD xmm0 with the memory operand: lanes 0, 2, 6 -> 0x45 (the documented
+    # three-operand form, xmm3 vs memory, would give 0x55)
+    if (act, n) != (0b01000101, 5):
+        fail('VEX self-test: asm (0x%02x, %d), want (0x45, 5): vpcmpeqb not emulated like the site' % (act, n))
     else:
-        print('  VEX self-test: vpcmpeqb xmm0, xmm3, [unaligned] -> mask 0x%02x, %d instructions: ok' % (act, n))
+        print('  VEX self-test: vpcmpeqb xmm0, xmm3, [unaligned] -> mask 0x%02x (site: old xmm0 compared), '
+              '%d instructions: ok' % (act, n))
 
 
 def main():

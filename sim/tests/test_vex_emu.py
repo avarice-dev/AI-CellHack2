@@ -2,7 +2,8 @@
 NASM 3.01's encodings, copied from its listing).
 
 Why: Unicorn 2.1.4 ignores the VEX vvvv register: it runs `vpcmpeqb xmm0, xmm3, [k]` as xmm0 = (xmm0 == k) and the
-register form gave all zeros (probe 2026-11-08), so cells/check_cells.py emulates vpcmpeqb itself.
+register form gave all zeros (probe 2026-11-08), so cells/check_cells.py emulates vpcmpeqb itself; since calib-s
+(Sandbox 104136) it emulates the SITE's behaviour, which has the same bug: dst = (old dst == src2), vvvv ignored.
 """
 
 import importlib.util
@@ -63,27 +64,39 @@ class ExecuteTest(unittest.TestCase):
         return V.execute(V.decode(enc + b'\x90' * 6), addr, self.xmm.__getitem__, self.xmm.__setitem__,
                          self.gpr.__getitem__, lambda a: self.mem[a])
 
-    def test_three_operand_memory_compare_keeps_src1_and_ignores_old_dst(self):
+    def test_memory_compare_uses_old_dst_like_the_site(self):
+        # Until calib-s this expected the documented form (xmm3 compared); the site compares the old xmm0.
         self.xmm[3] = bytes([2, 2, 2, 2] + [0] * 12)
-        self.xmm[0] = bytes([2, 9] * 8)                    # Unicorn's bug would compare this one
+        self.xmm[0] = bytes([2, 9] * 8)                    # the site (and Unicorn) compare this one
         self.mem[0x100000 + 8 + 0x52] = bytes([2] * 16)
-        nxt = self.run_one(H('C5E1740552000000'))
+        nxt = self.run_one(H('C5E1740552000000'))        # vpcmpeqb xmm0, xmm3, [rip + 0x52]
         self.assertEqual(nxt, 0x100008)
-        self.assertEqual(self.xmm[0], bytes([0xFF] * 4 + [0] * 12))
+        self.assertEqual(self.xmm[0], bytes([0xFF, 0] * 8))
         self.assertEqual(self.xmm[3], bytes([2, 2, 2, 2] + [0] * 12))
+
+    def test_site_semantics_compare_uses_old_dst_and_ignores_src1(self):
+        # calib-s (Sandbox 104136, 2026-11-08): the site's QEMU runs `vpcmpeqb xmm2, xmm0, xmm1` as
+        # xmm2 = (xmm2 == xmm1): the first source (VEX.vvvv) is ignored, the old destination is compared.
+        self.xmm[2] = bytes([7, 0, 7, 0] + [1] * 12)       # old destination
+        self.xmm[0] = bytes([3] * 16)                      # first source: must not matter
+        self.xmm[1] = bytes([7, 7, 0, 0] + [1] * 12)
+        self.run_one(H('C5F974D1'))                        # vpcmpeqb xmm2, xmm0, xmm1
+        self.assertEqual(self.xmm[2], bytes([0xFF, 0, 0, 0xFF] + [0xFF] * 12))
+        self.assertEqual(self.xmm[0], bytes([3] * 16))
 
     def test_register_form_and_displacement(self):
         self.xmm[1] = bytes(range(16))
         self.xmm[2] = bytes([0, 1, 0, 3] + [99] * 12)
-        self.run_one(H('C5F174C2'))
-        self.assertEqual(self.xmm[0], bytes([0xFF, 0xFF, 0, 0xFF] + [0] * 12))
+        self.run_one(H('C5F174C2'))                        # vpcmpeqb xmm0, xmm1, xmm2: old xmm0 (0x5A) == xmm2
+        self.assertEqual(self.xmm[0], bytes([0] * 16))
         self.xmm[0] = bytes([0] * 16)
         self.mem[0x300000 + 39] = bytes([0, 1] * 8)        # unaligned is fine
         self.run_one(H('C5F9744727'))
         self.assertEqual(self.xmm[0], bytes([0xFF, 0] * 8))
 
     def test_sib_address(self):
-        self.xmm[12] = bytes([7] * 16)
+        self.xmm[9] = bytes([7] * 16)                      # old destination (the site ignores xmm12)
+        self.xmm[12] = bytes([6] * 16)
         self.mem[0x1000 + 3 * 4 + 0x1234] = bytes([7] * 8 + [6] * 8)
         self.run_one(H('C44119748C8834120000'))
         self.assertEqual(self.xmm[9], bytes([0xFF] * 8 + [0] * 8))

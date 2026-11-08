@@ -191,6 +191,14 @@ AtomPush's refill cost (stored replay event order).
 
 ---------------------------------------------------------------------------------------------------
 ## 8. Round 5: VEX/AVX-128 (2026-11-08)
+> **Broken on the site (calib-s), do not submit: Woe, Conceit, Endemic.** Probe calib-s (Sandbox 104136) shows the
+> site's QEMU has Unicorn's VEX bug: `vpcmpeqb xmm2, xmm0, xmm1` computes xmm2 = (xmm2 == xmm1), the first source is
+> ignored. Woe died in Sandbox 104123 and 104128 (peak 4-5 cells while Scourge grew). `cells/vex_emu.py` now emulates
+> the site's behaviour and `cells/check_cells.py` rejects any VEX op whose destination differs from its first source;
+> all three variants fail it (Unicorn diff 86,051 / 80,808 / 565,111 mismatches; the parents still pass with 0). The
+> rest of this section is the record of the round as built and is kept unchanged; its counts and sim numbers assume
+> the documented three-operand form, which the site does not run.
+
 Rounds 1-4 and every cell above stay as they are; round 5 adds three VEX variants. Each one makes exactly its
 parent's decisions and differs only in instruction counts, so each ladder comparison measures speed alone.
 
@@ -277,6 +285,7 @@ parent's (a tie, broken at random) or falls between the two; the real ladder's r
 precisely. The gain is free: same decisions, no path slower.
 
 ### 8.7 Recommendation
+(Superseded by calib-s, see the note at the top of section 8: none of the three may be submitted.)
 Submit **Woe** first: it is Scourge (1st on the leaderboard) with every refill and split one instruction earlier
 and nothing slower, so it can only win ties Scourge would lose; head to head it beats Scourge 2.38 to 1.75 points.
 Then **Endemic** for Contagion (same reasoning; also -3 on its grab/feed paths). Conceit last (Covetous's
