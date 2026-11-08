@@ -40,7 +40,7 @@ flowchart LR
 | `experiments.py` | Runs many matches in parallel and collects replay-style statistics. |
 | `run.py` | Command-line tool for one match or a series of seeds. |
 | `batch.py` | Runs a named set of experiments unattended and writes a summary. |
-| `validate.py` | Replays the ladder matches of the validation set (pulls 2 to 5, 135 matches) and compares them with the real results. |
+| `validate.py` | Replays the ladder matches of every data pull in `data/` (a folder with a `validation-table.md`) and compares them with the real results. Use `--pull <pull>` to replay one pull only. |
 | `treadmill.py` | Compares late-game measures of the real replays and the simulator, such as land changes after tick 500. |
 | `tests/` | Unit tests. Run them with `python -m unittest` from `sim/`. |
 
@@ -84,7 +84,7 @@ Batch sets write a summary of under 60 lines (`.md`) and a full file of every ma
 |---|---|---|
 | `rivals` | Sprint against the direction-ordered rival models | 24 games, about 12 to 15 minutes |
 | `hypothetical` | Hypothetical fronts against the measured models | 16 games, about 8 to 10 minutes |
-| `validate` | The 36 ladder matches replayed with their real starts | About 18 to 20 minutes |
+| `validate` | Every validation match replayed with its real starts | About N x 80 seconds / workers at most, for N matches (one match takes 20 to 80 seconds) |
 | `complacency-t` | Sweep of the tick at which the prey hold stops (see [cells-and-experiments.md](cells-and-experiments.md)) | 136 games, 3148 seconds in the recorded run |
 | `complacency`, `complacency-mirror` | Complacency against Scourge, on new seeds and with the slots swapped | 40 and 16 games, about 19 and 9 minutes in the recorded runs |
 | `vex` | VEX variants against their parents | Run time not recorded in the sources |
@@ -96,7 +96,7 @@ The simulator was checked against real ladder matches from pull 2. The check use
 
 - **Same winner.** In the final run over all 36 matches, the simulator picked the same winner as the real game in 26 of 36 matches.
 - **Held-out checks.** 12 of the 36 matches were kept back as the TEST set. The other 24 form the FIT set, which was used for tuning. With the default models, the simulator passes 49 of 63 checks on FIT and 47 of 62 checks on TEST.
-- **Validation set now.** The set has 135 matches: pulls 2 to 4 (63 matches, FIT 42, TEST 21) and pull 5 (72 matches, FIT 48, TEST 24). In total, FIT has 90 matches and TEST has 45. The sets are fixed in `data/splits/split.json`. A match never moves between sets, so the matches used for tuning stay out of TEST. The results above are from before pull 5.
+- **Validation set now.** The set has 135 matches: pulls 2 to 4 (63 matches, FIT 42, TEST 21) and pull 5 (72 matches, FIT 48, TEST 24). In total, FIT has 90 matches and TEST has 45. The sets are fixed in `data/splits/split.json`. A match never moves between sets, so the matches used for tuning stay out of TEST. The results above are from before pull 5. For a pull of your own, `python validate.py --extend-split` gives its matches a set. A cell without a sim model is played by the hunter bot, with a warning; `--models` gives it one. See "Doing your own pull" in [data-pulls.md](data-pulls.md).
 - **Early game is the better-modelled part.** For roughly the first 200 ticks, the simulated growth follows the real replays closely. In a two-match smoke test, Sprint's population at tick 200 was 1884 in the real match and 1874 in the simulation. Two matches are not a sample, so treat this as a sign and not as proof.
 - **Late game is weak.** After about tick 500, the simulator is less reliable. Thin pump colonies keep their land in the simulator, but they lose it in real matches. In the final run, the simulated Brawler and Noob+ colonies held 900 to 1600 cells at tick 1000, against 2 to 16 in the real replays. The sim README says the fight and refill model is what is off, not the feeding.
 - **Late-game work so far.** The tool `treadmill.py` compares late-game measures of the real replays and the simulator. Run it from `sim/` with `python treadmill.py --set fit --workers 4` (or `--set test`). It showed that some rival cells are slower on the site than in the models. Three new options can slow a model down: `pad`, `pad_bites_from` and `split_after` (for `ratompush` and `rpump`; see sim/README.md). They are all off by default.

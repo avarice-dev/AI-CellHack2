@@ -41,7 +41,7 @@ The replays do not log every action. A cell that rests produces no event, so it 
 
 ## The decoder
 
-`tools/pull2/mine.py` is a pure Python version of the site's decoder. It reads one replay at a time and streams it tick by tick. It has two checks built in. It compares the state at the start of each tick with the keyframes in the file. It also checks that the count of energy values matches the count of living cells.
+`tools/replay/mine.py` is a pure Python version of the site's decoder. It reads one replay at a time and streams it tick by tick. It has two checks built in. It compares the state at the start of each tick with the keyframes in the file. It also checks that the count of energy values matches the count of living cells.
 
 The check passed for all 35 replays in pull 2. The modelled state matched all 1732 keyframes with no mismatches. Pull 3 and pull 4 reported 0 keyframe mismatches as well.
 
@@ -66,7 +66,7 @@ data/
     sprint-match-pages.json         small match pages, the Sprint set
     other-match-pages.json          small match pages, the other set
     winrates.json                   win rate data (see lists.py)
-    validation-table.md             table read by sim/validate.py
+    validation-table.md, starts.json  tables read by sim/validate.py
     site/viewer.js                  copy of the site's replay decoder (local only, not in the repository)
     replays/<id>.chr2.gz            raw replays (35 kept; git-ignored, not in the repository)
     keyframes/<id>.kf.json.gz       keyframes for each replay (git-ignored, not in the repository)
@@ -77,7 +77,7 @@ data/
     replays/                        raw replays; git-ignored (too large for the repo)
     mining/<id>.json                per-game timelines
     mining/races/<id>.csv.gz        one row per death (refill race)
-    validation-table.md, starts.json  tables read by sim/validate.py (tools/valtab.py)
+    validation-table.md, starts.json  tables read by sim/validate.py (tools/replay/valtab.py)
   pull5/
     matchlist-105881-106358.json    the 480 matches of the match list (id, cells, winner)
     matches-pull5-2026-11-08.json   the 72 chosen games with their match pages
@@ -88,25 +88,41 @@ data/
 
 ## Tools
 
-Run each tool from the repository root. Most read files with paths that start with `data/`.
+Run each tool from the repository root. The replay tools are in `tools/replay/`. Each one works on one pull, which
+you name with `--pull <pull>`. No tool has a default pull. Without `--pull`, a tool stops and names the folders it
+found in `data/`.
 
 | Tool | What it does |
 |---|---|
-| `tools/pull2/mine.py` | The decoder and the two analyses. Run `python -I tools/pull2/mine.py [replay ids]`. Set the environment variable `CH_PULL` to `pull3` or `pull4` to read another pull. |
-| `tools/pull2/mine_report.py` | Combines the mining output by cell name into tables. Run `python -I tools/pull2/mine_report.py`. |
-| `tools/pull2/actions.py` | Shows, for one replay, what each cell did when an enemy was next to it. |
+| `tools/replay/tab.py` | Builds the table of one cell's games from a saved match list, and writes `data/<pull>/names.json`. Run `python -I tools/replay/tab.py --pull <pull> --cell <cell>`. Options: `--matches FILE` (default: the one `data/<pull>/matches-*.json`), `--rival <cell>` (a same-game comparison with a second cell), `--parts 2` or `3` (rating trend in halves or thirds). Games without `--cell` are left out of the tables but kept in `names.json`, so one list can hold the games of several cells. |
+| `tools/replay/mine.py` | The decoder and the two analyses. Run `python -I tools/replay/mine.py --pull <pull> [replay ids]`. |
+| `tools/replay/valtab.py` | Builds `validation-table.md` and `starts.json` of a pull for the simulator. Run `python -I tools/replay/valtab.py --pull <pull>`. |
+| `tools/replay/losses.py` | Builds a timeline for each game that a cell lost. Run with `--pull <pull> --cell <cell>`. |
+| `tools/replay/games.py` | Builds a timeline for each game of a cell, with the key rival of each game. Run with `--pull <pull> --cell <cell>`, and optionally `--rival <cell>`. |
+| `tools/replay/mine_report.py` | Combines the mining output of a pull by cell name into tables. Run with `--pull <pull>`. `--cell <cell> --rivals <a>,<b>` adds the refill races between that cell and those rivals. |
+| `tools/replay/actions.py` | Shows, for one replay, what each cell did when an enemy was next to it. Run with `--pull <pull> <replay id>`. |
+| `tools/replay/birth_order.py` | Ranks the split order of the colonies in the same tick. Run with `--pull <pull> <tmin> <replay ids>`. |
+| `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/`. Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
+| `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
+
+The games, cells and rivals in the examples of this document are ours. Use your own.
+
+**History tools.** These scripts reproduce our pull 2 report. They read only `data/pull2`, in the pull 2 formats
+(match pages and summaries that the in-page analyzer wrote).
+
+| Tool | What it does |
+|---|---|
 | `tools/pull2/analyze.js` | The browser-side analyzer used in pull 2. It ran inside the replay page. |
 | `tools/pull2/report.py` | Builds summary tables from the summaries. |
-| `tools/pull2/lists.py` | Win rates and head-to-heads from the match lists. |
+| `tools/pull2/lists.py` | Win rates and head-to-heads from the pull 2 match list. |
 | `tools/pull2/select_sprint.py` | Lists matches with Sprint, and how Sprint fared in each. |
 | `tools/pull2/late.py` | Finds the largest population changes after tick 500, and the freeze tick of each match. |
 | `tools/pull2/sec8.py` | Builds the table of matches chosen for study and why. |
-| `tools/pull2/collect.sh` | Moves finished files saved by the browser into `data/pull2/`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. It takes an optional folder argument. |
-| `tools/pull3/tab.py` | Builds the table of Scourge games. It also writes `data/pull3/names.json`. Games without `--cell` are left out of the tables but kept in `names.json`, so one list can hold the games of several cells (pull 5). |
-| `tools/pull3/losses.py` | Builds a timeline for each game Scourge lost. |
-| `tools/pull4/tab.py` | Builds the table of Contagion games, with a Contagion against Scourge comparison. |
-| `tools/pull4/games.py` | Builds a timeline for each Contagion game. |
-| `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
+
+**Old paths.** The dated write-ups in `data/` use older paths, such as `tools/pull2/mine.py`, `tools/pull3/tab.py`,
+`tools/pull4/games.py` and `tools/valtab.py`. These files still exist. Each one runs its `tools/replay/` tool with
+the defaults it had at that time (for example pull 3 and Scourge). They also accept the environment variable
+`CH_PULL` as before. Use `tools/replay/` for new work.
 
 ## Doing your own pull
 
@@ -114,11 +130,11 @@ The repository does not contain the replays. They are too large (25 to 53 MB eac
 
 **What you need.** The site is https://cellhack2.hostbin.org/. You must log in with a class account to read the match pages and the replays. You also need Python 3.12. The decoder uses only the standard library.
 
-Follow the [pacing rules](#pacing-rules-for-the-site) in the next section during every step that reads the site.
+Follow the [pacing rules](#pacing-rules-for-the-site) during every step that reads the site.
 
 ### Step 1: choose a pull name
 
-Use the next free name, for example `pull5`. All files of the pull go into `data/pull5/`. The steps below use `<pull>` for this name.
+Choose a new folder name, for example `mypull`. Any name that is not already a folder in `data/` is good. All files of the pull go into `data/<pull>/`. The steps below use `<pull>` for this name. The tools find the pull from its folder. You do not change any code.
 
 ### Step 2: save the match list as JSON
 
@@ -147,23 +163,22 @@ Open the site's match list for the cell you study, and open the match page of ea
 - Keep `colonies` in the order of the match page table. This order is the colony order of the replay (colony 0 to 3). The project checked this on all 27 replays of pull 3 and pull 4: the places and the final populations agree.
 - The tab scripts use `id`, and for each colony `name`, `place`, `pop` and `rating`. `place` is the text `"1"` to `"4"`. `rating` holds two numbers: the rating before and after the match.
 - A name can start with an emoji, as on the site. The tools remove it.
-- `lists.py` reads only `id`, `cells` and `winner`. It reads only pull 2.
 
 ### Step 3: build names.json
 
 Run the tab script on your list. It prints the tables and writes `data/<pull>/names.json`, which maps each match id to the four colony names in colony order.
 
 ```
-python -I tools/pull3/tab.py --pull <pull> --cell <your cell> --matches data/<pull>/matches-<cell>-<date>.json
+python -I tools/replay/tab.py --pull <pull> --cell <your cell>
 ```
 
-`tools/pull4/tab.py` takes the same arguments and also `--rival <cell>`, to compare two of your cells in the same games. Every replay you download must have its match id in this list. Else `mine.py` and `valtab.py` cannot name its colonies.
+When `data/<pull>/` holds exactly one `matches-*.json`, the script reads it. Otherwise, give the list with `--matches FILE`. Add `--rival <cell>` to compare two cells in the same games. Every replay you download must have its match id in this list. If it does not, `mine.py` and `valtab.py` cannot name its colonies.
 
 ### Step 4: download the replays
 
 The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a logged-in session. Save each replay as `data/<pull>/replays/<id>.chr2.gz`. The tools read this file with gzip.
 
-Pull 5 did this from a page of the site. `fetch()` returns the bytes already decompressed. The page compressed them again with `CompressionStream('gzip')` and saved them through a download link. Then the files were moved from the download folder into the replays folder.
+One way to do this is from a logged-in page of the site. `fetch()` returns the bytes already decompressed. Compress them again with `CompressionStream('gzip')`, and save them through a download link. Then move the files from the download folder into the replays folder (`tools/replay/collect.sh <pull>` does this).
 
 - The file must be gzip-compressed. A replay that the browser has already decompressed starts with the bytes `CHR2` (about 100 MB for 3000 ticks). Compress it with this command:
 
@@ -174,46 +189,49 @@ Pull 5 did this from a page of the site. `fetch()` returns the bytes already dec
   Then move `103747.chr2.gz` into `data/<pull>/replays/`.
 - A file that already starts with the bytes `1f 8b` is gzip-compressed. Keep it as it is.
 - Only format version 4 is decoded. The tools stop with an error for other versions.
-- Wait between downloads (see the pacing rules). Do not download in parallel.
-- Do not commit the replays. `.gitignore` ignores `data/pull*/replays/`.
+- Download one replay at a time, at least 30 seconds apart (see the [pacing rules](#pacing-rules-for-the-site)).
+- Do not commit the replays. `.gitignore` ignores `data/*/replays/` and `data/*/keyframes/`, whatever the pull is called.
 
 ### Step 5: decode the replays
 
 ```
-CH_PULL=<pull> python -I tools/pull2/mine.py
+python -I tools/replay/mine.py --pull <pull>
 ```
 
-On Windows PowerShell, set the variable first: `$env:CH_PULL = "<pull>"`, then run `python -I tools/pull2/mine.py`. The decoder reads every replay that has no output yet. It writes `data/<pull>/mining/<id>.json` and `data/<pull>/mining/races/<id>.csv.gz`. For each replay it prints the keyframe check. `kfMismatch` and `countMismatch` must be 0. If not, the replay format changed, and the outputs are not reliable.
+The decoder reads every replay that has no output yet. It writes `data/<pull>/mining/<id>.json` and `data/<pull>/mining/races/<id>.csv.gz`. For each replay it prints the keyframe check. `kfMismatch` and `countMismatch` must be 0. If they are not 0, the replay format changed, and the outputs are not reliable.
 
 ### Step 6: build the validation table
 
 ```
-CH_PULL=<pull> python -I tools/valtab.py
+python -I tools/replay/valtab.py --pull <pull>
 ```
 
-This writes `data/<pull>/validation-table.md` and `data/<pull>/starts.json` for all replays of the pull. `sim/validate.py` reads only the pulls named in its `PULLS` list, so a new pull must be added there before the simulator uses it.
+This writes `data/<pull>/validation-table.md` and `data/<pull>/starts.json` for all replays of the pull. `sim/validate.py` uses every folder of `data/` that has a `validation-table.md`. So the simulator uses the new pull from now on. To re-play only your pull, run `python validate.py --pull <pull>` in `sim/`.
 
-Then give the new matches a FIT or TEST set. Run `python validate.py --extend-split` in `sim/`. It splits only the matches that have no set yet, and it writes them into `data/splits/split.json`. A match never changes its set after that, because the simulator is tuned on FIT. `validate.py` stops with an error when a match has no set.
+Then give the new matches a FIT or TEST set. Run `python validate.py --extend-split` in `sim/`. It splits only the matches that have no set yet, and it writes them into `data/splits/split.json`. To keep your split in a separate file, add `--split <file>`, and give the same `--split <file>` to every later run. A match never changes its set after that, because the simulator is tuned on FIT. `validate.py` stops with an error when a match has no set.
+
+A cell that has no sim model (a rival that the project did not measure, or your own cell) is played by the hunter bot, and `validate.py` prints a warning. To give it a model, use `--models '{"<cell>": "<sim spec>"}'` or `--models <file.json>`.
 
 ### Step 7: tables for each game
 
-`tools/pull3/losses.py` and `tools/pull4/games.py` read the `mine.py` output. Both take `--pull <pull>` and `--cell <your cell>`. `games.py` also takes `--rival <cell>`.
+`losses.py` and `games.py` read the `mine.py` output. Both take `--pull <pull>` and `--cell <your cell>`. `games.py` also takes `--rival <cell>`. Games without `--cell` are left out, and the count is printed.
 
 ```
-python -I tools/pull3/losses.py --pull <pull> --cell <your cell>
-python -I tools/pull4/games.py --pull <pull> --cell <your cell> --rival <other cell>
+python -I tools/replay/losses.py --pull <pull> --cell <your cell>
+python -I tools/replay/games.py --pull <pull> --cell <your cell> --rival <other cell>
 ```
 
 ## Pacing rules for the site
 
-The project keeps its requests to the site slow. It follows these rules, which come from the pull write-ups and the decision records.
+These rules apply to every request to the site. They are there to be considerate to the players and the site owner.
 
-1. **Check the small pages first.** Read the leaderboard, a small page, before fetching large files. This shows whether the rival cells changed version.
-2. **Wait between replay fetches.** Pull 1 fetched replays 12 to 20 seconds apart. Pull 2 waited 17 seconds, and later 8 seconds, after the owner allowed a faster pace. Pull 3 waited 6 seconds between match pages. Pull 2 recorded no HTTP errors, no 429 responses and no 5xx responses.
-3. **Create cells slowly.** The site limits how often a cell can be created. Two requests 4 seconds apart got HTTP 429. Two requests 30 seconds apart worked.
-4. **Leave a gap between Sandbox runs.** The Sandbox refused runs made 10 seconds apart, with the message "please wait 5s". The site notes say runs need about 15 seconds between them.
-5. **Use stored data before fetching more.** Decision G18 accepts offline re-analysis of stored replays only, with no new fetches. The reason recorded is that the site is fetched gently and the data is already on disk.
-6. **Keep each fetch small.** Pull 2 deleted one raw replay to keep the data under the size cap. Its keyframes and summary were kept. The write-up does not give the size cap.
+1. **One request at a time.** Do not send requests in parallel.
+2. **Pages at least 15 seconds apart.** This applies to every site interaction: pages, match lists, the leaderboard, match pages and Sandbox runs.
+3. **Replays and other large downloads at least 30 seconds apart.**
+4. **Cell creation at least 30 seconds apart.**
+5. **On HTTP 429 or an error, wait.** Wait at least 60 seconds before the next request. If the error comes again, double the wait each time, up to 5 minutes.
+6. **Check the small pages first.** Read the leaderboard before you fetch large files. It shows whether the rival cells changed version.
+7. **Use stored data first.** Fetch only what the stored data does not already give.
 
 The simulator has its own limit on local load. It uses at most four worker processes. See [simulator.md](simulator.md).
 

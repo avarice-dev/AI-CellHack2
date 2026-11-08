@@ -18,7 +18,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `policies.py` | registry: policy spec string -> function |
 | `experiments.py` | parallel runner for policy mixes over many seeds, replay-style statistics |
 | `batch.py` | one command: a named experiment set, unattended, summary .md + full .json in `out/` |
-| `validate.py` | re-plays the validation matches (pulls 2-5, 135; real starts) and compares with the replay stats |
+| `validate.py` | re-plays the validation matches of every data pull (real starts) and compares with the replay stats |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 
 ## Running
@@ -117,11 +117,14 @@ Unattended runs: one command; the console prints only the summary path at the en
 cd sim                                # from the repo root
 python batch.py --set rivals          # 3 mixes x 8 seeds = 24 full games, about 12-15 min
 python batch.py --set hypothetical    # 2 mixes x 8 seeds = 16 games, about 8-10 min
-python batch.py --set validate        # the 36 ladder matches re-played, about 18-20 min
+python batch.py --set validate        # every validation match re-played (see the time estimate below)
 python batch.py --set rivals --seeds 1-16 --stun-memory drop --feed-bonus 1   # any engine option
 ```
 Runtime estimate from the smoke run (2026-11-07, this PC, 2 workers): 2 full 64x64 / 3000-tick games in
 59 s wall, so about 30 s of wall time per game. The sets are defined in `batch.SETS`.
+Re-playing real matches (`validate.py`, `batch.py --set validate`, `treadmill.py`) takes about 20 to 80 s of CPU
+per match and sim seed (a single match, 1 worker: 19 s, 2026-11-08). So N matches with S seeds take at most
+about N x S x 80 s / workers. Count the matches with `--set fit` / `--set test` / `--pull` before a long run.
 
 Interactive runs:
 ```
@@ -129,8 +132,10 @@ python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8        
 python experiments.py --mix a,b,c,d --mix a,b,c,e --seeds 1-16 --json out.json
 python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8 --detail        # replay stats
 python validate.py --matches 98844,99388                                                 # a few matches
+python validate.py --pull <pull> --set test                                              # one pull's TEST set
+python validate.py --models '{"<cell>": "<sim spec>"}'                                   # a model for a cell
 python treadmill.py --set fit --workers 2                       # late-game metrics + validate checks
-python treadmill.py --set fit --models '{"rooby": "ratompush[...,pad=56]"}'   # try other cell models
+python treadmill.py --set fit --models '{"rooby": "ratompush[...,pad=56]"}'   # try other cell models (JSON or a file)
 ```
 Per mix and policy: points per game (3/2/1/0), win %, average place and final population. `--detail`
 adds per match and as means: splits, moves, eats, feeds, feeds per bite (feeds / eats of enemies,
@@ -140,10 +145,14 @@ freeze tick (earliest tick after which every colony stays within 5% of its popul
 replay analyzer's definition) and the bite-first pair counts. Same engine options as run.py.
 
 ## Validation against the ladder (validate.py)
-Reads `../data/pull2/validation-table.md` and the starts in `../data/ladder-data-2-2026-11-08.md` s5
-(read only). Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Sprint, open bots),
-`model` (rivals.py on the measured profile: direction order, split threshold, feeding style) or `rough`
-(no model; hunter or walker stands in). Reported: freeze ticks, matches frozen by t500, same winner,
+Reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull (read only).
+A data pull is any folder of `../data/` that has a `validation-table.md`; `validate.pulls()` finds them, and
+`--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
+pull's replays (architecture/data-pulls.md, "Doing your own pull"). Set `CH_DATA` to use another data folder.
+Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Sprint, open bots), `model` (rivals.py on
+the measured profile: direction order, split threshold, feeding style) or `rough` (hunter or walker stands in).
+A cell that is not in `MODELS` is played by hunter as `rough`, with a warning; `--models` adds models.
+The rule statistics and fingerprints printed as "real" are our pull 2 measurements, whatever pulls are re-played. Reported: freeze ticks, matches frozen by t500, same winner,
 Sprint wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
 two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is feed 2 + the target's own rest 1 (Rules p.1-2; docs re-review 2026-11-08). The model is not tuned to fit.
 
@@ -157,6 +166,7 @@ is unknown).
 data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
 stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
 SPLIT_SEED = 20261108). New matches: `python validate.py --extend-split` (old entries never change).
+`--split <file>` uses another FIT/TEST file (for example one for your own pull); give it to every run.
 
 **Hold-out split** (history; fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
 every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989, 99074, 99109, 99134,
@@ -168,12 +178,12 @@ split mode, real s4 vs sim). "E200 / E1000" in the checks is the colony mean ene
 
 ### Treadmill metrics (treadmill.py)
 Late-game targets from pull 3 (data/scourge-losses-2026-11-08.md), computed the same way for the real replays
-(data/pull2/mining/races/*.csv.gz, summaries pop10) and the sim (`Engine(record_races=True)`, one row per
-death as in tools/pull2/mine.py): per cell, the share of its refilled death squares it refilled itself, its
+(data/<pull>/mining/races/*.csv.gz of every data pull; populations from summaries pop10 or mining pop) and the
+sim (`Engine(record_races=True)`, one row per death as in tools/replay/mine.py): per cell, the share of its refilled death squares it refilled itself, its
 deaths per tick in t < 500 / 500-1000 / >= 1000, the median pop change t500 -> end, the first tick at pop 128
 / 512, and contested races per opponent (deaths of either with both adjacent, won by whom). It also prints
 validate.py's report and checks and the sim's average insns per call (compare with the match pages).
-tools/pull2/actions.py gives per-cell action shares at the front from a real replay (eat direction, bitten
+tools/replay/actions.py gives per-cell action shares at the front from a real replay (eat direction, bitten
 first, split, none) for comparing with the sim.
 
 ### Calibration log
