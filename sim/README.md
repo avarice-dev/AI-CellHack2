@@ -228,3 +228,6 @@ left) always died first. Always rotate slots when comparing policies.
   fz 2426 vs 2106; Sp 8/12; 37/63 checks. TEST sw 1/5, 7/12; fz 2684 vs 1810; Sp 2/5 vs 3/5; 46/62. Winners worse
   than baseline: thin pumps still hold land (Brawler t1000 1733 vs 16 real) and both Atoms collapse late
   (AtomPush end 1 vs 1370), so Sprint's late growth is short (t1000 1840 vs 2426).
+- it2, AtomPush and AtomCrasher `split_after=2` (refill a hole in 17 < Sprint's 19-23; mining: Atoms take 99% of
+  contested holes from Sprint). FIT sw 3/7, 16/24; fz 2807 vs 2106; Sp 7/12; 42/63 checks (it1 37). AtomPush front
+  t500 23.5 vs 22 real (it1 29); AtomCrasher now holds too much (end 2752 vs 1664). Sprint late growth still short.

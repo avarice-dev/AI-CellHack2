@@ -41,8 +41,8 @@ MODELS = {
     'Aegis': ('rpump[hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                                # U fast only, pump-ish (interior 19)
     'Noob+': ('rpump[order=DLRU,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),                    # D fast only
     'Noob++': ('rpump[order=DLRU,hold=none,target=poorest,pump_min=10,pump_target_max=50]', 'model'),
-    'AtomPush': ('ratompush', 'model'),                         # R4 L6, fat economy
-    'AtomCrasher': ('ratompush', 'model'),                      # R4 L6, fat, feeds less
+    'AtomPush': ('ratompush[split_after=2]', 'model'),                         # R4 L6, fat economy
+    'AtomCrasher': ('ratompush[split_after=2]', 'model'),                      # R4 L6, fat, feeds less
     'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99]', 'model'),  # U4 R6, no feeding
     'Noob': ('hunter', 'rough'), 'squirtle': ('hunter', 'rough'), 'gemAlert_v3': ('hunter', 'rough'),
     'gemAlert_v4': ('hunter', 'rough'), 'Bulwark': ('hunter', 'rough'),
