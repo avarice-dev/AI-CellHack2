@@ -19,7 +19,9 @@ holds only 0 or eat actions (entry 0 = 0), split_tbl only valid actions, the bit
 and a Unicorn diff against sim/cells_ref.covetous that also varies neighbour energies.  For scourge: the same
 static checks plus act_tbl (only 0 or split actions, bytes equal to gen_scourge.refill_tables()) and thr_tbl,
 the gate-1 exit is `jae rel32` to EXIT_ADDR, and a Unicorn diff against sim/cells_ref.scourge that also places
-enemies on the refill window's squares and on the unread squares 2 and 22.
+enemies on the refill window's squares and on the unread squares 2 and 22.  For contagion: Scourge's checks,
+its bite and gate-1 source lines verbatim (no memory access there), and a Unicorn diff against
+sim/cells_ref.contagion that also varies memory state and position and compares memory after the call.
 """
 
 import itertools
@@ -142,9 +144,11 @@ class Runner(object):
         uc.hook_add(U.UC_HOOK_CODE, hook, begin=CODE_BASE, end=CODE_BASE + CODE_SIZE - 1)
         self.uc = uc
 
-    def call(self, view_bytes, energy, rax=0):
+    def call(self, view_bytes, energy, rax=0, mem=None):
         uc, X = self.uc, self.X
         uc.mem_write(VIEW_BASE, view_bytes.ljust(0x1000, b'\0'))
+        if mem is not None:
+            uc.mem_write(CELLMEM_BASE, bytes(mem))
         uc.mem_write(STACK_BASE, b'\0' * STACK_SIZE)
         uc.mem_write(STACK_BASE + STACK_SIZE - 8, struct.pack('<Q', EXIT_ADDR))
         uc.mem_write(CELLMEM_BASE + 64, b'\0' * (0x1000 - 64))
@@ -162,10 +166,12 @@ class Runner(object):
         return uc.reg_read(X.UC_X86_REG_RAX) & 0xFF, self.n
 
 
-def view_bytes(tick, energy, cells, energies=None):
+def view_bytes(tick, energy, cells, energies=None, xywh=None):
     b = bytearray(128)
     struct.pack_into('<I', b, 0, tick)
     b[4] = energy
+    if xywh is not None:
+        struct.pack_into('<4H', b, 8, *xywh)
     b[32:57] = bytes(cells)
     if energies is not None:
         b[64:89] = bytes(energies)
@@ -339,6 +345,78 @@ def diff_scourge(blob):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
+def check_contagion(blob, syms, lst):
+    """Scourge's static checks, plus: the bite and gate-1 source lines are Scourge's verbatim."""
+    import gen_scourge
+    check_scourge(blob, syms, lst)
+    def fast(path):
+        txt = open(path).read()
+        return txt[txt.index('start:'):txt.index('	test		al, al')]
+    if fast(os.path.join(HERE, 'contagion.asm')) != fast(os.path.join(HERE, 'scourge.asm')):
+        fail('contagion: bite / gate-1 source differs from scourge.asm')
+    gate = fast(os.path.join(HERE, 'contagion.asm'))
+    if 'rdx' in gate:
+        fail('contagion: bite / gate-1 path touches the cell memory')
+    print('  bite + gate-1 source identical to scourge.asm (%d instructions)'
+          % sum(1 for l in gate.splitlines() if l.startswith('	') and l.strip()))
+
+
+def diff_contagion(blob):
+    """Contagion vs sim/cells_ref.contagion: Scourge's grid of adjacent types x energies x enemy placements x
+    tick x friend-energy patterns, under several memory states (plain, start cell, scout at / off origin, out of
+    steps) and positions (centre, near each edge), comparing action, instruction count and memory after."""
+    import cells_ref
+    r = Runner(blob)
+    adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
+    pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0), (47, 46, 48, 50), (4, 4, 3, 2), (8, 2, 30, 4))
+    fars = ((), (0,), (24,), (2,), (22,), (6,), (8,), (10,), (14,), (16,), (18,), (6, 18), (2, 22, 9))
+    rings = ((), (1, 2, 3, 4, 5, 6, 8, 9, 10, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24))   # ring squares friend
+    mems = (bytes([0, 1]), bytes([0, 0]), bytes([0, 3, 30, 31, 1, 4]), bytes([0, 3, 30, 30, 2, 7]),
+            bytes([0, 3, 9, 31, 3, 0]))
+    poss = ((30, 31), (3, 31), (60, 31), (30, 2), (30, 61), (11, 11))
+    n = mism = 0
+    for types in itertools.product(range(4), repeat=4):
+        for energy in (0, 4, 5, 7, 8, 11, 12, 15, 16, 46, 47, 50):
+            for far in fars:
+                for tick in (0, 2980):
+                    for ring in (rings if 0 not in types else rings[:1]):
+                        for pat in (pats if energy >= 8 and 0 not in types else pats[:1]):
+                            for mi, m0 in enumerate(mems if len(far) <= 1 and far in ((), (0,), (8,)) else mems[:1]):
+                                for pos in (poss if mi and 0 in types and not far else poss[:1]):
+                                    cells = [0] * 25
+                                    cells[12] = 1
+                                    for i in ring:
+                                        cells[i] = 1
+                                    ens = [0] * 25
+                                    ens[12] = energy
+                                    for i, t, pe in zip(adj, types, pat):
+                                        cells[i] = t
+                                        if t in (1, 2):
+                                            ens[i] = pe
+                                    for i in far:
+                                        cells[i] = 2
+                                        ens[i] = 9
+                                    v = V()
+                                    v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+                                    v.x, v.y, v.w, v.h = pos[0], pos[1], 64, 64
+                                    mref = bytearray(64)
+                                    mref[:len(m0)] = m0
+                                    masm = bytes(mref)
+                                    want = cells_ref.contagion(v, mref)[:2]
+                                    got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)),
+                                                 energy, mem=masm)
+                                    gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
+                                    n += 1
+                                    if got != want or gmem != bytes(mref):
+                                        mism += 1
+                                        if mism <= 10:
+                                            fail('contagion diff types=%s e=%d far=%s tick=%d ring=%d pat=%s mem=%s '
+                                                 'pos=%s: asm %s %s ref %s %s'
+                                                 % (types, energy, far, tick, len(ring), pat, m0.hex(), pos, got,
+                                                    gmem[:6].hex(), want, bytes(mref[:6]).hex()))
+    print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
@@ -367,6 +445,10 @@ def main():
             check_scourge(blob, syms, lst)
             if have_uc:
                 diff_scourge(blob)
+        elif name == 'contagion':
+            check_contagion(blob, syms, lst)
+            if have_uc:
+                diff_contagion(blob)
         elif have_uc:
             base = view_bytes(5, 10, [0] * 12 + [1] + [0] * 12)
             for rax in ((0, 0x1234) if name.startswith('c_') else (0,)):
