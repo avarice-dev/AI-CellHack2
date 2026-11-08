@@ -48,6 +48,53 @@ feeds and its children are thin, which fits the sim indication that unfed fronts
 end at about 49-50 energy per cell (204240 / 4095), so they keep their whole colony fat. Their averages
 (36-81) say nothing about their front path; replays are needed to see how they beat a 6-instruction bite.
 
+## Replays are fully machine-readable (verified on match 98753)
+- The match page loads `/api/matches/<id>/replay` (gzip, binary "CHR2", ~44 MB raw). The page's own
+  `CellHackViewer.decode(arrayBuffer)` returns: `h` (version 4, ruleset 9, w/h 64, maxTicks 3000, seed,
+  colony cell ids, energyScale 15, keyframe every 50 ticks), `keyframes[t]` = list of {id, c, x, y, e},
+  `ticks[t]` = {pop[4], energies (Uint8Array), events}, `end` = {placement, pop, reason, ticksRun}.
+- Event kinds: k1 birth {id, c, e, x, y}; k2 move {id, x, y}; k3 death {id}; k4 eat {id eater, id2 target,
+  amt}; k5 feed {id, id2, amt}. Colony of any id comes from keyframe 0 plus k1 births.
+- Events within a tick are in turn order (check: Sprint never eats after its own split in a tick, as eat 6
+  < split 19+). So relative initiative between colonies can be measured from the event order.
+- Method: run analysis JS in the match page (Claude in Chrome) and return only numbers; raw viewer.js
+  source cannot be returned (the tool's output filter blocks it).
+
+## START POSITIONS ARE RANDOM, NOT CORNERS (match 98753)
+Starts: Brawler (10,61), Walker (23,30), Sprint (45,21), AtomPush (13,41). The docs' "one per corner"
+(cellhack.inc comment) is wrong or out of date for the ladder. Every corner/home/outward assumption in
+designs.md and the sim (CORNER_ORDER, start_inset) must change: starts can be mid-board with four open
+directions, and colonies can start close to each other.
+
+## Match 98753 analysis (AtomPush 1st 3258, Brawler 2nd 838, Sprint 3rd, Walker 4th)
+| | Brawler | Walker | Sprint | AtomPush |
+|---|---|---|---|---|
+| splits | 1303 | 782 | 2150 | 4747 |
+| moves | 0 | 1080 | 0 | 0 |
+| eats of enemies | 164712 | 0 | 1871 | 82971 |
+| feeds (all to friends) | 1837605 | 0 | 0 | 826729 |
+| deaths | 466 | 783 | 2151 | 1490 |
+| mean energy t=200 / 500 / 1000 | 10.8 / 11.8 / 11.5 | dead | 46.7 / 48.6 / 47.3 | 38.2 / 47.6 / 48.5 |
+Population (Brawler/Walker/Sprint/AtomPush): t50 170/125/253/386; t100 355/186/878/1019;
+t200 583/0/1532/1921; t500 693/0/957/2444; t1000 728/0/198/3170; t2999 838/0/0/3258.
+
+Initiative from event order (pairs of eats in the same tick, who came first):
+- Brawler before Sprint 88120, Sprint before Brawler 63. => Brawler's bite path is <= 5 (a tie at 6
+  would be ~50/50).
+- AtomPush before Sprint 78932, Sprint before AtomPush 13353 (85/15). => AtomPush bites below 6 on most
+  paths, above 6 on some.
+- AtomPush vs Brawler: 2.07M vs 2.56M, interleaved => roughly equal bite counts (both ~5 or mixed).
+- Both rivals' feeds always come after Sprint's eats => their feed paths are > 6 (slow path), as expected.
+Readings:
+- The top cells bite in 5 or fewer instructions (consistent with a lock); our 6 loses every contact.
+- Feeding is massive: Brawler issued ~11 feeds per eat, AtomPush ~10. Both keep the front supplied.
+- Sprint's interior sat at ~48 energy (capped, idle) while its front was eaten: it lost ~1.3 cells/tick
+  from t=200 to t=1000. Exactly the "unfed front collapses" pattern from the sim.
+- Brawler survives at a mean energy of only ~11 with a <=5 bite and heavy feeding; it held 2nd place.
+- AtomPush out-grew Sprint early (386 vs 253 at t50), so its grab is faster than split-at-5.
+- Random mid-board starts make the grab ~4x faster than the corner-start sim (Sprint 878 at t100 here vs
+  284 in the corner sim).
+
 ## Leaderboard (active cells, 2026-11-08 ~00:10 UTC)
 | # | Cell | Player | Rating | Games | Wins | Avg place | Insns/call |
 |---|---|---|---|---|---|---|---|
