@@ -29,6 +29,7 @@
 - calib-e-jexit (cell 150 id reused, created 2026-11-08 by scripted POST, not laddered; Sandbox match 99887 vs Idle): `mov al,ACT_REST / jmp EXIT_ADDR` = 2 (2) insns/call, 0 faults, energy 50. => a call may end with a jump to EXIT_ADDR instead of ret (1 instruction either way). Clears Covetous's `jnz EXIT_ADDR` bite exit. Sprint at that time: rating 1355, 223 games.
 - Re-uploaded 2026-11-08 for a full site history, all by scripted POST, none laddered: calib-a-rest, calib-b-jmp, calib-c-rax, calib-d-rep (plus calib-e-jexit). The site rate-limits cell creation: two POSTs 4 s apart got HTTP 429; 30 s apart worked. A built page's text can mention the ladder without laddering, so check the My cells list, not the response text.
 - Covetous (cell 155): built by scripted POST; Sandbox 99921 (16x16) vs Sprint, Hunter, Walker: 1st, pop 255, all others 0 by tick 315, 0 faults, insns/call avg 41 max 58; put on the ladder with the user's approval via the cell page's "Put on the ladder" button.
+- Scourge (cell 156): source (17 KB) loaded into the page through a temporary <input type=file> + file_upload, then scripted POST; serving it from 127.0.0.1 froze the tab (Chrome local-network prompt). Sandbox 101671 (16x16) vs Covetous, Sprint, Hunter: 1st pop 186, Covetous 70, 0 faults, insns avg 43 max 53; then laddered (pre-approved). Covetous then 1526 after 314 games, Sprint 1238 after 547.
 - calib-a-rest accidentally played 1 ladder game (placed 4th, rating 1000 -> 912) before it was taken off.
   It is retired now.
 
