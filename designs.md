@@ -53,7 +53,7 @@ Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The 
 ### 1.3 Still unknown
 1. Is a rival's "6" direction 5, 6 or 7? Covetous answers it: its 5 bites first ~100% if the rival is 6, ~50% if 5.
 2. Does memory persist when a cell is stunned? Matters only if a design uses memory on the front.
-3. Is the idle +1 exactly "rest below the cap", or something else? Offline replay mining (in progress) counts it.
+3. Resolved by replay mining: an event-free cell below 50 gains +1 in 95-99% of ticks, at 50 never. Income = resting cells below the cap.
 4. Exact cap (50 at Tidy, mid-tick 52-56 seen).
 
 ---------------------------------------------------------------------------------------------------
@@ -73,8 +73,11 @@ choice is in the table (two or four enemies D, L, U, R; three: opposite the free
 ### 2.2 Refill: retake freed front squares fast (the new core feature)
 A freed front square is an empty orthogonal neighbour that an enemy can reach next tick: one with an enemy in the
 square beyond it or beside it (5x5 view). Stateless: no memory, so the stun question does not matter.
-- Placed first on the slow path, right after the F5 miss. Target <= 12 instructions to a refill split, so it beats
-  AtomPush's split path (10-21) most ticks.
+- Placed first on the slow path, right after the F5 miss. Replay mining (data/replay-mining-2026-11-08.md): refills
+  always land on the NEXT tick, so the race is decided purely by turn order in that tick, i.e. by the refill path's
+  instruction count. Sprint (split path 19-21) won 0.5% of contested squares vs AtomPush and 3.6% vs AtomCrasher;
+  AtomPush wins 78% of all its contested races. So: make the refill path as short as possible (target <= 10, and
+  measure AtomPush's actual refill cost from the event order before fixing the number).
 - Child size: refill only when the child gets >= R energy (parent >= 2R). Default R = 6 (AtomPush's children are
   5-7); experiment E1 sweeps R in {3, 6, 8}. A refill from a 50 gives 25, two productive eaters (G10).
 - Fallback if the stateless check cannot reach ~12: the post lock of round 3 (memory, refill at 5), at the cost of a
@@ -147,7 +150,7 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 ## 5. Data plan
 - Covetous's first ~50 games: win rate and head-to-heads vs Sprint's (scheduled check), and its bite-first share in
   each rival's "6" direction (1.3.1), from one or two chosen replays only.
-- Offline mining of the 35 stored replays (in progress, G18): refill race per cell, resting income per colony.
+- Offline mining of the 35 stored replays: done (data/replay-mining-2026-11-08.md, tools/pull2/mine.py, a pure-Python decoder).
 - Watch the leaderboard (small page) for rival version changes before fetching anything large. Fetch gently.
 
 ---------------------------------------------------------------------------------------------------
