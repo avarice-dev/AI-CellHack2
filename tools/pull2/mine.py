@@ -20,9 +20,10 @@ Runs at below-normal priority on Windows. Single process.
 import ctypes, gzip, json, os, struct, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-REP = os.path.join(ROOT, 'data', 'pull2', 'replays')
-SUM = os.path.join(ROOT, 'data', 'pull2', 'summaries')
-OUT = os.path.join(ROOT, 'data', 'pull2', 'mining')
+PULL = os.environ.get('CH_PULL', 'pull2')   # e.g. CH_PULL=pull3 reads data/pull3/replays, writes data/pull3/mining
+REP = os.path.join(ROOT, 'data', PULL, 'replays')
+SUM = os.path.join(ROOT, 'data', PULL, 'summaries')
+OUT = os.path.join(ROOT, 'data', PULL, 'mining')
 WINDOWS = (500, 1000)          # window 0: t < 500, 1: 500 <= t < 1000, 2: t >= 1000
 
 
@@ -58,6 +59,8 @@ def mine(rid):
     touchedN = [0] * 12                    # cell-ticks with an event, per (c, w)
     val = dict(kfChecked=0, kfMismatch=0, countMismatch=0, ticks=0, events=0, gridConflicts=0)
     kfs = {}
+    pops = []                              # per tick: colony populations from the tick record
+    early = {}                             # (colony, kind 'b' birth child energy / 'm' move, value) -> n, t < 200
     loaded = False
     cur = 0
     end = None
@@ -91,7 +94,8 @@ def mine(rid):
             else:
                 kfs[tick] = cells
         elif rt == 1:
-            t = U32.unpack_from(raw, p)[0]; p += 4 + 8
+            t = U32.unpack_from(raw, p)[0]
+            pops.append(list(U16x4.unpack_from(raw, p + 4))); p += 4 + 8
             if t in kfs:
                 check_kf(t)
             nev = U32.unpack_from(raw, p)[0]; p += 4
@@ -113,6 +117,8 @@ def mine(rid):
                         val['gridConflicts'] += 1
                     grid[s] = cid + 1
                     touched.add(cid); births.append(cid)
+                    if t < 200:
+                        kk = f'{c},b,{e}'; early[kk] = early.get(kk, 0) + 1
                     pr = pending.pop(s, None)
                     if pr is not None:
                         races.append((pr[0], pr[1], pr[2], pr[3], c, t - pr[0], 1, e))
@@ -125,6 +131,8 @@ def mine(rid):
                         val['gridConflicts'] += 1
                     grid[s] = cid + 1; sqOf[cid] = s
                     touched.add(cid)
+                    if t < 200:
+                        kk = f'{colOf[cid]},m,0'; early[kk] = early.get(kk, 0) + 1
                     pr = pending.pop(s, None)
                     if pr is not None:
                         try:
@@ -204,7 +212,7 @@ def mine(rid):
             rest[c][w] = {q: [R[o + q * 3], R[o + q * 3 + 1], R[o + q * 3 + 2]] for q in range(256)
                           if R[o + q * 3] or R[o + q * 3 + 1] or R[o + q * 3 + 2]}
     return dict(id=rid, header=dict(version=version, w=W, h=H, kfEvery=kfe, maxTicks=maxt), ticks=T, end=end,
-                validation=val, rest=rest, touched=touchedN,
+                validation=val, rest=rest, touched=touchedN, pop=pops, early=early,
                 otherDeltas={f'{c},{w},{d}': v for (c, w, d), v in sorted(other.items())}), races
 
 
@@ -218,8 +226,12 @@ def main():
             continue
         t0 = time.time()
         res, races = mine(rid)
-        names = json.load(open(os.path.join(SUM, f'{rid}.json'), encoding='utf-8'))['names']
-        res['names'] = [n.split(' ', 1)[-1] for n in names]
+        sp = os.path.join(SUM, f'{rid}.json')
+        if os.path.exists(sp):
+            names = json.load(open(sp, encoding='utf-8'))['names']
+        else:   # pull 3+: data/<pull>/names.json maps id -> colony names in colony order
+            names = json.load(open(os.path.join(ROOT, 'data', PULL, 'names.json'), encoding='utf-8'))[str(rid)]
+        res['names'] = [n.split(' ', 1)[-1] if not n[:1].isalnum() else n for n in names]   # drop a leading emoji only
         res['seconds'] = round(time.time() - t0, 1)
         with gzip.open(os.path.join(OUT, 'races', f'{rid}.csv.gz'), 'wt', newline='') as f:
             f.write('tDeath,deadCol,killerCol,contMask,fillCol,dt,fillKind,fillE\n')
