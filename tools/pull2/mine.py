@@ -218,8 +218,14 @@ def mine(rid):
 
 def main():
     below_normal()
+    rids = sys.argv[1:] or sorted(f.split('.')[0] for f in (os.listdir(REP) if os.path.isdir(REP) else [])
+                                  if f.endswith('.chr2.gz'))
+    if not rids:   # replays are not in the repository
+        sys.exit(f'no replays in data/{PULL}/replays: run a pull first (architecture/data-pulls.md)')
+    for rid in rids:
+        if not os.path.exists(os.path.join(REP, f'{rid}.chr2.gz')):
+            sys.exit(f'replay data/{PULL}/replays/{rid}.chr2.gz not found: run a pull first (architecture/data-pulls.md)')
     os.makedirs(os.path.join(OUT, 'races'), exist_ok=True)
-    rids = sys.argv[1:] or sorted(f.split('.')[0] for f in os.listdir(REP) if f.endswith('.chr2.gz'))
     for rid in rids:
         jp = os.path.join(OUT, f'{rid}.json')
         if os.path.exists(jp) and len(sys.argv) == 1:

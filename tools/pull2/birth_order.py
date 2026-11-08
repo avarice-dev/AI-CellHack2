@@ -6,7 +6,13 @@ Usage: python -I tools/pull2/birth_order.py <tmin> <replay id> [replay id ...]  
 """
 import gzip, struct, sys, json, collections, os
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if len(sys.argv) < 3:
+    sys.exit('usage: python -I tools/pull2/birth_order.py <tmin> <replay id> [replay id ...]')
 tmin = int(sys.argv[1]); ids = [int(x) for x in sys.argv[2:]]
+for rid in ids:
+    for sub, ext in (('summaries', 'json'), ('replays', 'chr2.gz')):
+        if not os.path.exists(os.path.join(ROOT, 'data', 'pull2', sub, '%d.%s' % (rid, ext))):
+            sys.exit('data/pull2/%s/%d.%s not found: run a pull first (architecture/data-pulls.md)' % (sub, rid, ext))
 agg = collections.defaultdict(lambda: [0, 0, 0])
 for rid in ids:
     s = json.load(open(os.path.join(ROOT, 'data', 'pull2', 'summaries', '%d.json' % rid), encoding='utf-8'))

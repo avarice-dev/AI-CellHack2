@@ -128,7 +128,12 @@ def run(rid, want, tmin=0, tmax=10 ** 9, emin=0, emax=255, vs=None):
 
 
 def main():
+    if len(sys.argv) < 2 or not sys.argv[1].isdigit():
+        sys.exit('usage: python -I tools/pull2/actions.py <replay id> [colony ...] [--tmin=T] [--tmax=T] [--emin=E] '
+                 '[--emax=E] [--vs=enemy colony]')
     rid = int(sys.argv[1])
+    if not os.path.exists(os.path.join(REP, f'{rid}.chr2.gz')):
+        sys.exit(f'replay data/{PULL}/replays/{rid}.chr2.gz not found: run a pull first (architecture/data-pulls.md)')
     want = {int(a) for a in sys.argv[2:] if not a.startswith('-')}
     opt = dict(a[2:].split('=') for a in sys.argv[2:] if a.startswith('--'))
     st = run(rid, want, int(opt.get('tmin', 0)), int(opt.get('tmax', 10 ** 9)), int(opt.get('emin', 0)),

@@ -140,7 +140,14 @@ def load_names(rid):
 def main():
     below_normal()
     rep = os.path.join(ROOT, 'data', PULL, 'replays')
-    ids = sys.argv[1:] or sorted(f.split('.')[0] for f in os.listdir(rep) if f.endswith('.chr2.gz'))
+    ids = sys.argv[1:] or sorted(f.split('.')[0] for f in (os.listdir(rep) if os.path.isdir(rep) else [])
+                                 if f.endswith('.chr2.gz'))
+    if not ids:   # never write an empty table (replays are not in the repository)
+        sys.exit('no replays in data/%s/replays: run a pull first (architecture/data-pulls.md)' % PULL)
+    for rid in ids:
+        if not os.path.exists(os.path.join(rep, '%s.chr2.gz' % rid)):
+            sys.exit('replay data/%s/replays/%s.chr2.gz not found: run a pull first (architecture/data-pulls.md)'
+                     % (PULL, rid))
     table, starts = [], {}
     for rid in ids:
         d = decode(gzip.decompress(open(os.path.join(rep, '%s.chr2.gz' % rid), 'rb').read()))
