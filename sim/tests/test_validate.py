@@ -12,13 +12,18 @@ import validate as V
 class DataTest(unittest.TestCase):
     def test_table_parsed(self):
         t = V.load_table()
-        self.assertEqual(len(t), 36)
+        self.assertEqual(len(t), 63)                             # pull 2: 36, pull 3: 15, pull 4: 12
         self.assertTrue(all(len(d['rows']) == 4 for d in t.values()))
         row = [r for r in t[98854]['rows'] if r['cell'] == 'Brawler v2'][0]
         self.assertEqual((row['t50'], row['t1000'], row['end']), (350, 3234, 4095))
         self.assertEqual(t[98854]['freeze'], 2938)
         self.assertIsNone(t[98790]['rows'][1]['E200'])          # choochoo died: None in the table
-        self.assertEqual(sorted(d['freeze'] for d in t.values())[18], 2076)   # report: median 2076
+        p2 = [d['freeze'] for m, d in t.items() if V.pull_of(m) == 'pull2']
+        self.assertEqual(sorted(p2)[18], 2076)                  # report: median 2076
+        row = t[103128]['rows'][0]                              # pull 3, tools/valtab.py
+        self.assertEqual((row['cell'], row['t50'], row['end'], row['E200']), ('AtomPush', 392, 2957, 40.184))
+        self.assertEqual(t[103128]['freeze'], 927)
+        self.assertEqual({V.pull_of(m) for m in t}, {'pull2', 'pull3', 'pull4'})
 
     def test_starts_match_table_order(self):
         t = V.load_table()
@@ -71,14 +76,19 @@ class RunTest(unittest.TestCase):
                 self.assertIn(n, V.FINGERPRINTS)
         self.assertEqual(V.FINGERPRINTS['Brawler v2']['int500'], 11.1)
 
-    def test_fit_test_split_every_third_by_id(self):
-        ids = sorted(V.load_table())
-        fit, test = V.split_sets(ids)
-        self.assertEqual((len(fit), len(test)), (24, 12))
-        self.assertEqual(test, [ids[k] for k in range(2, 36, 3)])
-        self.assertIn(98797, test)
-        self.assertIn(98766, fit)
+    def test_fit_test_split_stratified_and_fixed(self):
+        t = V.load_table()
+        fit, test = V.split_sets(t)
+        self.assertEqual((len(fit), len(test)), (42, 21))
         self.assertFalse(set(fit) & set(test))
+        self.assertEqual(sorted(fit + test), sorted(t))
+        self.assertEqual(V.split_sets(t), (fit, test))          # fixed seed: same split every call
+        for p, n in (('pull2', 12), ('pull3', 5), ('pull4', 4)):  # a third of each pull is TEST
+            self.assertEqual(sum(V.pull_of(m) == p for m in test), n, p)
+        for w in {V.cells_of(t, m)[V.winner(t[m]['rows'])] for m in t}:   # winners spread over both sets
+            k = [m for m in t if V.cells_of(t, m)[V.winner(t[m]['rows'])] == w]
+            if len(k) >= 3:
+                self.assertTrue(set(k) & set(test) and set(k) & set(fit), w)
 
     def test_threshold_helpers(self):
         self.assertTrue(V.within_pct(100, 125, 0.25))

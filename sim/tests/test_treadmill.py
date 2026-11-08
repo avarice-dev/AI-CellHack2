@@ -34,3 +34,11 @@ class LoadRealTest(unittest.TestCase):
     def test_missing_races_file_gives_none(self):
         # 98797's raw replay was deleted in pull 2 (size cap), so it has no races file
         self.assertIsNone(T.load_real(98797))
+
+    def test_later_pulls_load(self):
+        # pull 3 (103128) and pull 4 (103756): races from data/<pull>/mining, populations from the mining pop
+        for m in (103128, 103756):
+            r = T.load_real(m)
+            self.assertIsNotNone(r, m)
+            self.assertEqual(len(r), 4)
+        self.assertEqual(T.load_real(103128)[0]['pend'], 2957)

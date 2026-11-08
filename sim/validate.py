@@ -1,10 +1,12 @@
-"""Sanity check of the simulator against real ladder replays (data pull 2).
+"""Sanity check of the simulator against real ladder replays (data pulls 2, 3 and 4).
 
-Re-plays the 36 analysed ladder matches with the same start squares and the nearest sim model of each
-cell, then compares the replay-style statistics with data/pull2/validation-table.md and the rule
-statistics of data/ladder-data-2-2026-11-08.md (section 6).  Reads the data files; writes nothing there.
+Re-plays the 63 analysed ladder matches (pull 2: 36, pull 3: 15 Scourge losses, pull 4: 12 Contagion games) with
+the same start squares and the nearest sim model of each cell, then compares the replay-style statistics with
+data/<pull>/validation-table.md and the rule statistics of data/ladder-data-2-2026-11-08.md (section 6).  Start
+squares: pull 2 from section 5 of that report, later pulls from data/<pull>/starts.json (tools/valtab.py builds
+both files of a later pull from its replays).  Reads the data files; writes nothing there.
 
-  python validate.py                          # all 36 matches, 1 sim seed each, 2 workers
+  python validate.py                          # all 63 matches, 1 sim seed each, 2 workers
   python validate.py --seeds 3 --json v.json  # 3 sim seeds per match
   python validate.py --feed-bonus 1 --idle-gain 0.08   # the two unexplained effects switched on
 
@@ -29,10 +31,13 @@ import run as R  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TABLE = os.path.join(ROOT, 'data', 'pull2', 'validation-table.md')
 REPORT = os.path.join(ROOT, 'data', 'ladder-data-2-2026-11-08.md')
+PULLS = ('pull2', 'pull3', 'pull4')   # validation sets; later pulls: data/<pull>/validation-table.md + starts.json
+SPLIT_SEED = 20261108
 
 # cell name -> (sim spec, quality).  Profiles from data/ladder-data-2-2026-11-08.md sections 3-4.
 MODELS = {
     'Sprint': ('sprint', 'exact'),
+    'Scourge': ('scourge', 'exact'), 'Contagion': ('contagion', 'exact'), 'Covetous': ('covetous', 'exact'),
     'Hunter': ('hunter', 'exact'), 'Medic': ('medic', 'exact'), 'Walker': ('walker', 'exact'),
     'Random': ('random', 'exact'),
     'Brawler': ('rpump[split_min=6,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                 # U4 L6, split 6, feeds/eat 48
@@ -82,8 +87,35 @@ def _num(text):
     return float(text)
 
 
-def load_table(path=TABLE):
-    """{match id: {'freeze': int, 'rows': [{'cell', 't50', ..., 'fpe'}] in colony order}}."""
+def pull_of(m):
+    """Data pull of a match id: the first of PULLS whose table has it."""
+    for p in PULLS:
+        if m in _pull_ids(p):
+            return p
+    return None
+
+
+_IDS = {}
+
+
+def _pull_ids(p):
+    if p not in _IDS:
+        _IDS[p] = set(load_table(_table_path(p)))
+    return _IDS[p]
+
+
+def _table_path(p):
+    return os.path.join(ROOT, 'data', p, 'validation-table.md')
+
+
+def load_table(path=None):
+    """{match id: {'freeze': int, 'rows': [{'cell', 't50', ..., 'fpe'}] in colony order}}.  Default: every pull."""
+    if path is None:
+        out = {}
+        for p in PULLS:
+            for m, d in load_table(_table_path(p)).items():
+                out.setdefault(m, d)
+        return out
     out = {}
     with open(path, encoding='utf-8') as f:
         for line in f:
@@ -100,7 +132,8 @@ def load_table(path=TABLE):
 
 
 def load_starts(path=REPORT):
-    """{match id: [(cell, (x, y)), ...]} from section 5 of the pull 2 report (colony order)."""
+    """{match id: [(cell, (x, y)), ...]} (colony order): section 5 of the pull 2 report, then the starts.json of
+    each later pull."""
     with open(path, encoding='utf-8') as f:
         txt = f.read()
     sec = txt.split('## 5.')[1].split('```')[1]
@@ -109,6 +142,12 @@ def load_starts(path=REPORT):
         m, rest = line.split(':', 1)
         out[int(m)] = [(n.strip(), (int(x), int(y))) for n, x, y in
                        re.findall(r'([^;]+?) \((\d+),(\d+)\)', rest)]
+    for p in PULLS[1:]:
+        sp = os.path.join(ROOT, 'data', p, 'starts.json')
+        if os.path.exists(sp):
+            with open(sp, encoding='utf-8') as f:
+                for m, v in json.load(f).items():
+                    out.setdefault(int(m), [(n, (x, y)) for n, x, y in v])
     return out
 
 
@@ -195,11 +234,22 @@ def compare(table, results):
     return out
 
 
-def split_sets(ids):
-    """Fixed hold-out rule (chosen 2026-11-07, before any tuning): sort the match ids; every third one
-    (positions 2, 5, 8, ...) is TEST, the rest FIT.  Returns (fit, test) as sorted lists."""
-    ids = sorted(ids)
-    return [m for k, m in enumerate(ids) if k % 3 != 2], [m for k, m in enumerate(ids) if k % 3 == 2]
+def cells_of(table, m):
+    return [r['cell'] for r in table[m]['rows']]
+
+
+def split_sets(table):
+    """Fixed hold-out rule over all pulls (chosen 2026-11-08, before tuning on the 63 matches; replaces the
+    2026-11-07 "every third id" rule of pull 2 alone).  Stratified by real winner, then data pull: shuffle the ids
+    with random.Random(SPLIT_SEED), sort them stably by (real winner, pull), and make every third one (positions
+    2, 5, 8, ...) TEST, the rest FIT.  So each winner type with >= 3 matches lands in both sets, and each pull
+    gives about a third of its matches to TEST (63 matches: FIT 42, TEST 21 = pull 2: 12, pull 3: 5, pull 4: 4).
+    table: load_table() (or any dict with its matches).  Returns (fit, test) as sorted lists."""
+    import random
+    ids = sorted(table)
+    random.Random(SPLIT_SEED).shuffle(ids)
+    ids.sort(key=lambda m: (cells_of(table, m)[winner(table[m]['rows'])], pull_of(m) or ''))
+    return (sorted(m for j, m in enumerate(ids) if j % 3 != 2), sorted(m for j, m in enumerate(ids) if j % 3 == 2))
 
 
 def within_pct(real, sim, pct):
@@ -357,7 +407,8 @@ def main(argv=None):
                     help='worker processes (default and maximum %d)' % X.MAX_WORKERS)
     ap.add_argument('--matches', help='comma list of match ids (default: all in the table)')
     ap.add_argument('--set', choices=('all', 'fit', 'test'), default='all',
-                    help='which matches (split_sets: every third by id is TEST); thresholds per set')
+                    help='which matches (split_sets: stratified by pull and winner, seed SPLIT_SEED); '
+                         'thresholds per set')
     ap.add_argument('--json', help='write the comparison to this file')
     R.add_engine_args(ap)
     args = ap.parse_args(argv)
@@ -366,7 +417,7 @@ def main(argv=None):
     if args.matches:
         keep = {int(x) for x in args.matches.split(',')}
         table = {m: d for m, d in table.items() if m in keep}
-    fit, test = split_sets(load_table())
+    fit, test = split_sets(load_table())   # split over every match, whatever --matches keeps
     if args.set != 'all':
         keep = set(fit if args.set == 'fit' else test)
         table = {m: d for m, d in table.items() if m in keep}

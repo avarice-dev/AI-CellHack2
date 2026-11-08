@@ -1,7 +1,7 @@
 """Late-game "treadmill" metrics, real replays vs sim (targets from data/scourge-losses-2026-11-08.md).
 
 Per colony, from the race rows (one per death; Engine(record_races=True).race_rows() or
-data/pull2/mining/races/<id>.csv.gz) and the population every 10 ticks:
+data/<pull>/mining/races/<id>.csv.gz) and the population every 10 ticks:
   deaths per tick in each window (t < 500, 500-1000, >= 1000),
   own-refill share: of the colony's death squares that were refilled, the share it refilled itself,
   contested races vs each opponent: deaths of either colony with both adjacent, won by this colony,
@@ -23,8 +23,6 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RACES = os.path.join(ROOT, 'data', 'pull2', 'mining', 'races')
-SUMS = os.path.join(ROOT, 'data', 'pull2', 'summaries')
 WIN = ((0, 500), (500, 1000), (1000, 10 ** 9))
 
 
@@ -70,15 +68,26 @@ def metrics(rows, pop10, ncol=4):
 
 
 def load_real(mid):
-    """Real metrics of a pull 2 match, or None when it has no races file (98797: raw replay deleted)."""
-    if not os.path.exists(os.path.join(RACES, '%d.csv.gz' % mid)):
+    """Real metrics of a match, or None when it has no races file (98797: raw replay deleted).
+    Pull 2: races and pop10 from data/pull2/mining/races and summaries; later pulls: races from
+    data/<pull>/mining/races, populations from data/<pull>/mining/<id>.json (per tick, sampled every 10 ticks as
+    pop10 is)."""
+    for p in ('pull2', 'pull3', 'pull4'):
+        rp = os.path.join(ROOT, 'data', p, 'mining', 'races', '%d.csv.gz' % mid)
+        if os.path.exists(rp):
+            break
+    else:
         return None
-    with gzip.open(os.path.join(RACES, '%d.csv.gz' % mid), 'rt') as f:
+    with gzip.open(rp, 'rt') as f:
         rows = [tuple(int(v) for v in d.values()) for d in csv.DictReader(f)]
-    with open(os.path.join(SUMS, '%d.json' % mid), encoding='utf-8') as f:
-        s = json.load(f)
-    p10 = s['pop10']
-    pops = [[p10[c][k] for c in range(4)] for k in range(len(p10[0]))]
+    sp = os.path.join(ROOT, 'data', p, 'summaries', '%d.json' % mid)
+    if os.path.exists(sp):
+        with open(sp, encoding='utf-8') as f:
+            p10 = json.load(f)['pop10']
+        pops = [[p10[c][k] for c in range(4)] for k in range(len(p10[0]))]
+    else:
+        with open(os.path.join(ROOT, 'data', p, 'mining', '%d.json' % mid), encoding='utf-8') as f:
+            pops = json.load(f)['pop'][::10]
     return metrics(rows, pops)
 
 
