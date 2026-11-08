@@ -5,7 +5,7 @@ Python reference in Unicorn.  Run inside WSL (needs nasm; Unicorn optional):
     $HOME/cellhack-venv/bin/python cells/check_cells.py            # assemble + static checks (+ diff if unicorn)
 
 For each cells/*.asm and cells/calib/*.asm a temp copy is built as
-    bits 64 / org CODE_BASE / default rel / <docs/cellhack.inc> / <the source> / [map symbols ...]
+    bits 64 / org 0x00100000 / default rel / <docs/cellhack.inc> / <the source> / [map symbols ...]
 (the map line exists only in the temp copy) and assembled with `nasm -f bin -l`.  Outputs (bin, listing,
 map) go to cells/build/ (git-ignored).
 
@@ -57,7 +57,9 @@ def assemble(src_path):
     tmp = os.path.join(BUILD, name + '.full.asm')
     out, lst, mp = (os.path.join(BUILD, name + ext) for ext in ('.bin', '.lst', '.map'))
     with open(tmp, 'wb') as f:
-        f.write(b'bits 64\norg CODE_BASE\ndefault rel\n')
+        # The docs print `org CODE_BASE` before the constants, but NASM rejects that order ("symbol
+        # `CODE_BASE' not defined before use"), so the server must use the literal; we do the same.
+        f.write(b'bits 64\norg 0x00100000\ndefault rel\n')
         f.write(open(INC, 'rb').read())
         f.write(b'\n')
         f.write(src)
