@@ -5,13 +5,15 @@ Examples (from sim/):
   python run.py --bots hunter,idle,medic,walker --seeds 1-20
   python run.py --bots hunter,walker --size 32 --ticks 500 --csv out.csv --snap out.txt --snap-every 100
   python run.py --bots mypolicies:greedy,hunter   # module:function loads your own policy
+  python run.py --bots rpump[pump_min=12],ratompush,sprint --start corner
+
+Starts are random squares by default (the ladder, verified 2026-11-08); --start corner is the old model.
 
 With several seeds the slots rotate (game g puts bot (s + g) mod n in slot s) so corner and
 slot-number effects average out.  Use --no-rotate to keep the order fixed.
 """
 
 import argparse
-import importlib
 import os
 import sys
 import time
@@ -19,18 +21,17 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import engine as E  # noqa: E402
-import bots  # noqa: E402
+import policies  # noqa: E402
 
 LETTERS = 'ABCD'
 
 
 def load_policy(spec):
-    if spec in bots.BOTS:
-        return bots.BOTS[spec]
-    if ':' in spec:
-        mod, fn = spec.split(':', 1)
-        return getattr(importlib.import_module(mod), fn)
-    raise SystemExit('unknown bot %r (known: %s, or module:function)' % (spec, ', '.join(sorted(bots.BOTS))))
+    try:
+        return policies.get(spec)
+    except KeyError:
+        raise SystemExit('unknown policy %r (known: %s, name[k=v,...] or module:function)'
+                         % (spec, ', '.join(policies.known())))
 
 
 def parse_seeds(text):
@@ -61,9 +62,7 @@ def suffixed(path, seed, many):
 
 
 def play(names, seed, args, csv_path=None, snap_path=None):
-    eng = E.Engine([load_policy(n) for n in names], width=args.width, height=args.height, seed=seed,
-                   max_ticks=args.ticks, start_inset=args.inset, split_child_rounding=args.split_rounding,
-                   cap_mid_tick=args.cap_mid_tick, order_by_alt=args.order_no_taken_jumps)
+    eng = E.Engine([load_policy(n) for n in names], seed=seed, **engine_kwargs(args))
     csvf = open(csv_path, 'w', newline='') if csv_path else None
     snapf = open(snap_path, 'w') if snap_path else None
     try:
@@ -94,9 +93,12 @@ def fmt_faults(f):
 
 
 def print_match(names, eng, res, secs):
-    print('seed %d  %dx%d  ticks run %d/%d  %.1fs  order: %s'
+    print('seed %d  %dx%d  ticks run %d/%d  %.1fs  order: %s  start %s %s  stun memory %s  '
+          'feed bonus %d  idle gain %g'
           % (eng.seed, eng.W, eng.H, eng.tick, eng.max_ticks, secs,
-             'no taken jumps' if eng.order_by_alt else 'all instructions'))
+             'no taken jumps' if eng.order_by_alt else 'all instructions', eng.start_mode,
+             ' '.join('%d:(%d,%d)' % (c, x, y) for c, (x, y) in sorted(eng.start_positions.items())),
+             'keep' if eng.stun_keeps_memory else 'drop', eng.feed_bonus, eng.idle_gain_prob))
     print('%-3s %-4s %-10s %3s %5s %6s %10s %6s %4s %6s %6s %6s %5s  %s'
           % ('pl', 'slot', 'bot', 'pts', 'pop', 'energy', 'insn_total', 'avg', 'max', 'births', 'deaths',
              'stuns', 'died', 'faults'))
@@ -108,11 +110,8 @@ def print_match(names, eng, res, secs):
                  '-' if r['death_tick'] is None else r['death_tick'], fmt_faults(r['faults'])))
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--bots', default='hunter,medic,random,walker',
-                    help='comma list, slot order (1-4 entries); bot name or module:function')
-    ap.add_argument('--seeds', default='1', help='e.g. 1 or 1-20 or 1,4,9')
+def add_engine_args(ap):
+    """Engine options shared by run.py and experiments.py."""
     ap.add_argument('--size', type=int, default=None, help='square board side (sets width and height)')
     ap.add_argument('--width', type=int, default=64)
     ap.add_argument('--height', type=int, default=64)
@@ -124,15 +123,55 @@ def main(argv=None):
     ap.add_argument('--order-no-taken-jumps', action='store_true',
                     help='order turns by the policy\'s optional 3rd count (taken jumps not counted); '
                          'totals, averages and the budget still use the full count')
+    ap.add_argument('--start', choices=E.START_MODES[:2], default='random',
+                    help='start squares: random (ladder, verified 2026-11-08; default) or corner (old model)')
+    ap.add_argument('--min-dist', type=int, default=E.DEFAULT_START_MIN_DIST,
+                    help='random starts: minimum distance between start squares')
+    ap.add_argument('--metric', choices=('manhattan', 'chebyshev'), default=E.DEFAULT_START_METRIC,
+                    help='random starts: distance metric for --min-dist')
+    ap.add_argument('--sampler', default='uniform', choices=sorted(E.START_SAMPLERS),
+                    help='random starts: distribution (engine.START_SAMPLERS)')
+    ap.add_argument('--stun-memory', choices=('keep', 'drop'), default='keep',
+                    help='whether a stunned cell\'s memory writes persist (unverified; keep = old model)')
+    ap.add_argument('--feed-bonus', type=int, default=0,
+                    help='extra energy a fed cell gains on top of the 2 fed (ladder receivers often end +3; '
+                         'cause unknown; default 0)')
+    ap.add_argument('--idle-gain', type=float, default=0.0,
+                    help='probability that a cell with no event and no REST gains +1 in a tick (ladder: about '
+                         '8%% of no-event cell-ticks end +1, cause unknown; default 0)')
+
+
+def engine_kwargs(args):
+    """Engine keyword arguments from parsed add_engine_args options."""
+    w, h = (args.size, args.size) if args.size else (args.width, args.height)
+    return dict(width=w, height=h, max_ticks=args.ticks, start_inset=args.inset,
+                split_child_rounding=args.split_rounding, cap_mid_tick=args.cap_mid_tick,
+                order_by_alt=args.order_no_taken_jumps, start_mode=args.start,
+                feed_bonus=args.feed_bonus, idle_gain_prob=args.idle_gain,
+                start_min_dist=args.min_dist, start_metric=args.metric, start_sampler=args.sampler,
+                stun_keeps_memory=args.stun_memory == 'keep')
+
+
+def build_parser():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--bots', default='hunter,medic,random,walker',
+                    help='comma list, slot order (1-4 entries); policy name (%s), name[k=v,...] or '
+                         'module:function' % ', '.join(policies.known()))
+    ap.add_argument('--seeds', default='1', help='e.g. 1 or 1-20 or 1,4,9')
+    add_engine_args(ap)
     ap.add_argument('--no-rotate', action='store_true')
     ap.add_argument('--csv', help='per-tick CSV (tick, pops, energies); with several seeds _s<seed> is added')
     ap.add_argument('--snap', help='ASCII board snapshots file; with several seeds _s<seed> is added')
     ap.add_argument('--snap-every', type=int, default=500)
     ap.add_argument('--verbose', action='store_true', help='print every match table in a series')
-    args = ap.parse_args(argv)
+    return ap
+
+
+def main(argv=None):
+    args = build_parser().parse_args(argv)
     if args.size:
         args.width = args.height = args.size
-    base = args.bots.split(',')
+    base = policies.split_specs(args.bots)
     if not 1 <= len(base) <= 4:
         raise SystemExit('1 to 4 bots')
     seeds = parse_seeds(args.seeds)

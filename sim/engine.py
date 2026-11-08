@@ -53,6 +53,55 @@ _CODE_WALL = 5
 # ASSUMPTION: slot -> corner order.  The docs only say "one per corner".
 CORNER_ORDER = ('top-left', 'top-right', 'bottom-left', 'bottom-right')
 
+# ---- start placement -----------------------------------------------------------------------------
+# Verified 2026-11-08 (replays): ladder starts are random squares, not corners, one cell at energy 10 per
+# colony.  Pull 2 (36 replays, data/ladder-data-2-2026-11-08.md s5): the closest pair of starts in a match
+# is Manhattan 8 to 42 apart (median 18), so the default minimum is Manhattan 8 (the observed minimum;
+# 98753 has a Chebyshev-11 pair).  Nearest-edge distance: 19% of starts within 4 of an edge vs 29% for a
+# uniform square, a mild bias not modelled.  Change it here or pass start_sampler.
+START_MODES = ('corner', 'random', 'fixed')
+DEFAULT_START_MIN_DIST = 8
+DEFAULT_START_METRIC = 'manhattan'
+
+
+def start_distance(a, b, metric):
+    dx = abs(a[0] - b[0])
+    dy = abs(a[1] - b[1])
+    if metric == 'chebyshev':
+        return dx if dx > dy else dy
+    if metric == 'manhattan':
+        return dx + dy
+    raise ValueError("metric must be 'manhattan' or 'chebyshev'")
+
+
+def starts_ok(points, min_dist, metric):
+    """True if every pair of points is at least min_dist apart."""
+    for i in range(len(points)):
+        for j in range(i + 1, len(points)):
+            if start_distance(points[i], points[j], metric) < min_dist:
+                return False
+    return True
+
+
+def sample_starts_uniform(rng, width, height, n, min_dist=DEFAULT_START_MIN_DIST,
+                          metric=DEFAULT_START_METRIC, tries=20000):
+    """n squares, each uniform over the board, conditioned on pairwise distance >= min_dist.
+
+    Rejection sampling of whole sets, so the result is exactly the conditioned uniform distribution.
+    Raises ValueError when no valid set turns up in `tries` draws (board too small for the distance).
+    """
+    for _ in range(tries):
+        pts = [(rng.randrange(width), rng.randrange(height)) for _ in range(n)]
+        if starts_ok(pts, min_dist, metric):
+            return pts
+    raise ValueError('no start set with min %s distance %d found on %dx%d for %d colonies'
+                     % (metric, min_dist, width, height, n))
+
+
+# name -> sampler(rng, width, height, n, min_dist=..., metric=...).  Add empirical samplers here (e.g.
+# drawn from collected real start sets) and select them by name (picklable for worker processes).
+START_SAMPLERS = {'uniform': sample_starts_uniform}
+
 
 def _first(item):
     return item[0]
@@ -137,7 +186,16 @@ class Engine(object):
                  cap_mid_tick=False,          # ASSUMPTION: energy may exceed 50 until Tidy (rules text)
                  self_type=CELL_FRIEND,       # ASSUMPTION: what view.cells[12] holds for yourself
                  place_start=True,
-                 order_by_alt=False):         # order by the optional 3rd return value (no taken jumps)
+                 order_by_alt=False,          # order by the optional 3rd return value (no taken jumps)
+                 start_mode='corner',         # 'corner' (old default), 'random' (ladder), 'fixed'
+                 start_min_dist=DEFAULT_START_MIN_DIST, start_metric=DEFAULT_START_METRIC,
+                 start_positions=None,        # 'fixed': one (x, y) per slot
+                 start_sampler=None,          # 'random': name in START_SAMPLERS or callable(rng, w, h, n)
+                 stun_keeps_memory=True,      # ASSUMPTION: a stunned cell's memory writes persist
+                 record_events=False,         # keep the bite-order pair matrix (bite_first)
+                 feed_bonus=0,                # OPTION: extra energy a fed cell gains (pull 2: often +3)
+                 idle_gain_prob=0.0,          # OPTION: P(+1) for a cell with no event and no REST
+                 record_deltas=False):        # per-cell-tick energy change histograms (deltas)
         if len(policies) > MAX_COLONIES:
             raise ValueError('at most 4 colonies')
         if split_child_rounding not in ('floor', 'ceil'):
@@ -153,6 +211,24 @@ class Engine(object):
         self.order_by_alt = order_by_alt
         self.rng = random.Random(seed)
         self.seed = seed
+        if start_mode not in START_MODES:
+            raise ValueError('start_mode must be one of %s' % (START_MODES,))
+        self.start_mode = start_mode
+        self.stun_keeps_memory = stun_keeps_memory
+        self._saved = None             # this tick's pre-call memory copies (stun_keeps_memory False)
+        self.record_events = record_events
+        if feed_bonus < 0 or not 0.0 <= idle_gain_prob <= 1.0:
+            raise ValueError('feed_bonus must be >= 0 and idle_gain_prob in [0, 1]')
+        self.feed_bonus = feed_bonus
+        self.idle_gain_prob = idle_gain_prob
+        # own RNG for the idle gain, so turning it on leaves the match RNG stream unchanged
+        self._idle_rng = random.Random('%r/idle' % (seed,)) if idle_gain_prob > 0 else None
+        # record_deltas: {'idle': {delta: n}, 'fed': {delta: n}}; delta = energy after Tidy minus energy
+        # at the start of the tick.  'idle' = no event on the cell (REST and NOP and faults count as no
+        # event, as the replays log no rest event), 'fed' = fed exactly once and no other event.
+        # Cells that died or were born in the tick are left out.
+        self.deltas = {'idle': {}, 'fed': {}} if record_deltas else None
+        self._ev = self._fed = self._rested = None
 
         PW = width + 4
         PH = height + 4
@@ -199,14 +275,36 @@ class Engine(object):
         self.stuns = [0] * MAX_COLONIES            # times a cell of this colony lost its action to a bite
         self.births = [0] * MAX_COLONIES
         self.deaths = [0] * MAX_COLONIES
+        # successful actions per colony (always counted; cheap)
+        self.moves = [0] * MAX_COLONIES
+        self.feeds = [0] * MAX_COLONIES            # feeds that reached a living cell (any colony)
+        self.eats_enemy = [0] * MAX_COLONIES       # eats that hit a living cell of another colony
+        self.eats_friend = [0] * MAX_COLONIES
+        # record_events: bite_first[a][b] = same-tick pairs of successful eats (any target) in which a
+        # colony-a eat came before a colony-b eat in turn order (the count taken from the replay events)
+        self.bite_first = [[0] * MAX_COLONIES for _ in range(MAX_COLONIES)] if record_events else None
+        self.start_positions = {}
 
         if place_start:
-            k = start_inset
-            corners = ((k, k), (width - 1 - k, k), (k, height - 1 - k), (width - 1 - k, height - 1 - k))
-            for c in range(MAX_COLONIES):
-                if self.present[c]:
-                    x, y = corners[c]
-                    self.add_cell(x, y, c, ENERGY_START)
+            slots = [c for c in range(MAX_COLONIES) if self.present[c]]
+            if start_mode == 'corner':
+                k = start_inset
+                corners = ((k, k), (width - 1 - k, k), (k, height - 1 - k), (width - 1 - k, height - 1 - k))
+                pts = [corners[c] for c in slots]
+            elif start_mode == 'fixed':
+                if start_positions is None:
+                    raise ValueError("start_mode 'fixed' needs start_positions")
+                pts = [tuple(start_positions[c]) for c in slots]
+            else:
+                smp = start_sampler if start_sampler is not None else 'uniform'
+                if callable(smp):
+                    pts = smp(self.rng, width, height, len(slots))
+                else:
+                    pts = START_SAMPLERS[smp](self.rng, width, height, len(slots),
+                                              min_dist=start_min_dist, metric=start_metric)
+            for c, (x, y) in zip(slots, pts):
+                self.start_positions[c] = (x, y)
+                self.add_cell(x, y, c, ENERGY_START)
 
     # ---- setup helpers ---------------------------------------------------------------------------
     def add_cell(self, x, y, colony, energy=ENERGY_START, mem=None, age=0):
@@ -298,6 +396,8 @@ class Engine(object):
         acts = []
         append = acts.append
         alt = self.order_by_alt
+        saved = None if self.stun_keeps_memory else {}
+        self._saved = saved
         for i in live:
             c = col[i]
             p = pos[i]
@@ -306,6 +406,8 @@ class Engine(object):
                 age = 255
             m = mems[i]
             v = View(ctx, p, en[i], rnd(8), age, p % PW - 2, p // PW - 2, pop[c], total_pop - pop[c], c)
+            if saved is not None:
+                saved[i] = bytes(m)
             try:
                 r = pols[c](v, m)
                 a = r[0]
@@ -345,7 +447,19 @@ class Engine(object):
         # ---- 2. Act: one pass, fewest instructions first, ties shuffled with the match RNG ----
         self.rng.shuffle(acts)
         acts.sort(key=_first)
+        track = self.deltas is not None or self._idle_rng is not None
+        if track:
+            start = [(i, en[i]) for i in live]
+            self._ev = ev = {}            # cell id -> events this tick (eat/feed/split/move, either side)
+            self._fed = fedn = {}         # cell id -> times fed this tick
+            self._rested = rested = set()
         self._act(t, acts)
+        if self._idle_rng is not None:
+            rr = self._idle_rng.random
+            prob = self.idle_gain_prob
+            for i, _ in start:
+                if alive[i] and i not in ev and i not in rested and rr() < prob:
+                    en[i] += 1
 
         # ---- 9. Tidy ----
         cap = ENERGY_MAX
@@ -367,6 +481,24 @@ class Engine(object):
         self.live = newlive
         self.pop = pop
         self.energy = esum
+        if track:
+            dl = self.deltas
+            if dl is not None:
+                hi = dl['idle']
+                hf = dl['fed']
+                for i, e0 in start:
+                    if not alive[i]:
+                        continue
+                    k = ev.get(i, 0)
+                    if k == 0:
+                        h = hi
+                    elif k == 1 and fedn.get(i) == 1:
+                        h = hf
+                    else:
+                        continue
+                    d = en[i] - e0
+                    h[d] = h.get(d, 0) + 1
+            self._ev = self._fed = self._rested = None
 
         # ---- end of match ----
         living = 0
@@ -398,6 +530,19 @@ class Engine(object):
         capmid = self.cap_mid_tick
         cap = ENERGY_MAX
         split_ceil = self.split_ceil
+        moves = self.moves
+        feeds = self.feeds
+        eats_enemy = self.eats_enemy
+        eats_friend = self.eats_friend
+        saved = self._saved
+        bf = self.bite_first
+        ev = self._ev
+        fedn = self._fed
+        rested = self._rested
+        bonus = self.feed_bonus
+        if bf is not None:
+            seen = [0] * MAX_COLONIES      # successful eats so far this tick, per colony
+            others = [tuple(o for o in range(MAX_COLONIES) if o != b) for b in range(MAX_COLONIES)]
         for n, i, a in acts:
             # dead (killed earlier this tick) or stunned (bitten before its turn): no turn
             if done[i] == t or not alive[i]:
@@ -408,6 +553,8 @@ class Engine(object):
                 if capmid and e > cap:
                     e = cap
                 en[i] = e
+                if rested is not None:
+                    rested.add(i)
                 continue
             kind = a & 0xF0
             p = pos[i]
@@ -419,6 +566,9 @@ class Engine(object):
                     grid[p] = GRID_EMPTY
                     grid[tp] = i
                     pos[i] = tp
+                    moves[col[i]] += 1
+                    if ev is not None:
+                        ev[i] = ev.get(i, 0) + 1
             elif kind == ACT_EAT:
                 if g >= 0 and alive[g]:
                     eg = en[g]
@@ -429,22 +579,42 @@ class Engine(object):
                     if capmid and e > cap:
                         e = cap
                     en[i] = e
+                    if ev is not None:
+                        ev[i] = ev.get(i, 0) + 1
+                        ev[g] = ev.get(g, 0) + 1
+                    ci = col[i]
+                    cg = col[g]
+                    if cg == ci:
+                        eats_friend[ci] += 1
+                    else:
+                        eats_enemy[ci] += 1
+                    if bf is not None:
+                        for o in others[ci]:
+                            bf[o][ci] += seen[o]
+                        seen[ci] += 1
                     if eg == 0:
                         alive[g] = False
-                        deaths[col[g]] += 1
+                        deaths[cg] += 1
                     if done[g] != t:          # bitten before its turn: stunned
                         done[g] = t
-                        stuns[col[g]] += 1
+                        stuns[cg] += 1
+                        if saved is not None and g in saved:
+                            self.c_mem[g][:] = saved[g]   # the call never took effect: drop its writes
             elif kind == ACT_FEED:
                 if g >= 0 and alive[g]:
                     e = en[i]
                     give = FEED_AMOUNT if e > FEED_AMOUNT else e
                     e -= give
                     en[i] = e
-                    eg = en[g] + give
+                    eg = en[g] + give + (bonus if give else 0)
                     if capmid and eg > cap:
                         eg = cap
                     en[g] = eg
+                    feeds[col[i]] += 1
+                    if ev is not None:
+                        ev[i] = ev.get(i, 0) + 1
+                        ev[g] = ev.get(g, 0) + 1
+                        fedn[g] = fedn.get(g, 0) + 1
                     if e == 0:
                         alive[i] = False
                         deaths[col[i]] += 1
@@ -465,6 +635,8 @@ class Engine(object):
                     live.append(k)
                     grid[tp] = k
                     self.births[c] += 1
+                    if ev is not None:
+                        ev[i] = ev.get(i, 0) + 1
 
     def _fault(self, c, t, p, kind, insn):
         f = self.faults[c]
@@ -513,5 +685,7 @@ class Engine(object):
                 'max_insn': self.insn_max[c], 'calls': calls,
                 'death_tick': self.death_tick[c], 'faults': dict(self.faults[c]),
                 'births': self.births[c], 'deaths': self.deaths[c], 'stuns': self.stuns[c],
+                'moves': self.moves[c], 'feeds': self.feeds[c], 'eats_enemy': self.eats_enemy[c],
+                'eats_friend': self.eats_friend[c],
             })
         return out
