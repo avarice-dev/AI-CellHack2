@@ -19,7 +19,7 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 | Pestilence | Moves strong cells into freed squares, carrying energy to the front. | Planned | Planned | Planned | Planned |
 | Famine | Spends energy on growth until the colony runs thin. | Planned | Planned | Planned | Planned |
 
-Ladder snapshot: 2026-11-08 22:42 UTC-06. Schism had 31 games at that time, so its rating is still settling. Pestilence and Famine are planned and have not been built. Retired cells show their last observed place and final rating. Places count active cells only. An asterisk (*) means the true peak is unknown: the site does not publish peaks, so the value is the best one recorded in this project's checks and match data. The true peak may be higher.
+As of 2026-11-08 22:42 UTC-06. \* Best recorded value; the site does not publish peaks.
 
 ## Documents
 
