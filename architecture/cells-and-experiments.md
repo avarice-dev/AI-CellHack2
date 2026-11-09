@@ -99,6 +99,10 @@ flowchart LR
     SC --> CP["Complacency"]
     CP --> SM["Schism"]
     SC -.-> W["Woe (VEX form, never on the ladder)"]
+    C -.-> CN["Conceit (VEX form, never on the ladder)"]
+    CO -.-> E["Endemic (VEX form, never on the ladder)"]
+    SM -.-> P["Pestilence (planned)"]
+    CO -.-> F["Famine (planned)"]
 ```
 
 | Cell | Bet | What it does | What it taught |
