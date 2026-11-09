@@ -2,7 +2,7 @@
 
 CellHack2 is an online game in which players write small x86-64 assembly programs called cells. Each cell controls one square on a 64 by 64 board, and up to four colonies play in each match. This repository holds one project's work on the game. The project writes ladder cells, tests them, studies the game data and records what works. It also includes a Python simulator of the game rules and tools that collect and decode replays.
 
-**This whole project was made with Claude, Anthropic's AI, through Claude Code. That was the point of it.** Claude wrote the cells, the generators and checkers, the simulator, the data tools, the analysis and these documents. The owner set the goals, made the decisions and approved each step, such as every change to the ladder. The project tests how far an AI agent can take a competitive programming project, from the first probe to cells at the top of the ladder.
+**This whole project was made with Claude, Anthropic's AI, through Claude Code. That was the point of it.** Claude wrote the cells, the generators and checkers, the simulator, the data tools, the analysis and these documents. The owner set the goals, made the decisions and approved each step, such as changes to the ladder. The project tests how far an AI agent can take a competitive programming project, from the first probe to cells at the top of the ladder.
 
 ## Cell names
 
@@ -12,9 +12,9 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 |---|---|---|---|---|---|
 | Avarice | Hoards energy: eats greedily and never feeds other cells. | 9th* | 1355* | 9th (retired) | 1191 |
 | Covetous | Goes after its neighbours, with a fast bite in every direction. | 4th* | 1526* | 7th (retired) | 1392 |
-| Scourge | Kills and occupies: refills the squares freed in fights. | 1st | 1649 | 2nd (retired) | 1507 |
-| Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1608 | 1st | 1581 |
-| Complacency | Ignores nearby enemies and keeps splitting. | 2nd* | 1592* | 3rd | 1511 |
+| Scourge | Kills and occupies: refills the squares freed in fights. | 1st | 1649* | 2nd (retired) | 1507 |
+| Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1608* | 1st | 1581 |
+| Complacency | Ignores nearby enemies and keeps splitting. | 2nd* | 1608* | 3rd | 1511 |
 | Schism | Splits outward quickly, with inner cells feeding the edge. | 2nd* | 1538* | 2nd | 1538 |
 | Pestilence | Moves strong cells into freed squares, carrying energy to the front. | Planned | Planned | Planned | Planned |
 | Famine | Spends energy on growth until the colony runs thin. | Planned | Planned | Planned | Planned |
