@@ -104,7 +104,7 @@ by giving its module a `FACTORIES` (name -> factory) and/or `POLICIES` dict and 
 No measured rival uses a lock: every one checks directions in a fixed order (4 / 6 / >= 8). The lock and
 flat-3 variants are labelled hypotheticals, for comparison only.
 Options: `order=ULRD`, `front=static|flat3|lock`, thresholds (see the factories), e.g. `rpump[pump_min=12]`.
-Speed options (2026-11-08; off unless a model spec sets them, as the pad3 defaults for Aegis, Noob++ and rooby in `validate.py` MODELS do): `pad=N` adds N instructions to every non-bite path, and with
+Speed options (2026-11-08; off unless a model spec sets them, as the pad3 defaults for Aegis, Noob++ and rooby, and Noob+ with `pad=4`, in `validate.py` MODELS do): `pad=N` adds N instructions to every non-bite path, and with
 `pad_bites_from=k` also to bites in check positions >= k (slow cells: the match-page average insns of rooby,
 Noob++ and Aegis is 33-90 while the models ran ~20); `split_after=k` (ratompush and rpump, static front) does
 the split check after the first k direction checks, so a hole is refilled in 2k + 13.

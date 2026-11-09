@@ -61,7 +61,7 @@ A policy is a plain Python function. It takes the view and the memory, and retur
 
 Hypothetical models are for comparison only. No measured rival uses a lock.
 
-The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=6`, so they assist earlier and stop feeding between full cells.
+The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4`, `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=6`, so they assist earlier and stop feeding between full cells.
 
 ## Running it
 
@@ -105,7 +105,7 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 
 Engine rules, checked 2026-11-08 with `replay_check.py` on 8 replays from pulls 2 to 5: about 87.8 million squares compared one tick at a time after first contact, 9 differ, none in move, split, feed or death. All 9 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 6 of about 1.74 million squares differ. No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
 
-State measured at commit 471711c, before these model changes: Atom `assist_min` and `feed_margin`. One seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
+State measured at commit 471711c, before these model changes: Atom `assist_min` and `feed_margin`, Noob+ `pad=4`. One seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
 
 | Set | Matches | Same winner | Checks | Rating baseline | Win-share baseline |
 |---|---|---|---|---|---|
@@ -121,8 +121,8 @@ The win-share baseline is in-sample, so it is optimistic.
 |---|---|---|
 | Own-colony growth before contact | Good | No rival model is involved. Simulated Scourge and Complacency reach 128 cells at t37; the real range is t36-44. |
 | Atom models | Weak | Before the change at 471711c: 36-38 feeds per eat against 7-9 real, and 25-30% too slow to t100. After it, on 8 FIT matches (real/sim medians): t100 AtomPush 941/872 (was 744), AtomCrasher 835/824 (was 774). Feeding now undershoots: 0.2-0.4 feeds per eat pooled, against 6.2 and 17.8 real pooled. `feed_margin` 2 feeds too much and 6 too little; values between are untested. |
-| Pump models | Weak | Feed about half the real amount. Hold about 6 more energy at t200. |
-| Noob+ late land | Wrong | Median final population: real 0, simulator 1821. 8 wrong winners of 135. |
+| Pump models | Weak | Feed about half the real amount. Hold about 6 more energy at t200. Not changed: pump cells with 5 or more energy already feed whenever boxed in, so no existing parameter raises the rate. |
+| Noob+ late land | Weak | Before the change at 471711c: median final population real 0, simulator 1821; 8 wrong winners of 135. With `pad=4` on 4 FIT matches (real / before / after): t500 560 / 1010 / 580, end 431 / 1186 / 276. Costs: t200 1121 / 1121 / 937, feeds per eat 31.1 pooled real / 14.0 / 11.3. |
 | Early-fill games | Weak | Scourge over-wins when the real winner fills the board by about t300. Winner accuracy with a real freeze at or before t600 is 10/20. |
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |

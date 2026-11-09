@@ -48,7 +48,8 @@ MODELS = {
     # Aegis, Noob++, rooby: pad3 (adopted 2026-11-08 on the 63-match FIT set): slow cells (match-page avg insns
     # 33 / 79 / 76 vs ~20-24 unpadded), every non-bite path and the bites in their slow directions padded.
     'Aegis': ('rpump[hold=none,target=richest,pump_min=5,pump_target_max=50,pad=12,pad_bites_from=1]', 'model'),
-    'Noob+': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50]', 'model'),                    # D fast only
+    # Noob+: pad=4 slows its L/R/U bites and non-bite paths (real: only D fast); fixes its late land.
+    'Noob+': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50,pad=4,pad_bites_from=1]', 'model'),
     'Noob++': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50,pad=66,pad_bites_from=1]',
                'model'),
     'AtomPush': ('ratompush[split_after=2,assist_min=6,feed_margin=6]', 'model'),     # R4 L6, fat economy
