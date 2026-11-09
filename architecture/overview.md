@@ -38,15 +38,15 @@ These terms are used the same way in every document in this folder.
 | Split | An action that makes a child cell on an empty adjacent square. It needs at least 5 energy. The child gets half the energy, rounded down. The parent keeps the rest. |
 | Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). There is no feed bonus. |
 | Refill | A birth or move onto a square that a death freed. The Rules say such a square cannot be entered until the next tick (a square freed by a move can be entered in the same tick). The replays agree: no refill came in the same tick as its death, and most came one tick later. |
-| Prey hold | A rule in the Scourge cell. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
+| Prey hold | A rule in Covetous, Scourge and Contagion. Complacency drops it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
 | Bet | The one main idea that a cell tests. |
 | Ladder | The public ranked list. Cells on it play real matches and have a rating. |
 | Sandbox | The site's test area. It runs saved cells against up to three opponents on a 16 by 16 board for 500 ticks. Nothing in it changes the ladder. |
 | Simulator | A Python model of the game rules. It is not the real game. See [simulator.md](simulator.md). |
 | Calibration probe | A small test cell that answers one question about the game engine. |
-| Pull | One round of data collection from the site. The pulls are numbered 1 to 4. See [data-pulls.md](data-pulls.md). |
+| Pull | One round of data collection from the site. See [data-pulls.md](data-pulls.md). |
 | Replay | The full record of one match, saved as a file. It lists every birth, move, death, eat and feed. |
-| FIT and TEST | Two sets of replayed matches used to check the simulator. FIT (24 matches) is used for tuning. TEST (12 matches) is held back for judging. |
+| FIT and TEST | Two sets of replayed matches used to check the simulator. FIT is used for tuning. TEST is held back for judging. Sizes and results are in [simulator.md](simulator.md). |
 
 ## How the parts connect
 
@@ -64,7 +64,7 @@ flowchart LR
 
 The steps run in this order:
 
-1. **Site and data pulls.** Match lists, ratings and replays are fetched from the site in a logged-in browser, with a small in-page script (`tools/pull2/analyze.js`). Offline Python tools then decode and tabulate them. See [data-pulls.md](data-pulls.md).
+1. **Site and data pulls.** Match lists, ratings and replays are fetched from the site in a logged-in browser. Offline Python tools in `tools/replay/` then decode and tabulate them. See [data-pulls.md](data-pulls.md).
 2. **Analysis.** Decoders read the replays. Tables and write-ups record what the games show.
 3. **Designs.** The design notes turn the findings into one bet for each cell. They also list the instruction count of each path.
 4. **Cell generators.** Python scripts in `cells/` write the assembly code. Lookup tables are built by code, not typed by hand.
@@ -86,7 +86,7 @@ The loop runs in both directions. Ladder results and new replays feed the next a
 ## Where to start reading
 
 1. This document, for the glossary and the parts.
-2. `designs.md`, section 1 (the facts the current design rests on) and section 3 (the cells).
+2. `designs.md`, section 1 (the facts the design rests on), section 3 (the cells) and section 10 (current state and plan).
 3. [cells-and-experiments.md](cells-and-experiments.md), for how cells are built and checked, and what each cell tried.
 4. [simulator.md](simulator.md), for how the simulator works and how far to trust it.
 5. [data-pulls.md](data-pulls.md), for where the game data comes from and how it is stored.
@@ -103,5 +103,5 @@ The loop runs in both directions. Ladder results and new replays feed the next a
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py`, the VEX helper `vex_emu.py`, and calibration probes in `calib/`. |
 | `sim/` | The simulator, its batch runners and its unit tests in `sim/tests/`. Output goes to `sim/out/`, which git ignores. |
 | `tools/` | The replay tools (`replay/`, each run with `--pull <pull>`), the pull 2 history scripts and the old paths kept for the dated reports (`pull2/`, `pull3/`, `pull4/`), and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). The hook enforces this project's own privacy rules, for example it blocks AI model names and home-folder paths. It is opt-in, and outside contributors can skip it. |
-| `data/` | Write-ups (`*.md`), and the pulled data in `pull2/`, `pull3/` and `pull4/`. |
+| `data/` | Write-ups (`*.md`), the pulled data in `pull2/` to `pull5/`, and the FIT and TEST sets in `splits/split.json`. |
 | `reviews/` | Earlier design review notes and decision records. |
