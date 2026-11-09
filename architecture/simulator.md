@@ -1,6 +1,6 @@
 # The simulator (sim/)
 
-The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python function replaces each cell and returns the action and the number of instructions that the real cell would run. Use it for early checks only. It does not replace a Sandbox test or a ladder result.
+The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python function replaces each cell and returns the action and the number of instructions that the real cell would run. Use it for early checks only. It does not replace a Sandbox test or a ladder result. Terms such as pad3, t100 and pump are in the [glossary](overview.md#glossary).
 
 ## What it models
 
@@ -20,7 +20,7 @@ The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python fun
 flowchart LR
     A["Build views of the board"] --> B["Each cell returns action and instruction count"]
     B --> C["Sort actions, fewest instructions first"]
-    C --> D["Apply actions in order; a bite stuns cells not yet acted"]
+    C --> D["Apply actions in order; a bite stuns a cell that has not acted"]
     D --> E["End of tick: cap energy at 50, remove dead cells"]
 ```
 
@@ -65,7 +65,7 @@ The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegi
 
 ## Running it
 
-Run these from `sim/`. Runners use at most four workers (`--workers` changes this) and below-normal priority on Windows.
+Run these from `sim/`. Runners use at most four workers by default (`treadmill.py`: two; `--workers` changes this) and below-normal priority on Windows.
 
 | Command | What it does |
 |---|---|
@@ -127,7 +127,7 @@ The win-share baseline is in-sample, so it is optimistic.
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
 
-The engine needs no tuning: `replay_check.py` found no rule error. Remaining error is in the rival models. Open work: the real Atom and pump feeding rules, from per-tick replay data. Full validation has not been rerun since the model changes.
+Open work: the real Atom and pump feeding rules, from per-tick replay data. Full validation has not been rerun since the model changes.
 
 ## Main assumptions
 
@@ -135,7 +135,7 @@ The docs do not settle every rule. [sim/README.md](../sim/README.md) lists all a
 
 | Assumption | Why it matters |
 |---|---|
-| Starts are random squares at least 8 steps apart (Manhattan). | The Rules say only one cell each at 10 energy. Ladder replays show non-corner starts. The real distribution is not fully known. |
+| Starts are random squares at least 8 steps apart (Manhattan). | The Rules say only one cell each at 10 energy. A comment in `cellhack.inc` says "one per corner", but ladder replays show non-corner starts. The real distribution is not fully known. |
 | A split gives the child half the energy, rounded down. | Replays confirmed the rounding. |
 | Memory changes persist when a cell is stunned. | Matters only for designs that use memory at the front. |
 | A newborn is on the board at once, but takes no turn until the next tick. | Newborns can be bitten in their birth tick. |
