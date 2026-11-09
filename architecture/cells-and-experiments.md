@@ -88,7 +88,7 @@ The batch sets and the accuracy limits are in [simulator.md](simulator.md).
 - **Complacency sweep (136 games).** The prey hold stopped at tick 200, 300, 500 or never. One version held only for a diagonal enemy. Never-hold had the highest final population in all three mixes. Win rates were equal.
 - **Complacency on new seeds.** On seeds 9 to 16, a head-to-head mix gave Scourge 2.50 points (75%) and Complacency 1.75 (12%). In a mirror run, the winner followed the start slot, not the cell. These numbers are start luck.
 - **VEX cells.** Their figures assumed the documented three-operand form. The site does not run that form, so the figures do not describe the site.
-- **Solo growth (Schism).** `sim/growth.py` compares split-direction rules for a colony alone. The study is in progress (`designs.md` 10.4).
+- **Solo growth (Schism).** `sim/growth.py` compares split-direction rules for a colony alone. The study is finished; the chosen rule is in `designs.md` 11.1.
 
 ## Cell lineage
 
@@ -116,7 +116,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 ## Open items
 
-Current work and its order are in `designs.md` 10.4.
+The plan for the next cells (Schism, Pestilence, Dogma) and their order is in `designs.md` 11. None is built yet.
 
 ## Related documents
 

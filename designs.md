@@ -497,3 +497,51 @@ real winner fills by t300; rooby dies too often. Next tuning targets when the pa
 a workers option and its seed-0 input file, which a fresh checkout lacks).
 Consequence for design work: trust the simulator for own-colony growth before contact (10.2, the Schism study), not
 for win rates against the rival field until the Atom and Noob+ models are fixed.
+
+## 11. Final cell plan (2026-11-08)
+This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E] estimate. Contact results in the simulator are not evidence.
+
+### 11.1 Schism (climber; build first)
+- Base: `cells/gen_complacency.py`. Split order does not change. No memory.
+- New rule: no enemy in the 5x5, no empty neighbour, energy >= 6: feed the first friend (UP, RIGHT, DOWN, LEFT) that has an empty neighbour. This is policy a+f6x in `sim/growth.py`.
+- Paths: bite 5, refill 11, split 16 do not change [R]. Boxed path about 40, limit 53 [E].
+- Benefit: 128/512 at t31/t63, t100 pop 1110; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
+- Why this rule: with feeding on, the view split adds no tick (w+f6x 31/62.5). Memory adds nothing (a+f6 31/62). This corrects 10.2: feeding gives most of the gain, not geometry.
+- Risk: thin cells behind the front at contact. Deep cells have no target, so they stay fat [R].
+- Slot: the free slot.
+
+### 11.2 Pestilence (unique mechanic; second)
+- Base: the higher rated of Schism and Complacency.
+- Change 1: refill path, energy >= 20: MOVE into the freed square, not split. The bite runs first, so the vacated square has no enemy neighbour [R].
+- Change 2: same-tick backfill. An idle cell behind a friend with energy >= 20, with an empty square beyond that friend and an enemy beside that square, splits into the friend's square. This is a prediction, because Decide comes before Act. The backfill path must be longer than the move path. A miss costs one rest.
+- Paths: refill limit 14 [E]. Above 14, drop the change.
+- Benefit: 0% of 375k mined refills are moves [M]. Carries 20-50 energy forward; a child has 6 [R]. Ladder gain unknown.
+- Risk: slower refill loses races.
+- Slot: replaces Complacency after the gate.
+
+### 11.3 Dogma (climber; third)
+The name was used by an earlier design that section 6 retired. This is a new design.
+- Base: Contagion generator. Grab assist: floor 8 to 6; remove the target limit (e <= 4).
+- Paths: contested paths do not change [R].
+- Benefit: w+f6x against w+f6x4: t100 1081/1000, 512 at 62.5/64.5 [M, Complacency base]. Contagion real: 34/72.
+- Risk: no solo data on this base. Section 6 rejected deep feeding (D ~ 6) for a losing economy in pull 2; the evidence here is solo growth only.
+- Slot: replaces Contagion after the gate.
+
+### 11.4 Gate
+Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Dogma.
+
+### 11.5 Steps
+Agent: build, tests, `check_cells`, Unicorn counts. User (results in `data/site-observations-2026-11-08.md`):
+1. Sandbox, same seed and opponents: Schism, then Complacency. Record tick at 128, pop t25/50/100, faults. Pass: no faults, Schism <= t33, Complacency later.
+2. Sandbox, Pestilence, one game. Record move refills, same-tick backfills, faults. Backfill hits under 50%: remove change 2.
+3. Save through the form, after approval. Ratings arrive in `data/site-checks.md`.
+
+### 11.6 Supersedes
+10.4 items 1-3, the 7.1 test. Parked: 7.2-7.7, 10.4 items 4-5.
+
+### 11.7 Top risks
+| Risk | Early sign |
+|---|---|
+| Thin band loses contact (feed level 6 repeats the section 6 concern) | Sandbox lead at t50 gone by t200 |
+| Site differs from the simulator (as with Woe) | Sandbox fault, or peak under 10 cells |
+| Pestilence weakens the refill | Rating under 1450 at 100 games |
