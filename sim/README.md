@@ -111,7 +111,7 @@ Noob++ and Aegis is 33-90 while the models ran ~20); `split_after=k` (ratompush 
 the split check after the first k direction checks, so a hole is refilled in 2k + 13.
 
 ## Experiments
-**CPU limit:** every runner uses at most 4 worker processes (default 4; never 6, the PC's total; `--workers 1`
+**CPU limit:** every runner uses at most 4 worker processes (default 4, `treadmill.py` 2; never 6, the PC's total; `--workers 1`
 runs in-process) and puts itself and its workers at below-normal priority (Windows; a no-op elsewhere).
 The limit was 2 until 2026-11-08; the run times below were measured with 2 workers.
 
@@ -190,10 +190,6 @@ validate.py's report and checks and the sim's average insns per call (compare wi
 tools/replay/actions.py gives per-cell action shares at the front from a real replay (eat direction, bitten
 first, split, none) for comparing with the sim.
 
-### Calibration log
-Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze
-median sim vs real, f500 = frozen by t500, Sp = Avarice wins.
-
 ## Assumptions (docs silent or unverified)
 
 Docs re-review 2026-11-08: the Rules support the defaults of 4 (cap at Tidy, stated), 5 and 6 (implied by
@@ -260,6 +256,10 @@ Settled 2026-11-08: the sentence is loose. The Reference says "The engine counts
 Slot effects are large: Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16, so in 4x Hunter
 the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-right one (fronts down and
 left) always died first. Always rotate slots when comparing policies.
+## Calibration log
+Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze
+median sim vs real, f500 = frozen by t500, Sp = Avarice wins, f/eat = feeds per eat. Terms: architecture/overview.md.
+
 - 2026-11-07 baseline (sim 909c432 models): FIT sw 4/7, 17/24; fz 2632 vs 2106; f500 0 vs 0; Sp 9/12 vs 12/12;
   31/63 checks pass. Pump colonies E200 28-32 vs 10-13 real; AtomCrasher f/eat 27 vs 7; fed +3 85% vs 73%.
 - it1, pumps (Brawler, Brawler v2, Bouncer, Aegis, Noob+, Noob++): `hold=none,target=poorest,pump_min=10,
