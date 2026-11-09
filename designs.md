@@ -504,7 +504,7 @@ This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E
 ### 11.1 Schism (climber; build first)
 - Base: `cells/gen_complacency.py`. Split order does not change. No memory.
 - New rule: no enemy in the 5x5, no empty neighbour, energy >= 6: feed the first friend (UP, RIGHT, DOWN, LEFT) that has an empty neighbour. This is policy a+f6x in `sim/growth.py`.
-- Paths: bite 5, refill 11, split 16 do not change [R]. Boxed path about 40, limit 53 [E].
+- Paths: bite 5, refill 11, split 16 do not change [M]. New feed 32 to 48 [M]. Limit 53 is not met on the old feed block at energy >= 16, because the new checks run before it: longest 63 with an enemy in the 5x5, 86 with no candidate [M]. Rest at energy 6 to 15: 27 or up to 50 [M]; Complacency 17. The site cap is 1000.
 - Benefit: 128/512 at t31/t63, t100 pop 1110; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
 - Why this rule: with feeding on, the view split adds no tick (w+f6x 31/62.5). Memory adds nothing (a+f6 31/62). This corrects 10.2: feeding gives most of the gain, not geometry.
 - Risk: thin cells behind the front at contact. Deep cells have no target, so they stay fat [R].

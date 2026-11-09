@@ -562,6 +562,43 @@ def vex_selftest():
               '%d instructions: ok' % (act, n))
 
 
+def diff_schism(blob):
+    """Schism vs sim/cells_ref.schism on boxed views (friend / wall neighbours): every empty / friend pattern of the
+    8 squares around the neighbours x enemy placement x energies x friend energies.  diff_scourge covers the rest."""
+    import cells_ref
+    r = Runner(blob)
+    ring = (2, 6, 8, 10, 14, 16, 18, 22)
+    adj = (7, 13, 17, 11)
+    pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0))
+    enemies = ((), (0,), (24,), (9,), (2,), (22,), (6,), (18,))
+    n = mism = nfeed = 0
+    for types in itertools.product((1, 3), repeat=4):
+        for bits in range(256):
+            for en in enemies:
+                for energy in (0, 5, 6, 15, 16, 46, 47, 50):
+                    for pat in (pats if energy >= 16 else pats[:1]):
+                        cells, ens = [1] * 25, [9] * 25
+                        ens[12] = energy
+                        for k, i in enumerate(ring):
+                            cells[i] = 0 if bits >> k & 1 else 1
+                        for i, t, pe in zip(adj, types, pat):
+                            cells[i], ens[i] = t, (pe if t == 1 else 0)
+                        for i in en:
+                            cells[i] = 2
+                        v = V()
+                        v.cells, v.energy, v.tick, v.energies = cells, energy, 500, ens
+                        want = cells_ref.schism(v, bytearray(64))[:2]
+                        got = r.call(view_bytes(500, energy, cells, ens), energy)
+                        n += 1
+                        nfeed += want[0] != cells_ref.complacency(v, bytearray(64))[0]
+                        if got != want:
+                            mism += 1
+                            if mism <= 10:
+                                fail('schism diff types=%s ring=%02x en=%s e=%d pat=%s: asm %s ref %s'
+                                     % (types, bits, en, energy, pat, got, want))
+    print('  schism boxed diff: %d cases, %d differ from Complacency, %d mismatches' % (n, nfeed, mism))
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
@@ -606,6 +643,17 @@ def main():
             if have_uc:
                 ticks = sorted({0, 1, T - 1, T, 2979, 2980} - {-1} if T < 2980 else {0, 1, 2979, 2980})
                 diff_scourge(blob, name, ticks, cells_ref.make_complacency(free_until=T), bet_until=T)
+        elif name == 'schism':
+            import gen_schism
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if syms['kZero'] % 16:
+                fail('schism kZero is not 16-byte aligned')
+            if open(p).read() != gen_schism.generate():
+                fail('schism.asm differs from gen_schism.generate()')
+            if have_uc:
+                diff_scourge(blob, name, (0, 2980), cells_ref.schism)
+                diff_schism(blob)
         elif kind == 'contagion':
             check_contagion(blob, syms, lst, vex)
             if have_uc:
