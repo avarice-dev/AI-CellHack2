@@ -19,6 +19,9 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `experiments.py` | parallel runner for policy mixes over many seeds, replay-style statistics |
 | `batch.py` | one command: a named experiment set, unattended, summary .md + full .json in `out/` |
 | `validate.py` | re-plays the validation matches of every data pull (real starts) and compares with the replay stats |
+| `baseline.py` | rating and win-share baselines for the winner check (no pull 5 ratings yet) |
+| `ceiling.py` | best possible winner score from extra seeds on TEST (needs a stored seed-0 run) |
+| `growth.py` | solo-colony study of split-direction rules (designs.md 10.4) |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 
 ## Running
@@ -101,7 +104,7 @@ by giving its module a `FACTORIES` (name -> factory) and/or `POLICIES` dict and 
 No measured rival uses a lock: every one checks directions in a fixed order (4 / 6 / >= 8). The lock and
 flat-3 variants are labelled hypotheticals, for comparison only.
 Options: `order=ULRD`, `front=static|flat3|lock`, thresholds (see the factories), e.g. `rpump[pump_min=12]`.
-Speed options (2026-11-08, all off by default): `pad=N` adds N instructions to every non-bite path, and with
+Speed options (2026-11-08; off unless a model spec sets them, as the pad3 defaults for Aegis, Noob++ and rooby in `validate.py` MODELS do): `pad=N` adds N instructions to every non-bite path, and with
 `pad_bites_from=k` also to bites in check positions >= k (slow cells: the match-page average insns of rooby,
 Noob++ and Aegis is 33-90 while the models ran ~20); `split_after=k` (ratompush and rpump, static front) does
 the split check after the first k direction checks, so a hole is refilled in 2k + 13.
@@ -124,7 +127,7 @@ Runtime estimate from the smoke run (2026-11-07, this PC, 2 workers): 2 full 64x
 59 s wall, so about 30 s of wall time per game. The sets are defined in `batch.SETS`.
 Re-playing real matches (`validate.py`, `batch.py --set validate`, `treadmill.py`) takes about 20 to 80 s of CPU
 per match and sim seed (a single match, 1 worker: 19 s, 2026-11-08). So N matches with S seeds take at most
-about N x S x 80 s / workers. Count the matches with `--set fit` / `--set test` / `--pull` before a long run.
+about N x S x 80 s / workers (2026-11-08, 135-match pool, 3 workers: mean 84-93 s per game, 141 s at most, so allow up to N x S x 141 s / workers). Count the matches with `--set fit` / `--set test` / `--pull` before a long run.
 
 Interactive runs:
 ```
@@ -165,7 +168,7 @@ is unknown).
 **Validation pool now** (2026-11-08, pull 5): 135 matches, FIT 90 / TEST 45, fixed per match in
 data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
 stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
-SPLIT_SEED = 20261108). New matches: `python validate.py --extend-split` (old entries never change).
+SPLIT_SEED = 20261108). Current results: architecture/simulator.md. New matches: `python validate.py --extend-split` (old entries never change).
 `--split <file>` uses another FIT/TEST file (for example one for your own pull); give it to every run.
 
 **Hold-out split** (history; fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
@@ -294,7 +297,7 @@ left) always died first. Always rotate slots when comparing policies.
   `pad_bites_from` 1 / 2 / 1): FIT 46/63, TEST 49/62 (base TEST 47/62); land t500->end now right for Noob++,
   Aegis, rooby (-1.00 like real), contested shares vs Sprint match (Noob++ 74-79 vs 77-78%). pad2 / pad4 (pad3 +
   pump `split_after` 2 / 3 from (c)): FIT 48 / 47; overshoot (Sprint vs Brawler contested 31-35% vs real 43-57%).
-  Not adopted (FIT does not improve; defaults unchanged). Still off: Noob+ and Brawler v2 keep land (t500->end
+  Not adopted then (FIT does not improve; defaults unchanged). Later adopted on the 63-match FIT set (ee6f4ab). Still off: Noob+ and Brawler v2 keep land (t500->end
   +0.06 / +0.85 vs -1.00 / -0.49 FIT), front deaths per tick of thin pumps about half of real early (Brawler 3.5 vs
   6.7, Noob+ 0.8 vs 3.7), Atom f/eat 2-6x. Candidate (pad3, `--models`): Noob++ = Noob+ spec + `pad=66,pad_bites_from=1`; rooby = its spec +
   `pad=56,pad_bites_from=2`; Aegis = its spec + `pad=12,pad_bites_from=1`.
