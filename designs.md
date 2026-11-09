@@ -10,7 +10,7 @@ History: `reviews/designs-r1..r3-snapshot.md`.
 **Names** (user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to behaviour.
 Avarice = our first ladder cell, named Sprint until 2026-11-08 (eats greedily, never feeds). `cells/sprint.asm`, the code and stored match data keep the old name.
 Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
-Ladder now (2026-11-08): Complacency (1st), Contagion (2nd) (section 9); the third slot is free. Round 7 review and current plan: section 10. Covetous, Scourge and Avarice are retired from the ladder; "Avarice" is the design name of the cell published as Avarice.
+Ladder now (2026-11-08 22:42 UTC-06, `data/site-checks.md`): Contagion (1st), Schism (2nd), Complacency (3rd). Round 7 review: section 10. Current plan: section 11. Covetous, Scourge and Avarice are retired from the ladder.
 Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
 Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, Contagion (same decisions, fewer instructions).
 
@@ -137,7 +137,7 @@ Avarice's measures what the bite alone is worth, and it probes the rivals' "6" d
 
 **Contagion** adds the grab tools to Scourge's kernel.
 
-**Ladder slots (3)** (plan at round 4; current ladder: 10.4 and `data/site-checks.md`): Avarice and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
+**Ladder slots (3)** (plan at round 4; current ladder: `data/site-checks.md`; current plan: section 11): Avarice and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
 weakest of the four by then, and only after each has >= 50 games (G11). Every ladder change needs the user's approval.
 
 ---------------------------------------------------------------------------------------------------
@@ -503,13 +503,13 @@ for win rates against the rival field until the Atom and Noob+ models are fixed.
 Update, same day: `replay_check.py` found no engine rule error. The Atom and Noob+ models changed, but Atom feeding is still wrong. Current state: `architecture/simulator.md`.
 
 ## 11. Final cell plan (2026-11-08)
-This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E] estimate. Contact results in the simulator are not evidence.
+This plan replaces further design rounds. A climber aims to raise the rating. Policy names such as a+f6x are defined in `sim/growth.py`. Labels: [M] measured, [R] reasoned, [E] estimate. Contact results in the simulator are not evidence.
 
-### 11.1 Schism (climber; build first)
+### 11.1 Schism (climber; built first)
 - Base: `cells/gen_complacency.py`. Split order does not change. No memory.
 - New rule: no enemy in the 5x5, no empty neighbour, energy >= 6: feed the first friend (UP, RIGHT, DOWN, LEFT) that has an empty neighbour. This is policy a+f6x in `sim/growth.py`.
-- Paths: bite 5, refill 11, split 16 do not change [M]. New feed 32 to 48 [M]. Limit 53 is not met on the old feed block at energy >= 16, because the new checks run before it: longest 63 with an enemy in the 5x5, 86 with no candidate [M]. Rest at energy 6 to 15: 27 or up to 50 [M]; Complacency 17. The site cap is 1000.
-- Benefit: 128/512 at t31/t63, t100 pop 1110; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
+- Paths: bite 5, refill 11, split 16 do not change [M]. New feed 32 to 48 [M]. The old feed block at energy >= 16 exceeds the 53-instruction design limit, because the new checks run before it: longest 63 with an enemy in the 5x5, 86 with no candidate [M]. Rest at energy 6 to 15: 27 or up to 50 [M]; Complacency 17. The site cap is 1000.
+- Benefit in solo growth: 128/512 cells at t31/t63, 1110 cells at t100; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
 - Why this rule: with feeding on, the view split adds no tick (w+f6x 31/62.5). Memory adds nothing (a+f6 31/62). This corrects 10.2: feeding gives most of the gain, not geometry.
 - Risk: thin cells behind the front at contact. Deep cells have no target, so they stay fat [R].
 - Status: on the ladder as cell 176 since 2026-11-08 (the owner's action).
@@ -535,7 +535,7 @@ Section 7 used this name for a harvesting idea that was never built. This is a n
 Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
 
 ### 11.5 Steps
-Agent: build, tests, `check_cells`, Unicorn counts. User (results in `data/site-observations-2026-11-08.md`):
+Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `data/site-observations-2026-11-08.md`):
 1. Done for Schism. The Sandbox has no seed control, and 128 cells is out of reach with 4 colonies on 16x16. Three games each against Scourge, Covetous, Contagion: Schism places 2, 1, 2; Complacency 2, 2, 3; 0 faults.
 2. Sandbox, Pestilence, one game. Record move refills, same-tick backfills, faults. Backfill hits under 50%: remove change 2.
 3. Create the cell by scripted POST (the form ladders it at once). The owner ladders it. Ratings arrive in `data/site-checks.md`.
