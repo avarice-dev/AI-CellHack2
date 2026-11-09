@@ -84,7 +84,7 @@ Batch sets write a summary (`.md`) and a full file (`.json`) to `sim/out/`, whic
 
 | Set | What it asks | Games and recorded time |
 |---|---|---|
-| `rivals` | Sprint against the rival models | 24 games, 12 to 15 minutes |
+| `rivals` | Avarice against the rival models | 24 games, 12 to 15 minutes |
 | `hypothetical` | Hypothetical fronts against the measured models | 16 games, 8 to 10 minutes |
 | `validate` | Every validation match with its real starts | One game per match; mean 84 to 93 seconds per game, 141 seconds at most |
 | `complacency-t` | Sweep of the tick at which the prey hold stops | 136 games, 3148 seconds |

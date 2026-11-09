@@ -56,7 +56,7 @@ data/
   pull2/
     matches-98830-99422.json        the match list (593 matches)
     leaderboard-*.json              leaderboard snapshot
-    sprint-match-pages.json         small match pages, the Sprint set
+    sprint-match-pages.json         small match pages, the Avarice set
     other-match-pages.json          small match pages, the other set
     winrates.json                   win rate data (see lists.py)
     validation-table.md, starts.json  tables read by sim/validate.py
@@ -104,7 +104,7 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/pull2/analyze.js` | The browser-side analyzer used in pull 2. It ran inside the replay page. |
 | `tools/pull2/report.py` | Builds summary tables from the summaries. |
 | `tools/pull2/lists.py` | Win rates and head-to-heads from the pull 2 match list. |
-| `tools/pull2/select_sprint.py` | Lists matches with Sprint, and how Sprint fared in each. |
+| `tools/pull2/select_sprint.py` | Lists matches with Avarice, and how Avarice fared in each. |
 | `tools/pull2/late.py` | Finds the largest population changes after tick 500, and the freeze tick of each match. |
 | `tools/pull2/sec8.py` | Builds the table of matches chosen for study and why. |
 

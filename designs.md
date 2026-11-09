@@ -8,9 +8,9 @@ round 3 review (`reviews/r3-review.md`) and the lead's decisions on its G1-G20 (
 History: `reviews/designs-r1..r3-snapshot.md`.
 
 **Names** (user's choice): cells are named from `docs/cell_names.txt` (Stellaris names), matched to behaviour.
-Avarice = our ladder cell Sprint (eats greedily, never feeds; ladder name and `cells/sprint.asm` stay Sprint).
+Avarice = our first ladder cell, named Sprint until 2026-11-08 (eats greedily, never feeds). `cells/sprint.asm`, the code and stored match data keep the old name.
 Covetous = Avarice's quick successor (on the ladder since 2026-11-08). Scourge, Contagion = the next two cells.
-Ladder now (2026-11-08): Complacency (1st), Contagion (2nd) (section 9); the third slot is free. Round 7 review and current plan: section 10. Covetous, Scourge and Sprint are retired from the ladder; "Avarice" is the design name of the cell published as Sprint.
+Ladder now (2026-11-08): Complacency (1st), Contagion (2nd) (section 9); the third slot is free. Round 7 review and current plan: section 10. Covetous, Scourge and Avarice are retired from the ladder; "Avarice" is the design name of the cell published as Avarice.
 Doctrine = a later feeding-depth variant. Dogma (formerly Hold) is retired. The sim may use old names in code.
 Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, Contagion (same decisions, fewer instructions).
 
@@ -20,7 +20,7 @@ Round 5 (section 8): Woe, Conceit, Endemic = VEX variants of Scourge, Covetous, 
 2. A flat 5-instruction bite with no memory exists (Covetous, verified on the site): `or al,[bite_tbl+rcx]` with
    rax = 0 at entry, then `jnz EXIT_ADDR`. This supersedes every lock form for the bite (G3 asked for the post
    lock; its 5 is now free without memory, its first contact 11 was worse).
-3. Sprint loses to HammerSpb on the refill race, not bite order (G2): it kills thousands of AtomPush cells and
+3. Avarice loses to HammerSpb on the refill race, not bite order (G2): it kills thousands of AtomPush cells and
    gains no land, because AtomPush refills freed squares faster (split path <= 20, children 5-7). A fast refill of
    freed front squares is the kernel's main new feature.
 4. Deep pumps (interior ~6-10) are the field's losing economy (G1): Dogma is dropped. Feeding comes from capped
@@ -81,7 +81,7 @@ A freed front square is an empty orthogonal neighbour that an enemy can reach ne
 square beyond it or beside it (5x5 view). Stateless: no memory, so the stun question does not matter.
 - Placed first on the slow path, right after the F5 miss. Replay mining (data/replay-mining-2026-11-08.md): refills
   always land on the NEXT tick, so the race is decided purely by turn order in that tick, i.e. by the refill path's
-  instruction count. Sprint (split path 19-21) won 0.5% of contested squares vs AtomPush and 3.6% vs AtomCrasher;
+  instruction count. Avarice (split path 19-21) won 0.5% of contested squares vs AtomPush and 3.6% vs AtomCrasher;
   AtomPush wins 78% of all its contested races. So: make the refill path as short as possible (target <= 10, and
   measure AtomPush's actual refill cost from the event order before fixing the number).
 - Child size: refill only when the child gets >= R energy (parent >= 2R). Default R = 6 (AtomPush's children are
@@ -98,7 +98,7 @@ Covetous already does rule 2 alone; it is the baseline for E2.
 
 ### 2.4 Growth
 - Split at e >= 5 into an empty neighbour; the plain split path stays <= ~15 instructions and comes before the
-  feeding code (G12): Sprint's late gains came from re-occupying dead colonies' squares fast.
+  feeding code (G12): Avarice's late gains came from re-occupying dead colonies' squares fast.
 - Prey rule: with an enemy in the 5x5, split only if the child gets >= 8, except refills (2.2).
 - Grab assist (Contagion): during the grab (no enemy in the 5x5), donors with e >= G = 8 feed a friend
   neighbour with e < 5 that has an empty neighbour.
@@ -130,14 +130,14 @@ cells/check_cells.py (NASM build, alignment map, Unicorn differential test vs si
 | Feeding | capped donors only | capped + D = 16 | capped + D = 12 | D = 8 or 20 |
 | Grab assist / scouts | no / no | no / no | G = 8 / S <= 2 | as parent |
 
-**Covetous** is the interim data collector: F5 + capped feeding, otherwise Sprint. Its ladder record against
-Sprint's measures what the bite alone is worth, and it probes the rivals' "6" directions (1.3.1).
+**Covetous** is the interim data collector: F5 + capped feeding, otherwise Avarice. Its ladder record against
+Avarice's measures what the bite alone is worth, and it probes the rivals' "6" directions (1.3.1).
 
 **Scourge** is the next cell: Covetous plus the refill and D = 16. It targets HammerSpb directly (the refill race).
 
 **Contagion** adds the grab tools to Scourge's kernel.
 
-**Ladder slots (3)** (plan at round 4; current ladder: 10.4 and `data/site-checks.md`): Sprint and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
+**Ladder slots (3)** (plan at round 4; current ladder: 10.4 and `data/site-checks.md`): Avarice and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
 weakest of the four by then, and only after each has >= 50 games (G11). Every ladder change needs the user's approval.
 
 ---------------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 
 ---------------------------------------------------------------------------------------------------
 ## 5. Data plan
-- Covetous's first ~50 games: win rate and head-to-heads vs Sprint's (scheduled check), and its bite-first share in
+- Covetous's first ~50 games: win rate and head-to-heads vs Avarice's (scheduled check), and its bite-first share in
   each rival's "6" direction (1.3.1), from one or two chosen replays only.
 - Offline mining of the 35 stored replays: done (data/replay-mining-2026-11-08.md, tools/pull2/mine.py, a pure-Python decoder).
 - Watch the leaderboard (small page) for rival version changes before fetching anything large. Fetch at the pace in "Pacing rules for the site" (architecture/data-pulls.md).
@@ -165,7 +165,7 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 - Checked lock and pre-arming: refill at ~20 loses the race (G3).
 - Post lock as the bite: F5 gives the same 5 without memory; kept only as the refill fallback (2.2).
 - Scouts S = 4 and corner logic: starts are random and contact comes early (G9).
-- Sprint's F6 as the base: F5 replaces it in every new cell.
+- Avarice's F6 as the base: F5 replaces it in every new cell.
 - Tide, Reaper raiders, Lattice, Turtle, a pure control slot: as in rounds 2-3.
 
 ---------------------------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 4. **Abasement** (S, fits K): read the enemy two squares out; fat enemy (46-50, HammerSpb/rooby) -> hold the line, no
    cheap contested refills; thin enemy (9-20, pumps) -> push hard. Aims for a safe 2nd vs HammerSpb.
 5. **Misfortune** (S, fits K): census switch from VIEW_POP_SELF / VIEW_POP_ENEMY; below ~15% share after t500 the
-   whole colony goes to survival mode. Test: replay stat on Sprint's 17 replays.
+   whole colony goes to survival mode. Test: replay stat on Avarice's 17 replays.
 6. **Famine** (S): harvesting (G17); low value for a fat-interior kernel, better in a pump variant.
 7. **Bane** (M): notch traps that bait AtomPush's fixed refill; weak (energy-only, AtomPush banks ~158k).
 Dropped: kill-order tricks, staircase fronts, a stateless 4-bite, a 2-instruction blind lock, hidden channels,

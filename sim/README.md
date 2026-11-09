@@ -153,14 +153,14 @@ Reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of e
 A data pull is any folder of `../data/` that has a `validation-table.md`; `validate.pulls()` finds them, and
 `--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
 pull's replays (architecture/data-pulls.md, "Doing your own pull"). Set `CH_DATA` to use another data folder.
-Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Sprint, open bots), `model` (rivals.py on
+Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Avarice, open bots), `model` (rivals.py on
 the measured profile: direction order, split threshold, feeding style) or `rough` (hunter or walker stands in).
 A cell that is not in `MODELS` is played by hunter as `rough`, with a warning; `--models` adds models.
 The rule statistics and fingerprints printed as "real" are our pull 2 measurements, whatever pulls are re-played. Reported: freeze ticks, matches frozen by t500, same winner,
-Sprint wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
+Avarice wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
 two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is feed 2 + the target's own rest 1 (Rules p.1-2; docs re-review 2026-11-08). The model is not tuned to fit.
 
-Smoke result (2 matches, 98844 and 99388; not a sample): Sprint's growth matches closely (t50 242/243,
+Smoke result (2 matches, 98844 and 99388; not a sample): Avarice's growth matches closely (t50 242/243,
 t100 850/849, t200 1884/1874 real/sim). Fed-once receivers end +3 in 83% of sim cases (real: 73% of
 the +3/+2/+0 cases) with no feed bonus, because a fed cell that rests also gains its own +1. The sim's
 no-event +1 share is 26% vs 8% real (the sim counts REST as no event; whether replays log a rest event
@@ -192,7 +192,7 @@ first, split, none) for comparing with the sim.
 
 ### Calibration log
 Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze
-median sim vs real, f500 = frozen by t500, Sp = Sprint wins.
+median sim vs real, f500 = frozen by t500, Sp = Avarice wins.
 
 ## Assumptions (docs silent or unverified)
 
@@ -267,13 +267,13 @@ left) always died first. Always rotate slots when comparing policies.
   gave interior 11/14/17). Fingerprints now fit (interior t500 13-15 vs 9-19 real, front 16-30). FIT sw 3/7, 16/24;
   fz 2426 vs 2106; Sp 8/12; 37/63 checks. TEST sw 1/5, 7/12; fz 2684 vs 1810; Sp 2/5 vs 3/5; 46/62. Winners worse
   than baseline: thin pumps still hold land (Brawler t1000 1733 vs 16 real) and both Atoms collapse late
-  (AtomPush end 1 vs 1370), so Sprint's late growth is short (t1000 1840 vs 2426).
-- it2, AtomPush and AtomCrasher `split_after=2` (refill a hole in 17 < Sprint's 19-23; mining: Atoms take 99% of
-  contested holes from Sprint). FIT sw 3/7, 16/24; fz 2807 vs 2106; Sp 7/12; 42/63 checks (it1 37). AtomPush front
-  t500 23.5 vs 22 real (it1 29); AtomCrasher now holds too much (end 2752 vs 1664). Sprint late growth still short.
+  (AtomPush end 1 vs 1370), so Avarice's late growth is short (t1000 1840 vs 2426).
+- it2, AtomPush and AtomCrasher `split_after=2` (refill a hole in 17 < Avarice's 19-23; mining: Atoms take 99% of
+  contested holes from Avarice). FIT sw 3/7, 16/24; fz 2807 vs 2106; Sp 7/12; 42/63 checks (it1 37). AtomPush front
+  t500 23.5 vs 22 real (it1 29); AtomCrasher now holds too much (end 2752 vs 1664). Avarice late growth still short.
 - it3, pumps `target=richest,pump_min=8` (uphill to the front instead of poorest). FIT sw 4/7, 17/24; fz 2276 vs
   2106 (pass); Sp 8/12; 44/63 checks. Interior 18 vs 9-13 real (pump colony E200 17-18 vs 10, just outside +-6),
-  pump f/eat 14-27 vs 18-59; Sprint t500 1699 vs 2504.
+  pump f/eat 14-27 vs 18-59; Avarice t500 1699 vs 2504.
 - it4, pumps `pump_min=5` (feed whenever boxed in). FIT sw 3/7, 16/24; fz 2212 vs 2106; Sp 7/12; 49/63 checks.
   Interior t500 15-17 vs 9-19. Still: pumps hold land after t500 (Noob+ t1000 1606 vs 2, Brawler 915 vs 11).
 - it5 (reverted), Atoms `donor_min=50` (+ AtomCrasher `assist_min=20`): f/eat 32/23 vs 17/7, fed +3 share fell
@@ -282,22 +282,22 @@ left) always died first. Always rotate slots when comparing policies.
   29/63 checks. Same winners as it4 (16/24, Sp 7/12): winners barely react to the pump economy.
 - Final (it4 models), full 36 (`out/final-it4.txt`, not committed): all sw 26/36, no-rough 6/12; fz 2272 vs 2061;
   f500 1 vs 2; Sp 10/17 vs 15/17 (baseline 26/36, 6/12, 2617, 13/17). TEST 47/62 checks: pass winner(all) 10/12,
-  Sprint wins 3/5, Sprint pops, fed +3 77%; fail winner(no rough) 3/5, freeze 2302 vs 1810, f/eat of Aegis,
-  AtomCrasher, Bouncer, Brawler, Brawler v2, Noob++, some t200 pops. FIT 49/63; fails Sprint wins 7/12 and
-  Sprint t500/t1000 pops. Stopped (it5, it6 no gain). Blocker: thin pump colonies keep their land after t500
+  Avarice wins 3/5, Avarice pops, fed +3 77%; fail winner(no rough) 3/5, freeze 2302 vs 1810, f/eat of Aegis,
+  AtomCrasher, Bouncer, Brawler, Brawler v2, Noob++, some t200 pops. FIT 49/63; fails Avarice wins 7/12 and
+  Avarice t500/t1000 pops. Stopped (it5, it6 no gain). Blocker: thin pump colonies keep their land after t500
   (sim Brawler/Noob+ t1000 900-1600 vs 2-16 real) whatever their economy, so the fight/refill model, not the
-  feeding, is what is off; do not trust the sim for Sprint-vs-pump outcomes or late-game land. (Later: `replay_check.py` found no engine rule error, so this gap is in the rival models; see architecture/simulator.md.)
+  feeding, is what is off; do not trust the sim for Avarice-vs-pump outcomes or late-game land. (Later: `replay_check.py` found no engine rule error, so this gap is in the rival models; see architecture/simulator.md.)
 - 2026-11-08 treadmill pass (`treadmill.py`, outputs `out/treadmill-{fit,test}-*.txt`, not committed). Measured first: the
   engine matches the rules (no cell acts after being bitten in 562k real turns of 98964; refills only next tick), so
   the gap is in the rival models. Evidence: (a) match-page avg insns: Noob++ 73-90, rooby 58-79, Aegis 32-35 vs the
-  models' ~20-24 (Sprint 19 (21/23), Hunter, Medic, Walker match exactly, so the column is reliable); (b) contested
-  refills (FIT, real / sim): Sprint vs Noob++ 77 / 50%, Aegis vs rooby 81-97 / 38-46%; (c) real birth order
-  (`tools/pull2/birth_order.py`, t >= 300): Brawler, Brawler v2, Bouncer and the Atoms split before Sprint in 100% of
+  models' ~20-24 (Avarice 19 (21/23), Hunter, Medic, Walker match exactly, so the column is reliable); (b) contested
+  refills (FIT, real / sim): Avarice vs Noob++ 77 / 50%, Aegis vs rooby 81-97 / 38-46%; (c) real birth order
+  (`tools/pull2/birth_order.py`, t >= 300): Brawler, Brawler v2, Bouncer and the Atoms split before Avarice in 100% of
   shared ticks, Noob+ / Aegis / rooby / Noob++ after it in 94-100%.
   pad1 (non-bite pad: Noob++ 66, rooby 56, Aegis 12): FIT 49/63. pad3 (also slow-direction bites:
   `pad_bites_from` 1 / 2 / 1): FIT 46/63, TEST 49/62 (base TEST 47/62); land t500->end now right for Noob++,
-  Aegis, rooby (-1.00 like real), contested shares vs Sprint match (Noob++ 74-79 vs 77-78%). pad2 / pad4 (pad3 +
-  pump `split_after` 2 / 3 from (c)): FIT 48 / 47; overshoot (Sprint vs Brawler contested 31-35% vs real 43-57%).
+  Aegis, rooby (-1.00 like real), contested shares vs Avarice match (Noob++ 74-79 vs 77-78%). pad2 / pad4 (pad3 +
+  pump `split_after` 2 / 3 from (c)): FIT 48 / 47; overshoot (Avarice vs Brawler contested 31-35% vs real 43-57%).
   Not adopted then (FIT does not improve; defaults unchanged). Later adopted on the 63-match FIT set (ee6f4ab). Still off: Noob+ and Brawler v2 keep land (t500->end
   +0.06 / +0.85 vs -1.00 / -0.49 FIT), front deaths per tick of thin pumps about half of real early (Brawler 3.5 vs
   6.7, Noob+ 0.8 vs 3.7), Atom f/eat 2-6x. Candidate (pad3, `--models`): Noob++ = Noob+ spec + `pad=66,pad_bites_from=1`; rooby = its spec +

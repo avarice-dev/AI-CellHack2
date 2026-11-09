@@ -6,11 +6,11 @@ CellHack2 is an online game in which players write small x86-64 assembly program
 
 ## Cell names
 
-The cells are named after Necroid ship classes from the game Stellaris. The first ladder cell, Sprint, and the calibration probes are the exceptions. Each cell that has played on the ladder:
+The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. Each cell that has played on the ladder:
 
 | Cell | Why the name fits |
 |---|---|
-| Sprint | Not a Necroid name. It runs for land: it eats greedily and never feeds. |
+| Avarice | It keeps everything for itself: it eats greedily and never feeds a friend. |
 | Covetous | It wants what its neighbours have: a fast bite in every direction. |
 | Scourge | It devastates and takes over: it refills the squares that fights free. |
 | Contagion | It spreads fast: extra rules help the early land grab. |

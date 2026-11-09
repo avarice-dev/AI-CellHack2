@@ -32,13 +32,13 @@ The count includes every executed instruction, taken jumps and the final `ret` (
 
 | Path | Instructions | Cell |
 |---|---|---|
-| Bite, every direction | 6 | Sprint |
+| Bite, every direction | 6 | Avarice |
 | Bite, every direction, no memory (a miss costs the same) | 5 | Covetous, Scourge, Contagion, Complacency |
 | Refill, or split at energy 16 or more | 11 | Scourge, Complacency |
 | Split at energy 5 to 15 | 24 or 25 (hold: rest at 27) | Scourge |
 | Split at energy 5 to 15, never hold | 16 | Complacency, Schism |
 | Boxed feed to a friend with an empty neighbour | 32 to 48 | Schism |
-| Split path | 19 to 21 | Sprint |
+| Split path | 19 to 21 | Avarice |
 
 ## The checker
 
@@ -95,7 +95,7 @@ The batch sets and the accuracy limits are in [simulator.md](simulator.md).
 
 ```mermaid
 flowchart LR
-    S["Sprint"] --> C["Covetous"] --> SC["Scourge"] --> CO["Contagion"]
+    S["Avarice"] --> C["Covetous"] --> SC["Scourge"] --> CO["Contagion"]
     SC --> CP["Complacency"]
     CP --> SM["Schism"]
     SC -.-> W["Woe (VEX, not submitted)"]
@@ -103,7 +103,7 @@ flowchart LR
 
 | Cell | Bet | What it does | What it taught |
 |---|---|---|---|
-| Sprint (site cell 149) | None: the first ladder cell. | Bites in 6 in every direction. Eats greedily. Never feeds. | Lost races for freed squares to the Atom cells: won 0.5% of 27,339 races against AtomPush and 3.6% of 6,915 against AtomCrasher. Median refill child 25 energy; Atom cells 6. |
+| Avarice (site cell 149; named Sprint until 2026-11-08, and code and stored match data keep that name) | None: the first ladder cell. | Bites in 6 in every direction. Eats greedily. Never feeds. | Lost races for freed squares to the Atom cells: won 0.5% of 27,339 races against AtomPush and 3.6% of 6,915 against AtomCrasher. Median refill child 25 energy; Atom cells 6. |
 | Covetous (155) | A faster bite is enough. | Bites in 5, no memory. Feeds from capped cells. Prey hold. | 60.4% wins in its first 217 games. |
 | Scourge (156) | Kills convert into land. | Covetous, plus a refill gate (11 instructions, child at least 6 energy), plus feeding from 16. | Won 74 of its newest 100 games. Refilled 98% of the squares rivals ate from it. Lost the early land grab. |
 | Contagion (157) | The grab decides. | Scourge, plus a grab assist, scouts, and feeding from 12. | 70 of its first 95 games won (74%). Ahead early, behind at t75 to t200. Scouts barely used, about 6 moves per replay. |
@@ -113,7 +113,7 @@ flowchart LR
 
 ### Ladder status
 
-Current ladder cells: **Complacency, Contagion and Schism**. Sprint, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`, the only home of these figures.
+Current ladder cells: **Complacency, Contagion and Schism**. Avarice, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`, the only home of these figures.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
