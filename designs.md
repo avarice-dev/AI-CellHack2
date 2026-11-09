@@ -523,8 +523,7 @@ This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E
 - Risk: slower refill loses races.
 - Slot: replaces Complacency after the gate.
 
-### 11.3 Dogma (climber; third)
-The name was used by an earlier design that section 6 retired. This is a new design.
+### 11.3 Famine (climber; third)
 - Base: Contagion generator. Grab assist: floor 8 to 6; remove the target limit (e <= 4).
 - Paths: contested paths do not change [R].
 - Benefit: w+f6x against w+f6x4: t100 1081/1000, 512 at 62.5/64.5 [M, Complacency base]. Contagion real: 34/72.
@@ -532,7 +531,7 @@ The name was used by an earlier design that section 6 retired. This is a new des
 - Slot: replaces Contagion after the gate.
 
 ### 11.4 Gate
-Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Dogma.
+Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
 
 ### 11.5 Steps
 Agent: build, tests, `check_cells`, Unicorn counts. User (results in `data/site-observations-2026-11-08.md`):

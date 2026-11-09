@@ -119,7 +119,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Dogma) and their order is in `designs.md` 11. Schism is on the ladder; the gate in `designs.md` 11.4 decides the next step. Pestilence and Dogma are not built.
+The plan for the next cells (Schism, Pestilence, Famine) and their order is in `designs.md` 11. Schism is on the ladder; the gate in `designs.md` 11.4 decides the next step. Pestilence and Famine are not built.
 
 ## Related documents
 

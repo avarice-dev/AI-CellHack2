@@ -16,6 +16,12 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 | Contagion | It spreads fast: extra rules help the early land grab. |
 | Complacency | It stops worrying about nearby enemies: it splits even with one in view. |
 | Schism | It divides: inner cells feed the edge so that the colony splits outward sooner. |
+nPlanned cells (`designs.md` 11):
+
+| Cell | Why the name fits |
+|---|---|
+| Pestilence | It travels through the battle: a strong cell moves into each freed square and carries its energy to the front, as a plague moves with its host. |
+| Famine | It spends energy on growth until the colony runs thin, which is also its main risk. |
 
 ## Documents
 
