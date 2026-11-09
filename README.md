@@ -6,23 +6,20 @@ CellHack2 is an online game in which players write small x86-64 assembly program
 
 ## Cell names
 
-The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. Each cell that has played on the ladder:
+The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. The table covers each cell that has played on the ladder, and the planned cells.
 
-| Cell | How it plays |
-|---|---|
-| Avarice | Hoards energy: eats greedily and never feeds other cells. |
-| Covetous | Goes after its neighbours, with a fast bite in every direction. |
-| Scourge | Kills and occupies: refills the squares freed in fights. |
-| Contagion | Spreads quickly, with extra rules for the early land grab. |
-| Complacency | Ignores nearby enemies and keeps splitting. |
-| Schism | Splits outward quickly, with inner cells feeding the edge. |
+| Cell | How it plays | Peak place | Peak rating | Latest or final place | Latest or final rating |
+|---|---|---|---|---|---|
+| Avarice | Hoards energy: eats greedily and never feeds other cells. | 9th* | 1355* | 9th (retired) | 1191 |
+| Covetous | Goes after its neighbours, with a fast bite in every direction. | 4th* | 1526* | 7th (retired) | 1392 |
+| Scourge | Kills and occupies: refills the squares freed in fights. | 1st | 1649 | 2nd (retired) | 1507 |
+| Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1608 | 1st | 1581 |
+| Complacency | Ignores nearby enemies and keeps splitting. | 2nd* | 1592* | 3rd | 1511 |
+| Schism | Splits outward quickly, with inner cells feeding the edge. | 2nd* | 1538* | 2nd | 1538 |
+| Pestilence | Moves strong cells into freed squares, carrying energy to the front. | Planned | Planned | Planned | Planned |
+| Famine | Spends energy on growth until the colony runs thin. | Planned | Planned | Planned | Planned |
 
-Planned cells (`designs.md` 11):
-
-| Cell | How it plays |
-|---|---|
-| Pestilence | Moves strong cells into freed squares, carrying energy to the front. |
-| Famine | Spends energy on growth until the colony runs thin. |
+Ladder snapshot: 2026-11-08 22:42 UTC-06. Schism had 31 games at that time, so its rating is still settling. Pestilence and Famine are planned and have not been built. Retired cells show their last observed place and final rating. Places count active cells only. An asterisk (*) means the true peak is unknown: the site does not publish peaks, so the value is the best one recorded in this project's checks and match data. The true peak may be higher.
 
 ## Documents
 
