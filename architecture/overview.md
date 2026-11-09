@@ -1,6 +1,6 @@
 # CellHack2: project overview
 
-This is the starting point for the project. It explains the game, the goal, the parts of the project, how the work is done, and where to read next. Each part has its own document in this folder.
+This document explains the game, the goal, the parts of the project and where to read next. Each part has its own document in this folder.
 
 ## What CellHack2 is
 
@@ -30,15 +30,15 @@ These terms are used the same way in every document in this folder.
 | Colony | All the cells that one player has in one match. A match has up to four colonies. |
 | Tick | One round of the game. A match has up to 3000 ticks. |
 | Instruction count | How many machine instructions a cell runs on one turn. Fewer instructions means an earlier turn. |
-| Energy | A number that each cell holds. It starts at 10. At the end of each tick (the Tidy step), energy above 50 is cut back to 50, so a cell can hold more than 50 for part of a tick. |
-| Rest | An action that gives the cell +1 energy. Resting is the only income. |
+| Energy | A number that each cell holds. A colony's first cell starts at 10. At the end of each tick (the Tidy step), energy above 50 is cut back to 50, so a cell can hold more than 50 for part of a tick. |
+| Rest | An action that gives the cell +1 energy. It is the only source of new energy. |
 | Eat | An action that takes up to 2 energy from an adjacent cell. |
 | Bite | An eat aimed at an adjacent enemy cell. Only the four neighbours that share an edge count. |
 | Stun | A bitten cell that has not had its turn yet in that tick loses that turn. |
 | Split | An action that makes a child cell on an empty adjacent square. It needs at least 5 energy. The child gets half the energy, rounded down. The parent keeps the rest. |
 | Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). There is no feed bonus. |
 | Refill | A birth or move onto a square that a death freed. The Rules say such a square cannot be entered until the next tick (a square freed by a move can be entered in the same tick). The replays agree: no refill came in the same tick as its death, and most came one tick later. |
-| Prey hold | A rule in Covetous, Scourge and Contagion. Complacency and Schism drop it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
+| Prey hold | A rule in Covetous, Scourge and Contagion. Complacency and Schism drop it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. In Scourge and Contagion, a refill at 12 energy or more still splits. |
 | Bet | The one main idea that a cell tests. |
 | Ladder | The public ranked list. Cells on it play real matches and have a rating. |
 | Sandbox | The site's test area. It runs saved cells against up to three opponents on a 16 by 16 board for 500 ticks. Nothing in it changes the ladder. |
@@ -47,6 +47,16 @@ These terms are used the same way in every document in this folder.
 | Pull | One round of data collection from the site. See [data-pulls.md](data-pulls.md). |
 | Replay | The full record of one match, saved as a file. It lists every birth, move, death, eat and feed. |
 | FIT and TEST | Two sets of replayed matches used to check the simulator. FIT is used for tuning. TEST is held back for judging. Sizes and results are in [simulator.md](simulator.md). |
+| t*N* (t100) | Tick *N*. "128/512 at t31/t63" means 128 cells at tick 31 and 512 at tick 63. |
+| Grab | The early race for empty squares, before colonies meet. |
+| Front, interior | A front cell has an enemy on a side. An interior cell does not. |
+| Freeze tick | The earliest tick after which every colony stays within 5% of its population at that tick. |
+| Atom cells | The rival cells AtomPush and AtomCrasher. |
+| Rival model | A simulator policy that imitates another player's cell. |
+| Pump | A feeding style: interior cells pass energy to richer friends, toward the front. `rpump` models it. |
+| Feeds per eat (f/eat) | A colony's feeds divided by its eats of enemies. |
+| Pad, pad3 | `pad=N` adds *N* instructions to a rival model, to match a slow rival. pad3 also adds them to its slow-direction bites. |
+| F5 | The project's bite: 5 instructions in every direction, with no memory. |
 
 ## How the parts connect
 
@@ -73,12 +83,10 @@ The steps run in this order:
 7. **Sandbox.** A saved cell plays test matches on the site. Nothing changes on the ladder.
 8. **Ladder.** A cell goes on the ladder only with the project owner's approval.
 
-The loop runs in both directions. Ladder results and new replays feed the next analysis, so each new set of cells starts from the newest facts. Cells and their history are covered in [cells-and-experiments.md](cells-and-experiments.md).
+Ladder results and new replays feed the next analysis. Cells and their history are covered in [cells-and-experiments.md](cells-and-experiments.md).
 
 ## How the work is done
 
-- **AI-assisted.** The cells, scripts and documents were written with Claude, an AI assistant.
-- **One bet per cell.** Each cell tests one idea. Results can then be traced to that idea.
 - **Calibration probes.** Before a design relies on a game fact, a small probe cell tests it on the site. For example, probes showed that a `ret` counts as one instruction.
 - **Facts and assumptions are kept apart.** The design notes mark each fact as verified on the site or in every replay. Anything else is an assumption or an open question.
 - **Careful use of the site.** Data is fetched slowly. Ladder changes need the owner's approval.
@@ -86,7 +94,7 @@ The loop runs in both directions. Ladder results and new replays feed the next a
 ## Where to start reading
 
 1. This document, for the glossary and the parts.
-2. `designs.md`, section 1 (the facts the design rests on), section 3 (the cells) and section 10 (current state and plan).
+2. `designs.md`, section 1 (the facts the design rests on), section 3 (the cells), section 10 (state after pull 5) and section 11 (current plan).
 3. [cells-and-experiments.md](cells-and-experiments.md), for how cells are built and checked, and what each cell tried.
 4. [simulator.md](simulator.md), for how the simulator works and how far to trust it.
 5. [data-pulls.md](data-pulls.md), for where the game data comes from and how it is stored.
