@@ -108,7 +108,7 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/pull2/late.py` | Finds the largest population changes after tick 500, and the freeze tick of each match. |
 | `tools/pull2/sec8.py` | Builds the table of matches chosen for study and why. |
 
-**Old paths.** The dated write-ups use older paths, such as `tools/pull2/mine.py`, `tools/pull3/tab.py`, `tools/pull4/games.py` and `tools/valtab.py`. These files still exist. Each runs its `tools/replay/` tool with the defaults it had then, and they accept `CH_PULL`. Use `tools/replay/` for new work.
+**Old paths.** The dated write-ups use older paths, such as `tools/pull2/mine.py`, `tools/pull3/tab.py`, `tools/pull4/games.py` and `tools/valtab.py`. These files still exist. Each runs its `tools/replay/` tool with the defaults it had then. `tools/pull2/mine.py`, `tools/pull2/actions.py` and `tools/valtab.py` read the pull name from `CH_PULL`. Use `tools/replay/` for new work.
 
 ## Doing your own pull
 
