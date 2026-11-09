@@ -97,7 +97,7 @@ The batch sets and the accuracy limits are in [simulator.md](simulator.md).
 flowchart LR
     S["Sprint"] --> C["Covetous"] --> SC["Scourge"] --> CO["Contagion"]
     SC --> CP["Complacency"]
-    CP --> SM["Schism (not yet on the site)"]
+    CP --> SM["Schism"]
     SC -.-> W["Woe (VEX, not submitted)"]
 ```
 
@@ -108,18 +108,18 @@ flowchart LR
 | Scourge (156) | Kills convert into land. | Covetous, plus a refill gate (11 instructions, child at least 6 energy), plus feeding from 16. | Won 74 of its newest 100 games. Refilled 98% of the squares rivals ate from it. Lost the early land grab. |
 | Contagion (157) | The grab decides. | Scourge, plus a grab assist, scouts, and feeding from 12. | 70 of its first 95 games won (74%). Ahead early, behind at t75 to t200. Scouts barely used, about 6 moves per replay. |
 | Complacency (174) | Dropping the prey hold helps. | Scourge with no prey hold (never hold). | Sandbox: 1st with 88 cells (Scourge 82), 2nd with 94 (Scourge 162), no faults. Pull 5: still trails the Atom cells in the first 35 ticks (`designs.md` 10.2). |
-| Schism (not yet on the site) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Built and checked locally only. Sandbox not run. Path counts: `designs.md` 11.1. |
+| Schism (176) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Sandbox, 3 games each against Scourge, Covetous, Contagion: places 2, 1, 2 (Complacency 2, 2, 3), 0 faults, no seed control. Path counts: `designs.md` 11.1. |
 | Woe, Conceit, Endemic | Same decisions, fewer instructions. | VEX forms of Scourge, Covetous and Contagion. | Never on the ladder. Woe died in two Sandbox games (peaks 4 and 5 cells). Broken on the site; do not submit. |
 
 ### Ladder status
 
-Current ladder cells: **Complacency and Contagion**. Sprint, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`, the only home of these figures.
+Current ladder cells: **Complacency, Contagion and Schism**. Sprint, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`, the only home of these figures.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Dogma) and their order is in `designs.md` 11. Schism is built and waits for its Sandbox run. Pestilence and Dogma are not built.
+The plan for the next cells (Schism, Pestilence, Dogma) and their order is in `designs.md` 11. Schism is on the ladder; the gate in `designs.md` 11.4 decides the next step. Pestilence and Dogma are not built.
 
 ## Related documents
 
