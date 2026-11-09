@@ -22,6 +22,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `baseline.py` | rating and win-share baselines for the winner check (no pull 5 ratings yet) |
 | `ceiling.py` | best possible winner score from extra seeds on TEST (needs a stored seed-0 run) |
 | `growth.py` | solo-colony study of split-direction rules (designs.md 10.4) |
+| `replay_check.py` | drives the engine with recorded replay actions and compares every square; `--pull <pull> [ids]` |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 
 ## Running
@@ -285,7 +286,7 @@ left) always died first. Always rotate slots when comparing policies.
   AtomCrasher, Bouncer, Brawler, Brawler v2, Noob++, some t200 pops. FIT 49/63; fails Sprint wins 7/12 and
   Sprint t500/t1000 pops. Stopped (it5, it6 no gain). Blocker: thin pump colonies keep their land after t500
   (sim Brawler/Noob+ t1000 900-1600 vs 2-16 real) whatever their economy, so the fight/refill model, not the
-  feeding, is what is off; do not trust the sim for Sprint-vs-pump outcomes or late-game land.
+  feeding, is what is off; do not trust the sim for Sprint-vs-pump outcomes or late-game land. (Later: `replay_check.py` found no engine rule error, so this gap is in the rival models; see architecture/simulator.md.)
 - 2026-11-08 treadmill pass (`treadmill.py`, outputs `out/treadmill-{fit,test}-*.txt`, not committed). Measured first: the
   engine matches the rules (no cell acts after being bitten in 562k real turns of 98964; refills only next tick), so
   the gap is in the rival models. Evidence: (a) match-page avg insns: Noob++ 73-90, rooby 58-79, Aegis 32-35 vs the

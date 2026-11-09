@@ -1,5 +1,7 @@
 # CellHack2 cell designs — round 4 (2026-11-08)
 
+The current plan is section 11. Earlier sections are history where a pointer says so.
+
 Planning only. Round 4 rests on both ladder data pulls (`data/ladder-data-2-2026-11-08.md` is the main source,
 991 matches and 36 decoded replays), the site calibrations (`data/site-observations-2026-11-08.md`), the reviewer's
 round 3 review (`reviews/r3-review.md`) and the lead's decisions on its G1-G20 (end of `reviews/decisions-r1.md`).
@@ -448,6 +450,7 @@ spread out" (section 1.2). Before t35 no rival model is involved: the simulator 
 - **SSE3** adds nothing the cells need.
 
 ### 10.4 Updated plan (replaces the follow-ups in 8.7 and 9.6)
+Section 11 replaces items 1-3 and parks items 4-5.
 Ladder: Complacency and Contagion stay. The third slot is free (Scourge retired). Ranked:
 
 1. **Schism** (new; S-M, fits K): Complacency with a growth opening, changing only the split direction. While there
@@ -497,6 +500,7 @@ real winner fills by t300; rooby dies too often. Next tuning targets when the pa
 a workers option and its seed-0 input file, which a fresh checkout lacks).
 Consequence for design work: trust the simulator for own-colony growth before contact (10.2, the Schism study), not
 for win rates against the rival field until the Atom and Noob+ models are fixed.
+Update, same day: `replay_check.py` found no engine rule error. The Atom and Noob+ models changed, but Atom feeding is still wrong. Current state: `architecture/simulator.md`.
 
 ## 11. Final cell plan (2026-11-08)
 This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E] estimate. Contact results in the simulator are not evidence.
@@ -508,7 +512,7 @@ This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E
 - Benefit: 128/512 at t31/t63, t100 pop 1110; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
 - Why this rule: with feeding on, the view split adds no tick (w+f6x 31/62.5). Memory adds nothing (a+f6 31/62). This corrects 10.2: feeding gives most of the gain, not geometry.
 - Risk: thin cells behind the front at contact. Deep cells have no target, so they stay fat [R].
-- Slot: the free slot.
+- Status: on the ladder as cell 176 since 2026-11-08 (the owner's action).
 
 ### 11.2 Pestilence (unique mechanic; second)
 - Base: the higher rated of Schism and Complacency.
@@ -532,9 +536,9 @@ Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence o
 
 ### 11.5 Steps
 Agent: build, tests, `check_cells`, Unicorn counts. User (results in `data/site-observations-2026-11-08.md`):
-1. Sandbox, same seed and opponents: Schism, then Complacency. Record tick at 128, pop t25/50/100, faults. Pass: no faults, Schism <= t33, Complacency later.
+1. Done for Schism. The Sandbox has no seed control, and 128 cells is out of reach with 4 colonies on 16x16. Three games each against Scourge, Covetous, Contagion: Schism places 2, 1, 2; Complacency 2, 2, 3; 0 faults.
 2. Sandbox, Pestilence, one game. Record move refills, same-tick backfills, faults. Backfill hits under 50%: remove change 2.
-3. Save through the form, after approval. Ratings arrive in `data/site-checks.md`.
+3. Create the cell by scripted POST (the form ladders it at once). The owner ladders it. Ratings arrive in `data/site-checks.md`.
 
 ### 11.6 Supersedes
 10.4 items 1-3, the 7.1 test. Parked: 7.2-7.7, 10.4 items 4-5.

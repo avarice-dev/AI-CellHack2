@@ -4,6 +4,21 @@ CellHack2 is an online game in which players write small x86-64 assembly program
 
 **This whole project was made with Claude, Anthropic's AI, through Claude Code. That was the point of it.** Claude wrote the cells, the generators and checkers, the simulator, the data tools, the analysis and these documents. The owner set the goals, made the decisions and approved each step, such as every change to the ladder. The project tests how far an AI agent can take a competitive programming project, from the first probe to cells at the top of the ladder.
 
+## Cell names
+
+The cells are named after Necroid ship classes from the game Stellaris. The first ladder cell, Sprint, and the calibration probes are the exceptions. Each cell that has played on the ladder:
+
+| Cell | Why the name fits |
+|---|---|
+| Sprint | Not a Necroid name. It runs for land: it eats greedily and never feeds. |
+| Covetous | It wants what its neighbours have: a fast bite in every direction. |
+| Scourge | It devastates and takes over: it refills the squares that fights free. |
+| Contagion | It spreads fast: extra rules help the early land grab. |
+| Complacency | It stops worrying about nearby enemies: it splits even with one in view. |
+| Schism | It divides: inner cells feed the edge so that the colony splits outward sooner. |
+
+## Documents
+
 Start with the architecture documents:
 
 - [Project overview](architecture/overview.md): what the game is, the goal, the glossary, and the repository layout.

@@ -38,7 +38,7 @@ These terms are used the same way in every document in this folder.
 | Split | An action that makes a child cell on an empty adjacent square. It needs at least 5 energy. The child gets half the energy, rounded down. The parent keeps the rest. |
 | Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). There is no feed bonus. |
 | Refill | A birth or move onto a square that a death freed. The Rules say such a square cannot be entered until the next tick (a square freed by a move can be entered in the same tick). The replays agree: no refill came in the same tick as its death, and most came one tick later. |
-| Prey hold | A rule in Covetous, Scourge and Contagion. Complacency drops it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
+| Prey hold | A rule in Covetous, Scourge and Contagion. Complacency and Schism drop it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. |
 | Bet | The one main idea that a cell tests. |
 | Ladder | The public ranked list. Cells on it play real matches and have a rating. |
 | Sandbox | The site's test area. It runs saved cells against up to three opponents on a 16 by 16 board for 500 ticks. Nothing in it changes the ladder. |

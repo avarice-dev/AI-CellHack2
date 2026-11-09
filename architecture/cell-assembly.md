@@ -215,7 +215,7 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 ## Open items
 
 - The refill path is 11 instructions. The only 10-instruction version uses the VEX form, which is broken on the site.
-- Schism is built and waits for its Sandbox run: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
+- Schism is on the ladder: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
 
 ## Glossary
 

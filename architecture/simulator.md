@@ -127,7 +127,7 @@ The win-share baseline is in-sample, so it is optimistic.
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
 
-Tuning is paused by the owner. Tuning targets are in `designs.md` 10.6.
+The engine needs no tuning: `replay_check.py` found no rule error. Remaining error is in the rival models. Open work: the real Atom and pump feeding rules, from per-tick replay data. Full validation has not been rerun since the model changes.
 
 ## Main assumptions
 
