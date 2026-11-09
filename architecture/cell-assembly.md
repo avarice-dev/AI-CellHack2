@@ -144,7 +144,7 @@ Scourge refilled 98% of the squares that its rivals ate from it in the ladder st
 
 ## The prey hold, and why Complacency drops it
 
-Covetous and Scourge rest instead of splitting when they have 5 to 15 energy and an enemy is anywhere in the 5x5 view, until tick 2980. This is the Scourge code:
+Covetous, Scourge and Contagion rest instead of splitting when they have 5 to 15 energy and an enemy is anywhere in the 5x5 view, until tick 2980. In Scourge and Contagion, a refill at 12 energy or more still splits. This is the Scourge code:
 
 ```nasm
 threat:
@@ -168,7 +168,7 @@ rest:
 
 The simulator sweep tested a hold that stops at tick 200, 300, 500 or never, and a hold only for a diagonal enemy. "Never" gave the highest final population in all three mixes, with equal win rates, and it is the simplest code. Head-to-head numbers on new seeds followed the start slot, not the cell.
 
-Pull 5 shows that dropping the hold did not close the grab gap. Complacency reaches 128 and 512 cells at t36 and t84. AtomPush reaches them at t29 and t63. The gap comes in the first 35 ticks, and `designs.md` 10.2 traces it to the geometry of the split direction. Schism (`designs.md` 10.4) tests this.
+Pull 5 shows that dropping the hold did not close the grab gap. Complacency reaches 128 and 512 cells at t36 and t84. AtomPush reaches them at t29 and t63. The gap comes in the first 35 ticks. `designs.md` 10.2 first traced it to the split direction. Solo growth runs (`designs.md` 11.1) corrected this: feeding gives most of the gain. Schism tests this on the ladder.
 
 ## Constraints and what was ruled out
 
@@ -195,7 +195,7 @@ Probe `s_vex_src` showed that a VEX compare reads its destination, not its first
 
 Legacy SSE instructions that read memory need an address that is a multiple of 16, so each constant has `align 16`. The view window can start at any byte, so the cells load it with `movdqu`.
 
-The cells use no loops and no stack, and they do not write to memory. Scourge and Complacency do not touch the cell memory. Contagion uses it only on its scout path. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
+The cells use no loops and no stack. Only Contagion uses the cell memory, on its scout path. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
 
 Each cell is written by `cells/gen_<name>.py`, which builds both the assembly and the tables. See [cells-and-experiments.md](cells-and-experiments.md).
 
@@ -214,7 +214,6 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 
 ## Open items
 
-- The refill path is 11 instructions. The only 10-instruction version uses the VEX form, which is broken on the site.
 - Schism is on the ladder: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
 
 ## Glossary
