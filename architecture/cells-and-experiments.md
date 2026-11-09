@@ -33,12 +33,12 @@ The count includes every executed instruction, taken jumps and the final `ret` (
 | Path | Instructions | Cell |
 |---|---|---|
 | Bite, every direction | 6 | Avarice |
-| Bite, every direction, no memory (a miss costs the same) | 5 | Covetous, Scourge, Contagion, Complacency |
-| Refill, or split at energy 16 or more | 11 | Scourge, Complacency |
+| Bite, every direction, no memory (a miss costs the same) | 5 | Covetous, Scourge, Contagion, Complacency, Schism |
+| Refill, or split at energy 16 or more | 11 | Scourge, Contagion, Complacency, Schism |
 | Split at energy 5 to 15 | 24 or 25 (hold: rest at 27) | Scourge |
 | Split at energy 5 to 15, never hold | 16 | Complacency, Schism |
 | Boxed feed to a friend with an empty neighbour | 32 to 48 | Schism |
-| Split path | 19 to 21 | Avarice |
+| Split path | 19 to 23 | Avarice |
 
 ## The checker
 
@@ -62,7 +62,7 @@ A probe is a small cell that answers one question about the game. The site's mat
 | Probe | Question | Result on the site |
 |---|---|---|
 | `a_rest` | Does `ret` count? | Yes. Average 2 (2). |
-| `b_jmp` | Does a taken jump count? | Not run. The Reference says every instruction counts. |
+| `b_jmp` | Does a taken jump count? | Not run. `e_jexit` shows that it does: `mov` and a taken `jmp` averaged 2. |
 | `c_rax_probe` | Is `rax` zero at entry? | Yes, every call. Average 4 (4), no faults. |
 | `d_rep_probe` | Does `rep stosb` count once or per byte? | Per iteration. 100 iterations gave 105. |
 | `e_jexit` | Can a call end with a jump to the exit address? | Yes. Average 2 (2); the cell grew to 50 energy. |
@@ -98,7 +98,7 @@ flowchart LR
     S["Avarice"] --> C["Covetous"] --> SC["Scourge"] --> CO["Contagion"]
     SC --> CP["Complacency"]
     CP --> SM["Schism"]
-    SC -.-> W["Woe (VEX, not submitted)"]
+    SC -.-> W["Woe (VEX form, never on the ladder)"]
 ```
 
 | Cell | Bet | What it does | What it taught |
@@ -113,7 +113,7 @@ flowchart LR
 
 ### Ladder status
 
-Current ladder cells: **Complacency, Contagion and Schism**. Avarice, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`, the only home of these figures.
+Current ladder cells: **Complacency, Contagion and Schism**. Avarice, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
