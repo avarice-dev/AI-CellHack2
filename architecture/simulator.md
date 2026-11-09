@@ -105,13 +105,13 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 
 Engine rules, checked 2026-11-08 with `replay_check.py` on 8 replays from pulls 2 to 5: about 87.8 million squares compared one tick at a time after first contact, 9 differ, none in move, split, feed or death. All 9 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 6 of about 1.74 million squares differ. No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
 
-State measured at commit 471711c, before these model changes: Atom `assist_min` and `feed_margin`, Noob+ `pad=4`. One seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
+State measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c (`designs.md` 10.6). One seed per match, real starts. Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
 
-| Set | Matches | Same winner | Checks | Rating baseline | Win-share baseline |
+| Set | Matches | Same winner (before) | Checks (before) | Rating baseline | Win-share baseline |
 |---|---|---|---|---|---|
-| TEST | 45 | 71% (32/45) | 51/63 | 49% (22/45) | 53% (24/45) |
-| TEST, pull 5 only | 24 | 62% (15/24) | 46/59 | 62% (15/24) | 58% (14/24) |
-| FIT | 90 | 70% (63/90) | 47/63 | 44% (40/90) | 59% (53/90) |
+| TEST | 45 | 71%, 32/45 (32/45) | 52/63 (51/63) | 49% (22/45) | 53% (24/45) |
+| TEST, pull 5 only | 24 | 62%, 15/24 (15/24) | Not measured (46/59) | 62% (15/24) | 58% (14/24) |
+| FIT | 90 | 72%, 65/90 (63/90) | 48/63 (47/63) | 44% (40/90) | 59% (53/90) |
 
 The win-share baseline is in-sample, so it is optimistic.
 
@@ -127,7 +127,7 @@ The win-share baseline is in-sample, so it is optimistic.
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
 
-Open work: the real Atom and pump feeding rules, from per-tick replay data. Full validation has not been rerun since the model changes.
+Open work: the real Atom and pump feeding rules, from per-tick replay data.
 
 ## Main assumptions
 
