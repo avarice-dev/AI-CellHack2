@@ -8,21 +8,21 @@ CellHack2 is an online game in which players write small x86-64 assembly program
 
 The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. Each cell that has played on the ladder:
 
-| Cell | Why the name fits |
+| Cell | How it plays |
 |---|---|
-| Avarice | It keeps everything for itself: it eats greedily and never feeds a friend. |
-| Covetous | It wants what its neighbours have: a fast bite in every direction. |
-| Scourge | It devastates and takes over: it refills the squares that fights free. |
-| Contagion | It spreads fast: extra rules help the early land grab. |
-| Complacency | It stops worrying about nearby enemies: it splits even with one in view. |
-| Schism | It divides: inner cells feed the edge so that the colony splits outward sooner. |
+| Avarice | Hoards energy: eats greedily and never feeds other cells. |
+| Covetous | Goes after its neighbours, with a fast bite in every direction. |
+| Scourge | Kills and occupies: refills the squares freed in fights. |
+| Contagion | Spreads quickly, with extra rules for the early land grab. |
+| Complacency | Ignores nearby enemies and keeps splitting. |
+| Schism | Splits outward quickly, with inner cells feeding the edge. |
 
 Planned cells (`designs.md` 11):
 
-| Cell | Why the name fits |
+| Cell | How it plays |
 |---|---|
-| Pestilence | It travels through the battle: a strong cell moves into each freed square and carries its energy to the front, as a plague moves with its host. |
-| Famine | It spends energy on growth until the colony runs thin, which is also its main risk. |
+| Pestilence | Moves strong cells into freed squares, carrying energy to the front. |
+| Famine | Spends energy on growth until the colony runs thin. |
 
 ## Documents
 
