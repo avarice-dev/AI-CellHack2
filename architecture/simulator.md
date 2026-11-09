@@ -41,6 +41,7 @@ flowchart LR
 | `baseline.py` | Rating and win-share baselines for the winner check. It has no ratings for pull 5 yet. |
 | `ceiling.py` | Estimates the best possible winner score from extra seeds on TEST. It needs a stored seed-0 run that a fresh checkout lacks. |
 | `growth.py` | Solo-colony study of split-direction rules (Schism, `designs.md` 10.4). |
+| `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. |
 | `tests/` | Unit tests. |
 
 The policy interface, engine options and full assumption list are in [sim/README.md](../sim/README.md).
@@ -101,6 +102,8 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 |---|---|---|---|
 | 2 to 4 | 63 | 42 | 21 |
 | 5 | 72 | 48 | 24 |
+
+Engine rules, checked 2026-11-08 with `replay_check.py` on 8 replays from pulls 2 to 5: about 87.8 million squares compared one tick at a time after first contact, 9 differ, none in move, split, feed or death. All 9 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 6 of about 1.74 million squares differ. No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
 
 State measured at commit 471711c, before these model changes: Atom `assist_min` and `feed_margin`. One seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
 
