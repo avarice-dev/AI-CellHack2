@@ -210,7 +210,7 @@ Passing the checker does not show that a cell works on the site, so the last che
 Contagion is Scourge with a feeding floor of 12 and two additions:
 
 - **Grab assist.** A donor with no empty neighbour and 8 or more energy feeds a poor friend with 4 or less, when that friend has room to grow and no enemy is in view.
-- **Scouts.** Cells near an edge move in a straight line from their start. They use the cell memory.
+- **Scouts.** A start cell within 10 squares of an edge splits a scout child. A scout moves along its bearing at most 10 times, and stores its origin and steps in the cell memory.
 
 ## Open items
 
