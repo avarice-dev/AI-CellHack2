@@ -60,7 +60,7 @@ A policy is a plain Python function. It takes the view and the memory, and retur
 
 Hypothetical models are for comparison only. No measured rival uses a lock.
 
-The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them.
+The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=6`, so they assist earlier and stop feeding between full cells.
 
 ## Running it
 
@@ -102,7 +102,7 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 | 2 to 4 | 63 | 42 | 21 |
 | 5 | 72 | 48 | 24 |
 
-State measured on 2026-11-08 with the default models, one seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
+State measured at commit 471711c, before these model changes: Atom `assist_min` and `feed_margin`. One seed per match, real starts (`designs.md` 10.6 has the same figures). Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
 
 | Set | Matches | Same winner | Checks | Rating baseline | Win-share baseline |
 |---|---|---|---|---|---|
@@ -117,7 +117,7 @@ The win-share baseline is in-sample, so it is optimistic.
 | Area | Trust | Evidence |
 |---|---|---|
 | Own-colony growth before contact | Good | No rival model is involved. Simulated Scourge and Complacency reach 128 cells at t37; the real range is t36-44. |
-| Atom models | Weak | Feed 4 to 5 times too much (36-38 feeds per eat against 7-9 real). Grow 25-30% too slowly to t100. |
+| Atom models | Weak | Before the change at 471711c: 36-38 feeds per eat against 7-9 real, and 25-30% too slow to t100. After it, on 8 FIT matches (real/sim medians): t100 AtomPush 941/872 (was 744), AtomCrasher 835/824 (was 774). Feeding now undershoots: 0.2-0.4 feeds per eat pooled, against 6.2 and 17.8 real pooled. `feed_margin` 2 feeds too much and 6 too little; values between are untested. |
 | Pump models | Weak | Feed about half the real amount. Hold about 6 more energy at t200. |
 | Noob+ late land | Wrong | Median final population: real 0, simulator 1821. 8 wrong winners of 135. |
 | Early-fill games | Weak | Scourge over-wins when the real winner fills the board by about t300. Winner accuracy with a real freeze at or before t600 is 10/20. |

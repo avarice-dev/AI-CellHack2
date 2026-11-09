@@ -96,7 +96,7 @@ by giving its module a `FACTORIES` (name -> factory) and/or `POLICIES` dict and 
 |---|---|---|
 | `rbrawler` | static U,L,R,D: 4/6/8/10 (measured, Brawler) | split at 5, poorest-friend feeding (e >= 6, margin 2, target <= 48) |
 | `rpump` | as rbrawler | pump: interior (e >= pump_min 16) feeds its richest friend <= 48; cells seeing an enemy hold |
-| `ratompush` | static R,L,U,D (measured, AtomPush) | split at 5, feed-assist (e >= 10 -> poor friend with an empty neighbour), capped donors (>= 48) |
+| `ratompush` | static R,L,U,D (measured, AtomPush) | split at 5, feed-assist (e >= 10 -> poor friend with an empty neighbour), capped donors (>= 48). AtomPush / AtomCrasher in `validate.py` MODELS set assist 6 / 8 and `feed_margin=6` |
 | `rblind3` | hypothetical: bites at 3 in every direction, no memory | as rbrawler |
 | `rlock5`, `rfatgrab` | hypothetical: checked lock 5 + pre-arm, F6 10 | as rbrawler / ratompush |
 | `rblindlock3` | hypothetical (the earlier rblind3): blind lock, first bite 9 then 3, never exits | as rbrawler, no pre-arm |
