@@ -61,7 +61,7 @@ A policy is a plain Python function. It takes the view and the memory, and retur
 
 Hypothetical models are for comparison only. No measured rival uses a lock.
 
-The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4`, `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=6`, so they assist earlier and stop feeding between full cells.
+The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4`, `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=4`, so they assist earlier and stop feeding between full cells.
 
 ## Running it
 
@@ -120,7 +120,7 @@ The win-share baseline is in-sample, so it is optimistic.
 | Area | Trust | Evidence |
 |---|---|---|
 | Own-colony growth before contact | Good | No rival model is involved. Simulated Scourge and Complacency reach 128 cells at t37; the real range is t36-44. |
-| Atom models | Weak | Before the change at 471711c: 36-38 feeds per eat against 7-9 real, and 25-30% too slow to t100. After it, on 8 FIT matches (real/sim medians): t100 AtomPush 941/872 (was 744), AtomCrasher 835/824 (was 774). Feeding now undershoots: 0.2-0.4 feeds per eat pooled, against 6.2 and 17.8 real pooled. `feed_margin` 2 feeds too much and 6 too little; values between are untested. |
+| Atom models | Weak | Before the change at 471711c: 36-38 feeds per eat against 7-9 real, and 25-30% too slow to t100. After it, on 8 FIT matches (real/sim medians): t100 AtomPush 941/871 (was 744), AtomCrasher 835/825 (was 774). Feeding now undershoots: pooled feeds per eat AtomPush 0.5 against 17.8 real, AtomCrasher 0.9 against 6.2 real (0.2 and 0.4 with `feed_margin=6`). `feed_margin` 2 feeds too much; 4 is the current value. |
 | Pump models | Weak | Feed about half the real amount. Hold about 6 more energy at t200. Not changed: pump cells with 5 or more energy already feed whenever boxed in, so no existing parameter raises the rate. |
 | Noob+ late land | Weak | Before the change at 471711c: median final population real 0, simulator 1821; 8 wrong winners of 135. With `pad=4` on 4 FIT matches (real / before / after): t500 560 / 1010 / 580, end 431 / 1186 / 276. Costs: t200 1121 / 1121 / 937, feeds per eat 31.1 pooled real / 14.0 / 11.3. |
 | Early-fill games | Weak | Scourge over-wins when the real winner fills the board by about t300. Winner accuracy with a real freeze at or before t600 is 10/20. |

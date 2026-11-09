@@ -52,8 +52,8 @@ MODELS = {
     'Noob+': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50,pad=4,pad_bites_from=1]', 'model'),
     'Noob++': ('rpump[order=DLRU,hold=none,target=richest,pump_min=5,pump_target_max=50,pad=66,pad_bites_from=1]',
                'model'),
-    'AtomPush': ('ratompush[split_after=2,assist_min=6,feed_margin=6]', 'model'),     # R4 L6, fat economy
-    'AtomCrasher': ('ratompush[split_after=2,assist_min=8,feed_margin=6]', 'model'),  # R4 L6, fat, feeds less
+    'AtomPush': ('ratompush[split_after=2,assist_min=6,feed_margin=4]', 'model'),     # R4 L6, fat economy
+    'AtomCrasher': ('ratompush[split_after=2,assist_min=8,feed_margin=4]', 'model'),  # R4 L6, fat, feeds less
     'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=56,pad_bites_from=2]', 'model'),  # U4 R6, no feeding
     'Noob': ('hunter', 'rough'), 'squirtle': ('hunter', 'rough'), 'gemAlert_v3': ('hunter', 'rough'),
     'gemAlert_v4': ('hunter', 'rough'), 'Bulwark': ('hunter', 'rough'),
