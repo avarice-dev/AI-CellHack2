@@ -8,6 +8,23 @@ A cell gets one turn in each tick and returns one action. A cell that runs fewer
 
 To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register, compares all 16 bytes with one instruction, and packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
 
+The diagram shows how Schism, the newest cell, chooses one action. It is simplified. The numbers are instructions run on that path.
+
+```mermaid
+flowchart TD
+    A["Cell's turn"] --> B{"Enemy next to the cell?"}
+    B -- Yes --> BITE["Bite (5)"]
+    B -- No --> C{"Empty square next to the cell?"}
+    C -- Yes --> D{"Energy at least 5?"}
+    D -- No --> REST1["Rest"]
+    D -- Yes --> SPLIT["Split: refill a freed square (11) or grow (16)"]
+    C -- No --> E{"Energy at least 6, no enemy in view, and a friend with an empty neighbour?"}
+    E -- Yes --> FEED["Feed that friend (32 to 48)"]
+    E -- No --> G{"Energy at least 16?"}
+    G -- Yes --> FEED2["Feed a friend that needs it, or rest"]
+    G -- No --> REST2["Rest"]
+```
+
 ## Why instruction count matters
 
 Within a tick, cells run in order of instruction count, lowest first. The count includes every instruction run, each taken jump and the final `ret`, the instruction that ends the call. All colonies share one pass per tick. The match seed orders equal counts, so a match with the same seed replays identically (Rules, pages 2 and 3; Reference: "The engine counts every instruction."). A probe with a `mov` and a `ret` averaged 2 instructions per call on the site.
