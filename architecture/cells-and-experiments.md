@@ -117,7 +117,7 @@ flowchart LR
 
 ### Ladder status
 
-Current ladder cells: **Complacency, Contagion and Schism**. Avarice, Covetous and Scourge are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
+Current ladder cells: **Contagion and Schism**. Complacency left the ladder on 2026-11-08, final rating 1516 after 691 games. Avarice, Covetous, Scourge and Complacency are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 

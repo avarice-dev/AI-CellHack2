@@ -521,7 +521,7 @@ This plan replaces further design rounds. A climber aims to raise the rating. Po
 - Paths: refill limit 14 [E]. Above 14, drop the change.
 - Benefit: 0% of 375k mined refills are moves [M]. Carries 20-50 energy forward; a child has 6 [R]. Ladder gain unknown.
 - Risk: slower refill loses races.
-- Slot: replaces Complacency after the gate.
+- Slot: the slot Complacency left on 2026-11-08.
 
 ### 11.3 Famine (climber; third)
 Section 7 used this name for a harvesting idea that was never built. This is a new design.
@@ -532,7 +532,7 @@ Section 7 used this name for a harvesting idea that was never built. This is a n
 - Slot: replaces Contagion after the gate.
 
 ### 11.4 Gate
-Schism at >= 300 games, rating >= Complacency. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
+Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
 
 ### 11.5 Steps
 Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `data/site-observations-2026-11-08.md`):
