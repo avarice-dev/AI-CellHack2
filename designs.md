@@ -135,13 +135,13 @@ Sprint's measures what the bite alone is worth, and it probes the rivals' "6" di
 
 **Contagion** adds the grab tools to Scourge's kernel.
 
-**Ladder slots (3):** Sprint and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
+**Ladder slots (3)** (plan at round 4; current ladder: 10.4 and `data/site-checks.md`): Sprint and Covetous now. Scourge takes the third slot. When Contagion is ready, it replaces the
 weakest of the four by then, and only after each has >= 50 games (G11). Every ladder change needs the user's approval.
 
 ---------------------------------------------------------------------------------------------------
 ## 4. Experiments (simulator; max 4 of 6 cores, below-normal priority, run as background batches)
 The simulator's rival models are being refitted to pull 2's fingerprints (pump rivals were too fat, the late
-game too slow). Trust E1-E4 only after that validation rerun.
+game too slow). Trust E1-E4 only after that validation rerun. (Current validation state: 10.6.)
 | # | Question | Setup | Changes |
 |---|---|---|---|
 | E1 | Refill race (G13) | refill R in {3, 6, 8} vs no refill, against the fat AtomPush-like rival | Scourge's R; squares gained per 100 ticks after first kill |
@@ -268,7 +268,7 @@ elsewhere but would refill there at ~30 instructions and change decisions: a sep
   the tables (Woe's bite table = Covetous's shifted one lane; act/thr = Scourge's), the paste rules and the
   instruction list. 261 tests pass.
 
-### 8.6 Sim results (indicative: the fight/refill model is weak, 47/62 calibration checks)
+### 8.6 Sim results (indicative: the fight/refill model is weak, 47/62 calibration checks on the then 36-match pool; current state: 10.6)
 `python sim/batch.py --set vex` (120 games, seeds 1-8 per mix, 4 workers, 2613 s; `sim/out/vex-20261108-092732.md`).
 Points per game (win %) over 8 games:
 
@@ -288,6 +288,7 @@ parent's (a tie, broken at random) or falls between the two; the real ladder's r
 precisely. The gain is free: same decisions, no path slower.
 
 ### 8.7 Recommendation
+(Follow-ups superseded by 10.4.)
 (Superseded by calib-s, see the note at the top of section 8: none of the three may be submitted.)
 Submit **Woe** first: it is Scourge (1st on the leaderboard) with every refill and split one instruction earlier
 and nothing slower, so it can only win ties Scourge would lose; head to head it beats Scourge 2.38 to 1.75 points.
@@ -302,7 +303,7 @@ not run on the site yet (a Sandbox game before any ladder use; no ladder change 
 ### 9.1 The bet
 Pull 3 (data/scourge-losses-2026-11-08.md): Scourge loses the land grab, not the late fights. Winners lead from about
 t21; at t200 Scourge has ~800 cells vs ~2400 for AtomPush/AtomCrasher; it reaches pop 128 / 512 at t36-44 / t81-175
-vs t28-33 / t56-82 for the winners. Suspected cause: the prey hold (5 <= e < 16 with an enemy anywhere in the 5x5:
+vs t28-33 / t56-82 for the winners. Suspected cause (10.2 later placed the deficit in the first ~35 ticks and in split geometry): the prey hold (5 <= e < 16 with an enemy anywhere in the 5x5:
 rest until t2980). Contagion's games (data/contagion-games-2026-11-08.md) point the same way: it wins the pre-contact
 race and loses t75-t200, right after first contact, still with the prey hold. **Complacency** (unconcerned by
 enemies in view; `cells/gen_complacency.py` -> `cells/complacency.asm`) is Scourge with exactly one change: no prey
@@ -366,6 +367,7 @@ reproduce Scourge's real land-grab deficit, so it cannot say how much of that de
 one Sandbox game, then the ladder (user approval).
 
 ### 9.6 Follow-ups
+(Superseded by 10.4.)
 - The same change on **Contagion** (which already has the faster opening and loses t75-t200 after first contact,
   data/contagion-games-2026-11-08.md) as a separate cell; not built here (one bet per cell).
 - Before any ladder use: one Sandbox game (scripted POST, not the form) for 0 faults and the counts (bite 5,
