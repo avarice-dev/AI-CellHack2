@@ -16,7 +16,7 @@ The game has a public ranked list called the **ladder**. Cells on the ladder pla
 
 ## What the project is for
 
-The goal is to learn what works. The project writes cells for the ladder, tests them, and studies the results. It also collects game records from the site and studies them offline.
+The goal is to learn what works, from ladder cells and from game records studied offline.
 
 Each cell tests one main idea. That idea is the cell's **bet**. Keeping one bet per cell makes the result easier to read. If the cell does well or badly, the reason should be clear.
 
@@ -75,12 +75,12 @@ flowchart LR
 The steps run in this order:
 
 1. **Site and data pulls.** Match lists, ratings and replays are fetched from the site in a logged-in browser. Offline Python tools in `tools/replay/` then decode and tabulate them. See [data-pulls.md](data-pulls.md).
-2. **Analysis.** Decoders read the replays. Tables and write-ups record what the games show.
-3. **Designs.** The design notes turn the findings into one bet for each cell. They also list the instruction count of each path.
-4. **Cell generators.** Python scripts in `cells/` write the assembly code. Lookup tables are built by code, not typed by hand.
+2. **Analysis.** Tables and write-ups record what the replays show.
+3. **Designs.** The design notes turn the findings into one bet for each cell.
+4. **Cell generators.** Python scripts in `cells/` write the assembly code and its lookup tables.
 5. **Local checker.** `cells/check_cells.py` assembles each cell, checks its rules, and compares it with a Python reference.
-6. **Simulator.** Many simulated matches test the idea before a site test. The simulator is approximate. See [simulator.md](simulator.md).
-7. **Sandbox.** A saved cell plays test matches on the site. Nothing changes on the ladder.
+6. **Simulator.** Simulated matches give an approximate first test. See [simulator.md](simulator.md).
+7. **Sandbox.** A saved cell plays test matches on the site.
 8. **Ladder.** A cell goes on the ladder only with the project owner's approval.
 
 Ladder results and new replays feed the next analysis. Cells and their history are covered in [cells-and-experiments.md](cells-and-experiments.md).
@@ -89,7 +89,6 @@ Ladder results and new replays feed the next analysis. Cells and their history a
 
 - **Calibration probes.** Before a design relies on a game fact, a small probe cell tests it on the site. For example, probes showed that a `ret` counts as one instruction.
 - **Facts and assumptions are kept apart.** The design notes mark each fact as verified on the site or in every replay. Anything else is an assumption or an open question.
-- **Careful use of the site.** Data is fetched slowly. Ladder changes need the owner's approval.
 
 ## Where to start reading
 

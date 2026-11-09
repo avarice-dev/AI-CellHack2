@@ -197,8 +197,6 @@ Legacy SSE instructions that read memory need an address that is a multiple of 1
 
 The cells use no loops and no stack. Only Contagion uses the cell memory, on its scout path. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
 
-Each cell is written by `cells/gen_<name>.py`, which builds both the assembly and the tables. See [cells-and-experiments.md](cells-and-experiments.md).
-
 ## How the cells were checked
 
 `cells/check_cells.py` runs NASM, static checks, and, with Unicorn, a comparison with the Python reference ([cells-and-experiments.md](cells-and-experiments.md) has the details). Complacency was compared on 200,512 cases with no mismatches.

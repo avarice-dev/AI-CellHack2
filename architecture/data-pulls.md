@@ -230,4 +230,3 @@ These rules apply to every request to the site.
 
 - `data/ladder-data-2-2026-11-08.md`: the main study of pull 2, with its headline findings and rival profiles.
 - `data/replay-mining-2026-11-08.md`: the refill race and resting income, from the 35 pull 2 replays.
-- [cells-and-experiments.md](cells-and-experiments.md): how these findings became cell designs.

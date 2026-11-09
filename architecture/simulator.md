@@ -142,8 +142,4 @@ The docs do not settle every rule. [sim/README.md](../sim/README.md) lists all a
 | A failed action earns no energy. | Sandbox probe `t_failed_eat` confirmed this. |
 | The order of random draws in the real engine is unknown. | Seeds do not reproduce real matches. |
 
-## Related documents
-
-- [sim/README.md](../sim/README.md): interface, options, assumptions, calibration log.
-- `designs.md`, sections 8, 9 and 10: simulator results for the later cells and the current plan.
-- [cells-and-experiments.md](cells-and-experiments.md): how the simulator fits into the cell work.
+Simulator results for the later cells are in `designs.md`, sections 8 to 10.
