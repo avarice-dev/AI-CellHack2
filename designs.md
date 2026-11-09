@@ -524,6 +524,7 @@ This plan replaces further design rounds. Labels: [M] measured, [R] reasoned, [E
 - Slot: replaces Complacency after the gate.
 
 ### 11.3 Famine (climber; third)
+Section 7 used this name for a harvesting idea that was never built. This is a new design.
 - Base: Contagion generator. Grab assist: floor 8 to 6; remove the target limit (e <= 4).
 - Paths: contested paths do not change [R].
 - Benefit: w+f6x against w+f6x4: t100 1081/1000, 512 at 62.5/64.5 [M, Complacency base]. Contagion real: 34/72.
