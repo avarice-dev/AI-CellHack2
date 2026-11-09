@@ -8,21 +8,20 @@ A cell gets one turn in each tick and returns one action. A cell that runs fewer
 
 To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register, compares all 16 bytes with one instruction, and packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
 
-The diagram shows how Schism, the newest cell, chooses one action. It is simplified. The numbers are instructions run on that path.
+The diagram shows how Schism, the newest cell, chooses one action. It is simplified. The numbers are instructions run on that path. "Edge friend" means energy at least 6, no enemy in view, and a friend with an empty neighbour.
 
 ```mermaid
-flowchart TD
-    A["Cell's turn"] --> B{"Enemy next to the cell?"}
-    B -- Yes --> BITE["Bite (5)"]
-    B -- No --> C{"Empty square next to the cell?"}
-    C -- Yes --> D{"Energy at least 5?"}
-    D -- No --> REST1["Rest"]
-    D -- Yes --> SPLIT["Split: refill a freed square (11) or grow (16)"]
-    C -- No --> E{"Energy at least 6, no enemy in view, and a friend with an empty neighbour?"}
-    E -- Yes --> FEED["Feed that friend (32 to 48)"]
-    E -- No --> G{"Energy at least 16?"}
-    G -- Yes --> FEED2["Feed a friend that needs it, or rest"]
-    G -- No --> REST2["Rest"]
+flowchart LR
+    B{"Enemy<br/>adjacent?"} -- Yes --> BITE["Bite (5)"]
+    B -- No --> C{"Empty<br/>adjacent?"}
+    C -- Yes --> D{"Energy<br/>5+?"}
+    D -- Yes --> SPLIT["Refill (11)<br/>or split (16)"]
+    D -- No --> REST["Rest"]
+    C -- No --> E{"Edge<br/>friend?"}
+    E -- Yes --> FEED["Feed it<br/>(32 to 48)"]
+    E -- No --> G{"Energy<br/>16+?"}
+    G -- Yes --> FEED2["Feed or rest"]
+    G -- No --> REST
 ```
 
 ## Why instruction count matters
