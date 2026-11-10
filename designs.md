@@ -522,6 +522,7 @@ This plan replaces further design rounds. A climber aims to raise the rating. Po
 - Benefit: 0% of 375k mined refills are moves [M]. Carries 20-50 energy forward; a child has 6 [R]. Ladder gain unknown.
 - Risk: slower refill loses races.
 - Slot: the slot Complacency left on 2026-11-08.
+- Built 2026-11-09 (`cells/gen_pestilence.py`): Schism base, change 1 only (change 2 is a turn-order guess; add it only if the Sandbox shows moves working). `cmp sil, [mv_tbl + rcx]` / `jae move` before gate 1 loads its action: the move refill takes 13; every other path after the bite costs 2 more than Schism's (split 13). A check after gate 1 would cost 15, because gate 1 leaves through the return address. Binary 24,410 bytes. `check_cells`: 100,256 Unicorn cases and 524,288 boxed cases, 0 mismatches.
 
 ### 11.3 Famine (climber; third)
 Section 7 used this name for a harvesting idea that was never built. This is a new design.

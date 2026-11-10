@@ -562,7 +562,7 @@ def vex_selftest():
               '%d instructions: ok' % (act, n))
 
 
-def diff_schism(blob):
+def diff_schism(blob, policy=None):
     """Schism vs sim/cells_ref.schism on boxed views (friend / wall neighbours): every empty / friend pattern of the
     8 squares around the neighbours x enemy placement x energies x friend energies.  diff_scourge covers the rest."""
     import cells_ref
@@ -587,7 +587,7 @@ def diff_schism(blob):
                             cells[i] = 2
                         v = V()
                         v.cells, v.energy, v.tick, v.energies = cells, energy, 500, ens
-                        want = cells_ref.schism(v, bytearray(64))[:2]
+                        want = (policy or cells_ref.schism)(v, bytearray(64))[:2]
                         got = r.call(view_bytes(500, energy, cells, ens), energy)
                         n += 1
                         nfeed += want[0] != cells_ref.complacency(v, bytearray(64))[0]
@@ -654,6 +654,19 @@ def main():
             if have_uc:
                 diff_scourge(blob, name, (0, 2980), cells_ref.schism)
                 diff_schism(blob)
+        elif name == 'pestilence':
+            import gen_pestilence
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if open(p).read() != gen_pestilence.generate():
+                fail('pestilence.asm differs from gen_pestilence.generate()')
+            mt = blob[syms['mv_tbl'] - CODE_BASE:syms['mv_tbl_end'] - CODE_BASE]
+            want = gen_pestilence.move_table()
+            if len(mt) != gen_pestilence.S.N_REFILL or any(mt[m] != want.get(m, 255) for m in range(len(mt))):
+                fail('pestilence mv_tbl differs from gen_pestilence.move_table()')
+            if have_uc:
+                diff_scourge(blob, name, (0, 2980), cells_ref.pestilence)
+                diff_schism(blob, cells_ref.pestilence)   # boxed paths: Schism's + 2
         elif kind == 'contagion':
             check_contagion(blob, syms, lst, vex)
             if have_uc:
