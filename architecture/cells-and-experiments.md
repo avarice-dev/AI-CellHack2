@@ -101,7 +101,7 @@ flowchart LR
     SC -.-> W["Woe (VEX form, never on the ladder)"]
     C -.-> CN["Conceit (VEX form, never on the ladder)"]
     CO -.-> E["Endemic (VEX form, never on the ladder)"]
-    SM --> P["Pestilence (built, Sandbox only)"]
+    SM --> P["Pestilence"]
     SM -.-> B["Bane (planned)"]
 ```
 
@@ -113,17 +113,18 @@ flowchart LR
 | Contagion (157) | The grab decides. | Scourge, plus a grab assist, scouts, and feeding from 12. | 70 of its first 95 games won (74%). Ahead early, behind at t75 to t200. Scouts barely used, about 6 moves per replay. |
 | Complacency (174) | Dropping the prey hold helps. | Scourge with no prey hold (never hold). | Sandbox: 1st with 88 cells (Scourge 82), 2nd with 94 (Scourge 162), no faults. Pull 5: still trails the Atom cells in the first 35 ticks (`designs.md` 10.2). |
 | Schism (176) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Sandbox, 3 games each against Scourge, Covetous, Contagion: places 2, 1, 2 (Complacency 2, 2, 3), 0 faults, no seed control. Path counts: `designs.md` 11.1. |
+| Pestilence (180) | Moving strong cells forward beats splitting a weak child. | Schism, plus: on the refill path with energy at least 20, move into the freed square instead of splitting (`designs.md` 11.2, change 1 only). | Sandbox 2nd, 0 faults. Ladder: 2nd with 1576 after 377 games (2026-11-10), average place 1.24 against Schism's 1.23. |
 | Woe, Conceit, Endemic | Same decisions, fewer instructions. | VEX forms of Scourge, Covetous and Contagion. | Never on the ladder. Woe died in two Sandbox games (peaks 4 and 5 cells). Broken on the site; do not submit. |
 
 ### Ladder status
 
-Current ladder cells: **Contagion and Schism**. Complacency left the ladder on 2026-11-08, final rating 1516 after 691 games. Avarice, Covetous, Scourge and Complacency are retired. Scourge's final figure is 1507 after 600 games. Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
+Current ladder cells: **Schism and Pestilence**. Avarice, Covetous, Scourge, Complacency and Contagion are retired. Final figures: Scourge 1507 after 600 games, Complacency 1516 after 691 (left 2026-11-08), Contagion 1616 after 2145 (left 2026-11-09). Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence is built (cell 180) and has played only in the Sandbox. Bane is not built yet. The contact-phase study found that our fights are even and that the gap is opening growth, so Bane feeds more and earlier toward the edge in the opening, tuned with `sim/growth.py`.
+The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence (cell 180) is 2nd on the ladder. Bane is not built yet. The contact-phase study found that our fights are even and that the gap is opening growth, so Bane feeds more and earlier toward the edge in the opening, tuned with `sim/growth.py`.
 
 ## Related documents
 
