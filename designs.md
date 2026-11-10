@@ -531,6 +531,10 @@ The name is reused: section 7's Bane (notch traps) was never built. Famine (11.3
 - Design input, after the 2026-11-12 reset: (1) the contact-phase study on the overnight replay tables (`sim/out/overnight/` 06/07: birth order and actions t75-t200) to find what the cells that beat us do differently; (2) the real Atom and pump feeding rules from the same replays, so the rival models can be trusted in fights; (3) simulator runs at full capacity once (2) is in.
 - Rule: no design before (1). Measure growth loss against Schism (solo t100, 512 tick) for every combat change.
 - Slot: the slot Contagion left on 2026-11-09.
+- Study so far (2026-11-09, replays of pulls 3-5, `tools/replay/` scripts; real data, no rival model):
+  - Not the cause: turn order (after t75 we act before the top rivals in 73-90% of ticks); bite rate (Contagion 66% of front ticks, AtomPush 61%); target choice (about 50% poorest for every cell); front energy and feeding to the front (t200-600: Contagion 33.1 energy, 23.4 feeds per tick; AtomPush 29.7, 25.3); focus fire (we focus more); retaking freed squares (we retake 96-97% of our own, Atom 81-86%).
+  - The gap is early growth. Real medians, population at t50 / t100 / t200: AtomPush 348 / 967 / 1528, AtomCrasher 292 / 865 / 1513, Contagion 279 / 745 / 1401, Complacency 239 / 664 / 1213. Atom is 25-30% ahead before contact. Fights then hold the border where it formed, which looks like "no push back".
+  - Direction: match Atom's early growth (t0-100) and keep our contact play. Next measure: how AtomPush grows in t0-75 (split parent energy, feeds, rests).
 
 ### 11.4 Gate
 Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism; Pestilence on the Complacency base takes its slot.
