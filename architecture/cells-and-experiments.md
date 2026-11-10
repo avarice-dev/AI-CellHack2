@@ -101,8 +101,8 @@ flowchart LR
     SC -.-> W["Woe (VEX form, never on the ladder)"]
     C -.-> CN["Conceit (VEX form, never on the ladder)"]
     CO -.-> E["Endemic (VEX form, never on the ladder)"]
-    SM -.-> P["Pestilence (planned)"]
-    CO -.-> F["Famine (planned)"]
+    SM --> P["Pestilence (built, Sandbox only)"]
+    SM -.-> B["Bane (planned)"]
 ```
 
 | Cell | Bet | What it does | What it taught |
@@ -123,7 +123,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Famine) and their order is in `designs.md` 11. Schism is on the ladder; the gate in `designs.md` 11.4 decides the next step. Pestilence and Famine are not built.
+The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence is built (cell 180) and has played only in the Sandbox. Bane, the combat cell, is not designed yet: it waits for the contact-phase study.
 
 ## Related documents
 

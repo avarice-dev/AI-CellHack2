@@ -469,7 +469,7 @@ Ladder: Complacency and Contagion stay. The third slot is free (Scourge retired)
 4. **Conviction light** (7.2): a queued refill after the F5 miss, only if the refill race shows up again as a cause
    of lost games. Pull 5 shows grab losses, not race losses.
 5. **Anxiety, Abasement, Misfortune** (7.3-7.5): unchanged, lower value than 1-2.
-Retired: the VEX variants (section 8); Doctrine (feeding depth is item 2 now); Famine and Bane (as in 7).
+Retired: the VEX variants (section 8); Doctrine (feeding depth is item 2 now); Famine and Bane (as in 7; both names were reused in 11.3).
 
 ### 10.5 Fresh-start design (if the project started over today)
 1. **Growth curve first.** Write the opening for the shape of the colony, measured against the best real curve
@@ -524,16 +524,16 @@ This plan replaces further design rounds. A climber aims to raise the rating. Po
 - Slot: the slot Complacency left on 2026-11-08.
 - Built 2026-11-09 (`cells/gen_pestilence.py`): Schism base, change 1 only (change 2 is a turn-order guess; add it only if the Sandbox shows moves working). `cmp sil, [mv_tbl + rcx]` / `jae move` before gate 1 loads its action: the move refill takes 13; every other path after the bite costs 2 more than Schism's (split 13). A check after gate 1 would cost 15, because gate 1 leaves through the return address. Binary 24,410 bytes. `check_cells`: 100,256 Unicorn cases and 524,288 boxed cases, 0 mismatches.
 
-### 11.3 Famine (climber; third)
-Section 7 used this name for a harvesting idea that was never built. This is a new design.
-- Base: Contagion generator. Grab assist: floor 8 to 6; remove the target limit (e <= 4).
-- Paths: contested paths do not change [R].
-- Benefit: w+f6x against w+f6x4: t100 1081/1000, 512 at 62.5/64.5 [M, Complacency base]. Contagion real: 34/72.
-- Risk: no solo data on this base. Section 6 rejected deep feeding (D ~ 6) for a losing economy in pull 2; the evidence here is solo growth only.
-- Slot: replaces Contagion after the gate.
+### 11.3 Bane (combat climber; third; replaces Famine 2026-11-09)
+The name is reused: section 7's Bane (notch traps) was never built. Famine (11.3 before 2026-11-09, Contagion with deeper grab feeding) is dropped: it changed only growth, and the ladder shows our cells lose the contact phase.
+- Goal: the best possible cell. Win the t75-t200 contact phase (push back, hold ground) without giving up much growth. Growth before contact stays Schism's unless a change pays for itself.
+- Base: Schism, or Pestilence if its moves show a gain on the ladder.
+- Design input, after the 2026-11-12 reset: (1) the contact-phase study on the overnight replay tables (`sim/out/overnight/` 06/07: birth order and actions t75-t200) to find what the cells that beat us do differently; (2) the real Atom and pump feeding rules from the same replays, so the rival models can be trusted in fights; (3) simulator runs at full capacity once (2) is in.
+- Rule: no design before (1). Measure growth loss against Schism (solo t100, 512 tick) for every combat change.
+- Slot: the slot Contagion left on 2026-11-09.
 
 ### 11.4 Gate
-Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
+Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism; Pestilence on the Complacency base takes its slot.
 Result 2026-11-09: passed. Schism 1653 after 1321 games (1035 wins), 1st on the leaderboard; Contagion 1631, 2nd.
 
 ### 11.5 Steps
