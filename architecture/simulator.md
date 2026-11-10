@@ -103,7 +103,7 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 | 2 to 4 | 63 | 42 | 21 |
 | 5 | 72 | 48 | 24 |
 
-Engine rules, checked 2026-11-08 with `replay_check.py` on 8 replays from pulls 2 to 5: about 87.8 million squares compared one tick at a time after first contact, 9 differ, none in move, split, feed or death. All 9 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 6 of about 1.74 million squares differ. No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
+Engine rules, checked 2026-11-09 with `replay_check.py` on every stored replay from pulls 2 to 5: before first contact, 1.38 million squares compared one tick at a time, 0 differ. After it, about 1.35 billion squares, 248 differ, none in move, split, feed or death. All 248 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 188 of about 26.9 million squares differ (6 by owner). No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
 
 State measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c (`designs.md` 10.6). One seed per match, real starts. Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
 
@@ -113,7 +113,7 @@ State measured at commit 3d4221c, after the Atom and Noob+ model changes. "Befor
 | TEST, pull 5 only | 24 | 62%, 15/24 (15/24) | Not measured (46/59) | 62% (15/24) | 58% (14/24) |
 | FIT | 90 | 72%, 65/90 (63/90) | 48/63 (47/63) | 44% (40/90) | 59% (53/90) |
 
-The win-share baseline is in-sample, so it is optimistic.
+The win-share baseline is in-sample, so it is optimistic. Seed noise, measured 2026-11-09 with 5 seeds per match: same winner 71% (480/675) over all 135 matches, checks FIT 47/63 and TEST 49/63. The one-seed figures above are within that noise.
 
 **Main result.** On pull 5 TEST, the only data never used for tuning, the simulator does no better than "the higher rating wins". Do not use its win rates against the rival field as evidence.
 

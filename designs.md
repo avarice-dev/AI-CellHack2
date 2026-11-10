@@ -533,6 +533,7 @@ Section 7 used this name for a harvesting idea that was never built. This is a n
 
 ### 11.4 Gate
 Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism; Pestilence on the Complacency base takes its slot; no Famine.
+Result 2026-11-09: passed. Schism 1653 after 1321 games (1035 wins), 1st on the leaderboard; Contagion 1631, 2nd.
 
 ### 11.5 Steps
 Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `data/site-observations-2026-11-08.md`):

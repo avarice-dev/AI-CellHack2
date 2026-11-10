@@ -13,13 +13,13 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 | Avarice | Hoards energy: eats greedily and never feeds other cells. | 7th* | 1355* | 9th (retired) | 1191 |
 | Covetous | Goes after its neighbours, with a fast bite in every direction. | 3rd* | 1526* | 7th (retired) | 1392 |
 | Scourge | Kills and occupies: refills the squares freed in fights. | 1st | 1649* | 2nd (retired) | 1507 |
-| Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1608* | 1st | 1555 |
+| Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1631* | 2nd | 1631 |
 | Complacency | Ignores nearby enemies and keeps splitting. | 1st* | 1608* | 2nd (retired) | 1516 |
-| Schism | Splits outward quickly, with inner cells feeding the edge. | 2nd* | 1547* | 2nd | 1547 |
+| Schism | Splits outward quickly, with inner cells feeding the edge. | 1st | 1653* | 1st | 1653 |
 | Pestilence | Moves strong cells into freed squares, carrying energy to the front. | Planned | Planned | Planned | Planned |
 | Famine | Spends energy on growth until the colony runs thin. | Planned | Planned | Planned | Planned |
 
-As of 2026-11-08 23:32 UTC-06. \* Best recorded value; the site does not publish peaks.
+As of 2026-11-09 22:21 UTC-06. \* Best recorded value; the site does not publish peaks.
 
 ## Documents
 
