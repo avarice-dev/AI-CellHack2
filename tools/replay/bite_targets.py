@@ -1,6 +1,7 @@
 """Bite targeting per colony name: for every bite (eat of an adjacent enemy) in a tick window, the victim's energy at
 the start of the tick, whether the victim died that tick, and, when the eater had 2 or more enemy neighbours with
-different energies, whether it chose the poorest or the richest of them.  Reads data/<pull>/replays and
+different energies, whether it chose the poorest or the richest of them.  Focus: share of bitten victims (per tick)
+that 2+ cells of the same colony bit; k|focus and k|single: kill rate of those victims and of singly bitten ones.  Reads data/<pull>/replays and
 data/<pull>/names.json.
 
 Usage: python -I tools/replay/bite_targets.py [--tmin=75] [--tmax=200] pull3 pull4 pull5
@@ -67,6 +68,13 @@ def run(path, tmin, tmax, out, names):
             n = U32.unpack_from(raw, p)[0]; p += 4
             en = raw[p:p + n]; p += n
             if tmin <= t < tmax:
+                per_victim = collections.Counter((colOf[a], b) for a, b in bites)
+                for (c, b), k in per_victim.items():
+                    st = out[names[c]]
+                    st['victims'] += 1
+                    st['multi_victims'] += k >= 2
+                    st['multi_kills'] += k >= 2 and b in dead
+                    st['single_kills'] += k == 1 and b in dead
                 for a, b in bites:
                     if a not in sq0 or b not in en0:
                         continue
@@ -113,14 +121,17 @@ def main():
             if fn.endswith('.chr2.gz') and rid in names:
                 run(os.path.join(rep, fn), tmin, tmax, out, names[rid])
     print('t %d-%d, pulls %s' % (tmin, tmax, ' '.join(pulls)))
-    print('%-12s %8s %8s %8s %8s %8s %8s %8s' % ('cell', 'bites', 'kill%', 'vic_e', 'vic<5%', 'choices', 'poorest', 'richest'))
+    print('%-12s %8s %8s %8s %8s %8s %8s %8s %8s %8s %8s' % ('cell', 'bites', 'kill%', 'vic_e', 'vic<5%', 'choices', 'poorest',
+                                                       'richest', 'focus%', 'k|focus', 'k|single'))
     for nm, st in sorted(out.items(), key=lambda kv: -kv[1]['bites']):
         if st['bites'] < 2000:
             continue
         b, c = st['bites'], max(st['choice'], 1)
-        print('%-12s %8d %7.1f%% %8.1f %7.1f%% %8d %7.0f%% %7.0f%%' % (
+        v, mv = max(st['victims'], 1), max(st['multi_victims'], 1)
+        print('%-12s %8d %7.1f%% %8.1f %7.1f%% %8d %7.0f%% %7.0f%% %7.1f%% %7.1f%% %7.1f%%' % (
             nm, b, 100 * st['kills'] / b, st['victim_e'] / b, 100 * st['victim_lt5'] / b, st['choice'],
-            100 * st['poorest'] / c, 100 * st['richest'] / c))
+            100 * st['poorest'] / c, 100 * st['richest'] / c, 100 * st['multi_victims'] / v,
+            100 * st['multi_kills'] / mv, 100 * st['single_kills'] / max(v - st['multi_victims'], 1)))
 
 
 if __name__ == '__main__':
