@@ -89,6 +89,9 @@ def run(path, tmin, tmax, out, names):
                     out[names[colOf[cid]]]['eats'] += 1
                 for cid in moved:
                     out[names[colOf[cid]]]['moves'] += 1
+            if t % 5 == 4 and t < tmax:
+                for c, k in collections.Counter(colOf[c] for c in sqOf if c not in dead).items():
+                    out[names[c]]['curve%d' % (t + 1)] += k
             if t == tmax - 1:
                 for c, k in collections.Counter(colOf[c] for c in sqOf if c not in dead).items():
                     out[names[c]]['pop_end'] += k; out[names[c]]['games'] += 1
@@ -129,6 +132,16 @@ def main():
             nm, st['games'], st['pop_end'] / st['games'], 100 * st['births'] / ct, 100 * st['feeds'] / ct,
             100 * st['eats'] / ct, 100 * st['moves'] / ct, 100 * (ct - busy) / ct,
             st['child_e'] / max(st['births'], 1), 100 * st['feed_grow'] / max(st['feeds'], 1)))
+    curve(out, tmax)
+
+
+def curve(out, tmax):
+    pts = list(range(5, tmax + 1, 5))
+    print('population after tick (mean over games):')
+    print('%-12s ' % 'cell' + ' '.join('%5d' % t for t in pts))
+    for nm, st in sorted(out.items(), key=lambda kv: -kv[1]['pop_end'] / max(kv[1]['games'], 1)):
+        if st['games'] >= 10:
+            print('%-12s ' % nm + ' '.join('%5.0f' % (st['curve%d' % t] / st['games']) for t in pts))
 
 
 if __name__ == '__main__':
