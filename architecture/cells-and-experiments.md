@@ -123,7 +123,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence is built (cell 180) and has played only in the Sandbox. Bane, the combat cell, is not designed yet: it waits for the contact-phase study.
+The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence is built (cell 180) and has played only in the Sandbox. Bane is not built yet. The contact-phase study found that our fights are even and that the gap is opening growth, so Bane feeds more and earlier toward the edge in the opening, tuned with `sim/growth.py`.
 
 ## Related documents
 
