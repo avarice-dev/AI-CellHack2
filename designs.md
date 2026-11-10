@@ -540,6 +540,7 @@ Result 2026-11-09: passed. Schism 1653 after 1321 games (1035 wins), 1st on the 
 Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `data/site-observations-2026-11-08.md`):
 1. Done for Schism. The Sandbox has no seed control, and 128 cells is out of reach with 4 colonies on 16x16. Three games each against Scourge, Covetous, Contagion: Schism places 2, 1, 2; Complacency 2, 2, 3; 0 faults.
 2. Sandbox, Pestilence, one game. Record move refills, same-tick backfills, faults. Backfill hits under 50%: remove change 2.
+   Done 2026-11-09 (cell 180, change 1 only): Sandbox 116745 vs Scourge/Covetous/Contagion: 2nd, pop 71 (Contagion 76), 0 faults, insns avg 53 max 88. Move refills not counted (needs the replay).
 3. Create the cell by scripted POST (the form ladders it at once). The owner ladders it. Ratings arrive in `data/site-checks.md`.
 
 ### 11.6 Supersedes
