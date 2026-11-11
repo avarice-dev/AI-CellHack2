@@ -654,6 +654,17 @@ def main():
             if have_uc:
                 diff_scourge(blob, name, (0, 2980), cells_ref.schism)
                 diff_schism(blob)
+        elif name == 'bane':
+            import gen_bane
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if syms['kZero'] % 16:
+                fail('bane kZero is not 16-byte aligned')
+            if open(p).read() != gen_bane.generate():
+                fail('bane.asm differs from gen_bane.generate()')
+            if have_uc:
+                diff_scourge(blob, name, (0, 2980), cells_ref.bane)   # Scourge's hold on the middle path
+                diff_schism(blob, cells_ref.bane)                     # Schism's boxed paths
         elif name == 'pestilence':
             import gen_pestilence
             import cells_ref

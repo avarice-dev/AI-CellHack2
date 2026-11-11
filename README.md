@@ -17,7 +17,7 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 | Complacency | Ignores nearby enemies and keeps splitting. | 1st* | 1608* | 2nd (retired) | 1516 |
 | Schism | Splits outward quickly, with inner cells feeding the edge. | 1st | 1675* | 1st | 1589 |
 | Pestilence | Moves strong cells into freed squares, carrying energy to the front. | 2nd | 1576 | 2nd | 1576 |
-| Bane | Takes the board before rivals can: feeds energy early to the cells that can split, so rivals meet a bigger colony. | Planned | Planned | Planned | Planned |
+| Bane | Schism that holds back near enemies: no weak children next to a faster biter, so its border cells survive the grab. | Built 2026-11-10 | - | Not on the ladder | - |
 
 As of 2026-11-10 06:05 UTC-06. \* Best recorded value; the site does not publish peaks.
 

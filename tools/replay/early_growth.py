@@ -124,7 +124,7 @@ def main():
     print('%-12s %6s %8s %7s %7s %7s %7s %7s %8s %9s' % ('cell', 'games', 'pop_end', 'split%', 'feed%', 'eat%',
                                                           'move%', 'idle%', 'child_e', 'feed_grow'))
     for nm, st in sorted(out.items(), key=lambda kv: -kv[1]['pop_end'] / max(kv[1]['games'], 1)):
-        if st['games'] < 10:
+        if st['games'] < int(opt.get('min', 10)):   # --min=1 for a pull of a few replays
             continue
         ct = max(st['cellticks'], 1)
         busy = st['births'] + st['feeds'] + st['eats'] + st['moves']

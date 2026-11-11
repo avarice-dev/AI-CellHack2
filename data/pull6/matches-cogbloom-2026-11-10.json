@@ -1,0 +1,40 @@
+{
+  "utc": "2026-11-10T00:00:00Z",
+  "source": "match pages 123880 and 123990, read by hand from the site on 2026-11-10 (data/cogbloom-pages-2026-11-10.md)",
+  "note": "two games of Yen's cells: CogBloomXT eliminates AtomCrasher (123880); Ironbloom beats Schism (123990)",
+  "matches": [
+    {
+      "id": 124335,
+      "cells": ["Bulwark", "Bane", "choochoo", "CogBloomXT"],
+      "winner": "CogBloomXT",
+      "colonies": [
+        {"name": "Bulwark", "player": "myles777", "place": "3", "pop": "0", "peak": "18", "energy": "0", "faults": "0", "insns": "24 (54)", "rating": "555 → 554"},
+        {"name": "Bane", "player": "rjclay", "place": "2", "pop": "1331", "peak": "1338", "energy": "54540", "faults": "0", "insns": "74 (86)", "rating": "1045 → 1038"},
+        {"name": "choochoo", "player": "andrew", "place": "4", "pop": "0", "peak": "1", "energy": "0", "faults": "0", "insns": "12 (50)", "rating": "-117 → -117"},
+        {"name": "CogBloomXT", "player": "Yen", "place": "1", "pop": "2765", "peak": "2765", "energy": "138250", "faults": "0", "insns": "44 (188)", "rating": "1268 → 1275"}
+      ]
+    },
+    {
+      "id": 123880,
+      "cells": ["Bouncer", "CogBloomXT", "AtomCrasher", "BigBadWolf"],
+      "winner": "CogBloomXT",
+      "colonies": [
+        {"name": "Bouncer", "player": "Striker", "place": "4", "pop": "0", "peak": "395", "energy": "0", "faults": "0", "insns": "19 (24)", "rating": "1147 → 1117"},
+        {"name": "CogBloomXT", "player": "Yen", "place": "1", "pop": "4095", "peak": "4095", "energy": "204361", "faults": "0", "insns": "45 (193)", "rating": "1356 → 1378"},
+        {"name": "AtomCrasher", "player": "HammerSpb", "place": "2", "pop": "0", "peak": "466", "energy": "0", "faults": "0", "insns": "31 (47)", "rating": "1333 → 1330"},
+        {"name": "BigBadWolf", "player": "irogotzke", "place": "3", "pop": "0", "peak": "583", "energy": "0", "faults": "0", "insns": "60 (99)", "rating": "959 → 972"}
+      ]
+    },
+    {
+      "id": 123990,
+      "cells": ["Ironbloom", "Schism", "BigBadWolf", "Smarter Hunter"],
+      "winner": "Ironbloom",
+      "colonies": [
+        {"name": "Ironbloom", "player": "Yen", "place": "1", "pop": "2967", "peak": "2970", "energy": "147534", "faults": "0", "insns": "44 (189)", "rating": "1244 → 1268"},
+        {"name": "Schism", "player": "rjclay", "place": "2", "pop": "1105", "peak": "1105", "energy": "50554", "faults": "0", "insns": "72 (86)", "rating": "1432 → 1416"},
+        {"name": "BigBadWolf", "player": "irogotzke", "place": "3", "pop": "24", "peak": "723", "energy": "1183", "faults": "0", "insns": "68 (99)", "rating": "988 → 989"},
+        {"name": "Smarter Hunter", "player": "tshel", "place": "4", "pop": "0", "peak": "1283", "energy": "0", "faults": "0", "insns": "49 (53)", "rating": "831 → 821"}
+      ]
+    }
+  ]
+}

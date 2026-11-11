@@ -21,3 +21,4 @@ cells/build/
 /archive/
 /.tracking-git/
 .venv*/
+data/*/site/
