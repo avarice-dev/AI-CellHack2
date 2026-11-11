@@ -2,9 +2,15 @@
 
 The site serves each match's replay as a separate file. The project collects match lists, match pages and replays in rounds called **pulls**, then decodes the replays into tables and write-ups.
 
+## Status (2026-11-11)
+
+- **The base is complete.** Pulling (`tools/replay/pull_replays.js`, `collect.sh`) and decoding (`mine.py`) are finished parts. `pull_replays.js` reads match pages and replays at the site's pace and writes the match list. `mine.py` decodes every replay and checks itself against the replay's keyframes. No more work is planned on these parts, unless the site changes its pages or its replay format.
+- **The analysis tools are open-ended.** Each one answers one question that came up in a study, for example "who acts first at the front" or "who takes a freed square". The set is not complete and it is not meant to be. It grows when a new question needs a new measure. The tools written for our own questions are in the table below. Some of the later ones have no automated tests.
+- **Add your own.** The right measures depend on your cell: its strengths, its weak points, and the rivals it meets. A replay holds every event of a match, so most questions can be answered with a short script. See [Writing your own replay tool](#writing-your-own-replay-tool).
+
 ## The pulls
 
-All five pulls were collected on 2026-11-08 through a logged-in browser session.
+Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10 and pull 7 on 2026-11-10 and 2026-11-11, all through a logged-in browser session.
 
 | Pull | What it collected | Main write-up |
 |---|---|---|
@@ -13,6 +19,8 @@ All five pulls were collected on 2026-11-08 through a logged-in browser session.
 | 3 | The newest 100 finished ladder games of the Scourge cell (matches 103128 to 103747), one match page for each, and 15 replays of games Scourge lost. | `data/scourge-losses-2026-11-08.md` |
 | 4 | All 95 finished ladder games of the Contagion cell (matches 103614 to 104195), and 12 replays (6 wins, 6 losses). | `data/contagion-games-2026-11-08.md` |
 | 5 | 12 match-list pages (480 finished ladder matches, ids 105881 to 106358), the leaderboard, and 72 match pages and replays: Contagion 18, Complacency 18 (2 games hold both cells), and 38 games of the top rivals without our cells. | `data/pull5-games-2026-11-08.md` |
+| 6 | 3 replays and match pages of two new leading cells (CogBloomXT, Ironbloom). | `data/contact-study-2026-11-10.md` |
+| 7 | 20 replays and match pages: games of the leading cells of 2026-11-10 and 2026-11-11, with and without our cells. In `names.json` our cell has a version label in some games (see the tip under [Writing your own replay tool](#writing-your-own-replay-tool)). | No write-up yet |
 
 Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 + 12 + 72); pull 1's 13 replays are not in the pool. FIT and TEST sizes are in [simulator.md](simulator.md). Site mechanics and calibration results are in `data/site-observations-2026-11-08.md`. Ratings over time are in `data/site-checks.md`.
 
@@ -93,7 +101,12 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/replay/mine_report.py` | Combines the mining output of a pull by cell name into tables. Run with `--pull <pull>`. `--cell <cell> --rivals <a>,<b>` adds the refill races between that cell and those rivals. |
 | `tools/replay/actions.py` | Shows, for one replay, what each cell did when an enemy was next to it. Run with `--pull <pull> <replay id>`. |
 | `tools/replay/birth_order.py` | Ranks the split order of the colonies in the same tick. Run with `--pull <pull> <tmin> <replay ids>`. |
-| `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/`. Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
+| `tools/replay/early_growth.py` | Per cell name, in a tick window: cells at the end, and the share of cell-ticks that split, fed, ate, moved or had no event. Run `python -I tools/replay/early_growth.py --tmin=0 --tmax=75 [--min=1] <pull> [<pull> ...]`. |
+| `tools/replay/opening.py` | Every move and split of one colony for each tick, and the cells that could split and did not. Run with `--pull <pull> <replay id> <colony index> [--tmin=0] [--tmax=40] [--quiet]`. |
+| `tools/replay/claims.py` | For every square freed by a death: which cells were next to it, what they did, and who filled it. Run with `--pull <pull> <replay id> [--tmin=T] [--tmax=T]`. |
+| `tools/replay/agg_actions.py`, `bite_targets.py`, `front_feed.py`, `freed_squares.py` | Study tools for the front: actions next to an enemy pooled over a pull, bite targets and kills, energy and feeding of front cells, and who retakes freed squares. Each file starts with its usage line. |
+| `tools/replay/pull_replays.js` | The browser script of a pull. It reads the match page and the replay of each match id at the site's pace, saves `<id>.chr2.gz`, and saves the match list as `matches-<time>.json`. The file starts with its usage. |
+| `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/` (replays and match lists). Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
 | `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
 
 
@@ -124,7 +137,7 @@ Choose a new folder name, for example `mypull`. All files go into `data/<pull>/`
 
 ### Step 2: save the match list as JSON
 
-Open the site's match list for the cell you study, and open the match page of each game. Write the data into one JSON file, for example `data/<pull>/matches-<cell>-<date>.json`. The tab scripts read this schema:
+Open the site's match list for the cell you study and note the match ids. `tools/replay/pull_replays.js` reads the match page of each id and saves the list as `matches-<time>.json` (with `{replays: false}` it reads the pages only). `collect.sh <pull>` moves the file into `data/<pull>/`. You can also write the file by hand. The tab scripts read this schema:
 
 ```json
 {
@@ -163,7 +176,7 @@ With exactly one `matches-*.json`, the script reads it. Otherwise use `--matches
 
 The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a logged-in session. Save each replay as `data/<pull>/replays/<id>.chr2.gz`. The tools read this file with gzip.
 
-From a logged-in page, `fetch()` returns the bytes already decompressed. Compress them again with `CompressionStream('gzip')` and save them through a download link. `tools/replay/collect.sh <pull>` moves the files into place.
+`tools/replay/pull_replays.js` does this step: paste it into the browser console of a logged-in page and run `pullReplays([<ids>])`. It follows the pacing rules. From a logged-in page, `fetch()` returns the bytes already decompressed, so the script compresses them again with `CompressionStream('gzip')` and saves them through a download link. `tools/replay/collect.sh <pull>` moves the files into place.
 
 - The file must be gzip-compressed. A file that the browser already decompressed starts with the bytes `CHR2`. Compress it with:
 
@@ -205,6 +218,20 @@ A cell with no sim model is played by the hunter bot, with a warning. Use `--mod
 python -I tools/replay/losses.py --pull <pull> --cell <your cell>
 python -I tools/replay/games.py --pull <pull> --cell <your cell> --rival <other cell>
 ```
+
+## Writing your own replay tool
+
+A new tool is a short Python script. It needs only the standard library.
+
+1. **Start from a tool that is close to your question.** `opening.py` (one colony, each tick) and `claims.py` (every death) are short. Copy the file and keep its read loop.
+2. **The read loop.** A replay is one gzip file. After the header come records: a keyframe (all living cells), then for each tick the populations, the energy of every cell, and the events in turn order (birth, move, death, eat, feed). The loop keeps three maps up to date: the colony, the square and the energy of each cell id. With these you have the full board at the start of each tick. [How a replay is read](#how-a-replay-is-read) lists the parts.
+3. **Use the shared helpers.** `tools/replay/pulls.py` finds a pull (`take_pull`, `pull_dir`) and the colony names of a replay (`load_names`). Take the pull from `--pull`; do not put a pull name in the code.
+4. **What a replay cannot tell you.** It does not record rests, the memory of a cell, or the instruction count of a call. The order of events in a tick shows who acted first, not by how much.
+5. **Check the tool on a case you can count by hand,** for example one tick of one small game, before you trust its totals.
+
+Tip: the tools pool results by the cell name in `names.json`. To compare two versions of one cell, or its wins with its losses, give the colony a different name in `names.json` for those games (pull 7 does this). `tab.py` writes `names.json` again from the match list, so make the change after it.
+
+Ideas for measures, by what you want to know: the opening (cells at a tick, moves, splits that did not happen), the front (who bites first, energy of front cells, feeding), land (who fills freed squares, cells lost, when the borders stop moving), and single rivals (a rival's actions for each pattern of neighbours).
 
 ## Pacing rules for the site
 

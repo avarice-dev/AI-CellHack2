@@ -1,5 +1,5 @@
 #!/bin/bash
-# Move finished browser downloads into data/<pull>/ (replays, keyframes, summaries).
+# Move finished browser downloads into data/<pull>/ (replays, keyframes, summaries, match lists).
 # "name (1).ext" duplicates replace the older file.
 # Usage: collect.sh <pull> [DOWNLOADS_DIR]   (default: $DOWNLOADS_DIR, else $HOME/Downloads)
 [ -n "$1" ] || { echo "usage: collect.sh <pull> [DOWNLOADS_DIR]" >&2; exit 1; }
@@ -12,6 +12,7 @@ mv_one() { # file destdir
 for f in $D/[0-9]*.chr2.gz $D/[0-9]*chr2*.gz; do [ -f "$f" ] && mv_one "$f" $P/replays; done
 for f in $D/[0-9]*.kf*.json.gz; do [ -f "$f" ] && mv_one "$f" $P/keyframes; done
 for f in $D/[0-9]*.json; do [ -f "$f" ] && mv_one "$f" $P/summaries; done
+for f in $D/matches-*.json; do [ -f "$f" ] && mv_one "$f" $P; done   # match lists saved by pull_replays.js
 rm -f "$P/replays/"*" ("*")."* "$P/summaries/"*" ("*")."* 2>/dev/null
 echo "replays: $(ls $P/replays | wc -l)  kf: $(ls $P/keyframes | wc -l)  summaries: $(ls $P/summaries | wc -l)"
 du -sh $P
