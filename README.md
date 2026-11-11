@@ -15,11 +15,12 @@ The cells are named after Necroid ship classes from the game Stellaris. The cali
 | Scourge | Kills and occupies: refills the squares freed in fights. | 1st | 1649* | 2nd (retired) | 1507 |
 | Contagion | Spreads quickly, with extra rules for the early land grab. | 1st | 1631* | 2nd (retired) | 1616 |
 | Complacency | Ignores nearby enemies and keeps splitting. | 1st* | 1608* | 2nd (retired) | 1516 |
-| Schism | Splits outward quickly, with inner cells feeding the edge. | 1st | 1675* | 1st | 1589 |
-| Pestilence | Moves strong cells into freed squares, carrying energy to the front. | 2nd | 1576 | 2nd | 1576 |
-| Bane | Schism that holds back near enemies: no weak children next to a faster biter, so its border cells survive the grab. | Built 2026-11-10 | - | Not on the ladder | - |
+| Schism | Splits outward quickly, with inner cells feeding the edge. | 1st | 1675* | Retired 2026-11-11 | 1314 |
+| Pestilence | Moves strong cells into freed squares, carrying energy to the front. | 2nd | 1576 | On the ladder | 1307 |
+| Bane (v1) | Schism that holds back near enemies: no weak children next to a faster biter, so its border cells survive the grab. | 10th | about 1300 | Retired | 1307 |
+| Bane v2.1 | Spreads out, then keeps biting: children walk away from their parent before they settle, so cells are not boxed in, and a cell that just bit an enemy bites the same square again at once. A bane is something that ruins its prey, and this cell eats the enemy squares beside it. | 1st | 1804 | On the ladder | 1804 |
 
-As of 2026-11-10 06:05 UTC-06. \* Best recorded value; the site does not publish peaks.
+Rows for Avarice to Contagion and Complacency: as of 2026-11-10 06:05 UTC-06. Schism, Pestilence and the Bane rows: read from the site's My cells page on 2026-11-11. Final or latest figures and games played: Schism 1314 after 2814 games (retired by the owner because it was the lowest rated of the three ladder cells); Pestilence 1307 after 1467 games; Bane v1 1307 after 44 games; Bane v2.1 1804 after 203 games (an earlier read the same day was 1775 after 189 games, 175 wins, average place 1.07, 1st). The ladder now holds two cells, Bane and Pestilence. The Bane v1 peak place (10th) and the 1st for v2.1 come from earlier reads. Bane v2.0 (retired at 1645 after 157 games, 1st) and v2.2 (on the ladder since 2026-11-11 15:05 UTC in place of v2.1; no result yet) are described in [Cells and experiments](architecture/cells-and-experiments.md). \* Best recorded value; the site does not publish peaks.
 
 ## Documents
 

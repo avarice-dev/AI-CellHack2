@@ -64,7 +64,7 @@ The `or` also sets the zero flag. A mask with no adjacent enemy points to a zero
 
 `jnz` jumps when the zero flag is clear, to `EXIT_ADDR`, the address that a `ret` would return to. The call ends there and skips the `ret`, which saves one instruction.
 
-The design notes call this bite F5: 5 instructions in every direction, no memory. The strongest rivals bite in about 4 in one fixed direction, about 6 in a second, and 8 or more in the others. F5 beats every rival's second direction and every slower side.
+The design notes call this bite F5: 5 instructions in every direction, no memory. (Bane v2.1 adds a 4-instruction repeat bite that uses the cell memory.) The strongest rivals bite in about 4 in one fixed direction, about 6 in a second, and 8 or more in the others. F5 beats every rival's second direction and every slower side.
 
 Four facts make the bite safe:
 
@@ -211,7 +211,7 @@ Probe `s_vex_src` showed that a VEX compare reads its destination, not its first
 
 Legacy SSE instructions that read memory need an address that is a multiple of 16, so each constant has `align 16`. The view window can start at any byte, so the cells load it with `movdqu`.
 
-The cells use no loops and no stack. Only Contagion uses the cell memory, on its scout path. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
+The cells use no loops and no stack. Only Contagion (on its scout path) and Bane v2 (for its dispersal opening and, from v2.1, its stored bite) use the cell memory. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
 
 ## How the cells were checked
 
@@ -228,7 +228,7 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 
 ## Open items
 
-- Schism is on the ladder: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
+- Schism was on the ladder until 2026-11-11: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
 
 ## Glossary
 

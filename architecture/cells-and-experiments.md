@@ -35,6 +35,7 @@ The count includes every executed instruction, taken jumps and the final `ret` (
 | Bite, every direction | 6 | Avarice |
 | Bite, every direction, no memory (a miss costs the same) | 5 | Covetous, Scourge, Contagion, Complacency, Schism |
 | Refill, or split at energy 16 or more | 11 | Scourge, Contagion, Complacency, Schism |
+| Repeat bite on the square bitten last time (stored in the cell memory) | 4 | Bane v2.1 |
 | Split at energy 5 to 15 | 24 or 25 (hold: rest at 27) | Scourge |
 | Split at energy 5 to 15, never hold | 16 | Complacency, Schism |
 | Boxed feed to a friend with an empty neighbour | 32 to 48 | Schism |
@@ -102,7 +103,7 @@ flowchart LR
     C -.-> CN["Conceit (VEX form, never on the ladder)"]
     CO -.-> E["Endemic (VEX form, never on the ladder)"]
     SM --> P["Pestilence"]
-    SM --> B["Bane"]
+    SM --> B["Bane"] --> B2["Bane v2"]
 ```
 
 | Cell | Bet | What it does | What it taught |
@@ -114,18 +115,19 @@ flowchart LR
 | Complacency (174) | Dropping the prey hold helps. | Scourge with no prey hold (never hold). | Sandbox: 1st with 88 cells (Scourge 82), 2nd with 94 (Scourge 162), no faults. Pull 5: still trails the Atom cells in the first 35 ticks (`designs.md` 10.2). |
 | Schism (176) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Sandbox, 3 games each against Scourge, Covetous, Contagion: places 2, 1, 2 (Complacency 2, 2, 3), 0 faults, no seed control. Path counts: `designs.md` 11.1. |
 | Pestilence (180) | Moving strong cells forward beats splitting a weak child. | Schism, plus: on the refill path with energy at least 20, move into the freed square instead of splitting (`designs.md` 11.2, change 1 only). | Sandbox 2nd, 0 faults. Ladder: 2nd with 1576 after 377 games (2026-11-10), average place 1.24 against Schism's 1.23. |
-| Bane (built 2026-11-10, `cells/gen_bane.py`) | Children born next to a faster biter die before they act; the prey hold saves them. | Schism with Scourge's prey hold back: with an enemy in the 5x5, a cell at 5 to 15 energy rests instead of splitting. Bite, refill and feeding unchanged. | From replays 123880 and 123990 (`data/contact-study-2026-11-10.md`): the new rivals bite as fast as we do, so our border cells are stunned about half the time; in the t100-200 grab Schism lost 118 cells, Ironbloom 3. Not on the ladder yet. |
+| Bane (built 2026-11-10, `cells/gen_bane.py`) | Children born next to a faster biter die before they act; the prey hold saves them. | Schism with Scourge's prey hold back: with an enemy in the 5x5, a cell at 5 to 15 energy rests instead of splitting. Bite, refill and feeding unchanged. | From replays 123880 and 123990 (`data/contact-study-2026-11-10.md`): the new rivals bite as fast as we do, so our border cells are stunned about half the time; in the t100-200 grab Schism lost 118 cells, Ironbloom 3. Bane v1 reached about 1300 after 44 games (10th) on the ladder and is retired. |
+| Bane v2 (`cells/gen_bane2.py`; v2.0, v2.1 and v2.2) | Spread-out colonies are not boxed in, and a fixed bite target is faster than a view scan. | Bane v1, plus a dispersal opening: with an empty neighbour and no enemy near, children walk away (the first child 8 squares forward, later ones 2 squares) before they settle. It uses the cell memory and MOVE. v2.1 adds a stored bite: it bites the square bitten last time again in 4 instructions if an enemy is still there. v2.2 holds back only with an enemy on a diagonal square, not anywhere in the 5x5. | v2.0: retired at 1645 after 157 games, 1st. v2.1: 1775 after 189 games, 175 wins, average place 1.07, 1st, 189 points ahead of Colossus. It eliminated medivac in replays and lost to CogSpore twice and Colossus once. v2.2: checked locally, one Sandbox game with 0 faults, on the ladder since 2026-11-11 15:05 UTC in place of v2.1; no result yet. Details: `designs.md` 11.3. |
 | Woe, Conceit, Endemic | Same decisions, fewer instructions. | VEX forms of Scourge, Covetous and Contagion. | Never on the ladder. Woe died in two Sandbox games (peaks 4 and 5 cells). Broken on the site; do not submit. |
 
 ### Ladder status
 
-Current ladder cells: **Schism and Pestilence**. Avarice, Covetous, Scourge, Complacency and Contagion are retired. Final figures: Scourge 1507 after 600 games, Complacency 1516 after 691 (left 2026-11-08), Contagion 1616 after 2145 (left 2026-11-09). Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
+The ladder now holds two cells: **Bane and Pestilence** (site My cells page, read 2026-11-11). Bane v2.1 is rated 1804 after 203 games; an earlier read the same day was 1775 after 189 games. Pestilence is rated 1307 after 1467 games. Bane v1 (1307 after 44 games) and v2.0 (1645 after 157 games) are retired. Editing a cell on the site creates a new cell id, so each Bane version has its own number (`data/site-observations-2026-11-08.md`). The owner retired Schism on 2026-11-11 because it was the lowest rated of the three ladder cells: final 1314 after 2814 games (peak 1675 on 2026-11-09). Avarice, Covetous, Scourge, Complacency and Contagion are retired. Final figures: Scourge 1507 after 600 games, Complacency 1516 after 691 (left 2026-11-08), Contagion 1616 after 2145 (left 2026-11-09). Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
 ## Open items
 
-The plan for the next cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4 and is 1st on the ladder. Pestilence (cell 180) is 2nd on the ladder. Bane was built on 2026-11-10 from the contact study of the new rivals (`data/contact-study-2026-11-10.md`, `designs.md` 11.3): their bite ties or beats ours, so the front is a stalemate and the games are decided in the t100-200 land grab and in taking weak colonies' land. Bane restores the prey hold so that no 2-3-energy child is born next to a faster biter. The owner decides whether it goes on the ladder (the slot Contagion left). Ideas not built: a refill that prefers fat children (theirs are 15-19 energy, ours 8-10), and less interior feed churn (Schism's interior feeds 411 times a tick, Ironbloom's 4).
+The plan for the cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4. Bane was built on 2026-11-10 from the contact study of the new rivals (`data/contact-study-2026-11-10.md`, `designs.md` 11.3): their bite ties or beats ours, so the front is a stalemate and the games are decided in the t100-200 land grab. Bane v1 restored the prey hold. Bane v2 then added the dispersal opening and the stored bite. In the two CogSpore losses of v2.1, Bane's growth stalls from about t40. Bane v2.2 (prey hold only with an enemy on a diagonal square) replaced v2.1 on the ladder on 2026-11-11 15:05 UTC. It needs at least 100 games before it is compared with v2.1 (1804 after 203 games); if it is worse, v2.1 (git tag `bane-v2.1`) goes back. Ideas not built: a refill that prefers fat children (theirs are 15-19 energy, ours 8-10), and less interior feed churn (Schism's interior feeds 411 times a tick, Ironbloom's 4).
 
 ## Related documents
 
