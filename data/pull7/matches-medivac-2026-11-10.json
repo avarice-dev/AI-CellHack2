@@ -1,0 +1,62 @@
+{
+  "utc": "2026-11-11T04:50:00Z",
+  "source": "match pages of five ladder games, read from the site on 2026-11-10 (list: matches of player bdj)",
+  "note": "medivac and Colossus (player bdj) against Bane, Schism, CogBloomXT; 124324 is a medivac loss to ClaudeHunter",
+  "matches": [
+    {
+      "id": 124343,
+      "cells": ["medivac", "Colossus", "squirtle", "Bane"],
+      "winner": "medivac",
+      "colonies": [
+        {"name": "medivac", "player": "bdj", "place": "1", "pop": "2353", "peak": "2380", "energy": "117089", "faults": "0", "insns": "49 (62)", "rating": "1484 → 1488"},
+        {"name": "Colossus", "player": "bdj", "place": "3", "pop": "845", "peak": "886", "energy": "41958", "faults": "0", "insns": "64 (106)", "rating": "1151 → 1117"},
+        {"name": "squirtle", "player": "patrickHakun", "place": "4", "pop": "0", "peak": "127", "energy": "0", "faults": "0", "insns": "19 (20)", "rating": "482 → 481"},
+        {"name": "Bane", "player": "rjclay", "place": "2", "pop": "898", "peak": "898", "energy": "43647", "faults": "0", "insns": "74 (86)", "rating": "1038 → 1066"}
+      ]
+    },
+    {
+      "id": 124417,
+      "cells": ["Sho", "Schism", "medivac", "Bouncer"],
+      "winner": "medivac",
+      "colonies": [
+        {"name": "Sho", "player": "CyberSho", "place": "4", "pop": "0", "peak": "52", "energy": "0", "faults": "0", "insns": "8 (9)", "rating": "313 → 313"},
+        {"name": "Schism", "player": "rjclay", "place": "2", "pop": "692", "peak": "693", "energy": "34105", "faults": "0", "insns": "68 (86)", "rating": "1396 → 1391"},
+        {"name": "medivac", "player": "bdj", "place": "1", "pop": "3403", "peak": "3425", "energy": "169867", "faults": "0", "insns": "51 (62)", "rating": "1518 → 1528"},
+        {"name": "Bouncer", "player": "Striker", "place": "3", "pop": "0", "peak": "404", "energy": "0", "faults": "0", "insns": "18 (23)", "rating": "1086 → 1081"}
+      ]
+    },
+    {
+      "id": 124351,
+      "cells": ["Bane", "Colossus", "CogBloomXT", "gemAlert_v5"],
+      "winner": "Colossus",
+      "colonies": [
+        {"name": "Bane", "player": "rjclay", "place": "3", "pop": "407", "peak": "799", "energy": "14987", "faults": "0", "insns": "65 (86)", "rating": "1066 → 1047"},
+        {"name": "Colossus", "player": "bdj", "place": "1", "pop": "2099", "peak": "2183", "energy": "103541", "faults": "0", "insns": "66 (108)", "rating": "1117 → 1174"},
+        {"name": "CogBloomXT", "player": "Yen", "place": "2", "pop": "1586", "peak": "1588", "energy": "77346", "faults": "0", "insns": "53 (190)", "rating": "1282 → 1270"},
+        {"name": "gemAlert_v5", "player": "gschweers", "place": "4", "pop": "0", "peak": "234", "energy": "0", "faults": "0", "insns": "31 (202)", "rating": "853 → 842"}
+      ]
+    },
+    {
+      "id": 124324,
+      "cells": ["Walker", "NomNom2", "medivac", "ClaudeHunter"],
+      "winner": "ClaudeHunter",
+      "colonies": [
+        {"name": "Walker", "player": "BOT Alice", "place": "4", "pop": "0", "peak": "241", "energy": "0", "faults": "0", "insns": "7 (9)", "rating": "310 → 310"},
+        {"name": "NomNom2", "player": "bdj", "place": "3", "pop": "559", "peak": "649", "energy": "18189", "faults": "0", "insns": "43 (52)", "rating": "1293 → 1276"},
+        {"name": "medivac", "player": "bdj", "place": "2", "pop": "1596", "peak": "1596", "energy": "79548", "faults": "0", "insns": "50 (64)", "rating": "1495 → 1483"},
+        {"name": "ClaudeHunter", "player": "Assembler", "place": "1", "pop": "1940", "peak": "2217", "energy": "42572", "faults": "0", "insns": "19 (30)", "rating": "1293 → 1323"}
+      ]
+    },
+    {
+      "id": 124425,
+      "cells": ["medivac", "choochoo", "NomNom2", "Bane"],
+      "winner": "medivac",
+      "colonies": [
+        {"name": "medivac", "player": "bdj", "place": "1", "pop": "3653", "peak": "3653", "energy": "182392", "faults": "0", "insns": "51 (62)", "rating": "1528 → 1535"},
+        {"name": "choochoo", "player": "andrew", "place": "4", "pop": "0", "peak": "1", "energy": "0", "faults": "0", "insns": "13 (59)", "rating": "-145 → -145"},
+        {"name": "NomNom2", "player": "bdj", "place": "3", "pop": "92", "peak": "611", "energy": "1747", "faults": "0", "insns": "43 (51)", "rating": "1271 → 1250"},
+        {"name": "Bane", "player": "rjclay", "place": "2", "pop": "350", "peak": "350", "energy": "16909", "faults": "0", "insns": "69 (86)", "rating": "1157 → 1176"}
+      ]
+    }
+  ]
+}

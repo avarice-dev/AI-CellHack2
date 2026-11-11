@@ -532,6 +532,67 @@ def diff_contagion(blob, ref='contagion'):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
+def diff_bane2(blob):
+    """Bane v2 vs sim/cells_ref.bane2: all 4^4 adjacent types x energies x enemy placements x tick, and on the middle
+    path (an empty neighbour, no adjacent enemy) x memory states (plain, walkers on every bearing, a bearing byte out
+    of range, cells on the square they last split from, settled cells) x positions.  Compares action, instruction
+    count and the memory after the call."""
+    import cells_ref
+    r = Runner(blob)
+    adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
+    pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0), (47, 46, 48, 50), (4, 4, 3, 2), (8, 2, 30, 4))
+    fars = ((), (0,), (24,), (2,), (22,), (6,), (8,), (10,), (14,), (16,), (18,), (6, 18), (2, 22, 9))
+    # (bearing, steps, on the square it last split from); the first entry is all-zero memory
+    mems = (None, (0, 0, True), (0, 5, False), (1, 5, False), (2, 5, False), (3, 5, False), (2, 1, False),
+            (7, 3, False), (0, 8, True), (1, 8, True), (2, 2, True), (3, 2, True), (1, 0, False), (2, 0, False),
+            (3, 0, False))
+    poss = ((30, 31), (0, 0), (63, 5))
+    n = mism = nmove = nsplit = 0
+    for types in itertools.product(range(4), repeat=4):
+        middle = 0 in types and 2 not in types
+        for energy in (0, 2, 4, 5, 7, 11, 12, 15, 16, 46, 50):
+            for far in fars:
+                wide = middle and far in ((), (0,), (8,))
+                for tick in (0, 5, 2980):
+                    for pat in (pats if energy >= 6 and 0 not in types else pats[:1]):
+                        for mspec in (mems if wide else mems[:3]):
+                            for pos in (poss if wide else poss[:1]):
+                                cells = [0] * 25
+                                cells[12] = 1
+                                ens = [0] * 25
+                                ens[12] = energy
+                                for i, t, pe in zip(adj, types, pat):
+                                    cells[i] = t
+                                    if t in (1, 2):
+                                        ens[i] = pe
+                                for i in far:
+                                    cells[i] = 2
+                                    ens[i] = 9
+                                v = V()
+                                v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+                                v.x, v.y, v.w, v.h = pos[0], pos[1], 64, 64
+                                mref = bytearray(64)
+                                if mspec is not None:
+                                    mref[0], mref[1] = mspec[0], mspec[1]
+                                    px = pos[0] if mspec[2] else pos[0] + 5
+                                    mref[4:8] = struct.pack('<HH', px, pos[1])
+                                masm = bytes(mref)
+                                want = cells_ref.bane2(v, mref)[:2]
+                                got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)),
+                                             energy, mem=masm)
+                                gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
+                                n += 1
+                                nmove += 0x10 <= got[0] <= 0x13
+                                nsplit += 0x20 <= got[0] <= 0x23
+                                if got != want or gmem != bytes(mref):
+                                    mism += 1
+                                    if mism <= 10:
+                                        fail('bane2 diff types=%s e=%d far=%s tick=%d pat=%s mem=%s pos=%s: asm %s %s '
+                                             'ref %s %s' % (types, energy, far, tick, pat, masm[:8].hex(), pos, got,
+                                                            gmem[:8].hex(), want, bytes(mref[:8]).hex()))
+    print('  unicorn diff: %d cases (%d moves, %d splits), %d mismatches' % (n, nmove, nsplit, mism))
+
+
 VEX_SELFTEST = '''	movdqu		xmm3, [rdi + 64]		; src1: view energies 0..15
 	movdqu		xmm0, [rdi + 96]		; old dst: garbage Unicorn would compare
 	vpcmpeqb	xmm0, xmm3, [rdi + 33]		; unaligned memory operand
@@ -665,6 +726,25 @@ def main():
             if have_uc:
                 diff_scourge(blob, name, (0, 2980), cells_ref.bane)   # Scourge's hold on the middle path
                 diff_schism(blob, cells_ref.bane)                     # Schism's boxed paths
+        elif name == 'bane2':
+            import gen_bane2
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if syms['kZero'] % 16:
+                fail('bane2 kZero is not 16-byte aligned')
+            if open(p).read() != gen_bane2.generate():
+                fail('bane2.asm differs from gen_bane2.generate()')
+
+            def fast(path):
+                txt = open(path).read()
+                return txt[txt.index('start:'):txt.index('\ttest\t\tal, al')]
+            if fast(p) != fast(os.path.join(HERE, 'bane.asm')):
+                fail('bane2: bite / gate-1 source differs from bane.asm')
+            if blob[syms['dir_idx'] - CODE_BASE:syms['dir_idx'] - CODE_BASE + 4] != bytes(gen_bane2.DIR_IDX):
+                fail('bane2 dir_idx bytes differ from gen_bane2.DIR_IDX')
+            if have_uc:
+                diff_bane2(blob)
+                diff_schism(blob, cells_ref.bane2)                    # Schism's boxed paths (Bane's)
         elif name == 'pestilence':
             import gen_pestilence
             import cells_ref
