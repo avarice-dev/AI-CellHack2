@@ -14,7 +14,8 @@ A child copies its parent's memory.  A cell with steps left whose own position d
   - Settled, energy >= 5: the first child from a square goes forward (the cell's own bearing) and gets K_LONG steps;
     later children go to the next empty square clockwise from the last one and get K_SHORT steps (K_LONG before tick
     T_EARLY).  The cell writes bearing, steps and its own position, then splits.
-  - An enemy anywhere in the 5x5: steps = 0 (a walker stops) and Bane's prey hold applies.
+  - An enemy on a diagonal square (view 6, 8, 16, 18): steps = 0 (a walker stops) and Bane's prey hold applies.
+    (v2.2.  Before, any enemy in the 5x5 did this, and enemy walkers passing two squares away froze the opening.)
 The bite, gate 1 and the boxed block are Bane's source lines, unchanged.
 """
 
@@ -70,9 +71,9 @@ HEADER = """\
 ;   1. Otherwise an enemy next to me: bite it and store the bite (memory [%(lock)d] square, [%(lockact)d] action): 16.
 ;   2. Refill: an empty neighbour with an enemy beside or beyond it: split into it when energy >= %(rmin)d.
 ;      Any other empty neighbour: split when energy >= %(tmin)d (first of DOWN, RIGHT, UP, LEFT).
-;   3. An empty neighbour, below those energies, an enemy anywhere in the 5x5: stop walking; rest (the prey hold;
+;   3. An empty neighbour, below those energies, an enemy on a diagonal square: stop walking; rest (the prey hold;
 ;      from tick %(late)d: split when energy >= %(smin)d).
-;   4. An empty neighbour, no enemy in the 5x5:
+;   4. An empty neighbour, no enemy on a diagonal square (enemies two squares away do not stop growth):
 ;      walker: MOVE along the bearing while that square is empty and steps are left; otherwise settle.
 ;      settled, energy >= %(smin)d: split.  The first child from this square goes forward (my bearing) and walks %(klong)d
 ;      squares; later children go to the next empty square clockwise from the last one and walk %(kshort)d
@@ -81,7 +82,7 @@ HEADER = """\
 ;
 ; Instruction counts per path (every executed instruction, including taken jumps and ret):
 ;   stored bite 4, first bite 16, refill 16, split e >= %(tmin)d 16, boxed block: Bane's + 5
-;   enemy in the 5x5: rest e < %(smin)d 31, late split 31, hold 33
+;   enemy on a diagonal: rest e < %(smin)d 31, late split 31, hold 33
 ;   walker move 39; walker blocked, e < %(smin)d 41
 ;   settled, e < %(smin)d: rest 33 (35 for a cell with steps left on its own square)
 ;   first child forward 43; other children 47 to 66
@@ -90,12 +91,12 @@ HEADER = """\
 MIDDLE = """\
 	movdqu		xmm1, [rdi + VIEW_CELLS]	; view idx 0..15
 	movdqu		xmm2, [rdi + VIEW_CELLS + 9]	; view idx 9..24
-	pcmpeqb		xmm1, [kTwoLo]			; lane 12 (self) never matches
-	pcmpeqb		xmm2, [kTwoHi]			; lane 3 (self) never matches
+	pcmpeqb		xmm1, [kNearLo]			; enemy at view idx 6 or 8
+	pcmpeqb		xmm2, [kNearHi]			; enemy at view idx 16 or 18
 	por		xmm1, xmm2
 	pmovmskb	r8d, xmm1
 	test		r8d, r8d
-	jnz		threat				; an enemy in the 5x5 (26 so far)
+	jnz		threat				; an enemy on a diagonal square (26 so far)
 	mov		ecx, [rdi + VIEW_X]		; x | y << 16
 	cmp		byte [abs CELLMEM_BASE + %(steps)d], 0
 	je		settled
@@ -177,7 +178,9 @@ def code(body, p):
     body = body.replace('slow:\t\t\t\t\t\t; 5 instructions so far', 'slow:\t\t\t\t\t\t; 10 instructions so far')
     k = body.index('kTwoHi:')
     k = body.index('\n', k) + 1
-    return body[:k] + 'dir_idx:\tdb %s\t; view index of the neighbour UP, RIGHT, DOWN, LEFT\n' % ', '.join(
+    near = ('kNearLo:\tdb %s\t; idx 0..15: 2 at 6 and 8\n' % G.lanes16(0xFF, l6=2, l8=2)
+            + 'kNearHi:\tdb %s\t; idx 9..24: 2 at 16 and 18\n' % G.lanes16(0xFF, l7=2, l9=2))
+    return body[:k] + near + 'dir_idx:\tdb %s\t; view index of the neighbour UP, RIGHT, DOWN, LEFT\n' % ', '.join(
         '%d' % i for i in DIR_IDX) + 'lock_off:\tdb %s\t; stored-bite offset for UP, RIGHT, DOWN, LEFT\n' % ', '.join(
         '%d' % i for i in LOCK_OFF) + body[k:]
 

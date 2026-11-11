@@ -459,9 +459,11 @@ bane = make_bane()
 # walker: it MOVEs along the bearing until the next square is not empty or the steps run out, then settles.  A settled
 # cell with energy >= 5 and no enemy in the 5x5 splits: its first child from a square goes forward (its own bearing)
 # and walks k_long squares; later children go to the next empty square clockwise from the last one and walk k_short
-# (k_long before tick t_early).  With an enemy in the 5x5 a walker stops and Bane's prey hold applies.
+# (k_long before tick t_early).  With an enemy on a diagonal square a walker stops and Bane's prey hold applies
+# (v2.2; v2.0 and v2.1 held with an enemy anywhere in the 5x5, which froze the opening near enemy walkers).
 BANE2_K_LONG = 8
 BANE2_K_SHORT = 2
+BANE2_NEAR = (6, 8, 16, 18)        # the diagonal squares (an adjacent enemy is bitten before this)
 BANE2_LOCK_OFF = (15, 21, 25, 19)   # view index + 8 of the neighbour UP, RIGHT, DOWN, LEFT
 BANE2_T_EARLY = 0             # 0 = off: only a cell's first child from a square walks k_long
 
@@ -496,7 +498,7 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
             return act, n0, t0                     # gate 1: refill / split (11)
         split = ACT_SPLIT + (freed or empty)[0]
         n, t = 21, 0                               # 13, then movdqu x2, pcmpeqb x2, por, pmovmskb, test, jnz threat
-        if any(c[i] == CELL_ENEMY for i in range(25) if i != VIEW_CENTER):
+        if any(c[i] == CELL_ENEMY for i in BANE2_NEAR):        # v2.2: the hold needs an enemy in the 3x3
             mem[1] = 0                             # threat (taken): mov steps, cmp esi, jb rest
             n, t = n + 3, t + 1
             if e < SPRINT_SPLIT_MIN:

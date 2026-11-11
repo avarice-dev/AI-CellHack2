@@ -131,14 +131,23 @@ class Bane2RefTest(unittest.TestCase):
         self.assertEqual(bytes(m), bytes(mem(bear=LEFT, steps=0, pos=(10, 10))))
 
     def test_enemy_in_view_stops_a_walker_and_holds(self):
-        for e, want in ((2, REST), (5, REST), (15, REST)):
-            m = mem(bear=UP, steps=5, pos=(10, 10))
-            self.assertEqual(self.p(View(e, far=(0,)), m)[0], want)
-            self.assertEqual(m[1], 0)
+        for diag in (6, 8, 16, 18):                          # an enemy on a diagonal (the 3x3)
+            for e, want in ((2, REST), (5, REST), (11, REST)):
+                m = mem(bear=UP, steps=5, pos=(10, 10))
+                self.assertEqual(self.p(View(e, far=(diag,)), m)[0], want)
+                self.assertEqual(m[1], 0)
+
+    def test_enemy_two_squares_away_does_not_stop_growth(self):
+        for far in (0, 1, 3, 4, 5, 9, 15, 19, 20, 21, 23, 24, 2, 22):     # outer ring, not beside an empty neighbour
+            m = mem(bear=RIGHT, steps=5, pos=(10, 10))
+            self.assertEqual(self.p(View(2, far=(far,)), m)[0], MOVE + RIGHT)       # a walker keeps walking
+            m = mem(bear=RIGHT, steps=0, pos=(10, 10))
+            self.assertEqual(self.p(View(5, far=(far,)), m)[0], SPLIT + RIGHT)      # a settled cell keeps splitting
+            self.assertEqual(m[1], self.KL)
 
     def test_enemy_in_view_late_tick_splits_like_bane(self):
         m = mem(bear=UP, steps=5, pos=(10, 10))
-        v = View(6, far=(0,), tick=2980)
+        v = View(6, far=(6,), tick=2980)
         self.assertEqual(self.p(v, m)[0], cells_ref.bane(v, bytearray(64))[0])
 
     def test_stored_bite(self):
@@ -174,8 +183,8 @@ class Bane2RefTest(unittest.TestCase):
         self.assertEqual(self.p(View(5), mem(UP, 0, (10, 10)))[1:], (43, 41))            # first emission, long
         self.assertEqual(self.p(View(4), mem(UP, 0, (10, 10)))[1:], (33, 31))            # thin settled cell rests
         self.assertEqual(self.p(View(5), mem(UP, 8, (30, 31)))[1:], (50, 46))            # emitter, next square, short
-        self.assertEqual(self.p(View(2, far=(0,)), mem(UP, 5, (10, 10)))[1:], (31, 29))  # enemy in view, e < 5
-        self.assertEqual(self.p(View(9, far=(0,)), mem(UP, 5, (10, 10)))[1:], (33, 32))  # hold
+        self.assertEqual(self.p(View(2, far=(6,)), mem(UP, 5, (10, 10)))[1:], (31, 29))  # enemy in view, e < 5
+        self.assertEqual(self.p(View(9, far=(6,)), mem(UP, 5, (10, 10)))[1:], (33, 32))  # hold
 
 
 class Bane2GenTest(unittest.TestCase):

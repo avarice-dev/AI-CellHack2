@@ -14,9 +14,9 @@
 ;   1. Otherwise an enemy next to me: bite it and store the bite (memory [2] square, [3] action): 16.
 ;   2. Refill: an empty neighbour with an enemy beside or beyond it: split into it when energy >= 12.
 ;      Any other empty neighbour: split when energy >= 16 (first of DOWN, RIGHT, UP, LEFT).
-;   3. An empty neighbour, below those energies, an enemy anywhere in the 5x5: stop walking; rest (the prey hold;
+;   3. An empty neighbour, below those energies, an enemy on a diagonal square: stop walking; rest (the prey hold;
 ;      from tick 2980: split when energy >= 5).
-;   4. An empty neighbour, no enemy in the 5x5:
+;   4. An empty neighbour, no enemy on a diagonal square (enemies two squares away do not stop growth):
 ;      walker: MOVE along the bearing while that square is empty and steps are left; otherwise settle.
 ;      settled, energy >= 5: split.  The first child from this square goes forward (my bearing) and walks 8
 ;      squares; later children go to the next empty square clockwise from the last one and walk 2
@@ -25,7 +25,7 @@
 ;
 ; Instruction counts per path (every executed instruction, including taken jumps and ret):
 ;   stored bite 4, first bite 16, refill 16, split e >= 16 16, boxed block: Bane's + 5
-;   enemy in the 5x5: rest e < 5 31, late split 31, hold 33
+;   enemy on a diagonal: rest e < 5 31, late split 31, hold 33
 ;   walker move 39; walker blocked, e < 5 41
 ;   settled, e < 5: rest 33 (35 for a cell with steps left on its own square)
 ;   first child forward 43; other children 47 to 66
@@ -53,12 +53,12 @@ slow:						; 10 instructions so far
 	jz		boxed
 	movdqu		xmm1, [rdi + VIEW_CELLS]	; view idx 0..15
 	movdqu		xmm2, [rdi + VIEW_CELLS + 9]	; view idx 9..24
-	pcmpeqb		xmm1, [kTwoLo]			; lane 12 (self) never matches
-	pcmpeqb		xmm2, [kTwoHi]			; lane 3 (self) never matches
+	pcmpeqb		xmm1, [kNearLo]			; enemy at view idx 6 or 8
+	pcmpeqb		xmm2, [kNearHi]			; enemy at view idx 16 or 18
 	por		xmm1, xmm2
 	pmovmskb	r8d, xmm1
 	test		r8d, r8d
-	jnz		threat				; an enemy in the 5x5 (26 so far)
+	jnz		threat				; an enemy on a diagonal square (26 so far)
 	mov		ecx, [rdi + VIEW_X]		; x | y << 16
 	cmp		byte [abs CELLMEM_BASE + 1], 0
 	je		settled
@@ -233,6 +233,8 @@ kRefill:	db 0x02, 0x00, 0x02, 0xff, 0x02, 0x00, 0xff, 0x00, 0x02, 0xff, 0x02, 0x
 kZero:	times 16 db 0
 kTwoLo:	db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0xff, 0x02, 0x02, 0x02	; idx 0..15, self (lane 12) excluded
 kTwoHi:	db 0x02, 0x02, 0x02, 0xff, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02	; idx 9..24, self (lane 3) excluded
+kNearLo:	db 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x02, 0xff, 0x02, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff	; idx 0..15: 2 at 6 and 8
+kNearHi:	db 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x02, 0xff, 0x02, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff	; idx 9..24: 2 at 16 and 18
 dir_idx:	db 7, 13, 17, 11	; view index of the neighbour UP, RIGHT, DOWN, LEFT
 lock_off:	db 15, 21, 25, 19	; stored-bite offset for UP, RIGHT, DOWN, LEFT
 

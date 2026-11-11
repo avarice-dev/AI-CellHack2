@@ -746,6 +746,8 @@ def main():
                 return txt[txt.index('\n', a):txt.index('\tjz\t\tboxed')]
             if fast(p) != fast(os.path.join(HERE, 'bane.asm')):
                 fail('bane2: gate-1 source differs from bane.asm')
+            if syms['kNearLo'] % 16 or syms['kNearHi'] % 16:
+                fail('bane2 kNearLo / kNearHi are not 16-byte aligned')
             if blob[syms['lock_off'] - CODE_BASE:syms['lock_off'] - CODE_BASE + 4] != bytes(gen_bane2.LOCK_OFF):
                 fail('bane2 lock_off bytes differ from gen_bane2.LOCK_OFF')
             if blob[syms['dir_idx'] - CODE_BASE:syms['dir_idx'] - CODE_BASE + 4] != bytes(gen_bane2.DIR_IDX):
