@@ -26,7 +26,7 @@ As of 2026-11-10 06:05 UTC-06. \* Best recorded value; the site does not publish
 Start with the architecture documents:
 
 - [Project overview](architecture/overview.md): what the game is, the goal, the glossary, and the repository layout.
-- [Simulator](architecture/simulator.md): how the simulator models the rules, and how far to trust it.
+- [Simulator](architecture/simulator.md): how the simulator models the rules, and how far to trust it. The engine is complete and checked against replays; accurate models of rival cells are the user's own work.
 - [Data pulls and replay tools](architecture/data-pulls.md): how game data is collected from the site, decoded and stored.
 - [Cells and experiments](architecture/cells-and-experiments.md): how cells are generated and checked, what the calibration probes learned, and the history of each cell.
 - [Cell assembly](architecture/cell-assembly.md): the x86-64 instructions in the cells, why each one was chosen, and how each decision is written in code.

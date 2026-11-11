@@ -2,6 +2,14 @@
 
 The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python function replaces each cell and returns the action and the number of instructions that the real cell would run. Use it for early checks only. It does not replace a Sandbox test or a ladder result. Terms such as pad3, t100 and pump are in the [glossary](overview.md#glossary).
 
+## Status: complete (2026-11-11)
+
+The simulator is finished as a feature. No more work is planned on it.
+
+- **The rules engine is solid.** With the recorded actions of real replays as input, it gives the same board as the replay (see [How far to trust it](#how-far-to-trust-it)). A colony that grows alone is simulated well, because no rival model is involved. The project uses it for that: to check the opening of a new cell before the cell goes to the site.
+- **Rival cells are the user's work.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
+- **What this means for you.** Use the engine as it is. To study a matchup, write and validate your own model of that rival from your own replays (`validate.py`, [Data pulls and replay tools](data-pulls.md)). Do not use the win rates of the supplied rival models as evidence. The turn order by instruction count follows the published rules; replays cannot confirm it.
+
 ## What it models
 
 | Part of the game | How the simulator handles it |
@@ -127,7 +135,7 @@ The win-share baseline is in-sample, so it is optimistic. Seed noise, measured 2
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
 
-Open work: the real Atom and pump feeding rules, from per-tick replay data.
+Not planned (see [Status](#status-complete-2026-11-11)): the real Atom and pump feeding rules, and models of later rivals. Both need per-tick replay study of each rival, which is left to the user.
 
 ## Main assumptions
 
