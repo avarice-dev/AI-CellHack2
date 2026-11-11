@@ -543,8 +543,8 @@ def diff_bane2(blob, ref='bane2'):
     count and the memory after the call."""
     import cells_ref
     policy = getattr(cells_ref, ref)
-    queue = ref == 'conviction'         # memory [8..15] is a bite queue; enemy energies vary (queue length)
-    QS = (0, 0x3000, 0x313100, 0x32323232323200, 0x3333333333333300, 0x30, 0x3100000000000000)
+    queue = ref in ('conviction', 'penalty')   # memory [8..15] is a queue; enemy energies vary (queue contents)
+    QS = (0, 0x3000, 0x313100, 0x32323232323200, 0x3333333333333300, 0x30, 0x3100000000000000, 0x2100, 0x223200)
     TES = (1, 2, 3, 4, 5, 6, 7, 9, 16, 17, 18, 50, 70)
     r = Runner(blob)
     adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
@@ -786,6 +786,23 @@ def main():
                 def boxed(v, m):                                      # Schism's boxed paths, 3 later, queue empty
                     return cells_ref.conviction(v, m)
                 diff_schism(blob, boxed)
+        elif name == 'penalty':
+            import gen_penalty
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if any(syms[k] % 16 for k in ('kZero', 'kNearLo', 'kNearHi')):
+                fail('penalty kZero / kNearLo / kNearHi are not 16-byte aligned')
+            if open(p).read() != gen_penalty.generate():
+                fail('penalty.asm differs from gen_penalty.generate()')
+            o = syms['q_tbl'] - CODE_BASE
+            want = b''.join(struct.pack('<Q', gen_penalty.queue_value(d, e)) for d in range(4) for e in range(64))
+            if blob[o:o + 2048] != want:
+                fail('penalty q_tbl bytes differ from gen_penalty.queue_value()')
+            if blob[syms['en_off'] - CODE_BASE:syms['en_off'] - CODE_BASE + 4] != bytes(gen_penalty.C.ENERGY_OFF):
+                fail('penalty en_off bytes differ from gen_conviction.ENERGY_OFF')
+            if have_uc:
+                diff_bane2(blob, 'penalty')
+                diff_schism(blob, cells_ref.penalty)
         elif name == 'pestilence':
             import gen_pestilence
             import cells_ref
