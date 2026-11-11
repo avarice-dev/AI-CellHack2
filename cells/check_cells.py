@@ -388,9 +388,10 @@ def check_scourge(blob, syms, lst, vex=False):
         fail('scourge act_tbl/thr_tbl bytes differ from gen_scourge.refill_tables()')
     j = off['slow'] - 6
     code = blob[j:j + 6]
-    if 'setlock' in syms:               # Bane v2.1: the bite leaves through setlock (stores the bite)
-        if not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == syms['setlock']):
-            fail('bane2: bite exit is not `jnz rel32` to setlock: %s' % code.hex())
+    store = 'setlock' if 'setlock' in syms else 'setq' if 'setq' in syms else None
+    if store:                           # Bane v2.1 / Conviction: the bite leaves through a block that stores it
+        if not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == syms[store]):
+            fail('bite exit is not `jnz rel32` to %s: %s' % (store, code.hex()))
     elif not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == EXIT_ADDR):
         fail('scourge: bite exit is not `jnz rel32` to EXIT_ADDR: %s' % code.hex())
     jl = [l for l in open(lst) if re.search(r'\bjae\s+EXIT_ADDR\s+;\s*refill', l)]
@@ -535,12 +536,16 @@ def diff_contagion(blob, ref='contagion'):
     print('  unicorn diff: %d cases, %d mismatches' % (n, mism))
 
 
-def diff_bane2(blob):
+def diff_bane2(blob, ref='bane2'):
     """Bane v2 vs sim/cells_ref.bane2: all 4^4 adjacent types x energies x enemy placements x tick, and on the middle
     path (an empty neighbour, no adjacent enemy) x memory states (plain, walkers on every bearing, a bearing byte out
     of range, cells on the square they last split from, settled cells) x positions.  Compares action, instruction
     count and the memory after the call."""
     import cells_ref
+    policy = getattr(cells_ref, ref)
+    queue = ref == 'conviction'         # memory [8..15] is a bite queue; enemy energies vary (queue length)
+    QS = (0, 0x3000, 0x313100, 0x32323232323200, 0x3333333333333300, 0x30, 0x3100000000000000)
+    TES = (1, 2, 3, 4, 5, 6, 7, 9, 16, 17, 18, 50, 70)
     r = Runner(blob)
     adj = (7, 13, 17, 11)               # UP RIGHT DOWN LEFT
     pats = ((20, 20, 20, 20), (12, 30, 13, 9), (50, 40, 1, 0), (47, 46, 48, 50), (4, 4, 3, 2), (8, 2, 30, 4))
@@ -568,7 +573,7 @@ def diff_bane2(blob):
                                 for i, t, pe in zip(adj, types, pat):
                                     cells[i] = t
                                     if t in (1, 2):
-                                        ens[i] = pe
+                                        ens[i] = TES[(n + i) % len(TES)] if queue and t == 2 else pe
                                 for i in far:
                                     cells[i] = 2
                                     ens[i] = 9
@@ -578,11 +583,14 @@ def diff_bane2(blob):
                                 mref = bytearray(64)
                                 if mspec is not None:
                                     mref[0], mref[1] = mspec[0], mspec[1]
-                                    mref[2], mref[3] = LOCKS[n % len(LOCKS)]
+                                    if queue:
+                                        mref[8:16] = struct.pack('<Q', QS[n % len(QS)])
+                                    else:
+                                        mref[2], mref[3] = LOCKS[n % len(LOCKS)]
                                     px = pos[0] if mspec[2] else pos[0] + 5
                                     mref[4:8] = struct.pack('<HH', px, pos[1])
                                 masm = bytes(mref)
-                                want = cells_ref.bane2(v, mref)[:2]
+                                want = policy(v, mref)[:2]
                                 got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)),
                                              energy, mem=masm)
                                 gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
@@ -592,9 +600,9 @@ def diff_bane2(blob):
                                 if got != want or gmem != bytes(mref):
                                     mism += 1
                                     if mism <= 10:
-                                        fail('bane2 diff types=%s e=%d far=%s tick=%d pat=%s mem=%s pos=%s: asm %s %s '
-                                             'ref %s %s' % (types, energy, far, tick, pat, masm[:8].hex(), pos, got,
-                                                            gmem[:8].hex(), want, bytes(mref[:8]).hex()))
+                                        fail('%s diff types=%s e=%d far=%s tick=%d pat=%s mem=%s pos=%s: asm %s %s '
+                                             'ref %s %s' % (ref, types, energy, far, tick, pat, masm[:16].hex(), pos,
+                                                            got, gmem[:16].hex(), want, bytes(mref[:16]).hex()))
     print('  unicorn diff: %d cases (%d moves, %d splits), %d mismatches' % (n, nmove, nsplit, mism))
 
 
@@ -755,6 +763,29 @@ def main():
             if have_uc:
                 diff_bane2(blob)
                 diff_schism(blob, cells_ref.bane2)                    # Schism's boxed paths (Bane's)
+        elif name == 'conviction':
+            import gen_conviction
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if any(syms[k] % 16 for k in ('kZero', 'kNearLo', 'kNearHi')):
+                fail('conviction kZero / kNearLo / kNearHi are not 16-byte aligned')
+            if open(p).read() != gen_conviction.generate():
+                fail('conviction.asm differs from gen_conviction.generate()')
+            o = syms['n_tbl'] - CODE_BASE
+            if list(blob[o:o + 64]) != [gen_conviction.queue_len(e) for e in range(64)]:
+                fail('conviction n_tbl bytes differ from gen_conviction.queue_len()')
+            o = syms['q_tbl'] - CODE_BASE
+            want = b''.join(struct.pack('<Q', gen_conviction.queue_value(d, k)) for d in range(4) for k in range(8))
+            if blob[o:o + 256] != want:
+                fail('conviction q_tbl bytes differ from gen_conviction.queue_value()')
+            if blob[syms['en_off'] - CODE_BASE:syms['en_off'] - CODE_BASE + 4] != bytes(gen_conviction.ENERGY_OFF):
+                fail('conviction en_off bytes differ from gen_conviction.ENERGY_OFF')
+            if have_uc:
+                diff_bane2(blob, 'conviction')
+
+                def boxed(v, m):                                      # Schism's boxed paths, 3 later, queue empty
+                    return cells_ref.conviction(v, m)
+                diff_schism(blob, boxed)
         elif name == 'pestilence':
             import gen_pestilence
             import cells_ref
