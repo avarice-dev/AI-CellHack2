@@ -6,11 +6,12 @@
 ; CPU target: plain qemu64 (SSE2 only used; no VEX).  No loops, no stack use.  Relies on: rax = 0 at entry
 ; (registers are reset before every call).  The cell memory is addressed as [abs CELLMEM_BASE + n].
 ;
-; Memory: [0] bearing 0..3, [1] steps left, [4..7] x | y << 16 of the square this cell last split from.
+; Memory: [0] bearing 0..3, [1] steps left, [2] and [3] the stored bite, [4..7] x | y << 16 of the square this cell last split from.
 ; A child copies the memory; a cell with steps left that is not on that square is a walker.
 ;
 ; Behaviour
-;   1. An enemy next to me: bite it (5 instructions in every direction).
+;   0. Stored bite: the square I bit last time still holds an enemy: bite it again (4 instructions, no view scan).
+;   1. Otherwise an enemy next to me: bite it and store the bite (memory [2] square, [3] action): 16.
 ;   2. Refill: an empty neighbour with an enemy beside or beyond it: split into it when energy >= 12.
 ;      Any other empty neighbour: split when energy >= 16 (first of DOWN, RIGHT, UP, LEFT).
 ;   3. An empty neighbour, below those energies, an enemy anywhere in the 5x5: stop walking; rest (the prey hold;
@@ -23,20 +24,25 @@
 ;   5. No empty neighbour: Bane's boxed block (feed a friend that has an empty neighbour, or the poorest friend).
 ;
 ; Instruction counts per path (every executed instruction, including taken jumps and ret):
-;   bite 5, refill 11, split e >= 16 11, boxed block: Bane's
-;   enemy in the 5x5: rest e < 5 26, late split 26, hold 28
-;   walker move 34; walker blocked, e < 5 36
-;   settled, e < 5: rest 28 (30 for a cell with steps left on its own square)
-;   first child forward 38; other children 42 to 61
+;   stored bite 4, first bite 16, refill 16, split e >= 16 16, boxed block: Bane's + 5
+;   enemy in the 5x5: rest e < 5 31, late split 31, hold 33
+;   walker move 39; walker blocked, e < 5 41
+;   settled, e < 5: rest 33 (35 for a cell with steps left on its own square)
+;   first child forward 43; other children 47 to 66
 
 start:
+	movzx		ecx, byte [abs CELLMEM_BASE + 2]	; stored bite: view offset of the square (0 = none)
+	cmp		byte [rdi + rcx + 24], CELL_ENEMY
+	mov		al, [abs CELLMEM_BASE + 3]
+	je		EXIT_ADDR			; the enemy is still there: bite in 4 instructions
 	movdqu		xmm0, [rdi + VIEW_CELLS + VIEW_UP]	; view idx 7..22
 	pcmpeqb		xmm0, [kEnemy]
 	pmovmskb	ecx, xmm0			; bits 0 UP, 4 LEFT, 6 RIGHT, 10 DOWN
-	or		al, [abs bite_tbl + rcx]	; rax = 0 at entry: al = eat action, ZF = no enemy
-	jnz		EXIT_ADDR			; bite: leave through the return address
+	mov		al, [abs bite_tbl + rcx]	; eat action, 0 = no enemy
+	test		al, al
+	jnz		setlock				; bite, and store it for the next tick
 
-slow:						; 5 instructions so far
+slow:						; 10 instructions so far
 	movdqu		xmm1, [rdi + VIEW_CELLS + 6]	; view idx 6..21
 	pcmpeqb		xmm1, [kRefill]			; empty neighbours, enemies beside/beyond them
 	pmovmskb	ecx, xmm1			; mask 0..7607
@@ -52,7 +58,7 @@ slow:						; 5 instructions so far
 	por		xmm1, xmm2
 	pmovmskb	r8d, xmm1
 	test		r8d, r8d
-	jnz		threat				; an enemy in the 5x5 (21 so far)
+	jnz		threat				; an enemy in the 5x5 (26 so far)
 	mov		ecx, [rdi + VIEW_X]		; x | y << 16
 	cmp		byte [abs CELLMEM_BASE + 1], 0
 	je		settled
@@ -65,7 +71,7 @@ slow:						; 5 instructions so far
 	jne		walk_end			; blocked
 	dec		byte [abs CELLMEM_BASE + 1]
 	lea		eax, [r9 + ACT_MOVE]
-	ret					; walker move: 34
+	ret					; walker move: 39
 walk_end:
 	mov		byte [abs CELLMEM_BASE + 1], 0
 settled:
@@ -116,6 +122,13 @@ threat:
 	jae		EXIT_ADDR			; late: split anyway (al = gate 1's split)
 rest:
 	mov		al, ACT_REST
+	ret
+setlock:
+	mov		[abs CELLMEM_BASE + 3], al
+	movzx		ecx, al
+	and		ecx, 3
+	mov		cl, [abs lock_off + rcx]
+	mov		[abs CELLMEM_BASE + 2], cl
 	ret
 boxed:
 	cmp		esi, 6
@@ -221,6 +234,7 @@ kZero:	times 16 db 0
 kTwoLo:	db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0xff, 0x02, 0x02, 0x02	; idx 0..15, self (lane 12) excluded
 kTwoHi:	db 0x02, 0x02, 0x02, 0xff, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02	; idx 9..24, self (lane 3) excluded
 dir_idx:	db 7, 13, 17, 11	; view index of the neighbour UP, RIGHT, DOWN, LEFT
+lock_off:	db 15, 21, 25, 19	; stored-bite offset for UP, RIGHT, DOWN, LEFT
 
 ; ---- bite_tbl: 1106 bytes, index = adjacent-enemy mask; 0 = no enemy (falls to slow)
 bite_tbl:

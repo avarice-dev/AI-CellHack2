@@ -388,7 +388,10 @@ def check_scourge(blob, syms, lst, vex=False):
         fail('scourge act_tbl/thr_tbl bytes differ from gen_scourge.refill_tables()')
     j = off['slow'] - 6
     code = blob[j:j + 6]
-    if not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == EXIT_ADDR):
+    if 'setlock' in syms:               # Bane v2.1: the bite leaves through setlock (stores the bite)
+        if not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == syms['setlock']):
+            fail('bane2: bite exit is not `jnz rel32` to setlock: %s' % code.hex())
+    elif not (code[:2] == b'\x0f\x85' and CODE_BASE + j + 6 + struct.unpack('<i', code[2:6])[0] == EXIT_ADDR):
         fail('scourge: bite exit is not `jnz rel32` to EXIT_ADDR: %s' % code.hex())
     jl = [l for l in open(lst) if re.search(r'\bjae\s+EXIT_ADDR\s+;\s*refill', l)]
     if not jl or not jl[0].split()[2].upper().startswith('0F83'):
@@ -547,6 +550,7 @@ def diff_bane2(blob):
             (7, 3, False), (0, 8, True), (1, 8, True), (2, 2, True), (3, 2, True), (1, 0, False), (2, 0, False),
             (3, 0, False))
     poss = ((30, 31), (0, 0), (63, 5))
+    LOCKS = ((0, 0), (15, 0x30), (21, 0x31), (25, 0x32), (19, 0x33), (0, 0x31), (21, 0x33))   # stored bites
     n = mism = nmove = nsplit = 0
     for types in itertools.product(range(4), repeat=4):
         middle = 0 in types and 2 not in types
@@ -574,6 +578,7 @@ def diff_bane2(blob):
                                 mref = bytearray(64)
                                 if mspec is not None:
                                     mref[0], mref[1] = mspec[0], mspec[1]
+                                    mref[2], mref[3] = LOCKS[n % len(LOCKS)]
                                     px = pos[0] if mspec[2] else pos[0] + 5
                                     mref[4:8] = struct.pack('<HH', px, pos[1])
                                 masm = bytes(mref)
@@ -737,9 +742,12 @@ def main():
 
             def fast(path):
                 txt = open(path).read()
-                return txt[txt.index('start:'):txt.index('\ttest\t\tal, al')]
+                a = txt.index('slow:')
+                return txt[txt.index('\n', a):txt.index('\tjz\t\tboxed')]
             if fast(p) != fast(os.path.join(HERE, 'bane.asm')):
-                fail('bane2: bite / gate-1 source differs from bane.asm')
+                fail('bane2: gate-1 source differs from bane.asm')
+            if blob[syms['lock_off'] - CODE_BASE:syms['lock_off'] - CODE_BASE + 4] != bytes(gen_bane2.LOCK_OFF):
+                fail('bane2 lock_off bytes differ from gen_bane2.LOCK_OFF')
             if blob[syms['dir_idx'] - CODE_BASE:syms['dir_idx'] - CODE_BASE + 4] != bytes(gen_bane2.DIR_IDX):
                 fail('bane2 dir_idx bytes differ from gen_bane2.DIR_IDX')
             if have_uc:

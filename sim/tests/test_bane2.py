@@ -141,25 +141,41 @@ class Bane2RefTest(unittest.TestCase):
         v = View(6, far=(0,), tick=2980)
         self.assertEqual(self.p(v, m)[0], cells_ref.bane(v, bytearray(64))[0])
 
-    def test_bite_gate1_and_boxed_paths_are_banes(self):
-        cases = [View(20, (EN, EM, EM, EM)),                 # bite
-                 View(16), View(40),                          # gate 1, e >= 16
+    def test_stored_bite(self):
+        m = mem(bear=RIGHT, steps=4, pos=(10, 10))
+        v = View(20, (EM, EN, EM, EM))
+        self.assertEqual(self.p(v, m)[:2], (0x30 + RIGHT, 16))          # first bite: scan, then store
+        self.assertEqual((m[2], m[3]), (13 + 8, 0x30 + RIGHT))
+        self.assertEqual(self.p(v, m), (0x30 + RIGHT, 4, 3))            # same enemy next tick: 4 instructions
+        v2 = View(20, (EN, EN, EM, EM))                                 # a second enemy: keep biting the stored one
+        self.assertEqual(self.p(v2, m)[:2], (0x30 + RIGHT, 4))
+        gone = View(20, (EM, FR, EM, EM))                               # a friend took the square: never bite it
+        act, n = self.p(gone, m)[:2]
+        self.assertEqual(act & 0xF0, SPLIT)
+        self.assertEqual(n, 16)
+        other = View(20, (EN, EM, EM, EM))                              # enemy elsewhere: scan again, store anew
+        self.assertEqual(self.p(other, m)[:2], (0x30 + UP, 16))
+        self.assertEqual((m[2], m[3]), (7 + 8, 0x30 + UP))
+
+    def test_gate1_and_boxed_paths_are_banes_plus_five(self):
+        cases = [View(16), View(40),                          # gate 1, e >= 16
                  View(12, far=(6,)),                          # refill
                  View(3, (FR, FR, FR, WA)), View(30, (FR, FR, FR, FR)),   # boxed
                  View(8, (FR, FR, FR, FR), friends=(6, 8, 16, 18))]
         for v in cases:
             m = mem(bear=RIGHT, steps=4, pos=(10, 10))
-            self.assertEqual(self.p(v, m), cells_ref.bane(v, bytearray(64)))
+            a, n, t = cells_ref.bane(v, bytearray(64))
+            self.assertEqual(self.p(v, m), (a, n + 5, t + 5))
             self.assertEqual(bytes(m), bytes(mem(bear=RIGHT, steps=4, pos=(10, 10))))
 
     def test_instruction_counts_of_the_new_paths(self):
         # traced by hand from cells/gen_bane2.py's asm (every executed instruction incl. taken jumps and ret)
-        self.assertEqual(self.p(View(2), mem(UP, 5, (10, 10)))[1:], (34, 34))            # walker move
-        self.assertEqual(self.p(View(5), mem(UP, 0, (10, 10)))[1:], (38, 36))            # first emission, long
-        self.assertEqual(self.p(View(4), mem(UP, 0, (10, 10)))[1:], (28, 26))            # thin settled cell rests
-        self.assertEqual(self.p(View(5), mem(UP, 8, (30, 31)))[1:], (45, 41))            # emitter, next square, short
-        self.assertEqual(self.p(View(2, far=(0,)), mem(UP, 5, (10, 10)))[1:], (26, 24))  # enemy in view, e < 5
-        self.assertEqual(self.p(View(9, far=(0,)), mem(UP, 5, (10, 10)))[1:], (28, 27))  # hold
+        self.assertEqual(self.p(View(2), mem(UP, 5, (10, 10)))[1:], (39, 39))            # walker move
+        self.assertEqual(self.p(View(5), mem(UP, 0, (10, 10)))[1:], (43, 41))            # first emission, long
+        self.assertEqual(self.p(View(4), mem(UP, 0, (10, 10)))[1:], (33, 31))            # thin settled cell rests
+        self.assertEqual(self.p(View(5), mem(UP, 8, (30, 31)))[1:], (50, 46))            # emitter, next square, short
+        self.assertEqual(self.p(View(2, far=(0,)), mem(UP, 5, (10, 10)))[1:], (31, 29))  # enemy in view, e < 5
+        self.assertEqual(self.p(View(9, far=(0,)), mem(UP, 5, (10, 10)))[1:], (33, 32))  # hold
 
 
 class Bane2GenTest(unittest.TestCase):
@@ -170,11 +186,12 @@ class Bane2GenTest(unittest.TestCase):
         with open(os.path.join(CELLS_DIR, 'bane2.asm'), newline='') as f:
             self.assertEqual(f.read(), gen_bane2.generate())
 
-    def test_bite_and_gate1_lines_are_banes(self):
-        def fast(name):
+    def test_gate1_lines_are_banes(self):
+        def gate(name):
             txt = open(os.path.join(CELLS_DIR, name)).read()
-            return txt[txt.index('start:'):txt.index('\ttest\t\tal, al')]
-        self.assertEqual(fast('bane2.asm'), fast('bane.asm'))
+            a = txt.index('slow:')
+            return txt[txt.index('\n', a):txt.index('\tjz\t\tboxed')]
+        self.assertEqual(gate('bane2.asm'), gate('bane.asm'))
 
     def test_paste_rules(self):
         src = open(os.path.join(CELLS_DIR, 'bane2.asm')).read()

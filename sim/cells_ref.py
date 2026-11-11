@@ -462,6 +462,7 @@ bane = make_bane()
 # (k_long before tick t_early).  With an enemy in the 5x5 a walker stops and Bane's prey hold applies.
 BANE2_K_LONG = 8
 BANE2_K_SHORT = 2
+BANE2_LOCK_OFF = (15, 21, 25, 19)   # view index + 8 of the neighbour UP, RIGHT, DOWN, LEFT
 BANE2_T_EARLY = 0             # 0 = off: only a cell's first child from a square walks k_long
 
 
@@ -471,6 +472,18 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
     threat_min = kw.get('threat_min', SCOURGE_THREAT_MIN)
 
     def bane2(view, mem):
+        # stored bite (v2.1): movzx lock, cmp view byte, mov al, je EXIT (4).  mem[2] = view index + 8 of the
+        # square bitten last time (0 = none: reads an unused zero byte of the view), mem[3] = that action.
+        c = view.cells
+        if 0 <= mem[2] - 8 < 25 and c[mem[2] - 8] == CELL_ENEMY:
+            return mem[3], 4, 3
+        act, n, t = core(view, mem)
+        if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
+            mem[3], mem[2] = act, BANE2_LOCK_OFF[act & 3]      # mov / test / jnz setlock, then 6
+            return act, 16, 15
+        return act, n + 5, t + 5                   # 4 lock instructions, and mov + test for the old `or`
+
+    def core(view, mem):
         act, n0, t0 = parent(view, mem)
         c, e = view.cells, view.energy
         if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
