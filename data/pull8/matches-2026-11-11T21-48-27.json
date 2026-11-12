@@ -1,0 +1,679 @@
+{
+ "utc": "2026-11-11T21:48:27.898Z",
+ "source": "match pages read by tools/replay/pull_replays.js",
+ "note": "pull 8: twelve consecutive finished ladder games of Bane (site v4), wins and losses, 2026-11-11; games that also held Conviction or Penalty left out",
+ "matches": [
+  {
+   "id": 129954,
+   "cells": [
+    "🧩 CogSpore",
+    "💎 gemAlert_v4",
+    "🧟 Bane",
+    "🦐 shrimp"
+   ],
+   "winner": "🧩 CogSpore",
+   "colonies": [
+    {
+     "name": "🧩 CogSpore",
+     "player": "Yen",
+     "place": "1",
+     "pop": "3139",
+     "peak": "3139",
+     "energy": "156160",
+     "faults": "0",
+     "insns": "45 (190)",
+     "rating": "1545 → 1562"
+    },
+    {
+     "name": "💎 gemAlert_v4",
+     "player": "gschweers",
+     "place": "3",
+     "pop": "0",
+     "peak": "411",
+     "energy": "0",
+     "faults": "0",
+     "insns": "34 (39)",
+     "rating": "713 → 715"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "957",
+     "peak": "957",
+     "energy": "47208",
+     "faults": "0",
+     "insns": "76 (91)",
+     "rating": "1712 → 1695"
+    },
+    {
+     "name": "🦐 shrimp",
+     "player": "phish_taco",
+     "place": "4",
+     "pop": "0",
+     "peak": "137",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "297 → 295"
+    }
+   ]
+  },
+  {
+   "id": 129945,
+   "cells": [
+    "🧟 Bane",
+    "🐢 squirtle",
+    "🤖 Random",
+    "💎 gemAlert_v4"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198812",
+     "faults": "0",
+     "insns": "84 (91)",
+     "rating": "1712 → 1712"
+    },
+    {
+     "name": "🐢 squirtle",
+     "player": "patrickHakun",
+     "place": "3",
+     "pop": "0",
+     "peak": "175",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "342 → 344"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "29",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (14)",
+     "rating": "89 → 84"
+    },
+    {
+     "name": "💎 gemAlert_v4",
+     "player": "gschweers",
+     "place": "2",
+     "pop": "0",
+     "peak": "350",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (39)",
+     "rating": "710 → 713"
+    }
+   ]
+  },
+  {
+   "id": 129936,
+   "cells": [
+    "⚓ Aegis",
+    "🤖 Hunter",
+    "🤖 Random",
+    "🧟 Bane"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "⚓ Aegis",
+     "player": "myles777",
+     "place": "2",
+     "pop": "0",
+     "peak": "651",
+     "energy": "0",
+     "faults": "0",
+     "insns": "27 (44)",
+     "rating": "928 → 929"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "253",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "340 → 344"
+    },
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "138",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "94 → 89"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198101",
+     "faults": "0",
+     "insns": "82 (91)",
+     "rating": "1712 → 1712"
+    }
+   ]
+  },
+  {
+   "id": 129927,
+   "cells": [
+    "🤖 Random",
+    "🤖 Hunter",
+    "🧟 Bane",
+    "🦐 shrimp"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🤖 Random",
+     "player": "BOT Bob",
+     "place": "4",
+     "pop": "0",
+     "peak": "53",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (14)",
+     "rating": "105 → 94"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "2",
+     "pop": "0",
+     "peak": "147",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "324 → 340"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "193934",
+     "faults": "0",
+     "insns": "79 (91)",
+     "rating": "1712 → 1712"
+    },
+    {
+     "name": "🦐 shrimp",
+     "player": "phish_taco",
+     "place": "3",
+     "pop": "0",
+     "peak": "257",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "298 → 293"
+    }
+   ]
+  },
+  {
+   "id": 129917,
+   "cells": [
+    "🧟 Bane",
+    "💎 gemAlert_v5",
+    "🐋 Bulwark",
+    "🦦 AtomCrasher"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4094",
+     "peak": "4094",
+     "energy": "200128",
+     "faults": "0",
+     "insns": "84 (91)",
+     "rating": "1711 → 1712"
+    },
+    {
+     "name": "💎 gemAlert_v5",
+     "player": "gschweers",
+     "place": "3",
+     "pop": "0",
+     "peak": "669",
+     "energy": "0",
+     "faults": "0",
+     "insns": "31 (188)",
+     "rating": "694 → 699"
+    },
+    {
+     "name": "🐋 Bulwark",
+     "player": "myles777",
+     "place": "4",
+     "pop": "0",
+     "peak": "25",
+     "energy": "0",
+     "faults": "0",
+     "insns": "26 (54)",
+     "rating": "531 → 524"
+    },
+    {
+     "name": "🦦 AtomCrasher",
+     "player": "HammerSpb",
+     "place": "2",
+     "pop": "0",
+     "peak": "506",
+     "energy": "0",
+     "faults": "0",
+     "insns": "30 (47)",
+     "rating": "1151 → 1152"
+    }
+   ]
+  },
+  {
+   "id": 129907,
+   "cells": [
+    "🦐 shrimp",
+    "💀 Necrosia",
+    "🧟 Bane",
+    "🧌 Colossus"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🦐 shrimp",
+     "player": "phish_taco",
+     "place": "4",
+     "pop": "0",
+     "peak": "321",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "288 → 284"
+    },
+    {
+     "name": "💀 Necrosia",
+     "player": "hahahahahahah",
+     "place": "3",
+     "pop": "0",
+     "peak": "203",
+     "energy": "0",
+     "faults": "0",
+     "insns": "22 (34)",
+     "rating": "594 → 598"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2510",
+     "peak": "2510",
+     "energy": "123030",
+     "faults": "0",
+     "insns": "82 (91)",
+     "rating": "1705 → 1711"
+    },
+    {
+     "name": "🧌 Colossus",
+     "player": "bdj",
+     "place": "2",
+     "pop": "1586",
+     "peak": "1758",
+     "energy": "56967",
+     "faults": "0",
+     "insns": "65 (100)",
+     "rating": "1495 → 1489"
+    }
+   ]
+  },
+  {
+   "id": 129896,
+   "cells": [
+    "🐺 BigBadWolf",
+    "🧟 Bane",
+    "💀 medivac",
+    "🐋 Bulwark"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🐺 BigBadWolf",
+     "player": "irogotzke",
+     "place": "4",
+     "pop": "0",
+     "peak": "100",
+     "energy": "0",
+     "faults": "0",
+     "insns": "33 (99)",
+     "rating": "808 → 787"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "200494",
+     "faults": "0",
+     "insns": "84 (91)",
+     "rating": "1702 → 1705"
+    },
+    {
+     "name": "💀 medivac",
+     "player": "bdj",
+     "place": "2",
+     "pop": "0",
+     "peak": "887",
+     "energy": "0",
+     "faults": "0",
+     "insns": "30 (60)",
+     "rating": "1372 → 1370"
+    },
+    {
+     "name": "🐋 Bulwark",
+     "player": "myles777",
+     "place": "3",
+     "pop": "0",
+     "peak": "25",
+     "energy": "0",
+     "faults": "0",
+     "insns": "27 (53)",
+     "rating": "522 → 542"
+    }
+   ]
+  },
+  {
+   "id": 129886,
+   "cells": [
+    "😎 Sho",
+    "🦛 NomNom2",
+    "🧙 Phaedra_Rune",
+    "🧟 Bane"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "😎 Sho",
+     "player": "CyberSho",
+     "place": "4",
+     "pop": "0",
+     "peak": "334",
+     "energy": "0",
+     "faults": "0",
+     "insns": "7 (9)",
+     "rating": "153 → 152"
+    },
+    {
+     "name": "🦛 NomNom2",
+     "player": "bdj",
+     "place": "2",
+     "pop": "0",
+     "peak": "353",
+     "energy": "0",
+     "faults": "0",
+     "insns": "39 (52)",
+     "rating": "1055 → 1059"
+    },
+    {
+     "name": "🧙 Phaedra_Rune",
+     "player": "hahahahahahah",
+     "place": "3",
+     "pop": "0",
+     "peak": "171",
+     "energy": "0",
+     "faults": "0",
+     "insns": "48 (72)",
+     "rating": "789 → 785"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "198875",
+     "faults": "0",
+     "insns": "83 (91)",
+     "rating": "1701 → 1702"
+    }
+   ]
+  },
+  {
+   "id": 129876,
+   "cells": [
+    "😎 Sho",
+    "🧟 Bane",
+    "🧌 Colossus",
+    "🧨 Brawler v2"
+   ],
+   "winner": "🧌 Colossus",
+   "colonies": [
+    {
+     "name": "😎 Sho",
+     "player": "CyberSho",
+     "place": "4",
+     "pop": "0",
+     "peak": "83",
+     "energy": "0",
+     "faults": "0",
+     "insns": "8 (9)",
+     "rating": "154 → 153"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "2",
+     "pop": "1775",
+     "peak": "1775",
+     "energy": "87263",
+     "faults": "0",
+     "insns": "81 (91)",
+     "rating": "1720 → 1701"
+    },
+    {
+     "name": "🧌 Colossus",
+     "player": "bdj",
+     "place": "1",
+     "pop": "2321",
+     "peak": "2507",
+     "energy": "93725",
+     "faults": "0",
+     "insns": "66 (105)",
+     "rating": "1497 → 1516"
+    },
+    {
+     "name": "🧨 Brawler v2",
+     "player": "Striker",
+     "place": "3",
+     "pop": "0",
+     "peak": "183",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (23)",
+     "rating": "801 → 801"
+    }
+   ]
+  },
+  {
+   "id": 129867,
+   "cells": [
+    "🤖 Hunter",
+    "🦾 Smarter Hunter",
+    "🧟 Bane",
+    "🤖 Medic"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "3",
+     "pop": "0",
+     "peak": "329",
+     "energy": "0",
+     "faults": "0",
+     "insns": "19 (20)",
+     "rating": "351 → 352"
+    },
+    {
+     "name": "🦾 Smarter Hunter",
+     "player": "tshel",
+     "place": "2",
+     "pop": "0",
+     "peak": "691",
+     "energy": "0",
+     "faults": "0",
+     "insns": "48 (53)",
+     "rating": "625 → 630"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "199007",
+     "faults": "0",
+     "insns": "83 (91)",
+     "rating": "1720 → 1720"
+    },
+    {
+     "name": "🤖 Medic",
+     "player": "BOT Carol",
+     "place": "4",
+     "pop": "0",
+     "peak": "259",
+     "energy": "0",
+     "faults": "0",
+     "insns": "9 (9)",
+     "rating": "159 → 151"
+    }
+   ]
+  },
+  {
+   "id": 129859,
+   "cells": [
+    "🧟 Bane",
+    "💎 gemAlert_v6",
+    "🤖 Hunter",
+    "🧌 Colossus"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "4095",
+     "peak": "4095",
+     "energy": "199777",
+     "faults": "0",
+     "insns": "82 (91)",
+     "rating": "1715 → 1720"
+    },
+    {
+     "name": "💎 gemAlert_v6",
+     "player": "gschweers",
+     "place": "3",
+     "pop": "0",
+     "peak": "497",
+     "energy": "0",
+     "faults": "0",
+     "insns": "31 (39)",
+     "rating": "614 → 618"
+    },
+    {
+     "name": "🤖 Hunter",
+     "player": "BOT Eve",
+     "place": "4",
+     "pop": "0",
+     "peak": "538",
+     "energy": "0",
+     "faults": "0",
+     "insns": "18 (20)",
+     "rating": "355 → 351"
+    },
+    {
+     "name": "🧌 Colossus",
+     "player": "bdj",
+     "place": "2",
+     "pop": "0",
+     "peak": "1198",
+     "energy": "0",
+     "faults": "0",
+     "insns": "60 (110)",
+     "rating": "1501 → 1496"
+    }
+   ]
+  },
+  {
+   "id": 129850,
+   "cells": [
+    "🏹 Artemis",
+    "🚂 choochoo",
+    "🧟 Bane",
+    "🍀 CogSpore - VarSi"
+   ],
+   "winner": "🧟 Bane",
+   "colonies": [
+    {
+     "name": "🏹 Artemis",
+     "player": "hahahahahahah",
+     "place": "3",
+     "pop": "0",
+     "peak": "180",
+     "energy": "0",
+     "faults": "0",
+     "insns": "21 (28)",
+     "rating": "637 → 637"
+    },
+    {
+     "name": "🚂 choochoo",
+     "player": "andrew",
+     "place": "4",
+     "pop": "0",
+     "peak": "1",
+     "energy": "0",
+     "faults": "0",
+     "insns": "11 (50)",
+     "rating": "-323 → -323"
+    },
+    {
+     "name": "🧟 Bane",
+     "player": "rjclay",
+     "place": "1",
+     "pop": "2657",
+     "peak": "2657",
+     "energy": "130000",
+     "faults": "0",
+     "insns": "82 (91)",
+     "rating": "1705 → 1715"
+    },
+    {
+     "name": "🍀 CogSpore - VarSi",
+     "player": "Yen",
+     "place": "2",
+     "pop": "1439",
+     "peak": "1541",
+     "energy": "63410",
+     "faults": "0",
+     "insns": "86 (203)",
+     "rating": "1641 → 1631"
+    }
+   ]
+  }
+ ]
+}
