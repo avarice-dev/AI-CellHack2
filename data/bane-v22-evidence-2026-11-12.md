@@ -372,3 +372,57 @@ last target died to this cell's bite; other = it died to another cell's bite.
   77-94%. Why is not measured (the killer may be stunned, dead, or biting another enemy that tick; when the killer
   bit that square on the tick before, it bites the refill at once 97.3% of the time, n 24,599). **(open)** Whether a
   first bite of 16 (vs v2.0's 5) is the cause.
+
+## 15. Races by our plan, and first-order flips per bite layout (race.csv, race-summary.txt; scripts/race.py)
+
+Our stored bite is rebuilt from the replay: the direction of the cell's last bite, kept through stuns, copied to a
+child. Check: our cells' eats go the predicted direction in 4,506,239 of 4,513,687 cases (99.84%). Each tick, each of
+our cells with an adjacent enemy has a plan: lock (stored square holds an enemy: 4) or first (bite_tbl scan: 16).
+Race = our cell bit its planned target before anything bit it (won), or an enemy bit it first (lost; the cell is
+stunned). Share of all races with that rival (a = t < 100, b = t >= 100; v2.1 / v2.2 games):
+
+| Rival | w | races | won: lock / first | lost, plan lock, enemy cost <4 / =4 / 5-15 | lost, plan first (all classes) | lost while planning another target |
+|---|---|---|---|---|---|---|
+| VarSi | a | 21,976 | 62.3 / 6.9 | 1.1 / 12.0 / 0.2 | 9.7 | 7.6 |
+| VarSi | b | 2,012,420 | 74.4 / 0.0 | 0.8 / 17.9 / 0.0 | 0.0 | 6.8 |
+| CogSpore | a | 8,886 | 54.7 / 6.2 | 2.6 / 20.9 / 0.4 | 8.8 | 6.0 |
+| CogSpore | b | 845,325 | 53.9 / 0.1 | 2.6 / 38.5 / 0.0 | 0.0 | 2.9 |
+| CogBloomXT | a | 9,848 | 56.6 / 7.6 | 1.6 / 16.5 / 0.2 | 10.8 | 6.3 |
+| CogBloomXT | b | 798,266 | 59.1 / 0.1 | 1.6 / 31.2 / 0.0 | 0.0 | 7.6 |
+| Siect-F | a | 5,539 | 12.8 / 3.8 | 23.9 / 0 / 0 | 44.8 | 14.4 |
+| Siect-F | b | 622,613 | 1.8 / 0.1 | 21.5 / 0 / 0 (+14.1 unbracketed) | 41.4 | 21.1 |
+| Colossus | a | 11,730 | 82.7 / 9.3 | 0 / 0 / 0.3 | 6.6 | 1.0 |
+| Colossus | b | 963,576 | 99.6 / 0.3 | 0 / 0 / 0 | 0.1 | 0.0 |
+| medivac | a | 8,453 | 82.6 / 10.2 | 0 / 0 / 0.3 | 6.1 | 0.8 |
+| NomNom2 | a | 2,991 | 87.8 / 6.4 | 0 / 0 / 0.1 | 5.2 | 0.4 |
+| AtomCrasher | a | 3,583 | 70.1 / 6.0 | 0.6 / 4.7 / 0.1 | 5.3 | 13.3 |
+| Aegis | a | 3,256 | 69.2 / 7.6 | 1.1 / 10.6 / 0.1 | 7.0 | 4.2 |
+
+- Against the Yen cells the largest lost share is our stored bite losing the coin to their 4-instruction UP / DOWN
+  bite: 12-21% of all races before t100, 18-39% after. First-bite losses are 9-11% before t100 and ~0 after.
+- Against Colossus, medivac, NomNom2 we lose only first-bite races (5-7% before t100, ~0 after): our 4 beats their 5.
+- Against Siect-F we lose 66-86% of races at every stage (their bite <= 3).
+
+First-order flips (net % of all races with that rival; [low .. high] where the 5-15 class matters; counts races, not
+the game after them; "lost" side counts only won lock races where the enemy was armed on our cell, a lower bound):
+
+| Rival | w | v2.3a (4 / 11) | scan-first (5 / 5) | queue3 (3 / 16) | queue3 + first 11 |
+|---|---|---|---|---|---|
+| VarSi | a | 0 .. +2.3 | -8.8 .. -6.8 | +9.6 | +9.6 .. +11.9 |
+| VarSi | b | 0 .. +0.01 | -14.7 .. -13.7 | +14.1 | +14.1 |
+| CogSpore | b | 0 .. +0.01 | -30.2 .. -30.1 | +31.4 | +31.4 |
+| CogBloomXT | b | 0 .. +0.01 | -24.3 .. -24.0 | +24.8 | +24.8 |
+| Siect-F | a / b | 0 .. +1.2 / 0 | +0.6 .. +1.2 / 0 | +12.0 / +10.8 | +12.0 .. +13.2 / +10.8 |
+| Colossus | a / b | 0 / 0 | +1.6 / 0 | 0 / 0 | 0 / 0 |
+| medivac | a / b | 0 / 0 | +2.1 / +0.5 | 0 / 0 | 0 / 0 |
+
+- "queue3" = every lock situation bites in 3 instructions. A checked bite in a stored direction needs 4 (section 3),
+  so 3 means a blind bite queue (Conviction's mechanism). The table does **not** include the queue's costs: blind bites
+  into a square whose target died (Conviction: no event 83-90% in that case, section 14), +3 on every path behind the
+  queue (lock 7, first bite 19, refill 19 in a plain stack), and lock situations the queue does not cover then cost 7,
+  which loses to Colossus / medivac (5) where Bane wins today.
+- Natural experiment for queue3: Conviction (blind queue 3, minimum length 3, scan 19, +3 on all paths) did better than
+  Bane only vs VarSi (11/17 vs 9/21) and worse vs CogSpore (16/29 vs 23/29), Colossus (10/26 vs 18/29), medivac (13/19
+  vs 21/23); overall 86% vs 92%.
+- v2.3a (first bite 11, all other non-lock paths -1, no behaviour change) gains at most 0-2.3% of early races and ~0
+  later; it costs nothing measurable.
