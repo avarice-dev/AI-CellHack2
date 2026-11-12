@@ -1,0 +1,234 @@
+# Bane v2.2: evidence pack (2026-11-12)
+
+Purpose: every measure the real replays and match pages give on Bane v2.2 (cell 289), stage by stage, so that a next
+version can be planned that closes real gaps without giving up anything Bane already does well. Facts first;
+inferences are marked **(inferred)**. No rival models and no games against them were used (user rule 2026-11-12);
+the solo engine (our own cell alone on the board) is used only for the start-square potential.
+
+Files (all in `data/evidence-2026-11-12/`, scripts in `scripts/`, run with `python -I`):
+
+| File | What | Script |
+|---|---|---|
+| `review-all.csv` | per colony per game: start (x, y, wall, near), cells at t30/60/100/200/500/end, action shares per window (split, move, feed, hold, capidle, contact, bitten first, deaths, take, retake) | `tools/replay/review.py` |
+| `full-front.csv` | per colony per game: front contact cell-ticks, fresh vs ongoing contact and who bit first, squares taken from freed enemy squares (child energy, dead within 5), contested empty squares won/lost by window, first contact tick per pair and who closed in, bites given/taken per pair, squares taken per pair | `scripts/front.py`, `scripts/front_many.py` |
+| `eval-all.csv`, `eval-all.txt` | per game: Bane vs the deciding rival (winner if Bane lost, runner-up if Bane won) on every measure above plus the solo potential of each start square; pooled means; Spearman with Bane's share | `scripts/eval_all.py` |
+| `lost-squares.csv`, `ls-summary.txt` | every contested empty square-tick (cells of two or more colonies on its edges at tick start; squares freed by a death the tick before are excluded): outcome per colony, the state of that colony's best-placed neighbour, and every fill (filler energy, alive after 10 ticks, square still held after 10 ticks) | `scripts/lost_squares.py`, `scripts/ls_sum.py` |
+| `bites.csv`, `bites-summary.txt` | per colony per window: front contact, stuns suffered, bites, friendly bites, kills, bite chains, what the killer did on the next tick, who filled the freed square, bites suffered at energy <= 2 / <= 4 | `scripts/bites.py`, `scripts/bites_sum.py` |
+| `budget.csv`, `budget-summary.txt` | action budget: every cell-tick by action x space (open/boxed) x enemy (front/near/far) x energy bucket | `scripts/budget.py` |
+| `solo-all2.csv` | Bane v2.2 alone on the board from each start square: cells at t20..t100 (start-square potential) | `scripts/solo_baseline.py` |
+
+Replays: `data/pull7` (2 Bane v2.2 games), `data/pull8` (12 consecutive Bane games, 129850-129954), `data/pull9`
+(44: 12 consecutive Bane games 131017-131125, 6 earlier Bane losses, 7 Bane games vs the Yen cells 131188-131332,
+19 Penalty games). Match list: `data/pull9/ourmatches-2026-11-12.json` (1000 games, ids 127696-131127). Match pages:
+`data/pull9/matches-2026-11-12T02-21-18.json` (60 pages: placement, rating, peak, energy, instructions per turn).
+
+## 0. Samples and labels
+
+- The site names every Bane version "Bane". Labels by match id: v1 < 124690 (cell 272), v2.0 from 124697 (rating
+  restarts at 1000 there), v2.1 (cell 287, stored bite; max instructions per turn rises 86 -> 91 between 124926 and
+  126918), v2.2 (cell 289) from about 127810 (from the leaderboard game count; v2.1 and v2.2 have the same max).
+- Unbiased samples: U8 = pull 8 (12 consecutive games, 10 won), U9 = 131017-131125 (12 consecutive games, 10 won).
+- Extra losses LX: 129255, 129308, 130482, 130515, 130711, 130818, 130915, 130988 (every v2.2 loss replay still on
+  the site at pull time; older ones had expired).
+- NS (vs CogSpore-Siect-F): 131198, 131245, 131332 (all lost). 131188 also lost but Conviction was in it (excluded).
+- NV (vs CogSpore - VarSi, after U9): 131265, 131276 lost, 131312 won.
+- Total in the per-game tables: 38 games (21 won, 17 lost). Losses are over-sampled (LX, NS): use U8+U9 for rates.
+
+## 1. Results (match list, single own cell, ids 127810-131127, v2.2 era)
+
+| Cell | All | vs VarSi | vs Siect-F | vs Colossus | vs CogSpore | vs medivac | vs CogBloomXT | vs NomNom2 | vs AtomCrasher | vs Aegis |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Bane v2.2 | 298/329 (91%) | 9/21 | 0/3 | 18/29 | 23/29 | 21/23 | 21/26 | 28/30 | 36/37 | 24/26 |
+| Conviction | 251/293 (86%) | 11/17 | - | 10/26 | 16/29 | 13/19 | 23/29 | 17/19 | 23/26 | 21/22 |
+| Penalty | 112/139 (81%) | 3/7 | 0/1 | 5/14 | 6/10 | 2/10 | 4/7 | 9/9 | 6/8 | 11/11 |
+
+(Siect-F numbers include games after 131127 that were pulled on purpose; Bane's last 50 games at 2026-11-12 ~02:30
+UTC: 0/4 vs Siect-F, 2/7 vs VarSi.) Leaderboard ~02:30 UTC: VarSi v2 1692, Bane 1597, Siect-F 1474 (34 games, 32 won),
+Colossus 1456, medivac 1383.
+
+## 2. Rules that decide the measures (sim/engine.py, ruleset v9)
+
+- Turn order inside a tick: fewest executed instructions first (taken jumps and the exit count); the seed breaks ties.
+- A cell bitten before its turn is stunned: it loses that turn and its memory writes are dropped.
+- EAT takes min(2, target energy) and gives it to the eater; FEED gives 2; REST is the only energy income (+1).
+  Energy start 10, cap 50. A split needs energy >= 5; the child gets floor(e / 2); a split into an occupied square
+  does nothing. A dead cell holds its square until the end of the tick: a freed square opens on the next tick.
+- So in an ongoing exchange the cell with the cheaper bite takes 2 per tick and the other never answers.
+
+## 3. Instruction costs
+
+Bane v2.2 paths (cells/bane2.asm header): stored bite 4 (re-checks that the bitten square still holds an enemy);
+first bite 16; refill split (an empty neighbour with an enemy beside or beyond it, energy >= 12) 16; other split
+(energy >= 16) 16; diagonal enemy: rest 31, hold 33; walker move 39; settled rest 33; first child forward 43; other
+children 47-66; boxed block (no empty neighbour: feed) Bane's + 5.
+Conviction / Penalty: bite queue 3 (shift, load, exit: blind, does not look at the square); scan bite 18-19; every
+other path +3 (refill 14). Penalty's last queue entry is a split into the target's square.
+
+Match pages, instructions per turn, median of game means (max): Bane v2.2 81 (91), Conviction 78 (89), Penalty 78
+(89), CogSpore - VarSi 87 (203), CogSpore-Siect-F 87 (202), Colossus 65 (106), medivac 47 (62), CogBloomXT 51 (190),
+CogSpore 45 (190). (Means are dominated by interior cells, so they say little about the front paths.)
+
+Bite order measured in ongoing contact (an enemy beside me that was beside me last tick), all games pooled
+(`full-front.csv`, share of contact cell-ticks where the cell bit first / was bitten first):
+
+| Cell | games | fresh contact: bit first / bitten first | ongoing: bit first / bitten first |
+|---|---|---|---|
+| Bane v2.2 (pull 9 set, loss-heavy) | 27 | 61 / 38 | 62 / 38 |
+| Bane v2.2 (pull 8, consecutive) | 12 | 86 / 12 | 89 / 11 |
+| CogSpore-Siect-F | 5 | 96 / 3 | 88 / 12 |
+| CogSpore - VarSi | 15 | 77 / 22 | 35 / 65 |
+| Colossus | 17 | 67 / 32 | 26 / 74 |
+| medivac | 6 | 62 / 37 | 44 / 56 |
+| Penalty (3-insn queue) | 19 | 35 / 59 | 77 / 22 |
+
+Per game, Bane's ongoing bit-first share vs Siect-F: 3.3, 0.9, 5.2% (131198, 131245, 131332; 131188 11.3%); vs
+VarSi 44-96%; vs Colossus 99-100%. Penalty vs Siect-F (131094): 48 / 52. **(inferred)** Siect-F's repeat bite is
+3 instructions (ties a 3, beats Bane's 4 every time); VarSi's repeat-bite cost varies around 3-5; Colossus >= 5.
+The floor for any bite is 2 (load the action, exit), but a 2-instruction bite cannot advance or clear anything, so it
+would repeat forever; 3 is the floor for a queue that ends.
+
+## 4. Where the losses happen (eval-all.csv)
+
+Lead over the deciding rival (Bane cells minus rival cells):
+
+| | ahead at t30 | t60 | t100 | t200 | t500 | end |
+|---|---|---|---|---|---|---|
+| 17 losses | 13 | 3 | 2 | 2 | 1 | 0 |
+| 21 wins | 20 | 20 | 20 | 20 | 17+ | 21 |
+
+- Bane's opening is the fastest to t30 (ahead in 33 of 38 games).
+- 14 of 17 losses are decided between t30 and t100; the other 3 (Siect-F) are lost late with Bane ahead at t100 in
+  two of them (131245 +672, 131332 +1063 at t100; both lost).
+- One comeback: 131102 (behind vs VarSi t30-t200, won).
+
+Start squares (solo potential of our opening from each colony's square, solo-all2.csv; d = Bane minus rival at t60):
+
+| Start | won | lost |
+|---|---|---|
+| bad (d < -250) | 6 (all vs mid cells: CogBloomXT, Aegis, gemAlert, Hunter, AtomCrasher, NomNom2) | 7 (VarSi 3, Colossus 2, CogSpore, CogBloomXT) + 1 Siect-F |
+| equal (-250..250) | 7 | 7 (VarSi 5, CogSpore 1, Colossus 1) |
+| good (d > 250) | 8 (incl. VarSi 3) | 2 (both Siect-F) |
+
+- In bad-start losses the real t60 gap is about the start's gap (e.g. 130915: -817 expected, -652 real; 130988 -776 /
+  -561; 131114 -733 / -524): Bane did what its square allowed.
+- In equal-start losses Bane fell 100-320 cells further behind than the starts predict by t60 and 100-1200 by t100.
+  Against VarSi on equal starts Bane is 0 / 5 (129308, 130482, 130818, 131265, 131276).
+- Siect-F beat Bane from worse squares (131245 d = +315, 131332 d = +664).
+
+## 5. Opening (t0-60)
+
+- t30 real / solo from the own square: Bane 0.91-1.02 in pull 7-9 v2.x games; median over pulls 2-8 at t60:
+  Bane v2.2 0.82, CogSpore 0.82, VarSi 0.82, medivac 0.70, Colossus 0.67. No colony beat our solo opening from its own
+  square at t60 in ~700 colony-games.
+- t60 real / solo follows t30-60 contact (< 1% of cell-ticks in contact: 0.88-1.00; 6-12%: 0.28-0.56).
+- Bane vs VarSi on equal starts, share of cell-ticks t30-60 (review-all.csv): Bane split 4.9-6.7, move 5.4-7.2, feed
+  5.2-6.2, hold 0.9-2.6; VarSi split 6.3-7.5, move 6.2-9.0, feed 0, hold 0.2-0.8. VarSi loses 2-4x more cells
+  (t30-60 deaths 65-195 vs 16-104) and still grows more.
+- Solo opening search (data/opening-search-2026-11-11.md): the best variant ("first child long 8/2, split toward the
+  emptiest side") is ahead of v2.2 at every tick, by 2-6% (t30 143 vs 137, t60 1115 vs 1063, t100 3012 vs 2942).
+
+## 6. First contact
+
+First contact with the deciding rival: wins t4-92 (7 of 20 before t30), losses t18-54 (7 of 17 before t30). The
+rival moved into contact (it moved or was born there on the tick before) in 16 of 20 wins and 16 of 17 losses; Bane
+in 9 of each. Timing and closing alone do not separate wins from losses.
+
+## 7. Front: bites (bites-summary.txt; windows a t<60, b 60-100, c 100-300, d 300+)
+
+Own cells stunned per contact cell-tick: Bane v2.2 34 / 28 / 28 / 39%; VarSi 40 / 40 / 54 / 66; Colossus 39 / 53 / 61 /
+67; medivac 43 / 49 / 51 / 48; Siect-F 14.5 / 9 / 8.5 / 12; Penalty 44 / 28 / 21 / 22; Conviction 35 / 24 / 17 / 16.
+Mean bite chain on one target: Bane 5.8, Siect-F 9.6, Conviction 6.1, Penalty 4.7, VarSi 2.7, Colossus 2.9.
+
+After a kill, the killer's next tick (Bane, by window): take the freed square 21 / 39 / 53 / 48%, no event 41 / 27 /
+19 / 20%, stunned 17 / 12 / 8 / 10%. The freed square went to Bane on the next tick 35 / 52 / 67 / 59%.
+Siect-F vs Bane, 131245: Siect-F bit 190,004 times in 7,279 chains (26 ticks each); after a kill it had no event 71%
+of the time and Bane refilled the freed square 79% of the time; Bane's front cells were stunned on 99% of their
+contact cell-ticks. **(inferred)** Siect-F bites the same square blindly; Bane's refill puts a new child into a square
+that is bitten every tick, so the refill feeds Siect-F.
+Friendly bites: Bane 0; Penalty 0.4-1.0 per 100 enemy bites; Conviction 0.1-0.7.
+
+## 8. Front: land (ls-summary.txt)
+
+Contested empty squares, share of square-ticks won / lost (t<60 | t60-100 | t100+):
+
+| Cell | games | t<60 | t60-100 | t100+ |
+|---|---|---|---|---|
+| Bane v2.2 | 39 | 9.7 / 17.1 | 13.3 / 20.7 | 19.5 / 14.9 |
+| CogSpore - VarSi | 17 | 13.1 / 13.7 | 19.4 / 15.7 | 17.8 / 21.8 |
+| Colossus | 24 | 25.8 / 9.8 | 30.4 / 13.9 | 28.0 / 27.2 |
+| medivac | 15 | 25.2 / 10.2 | 31.0 / 13.3 | 41.1 / 17.3 |
+| CogSpore-Siect-F | 5 | 13.6 / 15.7 | 22.3 / 18.0 | 8.5 / 10.5 |
+| Penalty | 19 | 7.9 / 23.0 | 11.5 / 28.2 | 28.6 / 11.5 |
+| Conviction | 5 | 10.7 / 13.9 | 12.9 / 21.3 | 38.9 / 17.2 |
+
+Bane's best-placed neighbour on squares Bane lost, t<60: energy 5-11 and no event 28%, biting 28%, energy < 5 24%,
+stunned 11%, split elsewhere 7%, energy >= 12 and no event (a lost race at full energy) 1%. t60-100: biting 38, 5-11
+27, < 5 19, stunned 8, split 6, >= 12 1.
+**(inferred)** Bane does not lose these squares on instruction count; it loses them to the refill gate (a square
+with an enemy beside it is split into only at energy >= 12) and to front cells that are biting or poor.
+
+Fills of contested squares: filler energy, alive after 10 ticks, square held by the same colony after 10 ticks
+(t<60; t60-100):
+- Bane: child 1-2: n 268 alive 28% held 69%; 3-4: n 134, 72%, 92%; 5-6: n 184, 73%, 86% (t60-100: 3-4 80/93, 5-6
+  85/94, 7-9 92/98). Walkers with 1-2 energy: alive 20%, held 45%.
+- VarSi: child 1-2: n 881, 35%, 62% (t60-100: n 1046, 39%, 73%); 3-4: n 99, 54%, 74%.
+- Colossus: 1-2: n 637, 61%, 78%; 3-4: n 820, 76%, 91%.
+- Siect-F: 1-2: n 274, 77%, 92%; 3-4: n 48, 77%, 85%.
+- Penalty: 1-2: n 159, 23%, 52%; 3-4: 70%, 82%; walkers 1-2: 15%, 26%.
+Per game the fill counts differ more than the rates: in 131276 VarSi filled 158 contested squares before t60, Bane 70.
+
+## 9. Interior and third colonies
+
+- Feed share of cell-ticks at t30-60: Bane 4.9-8.7%; VarSi, CogSpore, Siect-F 0. At t60-100: Bane 9-23%, Colossus
+  43-69% (4 games as the deciding rival), Aegis 56-64%, NomNom2 40%.
+- Cells idle at the energy cap, t100-200: Bane 3-13%; VarSi 42-81%; CogSpore 72-78%; Colossus 22-35%.
+- Squares taken from third colonies (freed squares of colonies other than the deciding rival): high in Bane's wins
+  (took_third Spearman with share +0.76).
+
+## 9b. Action budget (budget-summary.txt; windows a t0-30, b 30-60, c 60-100, d 100-200, e 200+)
+
+Share of all cell-ticks (split / move / feed / eat / stunned / no event):
+
+| Cell | a | b | c |
+|---|---|---|---|
+| Bane v2.2 (39) | 14.6 / 21.9 / 1.7 / 0.5 / 0.5 / 60.8 | 5.7 / 6.4 / 5.6 / 1.7 / 0.8 / 79.9 | 1.7 / 1.5 / 14.0 / 2.7 / 0.9 / 79.2 |
+| CogSpore - VarSi (17) | 15.0 / 27.0 / 0 / 1.2 / 0.7 / 56.0 | 6.4 / 7.6 / 0 / 2.2 / 1.5 / 82.3 | 1.7 / 1.5 / 0 / 2.7 / 1.9 / 92.2 |
+| CogSpore-Siect-F (5) | 15.8 / 28.6 / 0 / 0.9 / 0.4 / 54.4 | 5.6 / 5.4 / 0 / 3.0 / 0.5 / 85.4 | 1.2 / 0.1 / 0 / 5.2 / 0.6 / 92.9 |
+| Colossus (24) | 14.7 / 12.6 / 16.4 / 0.9 / 0.3 / 55.1 | 6.7 / 0.4 / 50.6 / 2.3 / 1.6 / 38.5 | 1.6 / 0 / 56.1 / 2.4 / 2.8 / 37.0 |
+| medivac (15) | 14.5 / 13.5 / 16.4 / 0.8 / 0.3 / 54.5 | 6.8 / 0.4 / 49.5 / 2.4 / 1.9 / 39.0 | 1.7 / 0 / 67.1 / 2.8 / 2.7 / 25.7 |
+| Conviction (5) | 14.6 / 21.3 / 1.6 / 0.6 / 0.7 / 61.1 | 5.2 / 5.4 / 5.6 / 2.3 / 1.3 / 80.2 | 1.1 / 0.8 / 15.6 / 4.0 / 1.4 / 77.1 |
+
+By situation (Bane vs VarSi vs Siect-F):
+- "near" = an enemy in the 5x5 but not on an edge. Share of near cell-ticks that had an empty edge, energy >= 5 and no
+  event (idle with space): a: Bane 14.3%, VarSi 3.9%, Siect-F 0.8%; b: 11.2, 5.4, 5.5; c: 5.7, 3.9, 3.9. Near cells
+  split a: 14.1 / 19.0 / 15.1; b: 8.7 / 11.7 / 13.0. Near cells are 3.9 / 7.4 / 8.4% of Bane's cell-ticks in a / b / c.
+- "front" = an enemy on an edge: Bane eat / stunned a 51.7 / 46.6, b 66.4 / 31.0, c 73.8 / 24.4; VarSi b 57.8 / 40.0,
+  c 57.8 / 40.4; Siect-F b 81.1 / 14.2, c 87.8 / 9.2.
+- Energy at the cap (50, resting earns nothing): Bane c 1.4%, d 21.9%, e 52.3%; VarSi 8.3 / 66.8 / 83.6; Siect-F 11.4 /
+  69.7 / 98.2. Bane's interior feeding keeps energy moving; the Yen cells sit at the cap.
+- Feeders (Colossus, medivac) feed on half of all cell-ticks from t30, keep most cells under 5 energy, almost never
+  move after t30, and fill contested squares with 1-4 energy children (Colossus 1457 such fills t<60, held 78-91%).
+
+## 10. Natural experiments (our own variants)
+
+- Conviction = v2.2 with a 3-instruction blind bite queue: 86% vs Bane 92% in the same era (single-own-cell games);
+  early (< 129500) 122/144 vs Bane 165/172; late (>= 129500) 129/149 vs Bane 132/151. vs VarSi 11/17 vs Bane 8/18
+  (Fisher p 0.31). Stunned 16-24% after t60 (Bane 28-39%); contested squares about the same as Bane (t60-100 won
+  12.9 / lost 21.3 vs Bane 13.3 / 20.7); after a kill it took the freed square less often (13-22% vs Bane 21-53%) and
+  had no event 44-65% of the time (its queue bites the empty square).
+- Penalty = Conviction + the queue ends with a split into the target's square (not energy-gated): 81%; 7-32% of its
+  children in freed enemy squares had <= 4 energy and 10-17% died within 5 ticks (Bane, Conviction 0-2%); vs medivac
+  2/10.
+- Bane v2.0 -> v2.1 (stored bite, 4 instructions, replacing the 16-instruction view scan on repeat bites): 82% ->
+  93% wins (1804 / 203 games). Bane v2.1 -> v2.2 (prey hold only for a diagonal enemy, not any enemy in the 5x5):
+  no measurable effect on wins (93% vs 92%, briefs/resume-2026-11-11.md); hold share t30-60 fell from 2-7% to
+  0.5-1.3% of cell-ticks.
+
+## 11. Limits of this data
+
+- 38 games in the per-game tables; 17 losses, 10 vs VarSi, 3 vs Siect-F. Siect-F had 34 ladder games at the
+  leaderboard read; its behaviour is read from 5 replays.
+- "No event" cannot tell a rest from a split or move that failed because the square was taken first.
+- Parent of a split = an own neighbour with no other event that tick (first found); rare misattribution.
+- The solo potential is our opening from that square, not the rival's own opening.
+- Rival behaviour is inferred only from what it did in these replays; rivals change versions without notice.
