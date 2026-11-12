@@ -426,3 +426,44 @@ the game after them; "lost" side counts only won lock races where the enemy was 
   vs 21/23); overall 86% vs 92%.
 - v2.3a (first bite 11, all other non-lock paths -1, no behaviour change) gains at most 0-2.3% of early races and ~0
   later; it costs nothing measurable.
+
+## 16. Blind-queue sizing on our real bite chains (queue.csv, queue-summary.txt; scripts/queue.py, queue_sum.py)
+
+Chain start = one of our cells (v2.1 / v2.2 games) eats an enemy T that it did not eat on the tick before (831,049
+chains). Recorded: T's energy at the start of that tick (e0, what our cell sees), our other cells next to T (nf), and
+the horizon H = later ticks on which T is still alive on the same square at tick start (capped at 12). A queue armed
+at the chain start with k blind bites (3 instructions each, view not read) hits T min(k, H) times and bites an empty
+or refilled square max(0, k - H) times. Rules: conviction k = clamp(ceil((e0 - 2) / 2), 3, 7) (Conviction's queue);
+need = the same with minimum 0; shared = need with every visible attacker (1 + nf) counted; shared-1 = shared minus 1;
+one = 1 bite if shared >= 1. Cover = hits / sum of H (share of T's remaining ticks bitten at 3).
+
+| Rival | w | chains | mean H | T died in horizon | conviction: k / wasted / cover | need: k / wasted / cover | shared-1: k / wasted / cover |
+|---|---|---|---|---|---|---|---|
+| ALL | a | 26,414 | 4.9 | 76% | 4.0 / 26.4% / 59.9% | 3.1 / 9.3% / 56.5% | 2.1 / 3.7% / 41.8% |
+| ALL | b | 804,635 | 11.5 | 6% | 6.8 / 1.2% / 58.4% | 6.7 / 0.6% / 58.3% | 5.7 / 0.2% / 49.8% |
+| VarSi | a / b | 5,519 / 275,392 | 6.0 / 12.0 | 69% / 1% | 19.0% / 0.1% wasted | 5.1% / 0.0% wasted | 2.0% / 0.0% wasted |
+| CogSpore | a / b | 2,331 / 197,997 | 7.4 / 12.0 | 55% / 1% | 13.7% / 0.1% | 3.9% / 0.0% | 1.5% / 0.0% |
+| CogBloomXT | a / b | 2,520 / 172,217 | 6.3 / 11.9 | 65% / 1% | 18.6% / 0.2% | 5.6% / 0.1% | 2.0% / 0.0% |
+| Siect-F | a / b | 278 / 2,066 | 8.5 / 12.0 | 38% / 0% | 12.0% / 0.1% | 1.5% / 0.0% | 0.8% / 0.0% |
+| Colossus | a / b | 2,248 / 7,171 | 4.0 / 6.3 | 86% / 64% | 35.5% / 24.8% | 15.9% / 14.6% | 7.9% / 4.5% |
+| medivac | a / b | 1,719 / 12,364 | 3.7 / 7.2 | 89% / 67% | 32.8% / 12.8% | 15.9% / 8.0% | 8.4% / 4.6% |
+| NomNom2 | a / b | 482 / 8,359 | 4.2 / 4.9 | 80% / 78% | 36.5% / 28.4% | 13.8% / 16.6% | 2.3% / 4.0% |
+
+(Wasted = share of blind bites that land on an empty or refilled square; a refilled square can be our own child.
+Weak and old rivals, e.g. Hunter, shrimp, Sho, zergling: H 1-3, 98-100% die, wasted 38-68% conviction / 17-29% need.)
+
+- Before t100 targets die fast (76% within the horizon, mean H 4.9): Conviction's minimum of 3 wastes 26% of its
+  blind bites; "need" (no minimum) covers almost the same share of T's ticks (56.5 vs 59.9%) with a third of the waste.
+  **(inferred)** Conviction's minimum of 3 explains part of its early cost; section 14 showed the same from the other
+  side (Conviction: no event 83-90% when its target square was empty).
+- After t100 the Yen fronts and Siect-F are stalemates: T is still there 12 ticks later in 99-100% of chains, and any
+  queue rule wastes <= 0.2% of its bites. Against these rivals a queue is first-order free in wasted bites, and these
+  are the races section 15 says a 3-instruction bite flips (+11-31% of races in window b).
+- Against Colossus, medivac, NomNom2 targets die or move often in both windows (H 4-7): a queue wastes 8-36% of its
+  bites (need: 8-17%), and gains no races there (our checked 4 already beats their 5, section 15).
+- Cover in window b is about 58% for every k-capped rule only because k <= 7 against H capped at 12; the measure scores
+  one arming per chain start, not a queue that re-arms while T stays.
+- Case against / limits: first-order only (T's survival is the real one under v2.2's 4-instruction bites; a faster
+  bite changes who is stunned and so H); "empty or refilled" does not separate our own child from an enemy refill;
+  nf counts only our cells that T can see beside it; this measures waste only, not the +3 a queue adds to every path
+  behind it in a plain stack (section 15), which is the larger known cost.
