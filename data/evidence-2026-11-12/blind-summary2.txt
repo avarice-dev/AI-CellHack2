@@ -1,0 +1,47 @@
+Scratch: pool blind.csv per cell.  Usage: python blind_sum.py <out.txt> <blind.csv>
+empty-test: the square this cell bit last tick is empty now, another enemy is on an edge, the cell is not stunned:
+  what it does (eat = bit the other enemy, none = no event, split).  'self' = the last target died to this cell's own
+  bite, 'other' = it died to another cell's bite.  A checked repeat (or a scan) eats in both cases; a blind repeat
+  shows 'none' at least when the cell expected the target to live ('other').
+refill-test: the square holds a new enemy child (a refill): eats again at once (%).
+refills: squares freed by this cell's kills that the dead cell's colony refilled: n, child bitten by the killer on its
+  first live tick (%), killer bites per child, mean child birth energy, child dead within 5 ticks (%).
+
+Bane v2.2      g39  self n  12004 eat  79.2 none  15.2 split   5.6 | other n   4743 eat  86.3 none   8.4 split   5.4 | refill-test n  24599 eat  97.3 | refills n  13230 first-tick  31.5 bites/child  1.8 child e  6.3 dead5  45.7
+Colossus       g24  self n  11686 eat  95.2 none   4.6 split   0.3 | other n   5557 eat  98.7 none   1.1 split   0.1 | refill-test n  51124 eat  97.1 | refills n  22821 first-tick  94.0 bites/child  2.6 child e  6.9 dead5  72.4
+Penalty        g19  self n   3017 eat   5.0 none  28.3 split  66.6 | other n   1612 eat   8.3 none  36.7 split  55.1 | refill-test n   7773 eat  91.2 | refills n   2764 first-tick  34.9 bites/child  2.4 child e  8.2 dead5  46.6
+VarSi          g17  self n  12387 eat  84.1 none  15.4 split   0.5 | other n   5792 eat  91.0 none   8.2 split   0.8 | refill-test n  33800 eat  95.1 | refills n  17093 first-tick  78.5 bites/child  2.4 child e  5.8 dead5  79.4
+medivac        g15  self n  12747 eat  94.2 none   5.7 split   0.0 | other n   6409 eat  97.7 none   2.3 split   0.0 | refill-test n  47221 eat  91.8 | refills n  22816 first-tick  87.4 bites/child  2.3 child e  6.2 dead5  87.5
+CogBloomXT     g12  self n  15391 eat  87.3 none  12.4 split   0.3 | other n   6662 eat  94.2 none   5.2 split   0.6 | refill-test n  78865 eat  96.5 | refills n  26015 first-tick  83.6 bites/child  3.0 child e  7.8 dead5  68.5
+Hunter         g11  self n    739 eat  87.0 none  12.9 split   0.1 | other n    190 eat  92.1 none   6.3 split   1.6 | refill-test n   1741 eat  99.5 | refills n    650 first-tick  86.2 bites/child  3.3 child e 11.5 dead5  46.6
+shrimp         g10  self n     72 eat  88.9 none  11.1 split   0.0 | other n     32 eat  65.6 none  34.4 split   0.0 | refill-test n    291 eat  97.9 | refills n    212 first-tick  74.1 bites/child  2.0 child e  5.2 dead5  46.7
+BigBadWolf     g8   self n   2538 eat  92.5 none   7.1 split   0.4 | other n   2865 eat  97.9 none   2.0 split   0.1 | refill-test n   9579 eat  89.3 | refills n   5097 first-tick  94.4 bites/child  2.0 child e  6.9 dead5  87.6
+AtomCrasher    g8   self n    689 eat  95.9 none   4.1 split   0.0 | other n    943 eat  97.9 none   2.1 split   0.0 | refill-test n  17717 eat  95.4 | refills n   4623 first-tick  91.0 bites/child  2.9 child e  9.9 dead5  68.4
+Sho            g8   self n      0 eat     - none     - split     - | other n      0 eat     - none     - split     - | refill-test n      0 eat     - | refills n      0 first-tick     - bites/child  0.0 child e  0.0 dead5     -
+Bane v2.0      g8   self n   2182 eat  94.5 none   4.7 split   0.8 | other n    602 eat  98.8 none   0.5 split   0.7 | refill-test n   2929 eat  89.4 | refills n   1407 first-tick  87.1 bites/child  2.3 child e  4.9 dead5  78.4
+ClaudeHunter   g7   self n   9279 eat  94.8 none   5.0 split   0.2 | other n   4299 eat  98.8 none   1.2 split   0.1 | refill-test n  20419 eat  85.7 | refills n  10835 first-tick  78.4 bites/child  1.8 child e  5.7 dead5  92.9
+Medic          g7   self n      0 eat     - none     - split     - | other n      0 eat     - none     - split     - | refill-test n      0 eat     - | refills n      0 first-tick     - bites/child  0.0 child e  0.0 dead5     -
+Brawler v2     g7   self n    231 eat  86.6 none  13.4 split   0.0 | other n    399 eat  97.0 none   2.0 split   1.0 | refill-test n    548 eat  98.4 | refills n    224 first-tick  72.3 bites/child  2.3 child e  8.9 dead5  42.9
+zergling       g7   self n    955 eat  84.5 none  15.1 split   0.4 | other n    326 eat  86.8 none  11.0 split   2.1 | refill-test n    969 eat  93.2 | refills n    974 first-tick  83.4 bites/child  1.6 child e  4.2 dead5  79.7
+NomNom2        g7   self n    232 eat  94.8 none   5.2 split   0.0 | other n     65 eat  96.9 none   3.1 split   0.0 | refill-test n    346 eat  98.6 | refills n    137 first-tick  88.3 bites/child  3.2 child e 10.5 dead5  27.0
+gemAlert_v5    g7   self n    284 eat  71.8 none  28.2 split   0.0 | other n     85 eat  67.1 none  31.8 split   1.2 | refill-test n   1449 eat  98.9 | refills n    887 first-tick  88.2 bites/child  2.4 child e  5.0 dead5  83.3
+Bane v2.1      g7   self n   4290 eat  86.1 none   7.9 split   6.0 | other n   1530 eat  88.1 none   4.1 split   7.8 | refill-test n   6802 eat  99.0 | refills n   4653 first-tick  21.5 bites/child  1.4 child e  9.3 dead5  19.6
+CogSpore       g6   self n   9234 eat  88.0 none  11.5 split   0.5 | other n   7392 eat  96.9 none   2.8 split   0.3 | refill-test n  26411 eat  97.6 | refills n  14796 first-tick  80.1 bites/child  2.0 child e  5.6 dead5  86.7
+Artemis        g6   self n     36 eat  88.9 none  11.1 split   0.0 | other n      7 eat 100.0 none   0.0 split   0.0 | refill-test n    136 eat  97.8 | refills n     84 first-tick  79.8 bites/child  2.1 child e  5.7 dead5  54.8
+Bulwark        g6   self n     15 eat   0.0 none 100.0 split   0.0 | other n      3 eat   0.0 none 100.0 split   0.0 | refill-test n    534 eat 100.0 | refills n    216 first-tick  96.3 bites/child  3.5 child e  3.7 dead5  65.3
+squirtle       g6   self n     11 eat 100.0 none   0.0 split   0.0 | other n      2 eat 100.0 none   0.0 split   0.0 | refill-test n      2 eat 100.0 | refills n     12 first-tick  58.3 bites/child  0.8 child e  3.3 dead5  58.3
+gemAlert_v4    g5   self n    115 eat  82.6 none  16.5 split   0.9 | other n     45 eat  82.2 none  15.6 split   2.2 | refill-test n    168 eat  91.7 | refills n    163 first-tick  79.8 bites/child  1.4 child e  4.7 dead5  75.5
+Smarter Hunter g5   self n    692 eat  90.9 none   7.2 split   1.9 | other n    358 eat  92.5 none   5.0 split   2.5 | refill-test n   2231 eat  94.8 | refills n    698 first-tick  91.8 bites/child  3.0 child e 11.6 dead5  62.2
+Brawler        g5   self n    532 eat  77.6 none  21.4 split   0.9 | other n    225 eat  90.7 none   6.7 split   2.7 | refill-test n   1864 eat  96.5 | refills n    995 first-tick  81.3 bites/child  2.1 child e  6.3 dead5  75.7
+Siect-F        g5   self n   4942 eat  84.8 none  14.8 split   0.4 | other n   2229 eat  89.1 none  10.4 split   0.5 | refill-test n  62349 eat  99.2 | refills n  18371 first-tick  76.8 bites/child  3.7 child e  8.3 dead5  45.5
+Conviction     g5   self n   1905 eat   9.1 none  83.3 split   7.6 | other n   1624 eat   4.7 none  89.8 split   5.5 | refill-test n  44447 eat  99.4 | refills n   9124 first-tick  50.6 bites/child  3.4 child e  9.9 dead5  23.2
+Phaedra_Rune   g4   self n     51 eat  98.0 none   2.0 split   0.0 | other n     61 eat 100.0 none   0.0 split   0.0 | refill-test n    228 eat  99.1 | refills n    106 first-tick  83.0 bites/child  2.1 child e  7.7 dead5  60.4
+Random         g4   self n      0 eat     - none     - split     - | other n      0 eat     - none     - split     - | refill-test n      0 eat     - | refills n      0 first-tick     - bites/child  0.0 child e  0.0 dead5     -
+Walker         g3   self n      0 eat     - none     - split     - | other n      0 eat     - none     - split     - | refill-test n      0 eat     - | refills n      0 first-tick     - bites/child  0.0 child e  0.0 dead5     -
+Necrosia       g3   self n    917 eat  83.1 none  15.5 split   1.4 | other n    393 eat  90.8 none   7.1 split   2.0 | refill-test n    630 eat  94.9 | refills n    421 first-tick  93.8 bites/child  2.1 child e  5.1 dead5  89.8
+gemAlert_v6    g3   self n     14 eat 100.0 none   0.0 split   0.0 | other n      6 eat  83.3 none  16.7 split   0.0 | refill-test n     27 eat  92.6 | refills n     11 first-tick  63.6 bites/child  1.6 child e  4.8 dead5  45.5
+AtomPush       g3   self n     74 eat  90.5 none   9.5 split   0.0 | other n     32 eat  96.9 none   3.1 split   0.0 | refill-test n     61 eat  96.7 | refills n     44 first-tick  81.8 bites/child  1.9 child e  5.0 dead5  61.4
+rooby          g3   self n    162 eat  81.5 none  18.5 split   0.0 | other n     75 eat  93.3 none   6.7 split   0.0 | refill-test n   1465 eat  97.5 | refills n    475 first-tick  90.5 bites/child  3.5 child e  8.1 dead5  53.7
+Bouncer        g3   self n    288 eat  84.7 none  15.3 split   0.0 | other n    171 eat  93.6 none   6.4 split   0.0 | refill-test n   3586 eat  93.9 | refills n   1082 first-tick  89.4 bites/child  3.1 child e  8.1 dead5  74.9
+Bane v1        g3   self n    268 eat  99.3 none   0.7 split   0.0 | other n     73 eat 100.0 none   0.0 split   0.0 | refill-test n    166 eat  98.8 | refills n    334 first-tick  57.8 bites/child  1.3 child e  4.7 dead5  82.3
+Schism         g3   self n    223 eat  99.1 none   0.9 split   0.0 | other n    183 eat 100.0 none   0.0 split   0.0 | refill-test n    125 eat  99.2 | refills n     70 first-tick  57.1 bites/child  2.4 child e  7.9 dead5  38.6

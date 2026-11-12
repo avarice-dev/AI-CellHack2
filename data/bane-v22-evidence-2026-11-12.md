@@ -82,8 +82,9 @@ Bite order measured in ongoing contact (an enemy beside me that was beside me la
 | Penalty (3-insn queue) | 19 | 35 / 59 | 77 / 22 |
 
 Per game, Bane's ongoing bit-first share vs Siect-F: 3.3, 0.9, 5.2% (131198, 131245, 131332; 131188 11.3%); vs
-VarSi 44-96%; vs Colossus 99-100%. Penalty vs Siect-F (131094): 48 / 52. **(inferred)** Siect-F's repeat bite is
-3 instructions (ties a 3, beats Bane's 4 every time); VarSi's repeat-bite cost varies around 3-5; Colossus >= 5.
+VarSi 44-96%; vs Colossus 99-100%. Penalty vs Siect-F (131094): 48 / 52. **Measured exactly in section 12:** Siect-F
+bites in <= 3; VarSi, CogSpore, CogBloomXT bite UP / DOWN in exactly 4 and LEFT / RIGHT in 5-15; medivac and Colossus
+bite in exactly 5.
 The floor for any bite is 2 (load the action, exit), but a 2-instruction bite cannot advance or clear anything, so it
 would repeat forever; 3 is the floor for a queue that ends.
 
@@ -143,8 +144,17 @@ After a kill, the killer's next tick (Bane, by window): take the freed square 21
 19 / 20%, stunned 17 / 12 / 8 / 10%. The freed square went to Bane on the next tick 35 / 52 / 67 / 59%.
 Siect-F vs Bane, 131245: Siect-F bit 190,004 times in 7,279 chains (26 ticks each); after a kill it had no event 71%
 of the time and Bane refilled the freed square 79% of the time; Bane's front cells were stunned on 99% of their
-contact cell-ticks. **(inferred)** Siect-F bites the same square blindly; Bane's refill puts a new child into a square
-that is bitten every tick, so the refill feeds Siect-F.
+contact cell-ticks.
+Blind-or-checked test (`blind.csv`, scripts/blind.py): a cell that bit square S last tick, is not stunned, finds S
+empty and has another enemy on a different edge. Siect-F (131245) bit the other enemy 83% of the time, no event 16%:
+**not** a pure blind repeat. **(inferred)** A 3-instruction repeat bite with a queue sized to kill the target (like
+Conviction's, without its minimum length), then a scan; the view has no direction-indexed array (cellhack.inc: VIEW_CELLS
+is a row-major 5x5, neighbours at 7 / 13 / 17 / 11), so a checked bite in any direction needs 4 instructions; 3 is
+possible checked only for one fixed direction.
+Refills into squares freed by an enemy kill (131245): Bane refilled 4,931 squares freed by Siect-F kills; the killer
+bit the new child on its first live tick 87% of the time, bit it 4.1 times on average (about 8 energy, the child's
+mean birth energy was 8.1), and 44% of those children died within 5 ticks. **(inferred)** Against a faster biter the
+refill rule feeds the rival: roughly 40,000 energy in that game.
 Friendly bites: Bane 0; Penalty 0.4-1.0 per 100 enemy bites; Conviction 0.1-0.7.
 
 ## 8. Front: land (ls-summary.txt)
@@ -176,6 +186,32 @@ Fills of contested squares: filler energy, alive after 10 ticks, square held by 
 - Siect-F: 1-2: n 274, 77%, 92%; 3-4: n 48, 77%, 85%.
 - Penalty: 1-2: n 159, 23%, 52%; 3-4: 70%, 82%; walkers 1-2: 15%, 26%.
 Per game the fill counts differ more than the rates: in 131276 VarSi filled 158 contested squares before t60, Bane 70.
+
+Scale check, Bane vs VarSi (t < 100; squares Bane lost by the state of its neighbour; VarSi's and Bane's contested
+wins; cell gaps at t60 / t100):
+
+| game | result | gap t60 / t100 | Bane lost (5-11 energy, no event / biting / < 5 / stunned) | VarSi won | Bane won |
+|---|---|---|---|---|---|
+| 129308 | L equal start | -316 / -723 | 127 (43 / 37 / 16 / 20) | 126 | 78 |
+| 130482 | L equal | +50 / -188 | 153 (62 / 48 / 21 / 10) | 236 | 112 |
+| 130818 | L equal | -284 / -753 | 87 (26 / 36 / 12 / 6) | 65 | 69 |
+| 131265 | L equal | -139 / -154 | 131 (39 / 43 / 27 / 9) | 143 | 97 |
+| 131276 | L equal | -279 / -1048 | 354 (110 / 118 / 45 / 46) | 409 | 149 |
+| 130915 | L bad start | -652 / -1515 | 78 (26 / 27 / 16 / 7) | 194 | 57 |
+| 130988 | L bad | -561 / -1199 | 118 (49 / 29 / 30 / 7) | 108 | 71 |
+| 131114 | L bad | -524 / -977 | 94 (18 / 35 / 20 / 6) | 58 | 33 |
+| 131102 | W good | -155 / -149 | 153 (45 / 46 / 28 / 18) | 101 | 110 |
+| 131312 | W good | +157 / +1268 | 182 (53 / 46 / 43 / 27) | 86 | 108 |
+| 129850 | W good | +515 / +929 | 101 (28 / 32 / 17 / 13) | 102 | 91 |
+
+**(inferred)** The squares lost to the refill gate (26-110 per game before t100) are about a tenth of the t100 gaps
+(154-1048 cells) in the losses: a real gap, but not by itself the size of what decides these games, unless each early
+square compounds strongly. Most cell-ticks are away from the front (85-90% "far"): there VarSi keeps more cells with an
+empty edge (b: 33.9% of far cell-ticks open vs Bane 29.2%), moves more (8.1 vs 6.6) and does not feed (0 vs 5.9).
+
+Growth t30 -> t60 in the equal-start VarSi games (cells at t60 / cells at t30): Bane 7.7, 7.0, 5.7, 9.1, 7.4;
+VarSi 12.0, 6.6, 8.8, 8.6, 9.5 (129308, 130482, 130818, 131265, 131276). Squares taken from third colonies (whole
+game): VarSi 12, 841, 49, 433, 75; Bane 4, 0, 73, 242, 250.
 
 ## 9. Interior and third colonies
 
@@ -219,8 +255,10 @@ By situation (Bane vs VarSi vs Siect-F):
 - Penalty = Conviction + the queue ends with a split into the target's square (not energy-gated): 81%; 7-32% of its
   children in freed enemy squares had <= 4 energy and 10-17% died within 5 ticks (Bane, Conviction 0-2%); vs medivac
   2/10.
-- Bane v2.0 -> v2.1 (stored bite, 4 instructions, replacing the 16-instruction view scan on repeat bites): 82% ->
-  93% wins (1804 / 203 games). Bane v2.1 -> v2.2 (prey hold only for a diagonal enemy, not any enemy in the 5x5):
+- Bane v2.0 -> v2.1 (stored bite): every bite 5 (scan first, no memory) became repeat 4 / first bite 16, and every
+  other path +5 (refill 11 -> 16): 82% -> 93% wins (1804 / 203 games; the rival pool also changed between the eras).
+  (Corrected 2026-11-12: v2.0's bite was the 5-instruction scan, `git show c263b48:cells/bane2.asm`; confirmed by the
+  order markers in section 12, zero violations.) Bane v2.1 -> v2.2 (prey hold only for a diagonal enemy, not any enemy in the 5x5):
   no measurable effect on wins (93% vs 92%, briefs/resume-2026-11-11.md); hold share t30-60 fell from 2-7% to
   0.5-1.3% of cell-ticks.
 
@@ -232,3 +270,105 @@ By situation (Bane vs VarSi vs Siect-F):
 - Parent of a split = an own neighbour with no other event that tick (first found); rare misattribution.
 - The solo potential is our opening from that square, not the rival's own opening.
 - Rival behaviour is inferred only from what it did in these replays; rivals change versions without notice.
+- Sections 12-14: bite costs come from event order against our own events of known cost; a rival bite between our
+  markers is bracketed, not measured to the instruction (5-15 is one class in v2.1 / v2.2 games).
+
+## 12. Exact bite costs from event order (order.csv, order-exact.txt, order-dir.txt; scripts/order.py, order_dir.py)
+
+Method. The engine acts in instruction-count order (fewest first, seeded coin on ties) and the replay logs events in
+that order. Some of our events have a fixed count that the replay shows: Bane v2.1 / v2.2 eat on the target the same
+cell ate on the previous tick = stored bite 4; split by a cell with no adjacent enemy and energy >= 16 = gate 1, 16;
+v2.2 move = walker move 39. Bane v1 / v2.0: every eat = 5, such a split = 11. Conviction: such a split = 14.
+Check: in 29 replay batches (pulls 6-9), 4,629,556 marker events, **0 order violations** (every tick's markers are in
+non-decreasing cost order). Each rival eat on one of our cells is bracketed by the markers before and after it in the
+same tick. Ties are a per-cell coin: a rival bite that costs exactly X lands **between** our cost-X markers.
+
+Share of each rival's eats on our cells by exact cost (v2.1 / v2.2 games; a = t < 100, b = t >= 100; "first" = the
+eater did not eat this target on the previous tick, "repeat" = it did; "other" = no marker on one side):
+
+| Rival | kind | w | eats | < 4 | = 4 | 5-15 | other |
+|---|---|---|---|---|---|---|---|
+| VarSi | first | a | 5,245 | 4.0 | 50.6 | 26.6 | 18.8 |
+| VarSi | first | b | 300,887 | 3.6 | 82.4 | 1.6 | 12.4 |
+| VarSi | repeat | a | 5,115 | 5.4 | 71.7 | 15.2 | 7.7 |
+| CogSpore | first | a | 2,150 | 7.2 | 62.5 | 16.6 | 13.7 |
+| CogBloomXT | first | a | 2,409 | 5.3 | 55.5 | 21.5 | 17.7 |
+| AtomCrasher | first | a | 736 | 5.4 | 53.3 | 21.2 | 20.1 |
+| Aegis | first | a | 585 | 7.0 | 51.1 | 25.5 | 16.4 |
+| Siect-F | first | a | 1,453 | 64.5 | 0.0 | 15.5 | 20.0 |
+| Siect-F | repeat | a | 4,088 | 99.4 | 0.0 | 0.0 | 0.6 |
+| Siect-F | repeat | b | 649,154 | 67.3 | 0.0 | 0.0 | 32.7 |
+| medivac | first | a | 874 | 0 | 0 | 79.3 | 20.7 |
+| Colossus | first | a | 1,241 | 0 | 0 | 57.3 | 42.7 |
+| NomNom2 | first | a | 236 | 0 | 0 | 53.4 | 46.6 |
+
+Bane v1 / v2.0 games (our bites all 5): medivac first bites = 5 exactly in 88-95% (between our 5-cost bites),
+Colossus 91-95%; CogBloomXT v4 < 5 in 48-64%, 6-10 in 17-33%; AtomCrasher < 5 63%, 6-10 26%.
+
+Direction of the cost-4 bites (order-dir.txt): VarSi, CogSpore and CogBloomXT bite in exactly 4 **only UP or DOWN**
+(LEFT / RIGHT 0.0% of 597,794 / 368,229 / 355,028 such bites); their LEFT / RIGHT bites are all in the 5-15 class.
+**(inferred)** They check UP and DOWN as fixed squares first; LEFT / RIGHT cost more.
+Siect-F's < 4 bites go in every direction, and per game mostly one way (131188 DOWN 92%, 131198 LEFT 99%, 131245 UP
+91%, 131332 UP 47 / RIGHT 53): the side its front faces. With its empty-square behaviour (section 14: eats 85-89%,
+not a stuck blind repeat) **(inferred)** a blind bite queue sized so it rarely outlives the target (Conviction's
+design without the minimum length), not a direction check: a checked bite in a stored direction needs 4.
+
+What this means for each path of ours (facts from the table; no model):
+- Our repeat bite (4) beats medivac, Colossus, NomNom2 (5) and the Yen cells' LEFT / RIGHT bites (5-15) every time,
+  ties the Yen cells' UP / DOWN bites (coin), and never beats Siect-F (<= 3).
+- Our first bite (16) loses every race against all of these: no main rival's bite costs 16 or more.
+- A first bite of 10 or 11 instructions would still lose against costs 3, 4 and 5 (the large majority). It can win
+  only against bites in the 5-15 class that cost 11-15: unresolved for the Yen cells' LEFT / RIGHT bites (no marker
+  between 4 and 16 in v2.1 / v2.2 games); for CogBloomXT v4 and AtomCrasher (v2.0 games) that class is 6-10.
+- Bane v2.0 (all bites 5) against Colossus: duel 57.7 / 41.0 when armed, 41.3 / 56.6 when Colossus was armed (coin
+  flips between two 5-cost bites); Bane v2.2: 99.9 / 0.0 and 11.5 / 83.5 (section 13).
+
+## 13. Duels (duel.csv, duel-summary.txt; scripts/duel.py, duel_sum.py)
+
+Two enemy cells that are edge neighbours at tick start, both alive: who bit the other first this tick. Armed = bit
+this opponent on the previous tick. Both armed never happens (a cell bitten first is stunned and does not bite).
+A stunned cell's memory is unchanged, so its stored bite survives the stun. All games, all ticks:
+
+| Own cell | vs | games | fresh: A first / B first | A armed: A / B | B armed: A / B |
+|---|---|---|---|---|---|
+| Bane v2.2 | VarSi | 11 | 4.7 / 6.3 | 81.6 / 15.4 | 32.8 / 58.6 |
+| Bane v2.2 | Siect-F | 4 | 0.6 / 5.4 | 82.4 / 10.7 | 0.0 / 99.8 |
+| Bane v2.2 | Colossus | 7 | 1.5 / 0.6 | 99.9 / 0.0 | 11.5 / 83.5 |
+| Bane v2.2 | medivac | 2 | 10.6 / 4.9 | 98.8 / 0.1 | 11.5 / 83.8 |
+| Bane v2.2 | CogBloomXT | 5 | 7.2 / 4.4 | 61.6 / 31.5 | 35.9 / 59.3 |
+| Bane v2.2 | CogSpore | 2 | 2.2 / 0.9 | 51.1 / 46.6 | 46.2 / 53.1 |
+| Bane v2.2 | NomNom2 | 4 | 5.8 / 2.3 | 99.7 / 0.0 | 26.8 / 56.4 |
+| Bane v2.2 | AtomCrasher | 3 | 7.5 / 4.2 | 88.1 / 7.3 | 23.9 / 67.0 |
+| Bane v2.0 | Colossus | 3 | 1.6 / 2.7 | 57.7 / 41.0 | 41.3 / 56.6 |
+| Bane v2.0 | medivac | 3 | 2.1 / 4.3 | 56.3 / 42.0 | 39.7 / 57.4 |
+| Conviction | VarSi | 3 | 5.0 / 7.3 | 88.5 / 10.9 | 44.8 / 48.3 |
+| Penalty | VarSi | 4 | 4.5 / 4.1 | 85.5 / 12.6 | 51.2 / 42.1 |
+| Penalty | Colossus | 10 | 5.9 / 3.4 | 83.8 / 13.2 | 43.6 / 50.8 |
+
+(The rest of "fresh" is neither: both busy with other cells. "B armed: A first" includes escapes where another of our
+cells stunned B first.) Reading: once a rival with a cheaper bite has bitten one of our cells, that cell rarely bites
+back (stun lock); our 3-instruction queues (Conviction, Penalty) escape VarSi's lock more often than Bane's 4 + 16
+(44.8-51.2% vs 32.8%) but Penalty loses Colossus's ongoing exchanges that Bane wins (83.8 / 13.2 vs 99.9 / 0.0, its
+queue runs blind past fed targets).
+
+## 14. Blind test, refined (blind.csv, blind-summary2.txt; scripts/blind.py, blind_sum.py)
+
+The square the cell bit last tick is empty now, another enemy is on an edge, the cell is not stunned. self = the
+last target died to this cell's bite; other = it died to another cell's bite.
+
+| Cell | self n: eat / none / split | other n: eat / none / split | refill child bitten by the killer on its first live tick |
+|---|---|---|---|
+| Bane v2.2 | 12,004: 79.2 / 15.2 / 5.6 | 4,743: 86.3 / 8.4 / 5.4 | 31.5% (13,230) |
+| Bane v2.0 | 2,182: 94.5 / 4.7 / 0.8 | 602: 98.8 / 0.5 / 0.7 | 87.1% (1,407) |
+| VarSi | 12,387: 84.1 / 15.4 / 0.5 | 5,792: 91.0 / 8.2 / 0.8 | 78.5% (17,093) |
+| Siect-F | 4,942: 84.8 / 14.8 / 0.4 | 2,229: 89.1 / 10.4 / 0.5 | 76.8% (18,371) |
+| Colossus | 11,686: 95.2 / 4.6 / 0.3 | 5,557: 98.7 / 1.1 / 0.1 | 94.0% (22,821) |
+| medivac | 12,747: 94.2 / 5.7 / 0.0 | 6,409: 97.7 / 2.3 / 0.0 | 87.4% (22,816) |
+| Conviction | 1,905: 9.1 / 83.3 / 7.6 | 1,624: 4.7 / 89.8 / 5.5 | 50.6% (9,124) |
+| Penalty | 3,017: 5.0 / 28.3 / 66.6 | 1,612: 8.3 / 36.7 / 55.1 | 34.9% (2,764) |
+
+- Siect-F behaves like a checked biter here (like Bane and VarSi), unlike our blind queues (Conviction none 83-90%).
+- Bane v2.2 bites a refilled enemy child on its first live tick 31.5% of the time, v2.0 87.1%, every main rival
+  77-94%. Why is not measured (the killer may be stunned, dead, or biting another enemy that tick; when the killer
+  bit that square on the tick before, it bites the refill at once 97.3% of the time, n 24,599). **(open)** Whether a
+  first bite of 16 (vs v2.0's 5) is the cause.
