@@ -1,0 +1,2260 @@
+replay,rival,window,cat,ecost,n
+130482,CogSpore - VarSi,a,stunprev,other,1
+130482,CogSpore - VarSi,a,first,other,2
+130482,CogSpore - VarSi,a,stunprev,<4,1
+130482,CogSpore - VarSi,a,lock,<4,2
+130482,CogSpore - VarSi,a,lock,other,4
+130482,CogSpore - VarSi,a,lock-other,other,1
+130482,CogSpore - VarSi,a,lock,=4,1
+130482,CogSpore - VarSi,b,stunprev,other,4
+130482,CogSpore - VarSi,b,first,other,23
+130482,CogSpore - VarSi,b,lock,<4,44
+130482,CogSpore - VarSi,b,lock,=4,351
+130482,CogSpore - VarSi,b,stunprev,=4,25
+130482,CogSpore - VarSi,b,lock-other,=4,31
+130482,CogSpore - VarSi,b,lock,other,34
+130482,CogSpore - VarSi,b,stunprev,<4,7
+130482,CogSpore - VarSi,b,lock-other,other,14
+130482,CogSpore - VarSi,b,lock-other,<4,7
+130482,CogSpore - VarSi,b,first,=4,6
+130482,CogSpore - VarSi,b,lock,5-15,12
+130482,CogSpore - VarSi,b,lock-other,>16,5
+130482,CogSpore - VarSi,b,first,>16,6
+130482,CogSpore - VarSi,b,lock,>16,1
+130482,CogSpore - VarSi,b,lock-other,5-15,5
+130482,CogSpore - VarSi,b,first,5-15,6
+130482,CogSpore - VarSi,b,stunprev,5-15,1
+130482,CogSpore - VarSi,c,lock,<4,55
+130482,CogSpore - VarSi,c,lock,=4,1919
+130482,CogSpore - VarSi,c,lock-other,=4,56
+130482,CogSpore - VarSi,c,stunprev,=4,24
+130482,CogSpore - VarSi,c,lock,5-15,45
+130482,CogSpore - VarSi,c,lock-other,5-15,13
+130482,CogSpore - VarSi,c,lock-other,=16,15
+130482,CogSpore - VarSi,c,lock-other,>16,8
+130482,CogSpore - VarSi,c,lock,other,4
+130482,CogSpore - VarSi,c,stunprev,<4,1
+130482,CogSpore - VarSi,c,first,>16,1
+130482,CogSpore - VarSi,c,lock-other,<4,3
+130482,CogSpore - VarSi,c,first,other,1
+130482,CogSpore - VarSi,c,first,5-15,1
+130482,CogSpore - VarSi,c,lock,>16,1
+130482,CogSpore - VarSi,c,first,=16,1
+130482,CogSpore - VarSi,c,first,=4,2
+130482,CogSpore - VarSi,c,stunprev,5-15,2
+130482,CogSpore - VarSi,c,lock,=16,1
+130482,CogSpore - VarSi,c,lock-other,other,1
+130482,CogSpore - VarSi,d,lock,<4,3867
+130482,CogSpore - VarSi,d,lock,=4,182688
+130482,CogSpore - VarSi,d,lock-other,=4,13
+130482,CogSpore - VarSi,d,lock,5-15,572
+130482,CogSpore - VarSi,d,lock-other,>16,6
+130482,CogSpore - VarSi,d,lock-other,<4,1
+130482,CogSpore - VarSi,d,lock-other,=16,3
+130482,CogSpore - VarSi,d,lock-other,5-15,1
+130482,CogSpore - VarSi,d,lock,other,2451
+130482,CogSpore - VarSi,d,lock-other,other,1
+130515,CogSpore,b,stunprev,other,3
+130515,CogSpore,b,lock,other,5
+130515,CogSpore,b,first,other,3
+130515,Artemis,b,stunprev,other,8
+130515,Artemis,b,lock,<4,19
+130515,Artemis,b,stunprev,=4,5
+130515,Artemis,b,lock,other,18
+130515,Artemis,b,lock-other,<4,3
+130515,CogSpore,b,stunprev,<4,3
+130515,CogSpore,b,lock-other,<4,1
+130515,Artemis,b,first,other,7
+130515,CogSpore,b,lock,=4,29
+130515,Artemis,b,lock,=4,104
+130515,Artemis,b,lock-other,=4,8
+130515,CogSpore,b,lock,<4,5
+130515,CogSpore,b,stunprev,=4,8
+130515,Artemis,b,lock-other,other,8
+130515,Artemis,b,lock,5-15,3
+130515,Artemis,b,lock-other,>16,1
+130515,CogSpore,b,first,>16,1
+130515,Artemis,b,stunprev,<4,1
+130515,Artemis,b,first,=4,1
+130515,CogSpore,b,first,5-15,1
+130515,CogSpore,b,lock,5-15,1
+130515,CogSpore,b,lock-other,>16,1
+130515,Artemis,c,lock,<4,24
+130515,Artemis,c,lock,=4,435
+130515,CogSpore,c,lock,=4,426
+130515,CogSpore,c,stunprev,=4,27
+130515,CogSpore,c,lock-other,=4,21
+130515,Artemis,c,lock,5-15,31
+130515,Artemis,c,first,=16,1
+130515,Artemis,c,lock,=16,1
+130515,CogSpore,c,lock-other,>16,4
+130515,CogSpore,c,first,>16,2
+130515,Artemis,c,lock,other,9
+130515,Artemis,c,lock-other,other,2
+130515,CogSpore,c,lock,<4,38
+130515,Artemis,c,lock-other,=4,4
+130515,CogSpore,c,lock,5-15,4
+130515,CogSpore,c,first,other,2
+130515,CogSpore,c,lock-other,other,3
+130515,Artemis,c,lock-other,5-15,7
+130515,Artemis,c,lock-other,>16,5
+130515,CogSpore,c,first,=4,1
+130515,CogSpore,c,first,=16,2
+130515,CogSpore,c,lock-other,<4,4
+130515,CogSpore,c,lock,other,2
+130515,Artemis,c,lock-other,=16,1
+130515,CogSpore,c,first,5-15,3
+130515,CogSpore,c,lock-other,=16,1
+130515,CogSpore,c,lock-other,5-15,3
+130515,CogSpore,d,lock,<4,5735
+130515,Artemis,d,lock,=4,403
+130515,CogSpore,d,lock,=4,80889
+130515,CogSpore,d,stunprev,=4,16
+130515,Artemis,d,lock,5-15,30
+130515,CogSpore,d,lock,5-15,31
+130515,Artemis,d,lock-other,5-15,2
+130515,CogSpore,d,lock-other,=4,15
+130515,Artemis,d,lock-other,>16,5
+130515,CogSpore,d,first,5-15,1
+130515,CogSpore,d,lock-other,=16,2
+130515,Artemis,d,lock,<4,18
+130515,CogSpore,d,stunprev,<4,1
+130515,CogSpore,d,first,=16,1
+130515,CogSpore,d,first,>16,1
+130515,CogSpore,d,lock-other,5-15,1
+130515,Artemis,d,lock-other,=4,5
+130515,CogSpore,d,lock,=16,1
+130515,CogSpore,d,first,<4,1
+130515,CogSpore,d,lock,other,5714
+130515,CogSpore,d,lock-other,>16,2
+130515,CogSpore,d,lock-other,<4,4
+130515,Artemis,d,lock,other,18
+130515,Artemis,d,lock-other,other,2
+130711,squirtle,a,stunprev,other,1
+130711,squirtle,a,lock,other,2
+130711,squirtle,b,lock-other,other,9
+130711,squirtle,b,lock,other,26
+130711,squirtle,b,stunprev,other,5
+130711,squirtle,b,first,other,3
+130711,squirtle,b,lock,<4,18
+130711,squirtle,b,lock,=4,32
+130711,squirtle,b,lock-other,<4,2
+130711,squirtle,b,stunprev,=4,4
+130711,squirtle,b,lock-other,=4,3
+130711,Colossus,b,first,other,1
+130711,Colossus,b,lock,<4,1
+130711,squirtle,b,lock,5-15,3
+130711,squirtle,b,first,5-15,1
+130711,squirtle,b,lock-other,=16,1
+130711,squirtle,c,lock,<4,27
+130711,squirtle,c,lock,=4,461
+130711,squirtle,c,lock,5-15,20
+130711,squirtle,c,lock-other,<4,6
+130711,squirtle,c,lock-other,=4,17
+130711,squirtle,c,lock,other,8
+130711,squirtle,c,stunprev,other,2
+130711,Colossus,c,stunprev,=4,26
+130711,squirtle,c,first,5-15,1
+130711,squirtle,c,lock-other,5-15,6
+130711,Colossus,c,lock,=4,530
+130711,squirtle,c,first,=4,1
+130711,squirtle,c,stunprev,=4,5
+130711,squirtle,c,lock-other,other,7
+130711,Colossus,c,first,other,6
+130711,squirtle,c,first,other,1
+130711,squirtle,c,first,=16,1
+130711,Colossus,c,lock,other,3
+130711,Colossus,c,lock,<4,19
+130711,Colossus,c,lock-other,=4,16
+130711,Colossus,c,stunprev,5-15,2
+130711,Colossus,c,first,5-15,7
+130711,squirtle,c,first,>16,3
+130711,Colossus,c,lock-other,>16,5
+130711,squirtle,c,lock-other,>16,4
+130711,Colossus,c,lock,5-15,23
+130711,squirtle,c,lock-other,=16,5
+130711,Colossus,c,lock-other,5-15,6
+130711,Colossus,c,lock-other,=16,7
+130711,Colossus,c,first,=16,5
+130711,Colossus,c,lock-other,other,2
+130711,Colossus,c,first,>16,3
+130711,Colossus,d,lock,<4,2906
+130711,Colossus,d,lock,=4,179344
+130711,squirtle,d,lock,=4,23
+130711,Colossus,d,lock,5-15,253
+130711,Colossus,d,lock,=16,2
+130711,squirtle,d,lock-other,=4,1
+130711,Colossus,d,lock-other,=4,16
+130711,Colossus,d,lock,other,2654
+130711,squirtle,d,lock-other,>16,2
+130711,Colossus,d,first,>16,5
+130711,Colossus,d,lock-other,>16,2
+130711,Colossus,d,first,=16,1
+130711,Colossus,d,stunprev,=4,11
+130711,Colossus,d,first,5-15,2
+130711,Colossus,d,lock-other,other,27
+130711,Colossus,d,lock-other,=16,7
+130711,Colossus,d,lock-other,5-15,16
+130711,Colossus,d,lock-other,<4,1
+130711,Colossus,d,first,=4,1
+130711,Colossus,d,first,other,1
+130818,Medic,a,first,other,1
+130818,Medic,a,lock,other,6
+130818,Medic,a,lock-other,other,2
+130818,Medic,b,lock,<4,32
+130818,Medic,b,lock,other,22
+130818,choochoo,b,first,other,1
+130818,choochoo,b,lock,other,4
+130818,Medic,b,lock-other,other,24
+130818,Medic,b,lock,=4,80
+130818,Medic,b,first,other,6
+130818,Medic,b,lock,5-15,7
+130818,Medic,b,lock-other,5-15,2
+130818,Medic,b,first,5-15,1
+130818,Medic,b,first,>16,4
+130818,Medic,b,lock-other,>16,2
+130818,Medic,b,lock-other,=4,1
+130818,CogSpore - VarSi,b,stunprev,=4,4
+130818,CogSpore - VarSi,b,lock,=4,7
+130818,CogSpore - VarSi,b,lock-other,=4,1
+130818,Medic,b,lock-other,<4,1
+130818,CogSpore - VarSi,b,lock,<4,2
+130818,Medic,b,lock-other,=16,1
+130818,Medic,b,first,=16,1
+130818,CogSpore - VarSi,b,lock-other,other,1
+130818,CogSpore - VarSi,b,stunprev,<4,4
+130818,CogSpore - VarSi,b,lock,5-15,1
+130818,CogSpore - VarSi,b,first,5-15,2
+130818,CogSpore - VarSi,b,lock,other,3
+130818,CogSpore - VarSi,b,first,other,2
+130818,Medic,c,lock,<4,14
+130818,CogSpore - VarSi,c,first,=4,1
+130818,Medic,c,lock,=4,150
+130818,CogSpore - VarSi,c,lock,=4,554
+130818,Medic,c,lock,5-15,14
+130818,CogSpore - VarSi,c,first,5-15,6
+130818,Medic,c,lock-other,=16,6
+130818,CogSpore - VarSi,c,lock-other,=4,36
+130818,Medic,c,lock,other,4
+130818,CogSpore - VarSi,c,lock,<4,44
+130818,CogSpore - VarSi,c,stunprev,=4,16
+130818,Medic,c,lock-other,=4,3
+130818,Medic,c,lock-other,5-15,5
+130818,CogSpore - VarSi,c,first,>16,5
+130818,Medic,c,lock-other,>16,6
+130818,CogSpore - VarSi,c,lock,other,11
+130818,CogSpore - VarSi,c,lock-other,other,11
+130818,Medic,c,lock-other,other,4
+130818,CogSpore - VarSi,c,lock,5-15,26
+130818,Medic,c,first,>16,4
+130818,CogSpore - VarSi,c,lock-other,>16,13
+130818,CogSpore - VarSi,c,first,other,5
+130818,Medic,c,first,other,2
+130818,CogSpore - VarSi,c,lock-other,5-15,10
+130818,CogSpore - VarSi,c,lock,>16,1
+130818,CogSpore - VarSi,c,stunprev,<4,1
+130818,Medic,c,first,5-15,2
+130818,Medic,c,lock,>16,1
+130818,CogSpore - VarSi,c,lock-other,=16,5
+130818,CogSpore - VarSi,c,lock-other,<4,2
+130818,CogSpore - VarSi,d,lock,<4,4724
+130818,CogSpore - VarSi,d,lock,=4,114854
+130818,CogSpore - VarSi,d,lock-other,=4,44
+130818,CogSpore - VarSi,d,stunprev,=4,27
+130818,CogSpore - VarSi,d,lock,5-15,37
+130818,CogSpore - VarSi,d,lock-other,=16,3
+130818,CogSpore - VarSi,d,lock-other,<4,3
+130818,Medic,d,lock,=4,1
+130818,CogSpore - VarSi,d,lock,other,3368
+130818,CogSpore - VarSi,d,lock-other,other,15
+130818,CogSpore - VarSi,d,first,other,7
+130818,CogSpore - VarSi,d,first,>16,5
+130818,CogSpore - VarSi,d,lock-other,5-15,10
+130818,CogSpore - VarSi,d,lock-other,>16,12
+130818,CogSpore - VarSi,d,stunprev,5-15,1
+130818,CogSpore - VarSi,d,first,5-15,3
+130818,CogSpore - VarSi,d,first,=4,2
+130818,CogSpore - VarSi,d,stunprev,<4,1
+130915,BigBadWolf,b,stunprev,other,1
+130915,BigBadWolf,b,lock,other,6
+130915,CogSpore - VarSi,b,first,other,6
+130915,CogSpore - VarSi,b,first,<4,1
+130915,CogSpore - VarSi,b,lock,<4,1
+130915,BigBadWolf,b,stunprev,=4,1
+130915,CogSpore - VarSi,b,stunprev,<4,1
+130915,BigBadWolf,b,lock,<4,2
+130915,CogSpore - VarSi,b,lock-other,<4,1
+130915,CogSpore - VarSi,b,lock,=4,1
+130915,CogSpore - VarSi,c,stunprev,<4,7
+130915,BigBadWolf,c,lock,<4,14
+130915,BigBadWolf,c,lock,=4,91
+130915,CogSpore - VarSi,c,lock,other,18
+130915,CogSpore - VarSi,c,stunprev,other,3
+130915,CogSpore - VarSi,c,first,other,11
+130915,CogSpore - VarSi,c,lock,<4,39
+130915,CogSpore - VarSi,c,first,=4,1
+130915,CogSpore - VarSi,c,lock,=4,462
+130915,CogSpore - VarSi,c,lock-other,other,14
+130915,CogSpore - VarSi,c,lock-other,=4,31
+130915,BigBadWolf,c,lock,other,5
+130915,CogSpore - VarSi,c,stunprev,=4,34
+130915,CogSpore - VarSi,c,lock-other,<4,3
+130915,BigBadWolf,c,stunprev,=4,1
+130915,CogSpore - VarSi,c,first,<4,1
+130915,BigBadWolf,c,lock-other,other,1
+130915,CogSpore - VarSi,c,lock,5-15,32
+130915,CogSpore - VarSi,c,stunprev,5-15,1
+130915,CogSpore - VarSi,c,first,>16,2
+130915,BigBadWolf,c,lock-other,=4,6
+130915,BigBadWolf,c,lock-other,5-15,4
+130915,CogSpore - VarSi,c,lock-other,5-15,16
+130915,CogSpore - VarSi,c,first,=16,1
+130915,BigBadWolf,c,lock,5-15,4
+130915,CogSpore - VarSi,c,lock,>16,1
+130915,CogSpore - VarSi,c,lock-other,>16,7
+130915,CogSpore - VarSi,c,first,5-15,2
+130915,CogSpore - VarSi,c,lock-other,=16,4
+130915,BigBadWolf,d,lock,<4,16
+130915,CogSpore - VarSi,d,lock,=4,121500
+130915,CogSpore - VarSi,d,lock-other,=4,35
+130915,BigBadWolf,d,lock,=4,520
+130915,CogSpore - VarSi,d,stunprev,=4,32
+130915,CogSpore - VarSi,d,lock,5-15,39
+130915,CogSpore - VarSi,d,lock-other,5-15,17
+130915,CogSpore - VarSi,d,first,5-15,2
+130915,CogSpore - VarSi,d,lock,<4,4516
+130915,CogSpore - VarSi,d,lock,=16,1
+130915,CogSpore - VarSi,d,first,>16,3
+130915,CogSpore - VarSi,d,lock,other,3205
+130915,CogSpore - VarSi,d,lock-other,other,11
+130915,CogSpore - VarSi,d,stunprev,<4,1
+130915,BigBadWolf,d,lock,5-15,5
+130915,CogSpore - VarSi,d,lock-other,>16,12
+130915,CogSpore - VarSi,d,lock-other,=16,7
+130915,CogSpore - VarSi,d,first,=16,2
+130915,BigBadWolf,d,lock-other,=4,9
+130915,CogSpore - VarSi,d,lock-other,<4,3
+130915,CogSpore - VarSi,d,first,=4,1
+130915,CogSpore - VarSi,d,first,<4,1
+130915,BigBadWolf,d,lock,other,25
+130915,BigBadWolf,d,lock-other,other,14
+130915,BigBadWolf,d,lock-other,<4,2
+130988,CogBloomXT,a,stunprev,other,1
+130988,CogBloomXT,b,first,other,12
+130988,CogBloomXT,b,lock,other,20
+130988,CogBloomXT,b,stunprev,other,3
+130988,CogBloomXT,b,lock,<4,19
+130988,CogBloomXT,b,lock-other,other,11
+130988,CogSpore - VarSi,b,stunprev,other,1
+130988,CogSpore - VarSi,b,lock,other,7
+130988,CogSpore - VarSi,b,stunprev,<4,2
+130988,CogSpore - VarSi,b,lock,=4,20
+130988,CogBloomXT,b,lock,=4,58
+130988,CogBloomXT,b,lock-other,<4,3
+130988,CogSpore - VarSi,b,lock-other,<4,2
+130988,CogSpore - VarSi,b,lock,<4,9
+130988,CogSpore - VarSi,b,stunprev,=4,7
+130988,CogSpore - VarSi,b,first,other,12
+130988,CogBloomXT,b,stunprev,<4,3
+130988,CogBloomXT,b,stunprev,=4,5
+130988,CogBloomXT,b,first,=4,1
+130988,CogSpore - VarSi,b,lock-other,=4,4
+130988,CogBloomXT,b,lock,5-15,2
+130988,CogSpore - VarSi,b,stunprev,5-15,1
+130988,CogBloomXT,b,stunprev,5-15,1
+130988,CogSpore - VarSi,b,lock-other,other,4
+130988,CogBloomXT,b,lock-other,=4,2
+130988,CogSpore - VarSi,c,stunprev,<4,2
+130988,CogBloomXT,c,lock,<4,41
+130988,CogSpore - VarSi,c,lock,=4,384
+130988,CogSpore - VarSi,c,stunprev,=4,9
+130988,CogBloomXT,c,lock,=4,632
+130988,CogBloomXT,c,stunprev,=4,32
+130988,CogSpore - VarSi,c,lock-other,=4,19
+130988,CogBloomXT,c,lock,5-15,31
+130988,CogBloomXT,c,first,5-15,8
+130988,CogBloomXT,c,lock-other,5-15,11
+130988,CogBloomXT,c,lock-other,<4,2
+130988,CogBloomXT,c,stunprev,<4,1
+130988,CogSpore - VarSi,c,lock,<4,25
+130988,CogBloomXT,c,lock-other,=4,27
+130988,CogBloomXT,c,first,>16,7
+130988,CogSpore - VarSi,c,first,=4,2
+130988,CogBloomXT,c,lock,other,6
+130988,CogBloomXT,c,lock-other,other,4
+130988,CogSpore - VarSi,c,lock-other,5-15,9
+130988,CogSpore - VarSi,c,lock-other,<4,3
+130988,CogBloomXT,c,lock-other,>16,10
+130988,CogSpore - VarSi,c,lock,>16,1
+130988,CogSpore - VarSi,c,lock-other,>16,12
+130988,CogSpore - VarSi,c,stunprev,5-15,1
+130988,CogSpore - VarSi,c,first,>16,1
+130988,CogSpore - VarSi,c,lock,5-15,8
+130988,CogBloomXT,c,stunprev,5-15,1
+130988,CogBloomXT,c,first,=4,2
+130988,CogSpore - VarSi,c,lock-other,other,2
+130988,CogSpore - VarSi,c,lock,other,2
+130988,CogBloomXT,c,first,other,3
+130988,CogSpore - VarSi,c,lock-other,=16,7
+130988,CogSpore - VarSi,c,lock,=16,1
+130988,CogBloomXT,c,lock-other,=16,4
+130988,CogBloomXT,c,first,=16,1
+130988,CogSpore - VarSi,d,lock,<4,2324
+130988,CogSpore - VarSi,d,lock,=4,46960
+130988,CogBloomXT,d,lock,=4,52239
+130988,CogBloomXT,d,lock-other,=4,15
+130988,CogBloomXT,d,stunprev,=4,3
+130988,CogSpore - VarSi,d,lock-other,=4,10
+130988,CogBloomXT,d,lock,5-15,24
+130988,CogBloomXT,d,first,5-15,1
+130988,CogSpore - VarSi,d,lock-other,5-15,2
+130988,CogBloomXT,d,lock,<4,2811
+130988,CogSpore - VarSi,d,lock,5-15,13
+130988,CogBloomXT,d,lock-other,>16,6
+130988,CogBloomXT,d,lock,other,1364
+130988,CogBloomXT,d,lock-other,other,7
+130988,CogSpore - VarSi,d,lock,other,2491
+130988,CogSpore - VarSi,d,lock-other,other,3
+130988,CogSpore - VarSi,d,lock-other,=16,1
+130988,CogSpore - VarSi,d,lock-other,>16,1
+130988,CogSpore - VarSi,d,lock,>16,1
+130988,CogBloomXT,d,lock-other,5-15,1
+131017,NomNom2,a,stunprev,other,1
+131017,NomNom2,a,lock,other,1
+131017,NomNom2,b,lock,other,17
+131017,Clippy-Var:Si-Gt:Fr,b,stunprev,other,1
+131017,Clippy-Var:Si-Gt:Fr,b,lock,other,7
+131017,Clippy-Var:Si-Gt:Fr,b,first,other,7
+131017,NomNom2,b,stunprev,other,2
+131017,Clippy-Var:Si-Gt:Fr,b,lock-other,other,5
+131017,NomNom2,b,lock,<4,13
+131017,NomNom2,b,lock,=4,68
+131017,NomNom2,b,stunprev,=4,3
+131017,gemAlert_v5,b,first,other,3
+131017,gemAlert_v5,b,lock,other,3
+131017,gemAlert_v5,b,stunprev,other,2
+131017,gemAlert_v5,b,lock,=4,23
+131017,NomNom2,b,lock-other,=4,3
+131017,gemAlert_v5,b,lock,<4,4
+131017,Clippy-Var:Si-Gt:Fr,b,lock-other,=4,3
+131017,Clippy-Var:Si-Gt:Fr,b,lock,<4,4
+131017,Clippy-Var:Si-Gt:Fr,b,stunprev,=4,5
+131017,gemAlert_v5,b,lock-other,other,3
+131017,NomNom2,b,lock-other,other,6
+131017,Clippy-Var:Si-Gt:Fr,b,lock,=4,32
+131017,gemAlert_v5,b,lock-other,=4,4
+131017,NomNom2,b,first,other,3
+131017,Clippy-Var:Si-Gt:Fr,b,stunprev,<4,1
+131017,NomNom2,b,lock,5-15,3
+131017,gemAlert_v5,b,first,5-15,1
+131017,gemAlert_v5,b,first,>16,2
+131017,Clippy-Var:Si-Gt:Fr,b,first,=4,1
+131017,Clippy-Var:Si-Gt:Fr,b,lock-other,>16,1
+131017,Clippy-Var:Si-Gt:Fr,b,lock,5-15,1
+131017,gemAlert_v5,b,stunprev,=4,2
+131017,gemAlert_v5,c,stunprev,<4,1
+131017,Clippy-Var:Si-Gt:Fr,c,lock,<4,9
+131017,NomNom2,c,lock,<4,20
+131017,Clippy-Var:Si-Gt:Fr,c,lock,=4,267
+131017,gemAlert_v5,c,lock,=4,780
+131017,NomNom2,c,lock,=4,626
+131017,gemAlert_v5,c,lock-other,=4,14
+131017,gemAlert_v5,c,stunprev,=4,4
+131017,gemAlert_v5,c,lock,other,6
+131017,gemAlert_v5,c,first,other,6
+131017,gemAlert_v5,c,lock-other,other,3
+131017,NomNom2,c,first,other,5
+131017,gemAlert_v5,c,lock,<4,17
+131017,Clippy-Var:Si-Gt:Fr,c,stunprev,=4,12
+131017,NomNom2,c,lock-other,=4,9
+131017,NomNom2,c,lock,5-15,18
+131017,gemAlert_v5,c,first,5-15,9
+131017,gemAlert_v5,c,first,>16,1
+131017,NomNom2,c,lock,other,7
+131017,Clippy-Var:Si-Gt:Fr,c,lock,other,1
+131017,Clippy-Var:Si-Gt:Fr,c,first,other,2
+131017,gemAlert_v5,c,lock-other,5-15,9
+131017,Clippy-Var:Si-Gt:Fr,c,lock-other,5-15,4
+131017,gemAlert_v5,c,lock,5-15,18
+131017,Clippy-Var:Si-Gt:Fr,c,lock-other,=4,17
+131017,NomNom2,c,lock-other,other,1
+131017,Clippy-Var:Si-Gt:Fr,c,first,=4,1
+131017,NomNom2,c,stunprev,=4,6
+131017,gemAlert_v5,c,first,=4,1
+131017,NomNom2,c,lock-other,>16,4
+131017,gemAlert_v5,c,lock-other,>16,10
+131017,Clippy-Var:Si-Gt:Fr,c,lock-other,>16,5
+131017,NomNom2,c,lock,=16,1
+131017,Clippy-Var:Si-Gt:Fr,c,lock-other,=16,5
+131017,gemAlert_v5,c,first,=16,5
+131017,Clippy-Var:Si-Gt:Fr,c,lock,5-15,1
+131017,Clippy-Var:Si-Gt:Fr,c,first,>16,2
+131017,gemAlert_v5,c,lock-other,=16,11
+131017,NomNom2,c,first,5-15,3
+131017,gemAlert_v5,c,lock,=16,1
+131017,NomNom2,c,lock-other,5-15,3
+131017,gemAlert_v5,c,lock,>16,1
+131017,Clippy-Var:Si-Gt:Fr,c,lock-other,other,1
+131017,NomNom2,c,lock-other,=16,2
+131017,gemAlert_v5,d,lock,<4,246
+131017,Clippy-Var:Si-Gt:Fr,d,lock,=4,90931
+131017,NomNom2,d,lock,=4,2646
+131017,gemAlert_v5,d,lock,=4,12144
+131017,gemAlert_v5,d,lock-other,=4,87
+131017,gemAlert_v5,d,stunprev,=4,12
+131017,NomNom2,d,lock,5-15,52
+131017,NomNom2,d,lock-other,=16,19
+131017,gemAlert_v5,d,lock,5-15,238
+131017,Clippy-Var:Si-Gt:Fr,d,lock-other,5-15,2
+131017,gemAlert_v5,d,lock,=16,1
+131017,Clippy-Var:Si-Gt:Fr,d,lock-other,=16,7
+131017,gemAlert_v5,d,lock-other,>16,44
+131017,NomNom2,d,lock,<4,50
+131017,gemAlert_v5,d,lock,other,136
+131017,Clippy-Var:Si-Gt:Fr,d,lock,<4,4667
+131017,gemAlert_v5,d,lock-other,5-15,53
+131017,gemAlert_v5,d,first,=16,3
+131017,gemAlert_v5,d,lock,>16,2
+131017,gemAlert_v5,d,lock-other,=16,34
+131017,Clippy-Var:Si-Gt:Fr,d,lock,5-15,86
+131017,NomNom2,d,lock-other,5-15,29
+131017,NomNom2,d,lock,=16,9
+131017,Clippy-Var:Si-Gt:Fr,d,lock-other,other,3
+131017,gemAlert_v5,d,lock-other,other,64
+131017,Clippy-Var:Si-Gt:Fr,d,lock-other,=4,29
+131017,gemAlert_v5,d,first,5-15,2
+131017,gemAlert_v5,d,first,=4,9
+131017,NomNom2,d,lock-other,=4,18
+131017,NomNom2,d,lock-other,>16,31
+131017,NomNom2,d,lock,>16,5
+131017,NomNom2,d,lock,other,8
+131017,NomNom2,d,lock-other,other,12
+131017,Clippy-Var:Si-Gt:Fr,d,lock,other,3223
+131017,gemAlert_v5,d,first,other,1
+131017,gemAlert_v5,d,lock-other,<4,2
+131017,NomNom2,d,first,=4,2
+131028,CogBloomXT,b,first,other,5
+131028,CogBloomXT,b,stunprev,other,10
+131028,CogBloomXT,b,lock,other,19
+131028,CogBloomXT,b,lock-other,other,7
+131028,CogBloomXT,b,lock,<4,9
+131028,CogBloomXT,b,stunprev,=4,4
+131028,CogBloomXT,b,lock-other,<4,2
+131028,CogBloomXT,b,lock,=4,11
+131028,CogBloomXT,b,lock-other,=4,1
+131028,CogBloomXT,c,stunprev,<4,10
+131028,CogBloomXT,c,lock,<4,59
+131028,CogBloomXT,c,lock,=4,1046
+131028,CogBloomXT,c,stunprev,=4,81
+131028,CogBloomXT,c,lock,5-15,31
+131028,CogBloomXT,c,lock-other,=4,43
+131028,CogBloomXT,c,lock,other,18
+131028,CogBloomXT,c,first,other,11
+131028,CogBloomXT,c,lock-other,other,11
+131028,CogBloomXT,c,lock-other,>16,21
+131028,AtomCrasher,c,stunprev,=4,12
+131028,AtomCrasher,c,lock,=4,59
+131028,CogBloomXT,c,lock-other,<4,5
+131028,CogBloomXT,c,lock-other,5-15,20
+131028,AtomCrasher,c,stunprev,5-15,1
+131028,CogBloomXT,c,stunprev,other,3
+131028,CogBloomXT,c,first,5-15,4
+131028,CogBloomXT,c,first,>16,13
+131028,AtomCrasher,c,first,>16,5
+131028,AtomCrasher,c,lock,5-15,3
+131028,NomNom2,c,stunprev,=4,7
+131028,CogBloomXT,c,first,=16,4
+131028,CogBloomXT,c,lock,>16,1
+131028,NomNom2,c,lock,=4,96
+131028,CogBloomXT,c,lock-other,=16,8
+131028,CogBloomXT,c,first,=4,1
+131028,AtomCrasher,c,lock-other,=4,7
+131028,CogBloomXT,c,lock,=16,3
+131028,NomNom2,c,lock,5-15,3
+131028,NomNom2,c,first,>16,1
+131028,CogBloomXT,c,stunprev,5-15,1
+131028,AtomCrasher,c,first,5-15,1
+131028,AtomCrasher,c,lock,<4,2
+131028,AtomCrasher,c,lock-other,5-15,3
+131028,AtomCrasher,c,lock-other,=16,2
+131028,NomNom2,c,lock-other,=4,3
+131028,NomNom2,c,first,5-15,3
+131028,NomNom2,c,lock-other,5-15,1
+131028,NomNom2,c,lock-other,=16,1
+131028,CogBloomXT,d,lock,<4,3065
+131028,CogBloomXT,d,lock,=4,104608
+131028,NomNom2,d,lock,=4,55983
+131028,CogBloomXT,d,lock-other,=4,53
+131028,AtomCrasher,d,lock,=4,16289
+131028,CogBloomXT,d,lock,5-15,174
+131028,CogBloomXT,d,lock-other,>16,25
+131028,CogBloomXT,d,stunprev,=4,8
+131028,CogBloomXT,d,lock-other,=16,9
+131028,NomNom2,d,lock-other,=16,3
+131028,CogBloomXT,d,first,=16,1
+131028,AtomCrasher,d,lock-other,=4,2
+131028,AtomCrasher,d,lock,<4,500
+131028,NomNom2,d,lock,<4,988
+131028,AtomCrasher,d,stunprev,=4,2
+131028,NomNom2,d,lock,other,1835
+131028,CogBloomXT,d,lock-other,other,14
+131028,CogBloomXT,d,first,5-15,1
+131028,CogBloomXT,d,lock-other,5-15,27
+131028,NomNom2,d,lock-other,5-15,10
+131028,NomNom2,d,lock,5-15,219
+131028,NomNom2,d,lock-other,=4,46
+131028,CogBloomXT,d,lock,=16,1
+131028,CogBloomXT,d,lock,other,745
+131028,CogBloomXT,d,lock,>16,1
+131028,AtomCrasher,d,lock,other,182
+131028,NomNom2,d,lock-other,other,96
+131028,AtomCrasher,d,lock,5-15,21
+131028,AtomCrasher,d,lock-other,>16,4
+131028,AtomCrasher,d,lock-other,other,41
+131028,AtomCrasher,d,lock-other,5-15,1
+131028,NomNom2,d,lock-other,>16,3
+131028,NomNom2,d,lock-other,<4,2
+131028,NomNom2,d,lock,>16,1
+131039,CogBloomXT,b,stunprev,other,4
+131039,CogBloomXT,b,first,other,19
+131039,CogBloomXT,b,lock,<4,20
+131039,CogBloomXT,b,lock,other,26
+131039,CogBloomXT,b,first,<4,1
+131039,CogBloomXT,b,lock-other,other,21
+131039,CogBloomXT,b,stunprev,=4,27
+131039,CogBloomXT,b,lock,=4,137
+131039,CogBloomXT,b,stunprev,<4,8
+131039,CogBloomXT,b,lock-other,=4,9
+131039,CogBloomXT,b,first,=4,1
+131039,CogBloomXT,b,lock-other,<4,1
+131039,CogBloomXT,b,lock,5-15,2
+131039,CogBloomXT,b,first,5-15,2
+131039,CogBloomXT,b,lock-other,5-15,2
+131039,CogBloomXT,c,lock,<4,56
+131039,CogBloomXT,c,lock,=4,1844
+131039,CogBloomXT,c,stunprev,=4,47
+131039,CogBloomXT,c,lock,5-15,46
+131039,CogBloomXT,c,stunprev,5-15,1
+131039,CogBloomXT,c,first,>16,5
+131039,CogBloomXT,c,lock-other,=4,34
+131039,CogBloomXT,c,lock-other,5-15,9
+131039,CogBloomXT,c,lock-other,>16,15
+131039,CogBloomXT,c,lock-other,<4,1
+131039,CogBloomXT,c,stunprev,<4,1
+131039,CogBloomXT,c,first,5-15,3
+131039,Brawler,c,stunprev,=4,36
+131039,Brawler,c,lock,=4,269
+131039,CogBloomXT,c,lock-other,=16,17
+131039,CogBloomXT,c,first,=16,8
+131039,CogBloomXT,c,lock,other,4
+131039,CogBloomXT,c,lock-other,other,7
+131039,CogBloomXT,c,first,other,1
+131039,CogBloomXT,c,first,=4,4
+131039,Brawler,c,lock-other,=4,19
+131039,Brawler,c,stunprev,<4,3
+131039,Brawler,c,lock-other,=16,4
+131039,CogBloomXT,c,lock,=16,2
+131039,Brawler,c,lock-other,other,3
+131039,Brawler,c,lock-other,5-15,7
+131039,Brawler,c,lock,<4,5
+131039,Brawler,c,first,=16,4
+131039,CogBloomXT,c,lock,>16,1
+131039,Brawler,c,lock-other,>16,6
+131039,Brawler,c,first,>16,3
+131039,Brawler,c,first,5-15,2
+131039,Brawler,c,lock,5-15,2
+131039,CogBloomXT,d,lock,<4,397
+131039,Brawler,d,lock,=4,9274
+131039,CogBloomXT,d,lock,=4,21226
+131039,Brawler,d,stunprev,=4,15
+131039,Brawler,d,lock-other,=4,603
+131039,CogBloomXT,d,lock,5-15,328
+131039,Brawler,d,lock-other,=16,389
+131039,CogBloomXT,d,lock-other,=16,47
+131039,Brawler,d,lock,<4,169
+131039,CogBloomXT,d,stunprev,=4,6
+131039,CogBloomXT,d,lock-other,=4,49
+131039,Brawler,d,first,5-15,1
+131039,CogBloomXT,d,lock-other,5-15,36
+131039,Brawler,d,first,=16,8
+131039,CogBloomXT,d,lock-other,>16,30
+131039,Brawler,d,lock-other,5-15,187
+131039,Brawler,d,lock,=16,33
+131039,Brawler,d,lock-other,>16,249
+131039,Brawler,d,lock,>16,25
+131039,Brawler,d,lock,5-15,126
+131039,CogBloomXT,d,lock,other,45
+131039,Brawler,d,lock,other,12
+131039,Brawler,d,lock-other,other,23
+131039,CogBloomXT,d,lock-other,other,2
+131039,CogBloomXT,d,lock,=16,4
+131039,CogBloomXT,d,first,=4,4
+131039,CogBloomXT,d,lock,>16,3
+131039,Brawler,d,first,=4,3
+131039,Brawler,d,lock-other,<4,9
+131039,Brawler,d,stunprev,<4,1
+131048,AtomCrasher,a,stunprev,other,2
+131048,AtomCrasher,b,first,other,12
+131048,AtomCrasher,b,lock,other,26
+131048,AtomCrasher,b,lock,<4,39
+131048,AtomCrasher,b,stunprev,=4,11
+131048,AtomCrasher,b,stunprev,<4,2
+131048,AtomCrasher,b,lock,=4,129
+131048,AtomCrasher,b,lock-other,<4,4
+131048,AtomCrasher,b,stunprev,other,1
+131048,AtomCrasher,b,lock,5-15,7
+131048,AtomCrasher,b,lock-other,other,2
+131048,AtomCrasher,b,lock-other,5-15,1
+131048,AtomCrasher,b,lock-other,=4,2
+131048,AtomCrasher,b,stunprev,5-15,1
+131048,AtomCrasher,c,lock,<4,51
+131048,AtomCrasher,c,lock,=4,886
+131048,AtomCrasher,c,lock,other,28
+131048,AtomCrasher,c,first,other,8
+131048,AtomCrasher,c,stunprev,=4,20
+131048,AtomCrasher,c,stunprev,other,2
+131048,AtomCrasher,c,stunprev,<4,1
+131048,AtomCrasher,c,lock,5-15,23
+131048,AtomCrasher,c,lock-other,other,6
+131048,AtomCrasher,c,first,5-15,6
+131048,AtomCrasher,c,lock-other,=4,8
+131048,BigBadWolf,c,stunprev,other,1
+131048,BigBadWolf,c,lock,<4,3
+131048,BigBadWolf,c,lock,=4,165
+131048,AtomCrasher,c,first,>16,5
+131048,BigBadWolf,c,first,other,7
+131048,AtomCrasher,c,lock-other,5-15,6
+131048,BigBadWolf,c,stunprev,=4,11
+131048,AtomCrasher,c,lock-other,=16,3
+131048,BigBadWolf,c,lock,other,1
+131048,BigBadWolf,c,lock-other,=4,6
+131048,BigBadWolf,c,first,=16,1
+131048,BigBadWolf,c,first,5-15,3
+131048,AtomCrasher,c,lock-other,>16,1
+131048,BigBadWolf,c,lock-other,>16,1
+131048,BigBadWolf,c,lock-other,5-15,2
+131048,AtomCrasher,c,first,=16,1
+131048,BigBadWolf,c,lock-other,=16,2
+131048,BigBadWolf,c,first,>16,3
+131048,BigBadWolf,c,lock-other,other,4
+131048,AtomCrasher,c,stunprev,5-15,1
+131048,BigBadWolf,c,lock,5-15,1
+131048,BigBadWolf,d,lock,<4,329
+131048,AtomCrasher,d,lock,=4,28392
+131048,BigBadWolf,d,lock,=4,20962
+131048,BigBadWolf,d,stunprev,=4,28
+131048,BigBadWolf,d,lock,5-15,255
+131048,BigBadWolf,d,lock-other,5-15,63
+131048,AtomCrasher,d,first,5-15,2
+131048,BigBadWolf,d,first,5-15,3
+131048,BigBadWolf,d,first,>16,3
+131048,AtomCrasher,d,lock,<4,682
+131048,AtomCrasher,d,lock-other,>16,76
+131048,AtomCrasher,d,stunprev,=4,5
+131048,BigBadWolf,d,lock-other,=4,158
+131048,AtomCrasher,d,lock,5-15,385
+131048,AtomCrasher,d,lock-other,=4,94
+131048,BigBadWolf,d,first,=16,10
+131048,AtomCrasher,d,first,=16,2
+131048,AtomCrasher,d,lock,>16,2
+131048,AtomCrasher,d,lock-other,=16,75
+131048,AtomCrasher,d,lock-other,5-15,67
+131048,BigBadWolf,d,lock-other,=16,115
+131048,BigBadWolf,d,lock-other,>16,73
+131048,Smarter Hunter,d,first,>16,2
+131048,Smarter Hunter,d,lock,=4,10603
+131048,AtomCrasher,d,lock,=16,2
+131048,Smarter Hunter,d,lock-other,=4,136
+131048,Smarter Hunter,d,stunprev,=4,12
+131048,Smarter Hunter,d,lock,5-15,174
+131048,BigBadWolf,d,lock,>16,3
+131048,Smarter Hunter,d,lock-other,>16,64
+131048,Smarter Hunter,d,lock-other,=16,42
+131048,BigBadWolf,d,lock-other,<4,2
+131048,Smarter Hunter,d,first,=16,2
+131048,BigBadWolf,d,stunprev,<4,1
+131048,Smarter Hunter,d,lock-other,<4,6
+131048,Smarter Hunter,d,lock,<4,193
+131048,Smarter Hunter,d,lock-other,5-15,50
+131048,BigBadWolf,d,lock,other,55
+131048,AtomCrasher,d,lock,other,155
+131048,Smarter Hunter,d,lock-other,other,39
+131048,AtomCrasher,d,lock-other,other,35
+131048,BigBadWolf,d,lock-other,other,22
+131048,Smarter Hunter,d,lock,other,71
+131048,BigBadWolf,d,lock,=16,1
+131057,Hunter,b,stunprev,other,6
+131057,Hunter,b,lock,other,19
+131057,Hunter,b,lock-other,other,7
+131057,Hunter,b,first,other,5
+131057,Hunter,b,stunprev,<4,1
+131057,Hunter,b,lock,<4,17
+131057,Hunter,b,lock,=4,58
+131057,Hunter,b,stunprev,=4,7
+131057,Hunter,b,lock-other,=4,1
+131057,Hunter,c,lock,<4,42
+131057,Hunter,c,lock,=4,398
+131057,Hunter,c,lock,other,28
+131057,Hunter,c,first,other,6
+131057,Hunter,c,lock-other,<4,3
+131057,Hunter,c,lock-other,=4,30
+131057,Hunter,c,stunprev,=4,6
+131057,Hunter,c,lock-other,other,18
+131057,Hunter,c,stunprev,<4,1
+131057,Hunter,c,lock,5-15,14
+131057,Hunter,c,lock-other,>16,4
+131057,Hunter,c,first,5-15,1
+131057,BigBadWolf,c,stunprev,=4,10
+131057,BigBadWolf,c,lock,=4,185
+131057,BigBadWolf,c,first,other,4
+131057,BigBadWolf,c,lock,other,7
+131057,BigBadWolf,c,lock,<4,11
+131057,BigBadWolf,c,lock-other,=4,6
+131057,Hunter,c,lock-other,5-15,4
+131057,BigBadWolf,c,lock,5-15,10
+131057,BigBadWolf,c,first,>16,4
+131057,Artemis,c,stunprev,=4,15
+131057,Artemis,c,lock,=4,77
+131057,BigBadWolf,c,first,=16,1
+131057,Hunter,c,lock-other,=16,1
+131057,BigBadWolf,c,lock-other,other,2
+131057,Artemis,c,lock-other,=4,4
+131057,BigBadWolf,c,first,5-15,1
+131057,BigBadWolf,c,lock-other,=16,1
+131057,Hunter,c,first,>16,1
+131057,Artemis,c,stunprev,<4,1
+131057,Artemis,c,lock,<4,3
+131057,Artemis,c,lock-other,other,1
+131057,Artemis,c,first,other,2
+131057,Artemis,c,first,5-15,2
+131057,Artemis,c,first,>16,2
+131057,BigBadWolf,c,lock-other,>16,2
+131057,Artemis,c,lock-other,>16,1
+131057,Artemis,c,lock-other,<4,1
+131057,Artemis,c,lock,other,1
+131057,Hunter,c,lock,>16,1
+131057,BigBadWolf,c,lock-other,5-15,1
+131057,Artemis,d,lock,<4,84
+131057,BigBadWolf,d,lock,=4,15113
+131057,Artemis,d,lock,=4,2967
+131057,Hunter,d,lock,=4,16
+131057,BigBadWolf,d,lock,5-15,361
+131057,BigBadWolf,d,lock,<4,593
+131057,Artemis,d,lock-other,=4,42
+131057,BigBadWolf,d,stunprev,=4,4
+131057,Hunter,d,lock,5-15,1
+131057,Artemis,d,first,=4,1
+131057,BigBadWolf,d,lock-other,5-15,27
+131057,BigBadWolf,d,lock-other,>16,16
+131057,BigBadWolf,d,lock-other,=4,48
+131057,Artemis,d,lock,5-15,80
+131057,Artemis,d,lock-other,=16,16
+131057,Hunter,d,lock-other,>16,1
+131057,Hunter,d,lock,<4,1
+131057,Artemis,d,lock-other,5-15,21
+131057,BigBadWolf,d,lock-other,=16,13
+131057,Artemis,d,lock-other,>16,13
+131057,BigBadWolf,d,lock,other,155
+131057,BigBadWolf,d,lock-other,other,18
+131057,Artemis,d,lock,other,16
+131057,Artemis,d,lock-other,<4,3
+131057,Artemis,d,lock-other,other,9
+131057,BigBadWolf,d,lock-other,<4,1
+131057,BigBadWolf,d,lock,>16,1
+131064,Aegis,a,stunprev,other,1
+131064,Aegis,a,lock,other,8
+131064,Aegis,a,lock,<4,2
+131064,Aegis,b,lock,other,31
+131064,Aegis,b,lock-other,other,10
+131064,Aegis,b,lock-other,<4,3
+131064,Aegis,b,lock,<4,28
+131064,Aegis,b,first,other,3
+131064,Aegis,b,lock,=4,129
+131064,Aegis,b,stunprev,other,3
+131064,Aegis,b,stunprev,=4,4
+131064,Aegis,b,lock-other,=4,6
+131064,Aegis,b,first,=4,1
+131064,Aegis,b,stunprev,<4,1
+131064,Aegis,b,lock,5-15,3
+131064,Aegis,b,first,5-15,1
+131064,Aegis,b,lock-other,>16,1
+131064,Aegis,c,lock,<4,40
+131064,Aegis,c,lock,=4,748
+131064,Aegis,c,lock,5-15,36
+131064,Aegis,c,lock-other,>16,24
+131064,Aegis,c,lock-other,=4,41
+131064,Aegis,c,lock,other,3
+131064,Aegis,c,lock-other,5-15,30
+131064,Aegis,c,stunprev,5-15,3
+131064,Aegis,c,lock-other,=16,17
+131064,Aegis,c,lock-other,<4,2
+131064,Aegis,c,first,>16,1
+131064,Aegis,c,stunprev,<4,3
+131064,Aegis,c,stunprev,=4,11
+131064,Aegis,c,lock-other,other,4
+131064,Aegis,c,first,5-15,1
+131064,Hunter,c,stunprev,<4,1
+131064,Hunter,c,first,5-15,7
+131064,Hunter,c,lock,=4,165
+131064,Hunter,c,stunprev,=4,12
+131064,Hunter,c,stunprev,5-15,2
+131064,Hunter,c,lock,5-15,9
+131064,Hunter,c,first,>16,3
+131064,Hunter,c,lock-other,=4,19
+131064,Hunter,c,first,other,1
+131064,Hunter,c,lock,<4,7
+131064,Hunter,c,lock-other,=16,9
+131064,Hunter,c,first,=16,3
+131064,Hunter,c,first,=4,3
+131064,Hunter,c,lock-other,>16,8
+131064,Hunter,c,lock-other,<4,1
+131064,Hunter,c,lock-other,5-15,2
+131064,Hunter,d,lock,<4,48
+131064,Hunter,d,lock,=4,2383
+131064,Aegis,d,lock,=4,2432
+131064,Hunter,d,lock-other,=4,86
+131064,Aegis,d,lock-other,=4,118
+131064,Hunter,d,lock,5-15,48
+131064,Hunter,d,lock-other,=16,58
+131064,Aegis,d,lock-other,=16,63
+131064,Aegis,d,lock,<4,75
+131064,Hunter,d,lock-other,>16,33
+131064,Aegis,d,lock,5-15,64
+131064,Hunter,d,first,=16,4
+131064,Hunter,d,stunprev,=4,28
+131064,Hunter,d,lock-other,5-15,28
+131064,Aegis,d,lock-other,5-15,33
+131064,Hunter,d,lock-other,<4,4
+131064,Aegis,d,lock-other,>16,56
+131064,Hunter,d,first,>16,3
+131064,Phaedra_Rune,d,lock-other,=4,110
+131064,Phaedra_Rune,d,lock,=4,9390
+131064,Phaedra_Rune,d,lock,<4,247
+131064,Phaedra_Rune,d,lock-other,=16,76
+131064,Phaedra_Rune,d,stunprev,=4,17
+131064,Phaedra_Rune,d,lock-other,5-15,48
+131064,Aegis,d,lock,=16,1
+131064,Phaedra_Rune,d,first,=16,3
+131064,Hunter,d,stunprev,<4,1
+131064,Phaedra_Rune,d,lock,5-15,234
+131064,Phaedra_Rune,d,lock-other,>16,51
+131064,Aegis,d,first,=4,2
+131064,Hunter,d,first,5-15,2
+131064,Phaedra_Rune,d,lock-other,<4,2
+131064,Phaedra_Rune,d,first,>16,3
+131064,Phaedra_Rune,d,first,5-15,4
+131064,Phaedra_Rune,d,lock,=16,5
+131064,Hunter,d,first,=4,2
+131064,Phaedra_Rune,d,stunprev,5-15,2
+131064,Hunter,d,lock,=16,4
+131064,Phaedra_Rune,d,first,=4,1
+131064,Hunter,d,lock,>16,1
+131064,Phaedra_Rune,d,lock,other,27
+131064,Phaedra_Rune,d,lock-other,other,7
+131064,Aegis,d,lock-other,other,4
+131064,Aegis,d,lock-other,<4,1
+131064,Phaedra_Rune,d,lock,>16,2
+131064,Aegis,d,lock,other,1
+131072,rooby,a,stunprev,other,2
+131072,rooby,a,lock,other,11
+131072,rooby,a,lock-other,other,2
+131072,rooby,a,first,other,3
+131072,rooby,a,lock,<4,1
+131072,rooby,b,lock,<4,34
+131072,rooby,b,lock,=4,236
+131072,rooby,b,lock,other,19
+131072,rooby,b,lock-other,=4,4
+131072,rooby,b,stunprev,=4,14
+131072,rooby,b,stunprev,<4,2
+131072,rooby,b,first,other,4
+131072,rooby,b,lock,5-15,12
+131072,rooby,b,first,>16,5
+131072,zergling,b,stunprev,<4,1
+131072,zergling,b,lock,=4,34
+131072,zergling,b,stunprev,other,2
+131072,zergling,b,lock,<4,3
+131072,zergling,b,stunprev,=4,8
+131072,zergling,b,lock,other,4
+131072,rooby,b,lock-other,other,3
+131072,zergling,b,lock-other,=4,7
+131072,rooby,b,lock-other,>16,1
+131072,zergling,b,first,other,1
+131072,zergling,b,lock,5-15,1
+131072,zergling,b,lock-other,>16,1
+131072,zergling,b,first,>16,4
+131072,zergling,b,lock-other,5-15,1
+131072,rooby,b,lock,>16,1
+131072,zergling,c,lock,<4,24
+131072,rooby,c,lock,<4,31
+131072,rooby,c,lock,=4,995
+131072,zergling,c,lock,=4,728
+131072,rooby,c,lock-other,=4,17
+131072,rooby,c,stunprev,=4,23
+131072,rooby,c,lock,5-15,21
+131072,zergling,c,lock-other,5-15,24
+131072,zergling,c,lock-other,=16,23
+131072,zergling,c,lock-other,=4,90
+131072,zergling,c,stunprev,=4,14
+131072,zergling,c,lock,5-15,19
+131072,zergling,c,first,5-15,6
+131072,zergling,c,lock-other,>16,22
+131072,rooby,c,first,>16,2
+131072,zergling,c,first,>16,2
+131072,rooby,c,stunprev,<4,1
+131072,rooby,c,first,=16,2
+131072,zergling,c,first,=4,2
+131072,zergling,c,lock,>16,3
+131072,rooby,c,lock,other,2
+131072,rooby,c,lock-other,other,6
+131072,zergling,c,first,other,2
+131072,zergling,c,lock,=16,1
+131072,zergling,c,first,=16,4
+131072,rooby,c,lock-other,=16,11
+131072,rooby,c,lock-other,>16,3
+131072,rooby,c,lock,>16,1
+131072,zergling,c,stunprev,5-15,1
+131072,Sho,c,first,=16,5
+131072,Sho,c,lock,=4,108
+131072,zergling,c,lock,other,6
+131072,zergling,c,lock-other,other,8
+131072,rooby,c,first,5-15,2
+131072,Sho,c,first,5-15,2
+131072,Sho,c,lock-other,=16,12
+131072,rooby,c,lock-other,5-15,3
+131072,Sho,c,lock,5-15,3
+131072,Sho,c,lock-other,other,1
+131072,zergling,c,stunprev,<4,1
+131072,Sho,c,lock-other,5-15,7
+131072,Sho,c,lock-other,>16,4
+131072,Sho,c,lock-other,=4,2
+131072,Sho,c,lock,other,2
+131072,rooby,c,lock,=16,1
+131072,Sho,c,first,>16,2
+131072,Sho,c,first,=4,3
+131072,zergling,c,lock-other,<4,1
+131072,Sho,c,lock,<4,1
+131072,Sho,c,lock,=16,1
+131072,zergling,d,lock,<4,155
+131072,zergling,d,lock,=4,4574
+131072,rooby,d,lock,=4,2940
+131072,Sho,d,lock,=4,216
+131072,rooby,d,lock-other,=4,25
+131072,zergling,d,lock,5-15,150
+131072,zergling,d,lock-other,5-15,77
+131072,Sho,d,lock,5-15,15
+131072,rooby,d,lock,5-15,57
+131072,Sho,d,lock-other,=16,10
+131072,Sho,d,lock-other,5-15,11
+131072,rooby,d,lock-other,5-15,7
+131072,rooby,d,lock,<4,79
+131072,zergling,d,lock-other,=4,99
+131072,rooby,d,lock,=16,2
+131072,zergling,d,lock-other,=16,204
+131072,Sho,d,lock,<4,2
+131072,rooby,d,lock-other,=16,37
+131072,zergling,d,lock-other,>16,79
+131072,rooby,d,lock-other,>16,15
+131072,zergling,d,lock-other,<4,3
+131072,Sho,d,lock,=16,3
+131072,Sho,d,lock-other,>16,4
+131072,Sho,d,lock,>16,1
+131072,zergling,d,lock,=16,8
+131072,Sho,d,lock-other,=4,2
+131072,Sho,d,first,=4,1
+131072,zergling,d,lock,>16,4
+131072,rooby,d,lock-other,<4,1
+131072,zergling,d,first,=4,1
+131072,zergling,d,lock,other,24
+131072,zergling,d,lock-other,other,15
+131082,zergling,a,stunprev,other,1
+131082,zergling,a,stunprev,<4,1
+131082,zergling,a,lock,other,1
+131082,zergling,b,lock,other,24
+131082,zergling,b,lock-other,other,14
+131082,zergling,b,first,other,10
+131082,zergling,b,lock,<4,19
+131082,zergling,b,lock,=4,67
+131082,zergling,b,stunprev,=4,4
+131082,zergling,b,stunprev,other,3
+131082,Medic,b,first,other,5
+131082,zergling,b,lock-other,=4,15
+131082,Medic,b,lock,other,4
+131082,zergling,b,lock-other,<4,2
+131082,zergling,b,first,=4,3
+131082,Medic,b,lock,=4,19
+131082,Medic,b,lock,<4,3
+131082,Medic,b,lock-other,other,3
+131082,zergling,b,lock,5-15,2
+131082,Medic,b,lock-other,>16,3
+131082,Medic,b,lock,5-15,1
+131082,zergling,b,first,5-15,1
+131082,Medic,b,first,5-15,1
+131082,Medic,c,lock,<4,11
+131082,zergling,c,lock-other,<4,4
+131082,zergling,c,lock,=4,1131
+131082,zergling,c,lock-other,=4,112
+131082,Medic,c,lock,=4,111
+131082,zergling,c,lock,other,13
+131082,Medic,c,lock-other,other,6
+131082,zergling,c,first,other,3
+131082,zergling,c,lock,<4,50
+131082,Medic,c,lock,5-15,8
+131082,zergling,c,first,5-15,1
+131082,Medic,c,lock-other,5-15,4
+131082,zergling,c,lock-other,5-15,24
+131082,zergling,c,first,>16,4
+131082,zergling,c,lock-other,>16,19
+131082,zergling,c,first,=4,2
+131082,zergling,c,lock,5-15,33
+131082,Medic,c,first,>16,1
+131082,Medic,c,lock,other,2
+131082,zergling,c,lock-other,other,13
+131082,zergling,c,stunprev,=4,17
+131082,zergling,c,lock-other,=16,26
+131082,Medic,c,lock-other,=4,5
+131082,zergling,c,stunprev,other,1
+131082,zergling,c,lock,=16,1
+131082,Medic,c,lock-other,=16,1
+131082,zergling,c,first,=16,3
+131082,NomNom2,c,lock,=4,93
+131082,Medic,c,lock-other,>16,2
+131082,NomNom2,c,lock,<4,6
+131082,NomNom2,c,lock-other,=4,2
+131082,NomNom2,d,lock,<4,2907
+131082,NomNom2,d,lock,=4,103417
+131082,zergling,d,lock,=4,4222
+131082,zergling,d,lock-other,=4,171
+131082,zergling,d,lock,5-15,55
+131082,zergling,d,lock-other,5-15,80
+131082,zergling,d,lock-other,>16,94
+131082,zergling,d,lock,<4,62
+131082,zergling,d,lock-other,=16,178
+131082,NomNom2,d,lock,5-15,989
+131082,NomNom2,d,lock-other,=4,862
+131082,NomNom2,d,lock-other,>16,237
+131082,NomNom2,d,lock-other,5-15,434
+131082,NomNom2,d,lock-other,=16,85
+131082,NomNom2,d,lock-other,<4,31
+131082,NomNom2,d,lock,=16,18
+131082,zergling,d,lock,=16,9
+131082,zergling,d,lock-other,<4,4
+131082,NomNom2,d,lock,other,2161
+131082,zergling,d,lock,other,8
+131082,zergling,d,lock-other,other,23
+131082,NomNom2,d,lock-other,other,1679
+131082,zergling,d,lock,>16,2
+131082,zergling,d,first,=16,1
+131082,NomNom2,d,lock,>16,11
+131092,Brawler v2,b,stunprev,other,8
+131092,Brawler v2,b,stunprev,<4,5
+131092,Brawler v2,b,lock,other,16
+131092,Brawler v2,b,lock-other,other,4
+131092,Brawler v2,b,first,other,7
+131092,Brawler v2,b,lock,<4,27
+131092,Brawler v2,b,lock-other,=4,7
+131092,Brawler v2,b,stunprev,=4,12
+131092,Brawler v2,b,lock-other,<4,4
+131092,Brawler v2,b,lock,=4,93
+131092,Brawler v2,b,lock-other,5-15,4
+131092,Brawler v2,b,stunprev,5-15,1
+131092,Brawler v2,b,lock,5-15,5
+131092,Brawler v2,b,first,5-15,1
+131092,Artemis,b,stunprev,=4,8
+131092,Artemis,b,lock,=4,11
+131092,Artemis,b,lock,5-15,3
+131092,Brawler v2,b,lock-other,>16,8
+131092,Artemis,b,lock-other,=4,3
+131092,Brawler v2,b,lock,>16,1
+131092,Artemis,b,lock,other,2
+131092,Brawler v2,b,first,>16,1
+131092,Artemis,b,stunprev,<4,1
+131092,Hunter,b,stunprev,=4,1
+131092,Artemis,b,lock,<4,2
+131092,Hunter,b,lock,=4,2
+131092,Artemis,b,first,>16,1
+131092,Brawler v2,c,stunprev,<4,2
+131092,Brawler v2,c,lock,<4,28
+131092,Brawler v2,c,stunprev,=4,30
+131092,Brawler v2,c,lock,=4,918
+131092,Artemis,c,lock,=4,588
+131092,Hunter,c,stunprev,=4,17
+131092,Artemis,c,lock,other,2
+131092,Brawler v2,c,first,other,3
+131092,Artemis,c,first,other,2
+131092,Artemis,c,lock-other,other,2
+131092,Brawler v2,c,lock-other,other,1
+131092,Artemis,c,lock-other,<4,2
+131092,Artemis,c,lock,<4,14
+131092,Artemis,c,stunprev,=4,16
+131092,Hunter,c,lock,=4,393
+131092,Artemis,c,lock,5-15,23
+131092,Brawler v2,c,lock-other,5-15,5
+131092,Hunter,c,lock-other,5-15,9
+131092,Brawler v2,c,first,>16,6
+131092,Hunter,c,lock,<4,11
+131092,Artemis,c,first,=4,1
+131092,Brawler v2,c,lock-other,=4,24
+131092,Brawler v2,c,lock,5-15,22
+131092,Artemis,c,first,>16,3
+131092,Brawler v2,c,lock-other,>16,4
+131092,Artemis,c,lock-other,=4,31
+131092,Hunter,c,first,=4,2
+131092,Artemis,c,lock-other,5-15,8
+131092,Artemis,c,first,5-15,2
+131092,Hunter,c,first,=16,9
+131092,Brawler v2,c,lock,=16,7
+131092,Artemis,c,lock-other,=16,14
+131092,Hunter,c,lock-other,>16,11
+131092,Brawler v2,c,lock,other,1
+131092,Hunter,c,lock-other,other,1
+131092,Brawler v2,c,first,5-15,3
+131092,Hunter,c,first,5-15,4
+131092,Artemis,c,first,=16,6
+131092,Brawler v2,c,first,=16,2
+131092,Artemis,c,lock-other,>16,4
+131092,Hunter,c,first,>16,3
+131092,Hunter,c,lock-other,=4,22
+131092,Brawler v2,c,lock-other,=16,9
+131092,Hunter,c,lock-other,=16,11
+131092,Hunter,c,lock,=16,4
+131092,Brawler v2,c,lock,>16,2
+131092,Hunter,c,lock,5-15,10
+131092,Artemis,d,lock,<4,62
+131092,Brawler v2,d,lock,=4,2711
+131092,Artemis,d,lock,=4,1965
+131092,Hunter,d,lock,=4,648
+131092,Artemis,d,lock-other,=4,22
+131092,Brawler v2,d,lock-other,=4,38
+131092,Brawler v2,d,lock,5-15,94
+131092,Hunter,d,lock-other,=16,26
+131092,Hunter,d,first,=16,4
+131092,Artemis,d,lock-other,>16,17
+131092,Hunter,d,first,>16,2
+131092,Hunter,d,lock-other,>16,6
+131092,Brawler v2,d,lock,<4,123
+131092,Hunter,d,stunprev,=4,1
+131092,Hunter,d,lock-other,=4,19
+131092,Hunter,d,lock,5-15,18
+131092,Artemis,d,lock,5-15,52
+131092,Artemis,d,lock-other,5-15,10
+131092,Hunter,d,lock-other,5-15,7
+131092,Brawler v2,d,lock,=16,10
+131092,Brawler v2,d,lock-other,>16,25
+131092,Brawler v2,d,lock-other,=16,17
+131092,Artemis,d,lock-other,=16,29
+131092,Hunter,d,lock-other,<4,1
+131092,Brawler v2,d,lock-other,5-15,10
+131092,Hunter,d,lock,=16,4
+131092,Brawler v2,d,lock-other,<4,3
+131092,Hunter,d,lock,<4,11
+131092,Hunter,d,first,=4,2
+131092,Hunter,d,lock,>16,2
+131092,Brawler v2,d,lock,>16,12
+131092,Artemis,d,lock,other,6
+131092,Brawler v2,d,lock,other,19
+131092,Artemis,d,lock-other,other,1
+131092,Brawler v2,d,lock-other,other,5
+131102,CogSpore - VarSi,a,stunprev,other,3
+131102,CogSpore - VarSi,a,lock,other,10
+131102,CogSpore - VarSi,a,lock,<4,4
+131102,squirtle,a,stunprev,other,1
+131102,squirtle,a,lock,other,2
+131102,CogSpore - VarSi,a,lock-other,other,1
+131102,CogSpore - VarSi,a,first,other,3
+131102,squirtle,a,lock,<4,3
+131102,CogSpore - VarSi,a,stunprev,<4,1
+131102,CogSpore - VarSi,a,lock,=4,1
+131102,CogSpore - VarSi,a,stunprev,=4,1
+131102,CogSpore - VarSi,b,lock,<4,42
+131102,CogSpore - VarSi,b,lock,=4,203
+131102,CogSpore - VarSi,b,stunprev,=4,14
+131102,CogSpore - VarSi,b,lock-other,=4,12
+131102,squirtle,b,lock,other,6
+131102,CogSpore - VarSi,b,lock,other,23
+131102,CogSpore - VarSi,b,lock-other,other,4
+131102,CogSpore - VarSi,b,first,other,8
+131102,CogSpore - VarSi,b,first,=4,1
+131102,squirtle,b,lock-other,other,5
+131102,CogSpore - VarSi,b,stunprev,<4,4
+131102,squirtle,b,lock,=4,50
+131102,squirtle,b,lock,<4,7
+131102,squirtle,b,stunprev,=4,6
+131102,squirtle,b,lock-other,<4,1
+131102,CogSpore - VarSi,b,stunprev,other,1
+131102,CogSpore - VarSi,b,lock,5-15,13
+131102,squirtle,b,first,5-15,2
+131102,squirtle,b,lock-other,=4,4
+131102,CogSpore - VarSi,b,first,5-15,2
+131102,CogSpore - VarSi,b,first,>16,2
+131102,squirtle,b,lock-other,>16,2
+131102,CogSpore - VarSi,b,lock-other,=16,1
+131102,CogSpore - VarSi,b,lock-other,>16,2
+131102,squirtle,b,stunprev,5-15,2
+131102,squirtle,b,lock-other,5-15,1
+131102,squirtle,b,first,other,1
+131102,CogSpore - VarSi,c,lock,<4,45
+131102,squirtle,c,lock,<4,13
+131102,CogSpore - VarSi,c,lock-other,=4,40
+131102,CogSpore - VarSi,c,lock,=4,1038
+131102,squirtle,c,lock,=4,332
+131102,CogSpore - VarSi,c,stunprev,=4,27
+131102,CogSpore - VarSi,c,first,=4,3
+131102,squirtle,c,lock-other,=4,14
+131102,CogSpore - VarSi,c,lock,other,9
+131102,squirtle,c,lock,other,5
+131102,squirtle,c,lock-other,other,7
+131102,CogSpore - VarSi,c,lock-other,other,5
+131102,CogSpore - VarSi,c,lock,5-15,25
+131102,CogSpore - VarSi,c,first,=16,2
+131102,squirtle,c,stunprev,=4,3
+131102,squirtle,c,lock,5-15,11
+131102,squirtle,c,first,>16,3
+131102,squirtle,c,lock-other,=16,5
+131102,squirtle,c,first,other,2
+131102,CogSpore - VarSi,c,lock-other,5-15,11
+131102,squirtle,c,lock-other,5-15,3
+131102,squirtle,c,lock-other,>16,7
+131102,CogSpore - VarSi,c,lock-other,=16,8
+131102,CogSpore - VarSi,c,first,>16,1
+131102,CogSpore - VarSi,c,lock-other,>16,13
+131102,CogSpore - VarSi,c,first,5-15,1
+131102,gemAlert_v6,c,stunprev,=4,11
+131102,gemAlert_v6,c,lock,=4,39
+131102,squirtle,c,first,=16,1
+131102,gemAlert_v6,c,lock-other,=4,6
+131102,gemAlert_v6,c,first,>16,3
+131102,gemAlert_v6,c,lock-other,5-15,1
+131102,gemAlert_v6,c,first,5-15,1
+131102,gemAlert_v6,c,lock-other,>16,1
+131102,gemAlert_v6,c,lock,5-15,2
+131102,gemAlert_v6,c,lock-other,=16,2
+131102,gemAlert_v6,c,first,=16,2
+131102,gemAlert_v6,c,stunprev,<4,1
+131102,squirtle,c,first,5-15,1
+131102,gemAlert_v6,c,lock-other,other,1
+131102,gemAlert_v6,c,first,other,2
+131102,CogSpore - VarSi,c,lock-other,<4,1
+131102,CogSpore - VarSi,d,lock,<4,3912
+131102,squirtle,d,lock,<4,5
+131102,CogSpore - VarSi,d,lock,=4,189178
+131102,gemAlert_v6,d,lock,=4,16745
+131102,squirtle,d,lock,=4,248
+131102,gemAlert_v6,d,stunprev,=4,17
+131102,gemAlert_v6,d,lock-other,=4,83
+131102,CogSpore - VarSi,d,lock,5-15,284
+131102,gemAlert_v6,d,lock-other,5-15,42
+131102,CogSpore - VarSi,d,lock-other,5-15,7
+131102,gemAlert_v6,d,first,5-15,5
+131102,gemAlert_v6,d,lock-other,>16,65
+131102,CogSpore - VarSi,d,lock-other,=4,37
+131102,squirtle,d,lock-other,=4,18
+131102,gemAlert_v6,d,lock,other,63
+131102,gemAlert_v6,d,lock-other,other,24
+131102,gemAlert_v6,d,first,other,2
+131102,CogSpore - VarSi,d,lock-other,other,3
+131102,squirtle,d,lock,5-15,4
+131102,gemAlert_v6,d,lock,5-15,204
+131102,gemAlert_v6,d,lock-other,=16,51
+131102,CogSpore - VarSi,d,lock-other,=16,14
+131102,squirtle,d,lock-other,=16,8
+131102,gemAlert_v6,d,first,=16,6
+131102,gemAlert_v6,d,lock,<4,193
+131102,CogSpore - VarSi,d,lock-other,>16,14
+131102,squirtle,d,lock-other,>16,5
+131102,CogSpore - VarSi,d,lock-other,<4,2
+131102,squirtle,d,first,>16,3
+131102,squirtle,d,lock-other,5-15,1
+131102,squirtle,d,first,other,1
+131102,gemAlert_v6,d,lock,>16,2
+131102,CogSpore - VarSi,d,stunprev,=4,6
+131102,squirtle,d,first,=4,1
+131102,gemAlert_v6,d,lock,=16,2
+131102,CogSpore - VarSi,d,lock,>16,3
+131102,CogSpore - VarSi,d,first,>16,2
+131102,CogSpore - VarSi,d,first,5-15,1
+131102,CogSpore - VarSi,d,lock,=16,2
+131102,CogSpore - VarSi,d,first,=4,2
+131102,gemAlert_v6,d,stunprev,5-15,1
+131102,CogSpore - VarSi,d,lock,other,2635
+131102,gemAlert_v6,d,first,>16,1
+131102,gemAlert_v6,d,first,=4,1
+131114,Colossus,b,stunprev,other,5
+131114,Colossus,b,lock,other,10
+131114,Smarter Hunter,b,stunprev,other,2
+131114,Smarter Hunter,b,lock,other,8
+131114,Smarter Hunter,b,stunprev,<4,3
+131114,Colossus,b,stunprev,<4,1
+131114,Smarter Hunter,b,lock,<4,7
+131114,Smarter Hunter,b,lock,=4,14
+131114,Colossus,b,stunprev,=4,5
+131114,Smarter Hunter,b,lock-other,=4,5
+131114,Colossus,b,first,other,1
+131114,Colossus,b,lock,<4,8
+131114,Colossus,b,lock-other,=4,2
+131114,Colossus,b,lock-other,other,3
+131114,Smarter Hunter,b,first,other,1
+131114,Colossus,b,lock,=4,20
+131114,Smarter Hunter,b,stunprev,=4,4
+131114,Smarter Hunter,b,lock-other,<4,1
+131114,Smarter Hunter,b,lock-other,other,3
+131114,CogSpore - VarSi,b,lock-other,other,1
+131114,CogSpore - VarSi,b,lock,other,1
+131114,CogSpore - VarSi,b,lock,=4,2
+131114,Colossus,c,lock-other,<4,1
+131114,Colossus,c,lock,<4,23
+131114,Smarter Hunter,c,lock,=4,518
+131114,Colossus,c,lock,=4,879
+131114,Colossus,c,lock,other,11
+131114,Smarter Hunter,c,lock-other,other,13
+131114,Colossus,c,lock-other,other,17
+131114,Smarter Hunter,c,lock,<4,18
+131114,Smarter Hunter,c,lock-other,=4,25
+131114,Smarter Hunter,c,stunprev,=4,5
+131114,Colossus,c,lock-other,=4,15
+131114,CogSpore - VarSi,c,lock-other,=4,2
+131114,Colossus,c,first,=4,2
+131114,Colossus,c,first,other,12
+131114,Colossus,c,stunprev,=4,10
+131114,CogSpore - VarSi,c,lock,=4,24
+131114,Smarter Hunter,c,lock,other,2
+131114,Smarter Hunter,c,stunprev,other,2
+131114,CogSpore - VarSi,c,lock-other,other,3
+131114,CogSpore - VarSi,c,lock,<4,3
+131114,Smarter Hunter,c,first,other,3
+131114,Smarter Hunter,c,stunprev,<4,1
+131114,Colossus,c,lock,5-15,21
+131114,Colossus,c,lock-other,5-15,8
+131114,Smarter Hunter,c,lock,5-15,10
+131114,Colossus,c,lock-other,>16,6
+131114,Smarter Hunter,c,lock-other,5-15,4
+131114,Smarter Hunter,c,first,5-15,1
+131114,Smarter Hunter,c,lock-other,=16,3
+131114,Colossus,c,first,=16,2
+131114,Smarter Hunter,c,lock,>16,1
+131114,CogSpore - VarSi,c,stunprev,=4,1
+131114,Smarter Hunter,c,first,=16,1
+131114,Colossus,c,lock-other,=16,4
+131114,CogSpore - VarSi,c,lock-other,5-15,1
+131114,Smarter Hunter,c,lock-other,>16,6
+131114,Smarter Hunter,d,lock,<4,54
+131114,Smarter Hunter,d,lock,=4,2426
+131114,Colossus,d,lock,=4,73147
+131114,Smarter Hunter,d,lock,5-15,38
+131114,Colossus,d,lock,<4,1472
+131114,Colossus,d,lock-other,=4,20
+131114,Smarter Hunter,d,lock-other,=4,9
+131114,Colossus,d,lock,5-15,136
+131114,Smarter Hunter,d,lock-other,>16,4
+131114,Colossus,d,lock-other,5-15,11
+131114,Colossus,d,lock-other,>16,15
+131114,Smarter Hunter,d,lock,other,22
+131114,Colossus,d,lock,other,1389
+131114,Colossus,d,lock-other,other,21
+131114,Smarter Hunter,d,lock-other,5-15,6
+131114,Colossus,d,lock-other,=16,5
+131114,Smarter Hunter,d,lock-other,other,1
+131114,Smarter Hunter,d,lock-other,=16,2
+131114,CogSpore - VarSi,d,lock,=4,71946
+131114,CogSpore - VarSi,d,lock,<4,1522
+131114,CogSpore - VarSi,d,lock,5-15,58
+131114,CogSpore - VarSi,d,lock,other,1322
+131114,CogSpore - VarSi,d,lock-other,=4,3
+131114,CogSpore - VarSi,d,lock-other,other,3
+131114,CogSpore - VarSi,d,lock-other,=16,1
+131114,CogSpore - VarSi,d,lock-other,5-15,1
+131114,CogSpore - VarSi,d,lock-other,>16,1
+131114,Colossus,d,lock,>16,1
+131125,Colossus,b,stunprev,other,6
+131125,Colossus,b,lock,other,17
+131125,Colossus,b,lock-other,other,5
+131125,Colossus,b,first,other,7
+131125,Colossus,b,lock,<4,11
+131125,Colossus,b,lock,=4,52
+131125,Colossus,b,stunprev,=4,10
+131125,gemAlert_v4,b,stunprev,=4,1
+131125,gemAlert_v4,b,lock,=4,13
+131125,Colossus,b,lock-other,=4,4
+131125,Colossus,b,lock-other,<4,2
+131125,gemAlert_v4,b,lock,other,1
+131125,gemAlert_v4,b,stunprev,<4,1
+131125,gemAlert_v4,b,lock-other,<4,2
+131125,gemAlert_v4,b,stunprev,other,2
+131125,Colossus,b,stunprev,<4,2
+131125,gemAlert_v4,b,lock,<4,1
+131125,gemAlert_v4,b,lock-other,other,1
+131125,Colossus,c,lock,<4,29
+131125,Colossus,c,lock,=4,1238
+131125,gemAlert_v4,c,stunprev,=4,21
+131125,gemAlert_v4,c,lock,=4,604
+131125,Colossus,c,stunprev,=4,16
+131125,Colossus,c,lock,other,8
+131125,gemAlert_v4,c,first,other,5
+131125,Colossus,c,lock-other,other,9
+131125,Colossus,c,first,other,2
+131125,Colossus,c,lock,5-15,16
+131125,Colossus,c,lock-other,>16,7
+131125,Colossus,c,lock-other,=4,30
+131125,gemAlert_v4,c,lock,other,5
+131125,Colossus,c,stunprev,other,2
+131125,gemAlert_v4,c,lock-other,other,4
+131125,gemAlert_v4,c,lock,<4,13
+131125,gemAlert_v4,c,lock-other,=4,22
+131125,Colossus,c,first,=4,1
+131125,gemAlert_v4,c,lock-other,5-15,8
+131125,gemAlert_v4,c,lock,5-15,18
+131125,Colossus,c,lock-other,5-15,12
+131125,gemAlert_v4,c,first,5-15,2
+131125,Colossus,c,lock-other,=16,17
+131125,gemAlert_v4,c,first,=16,2
+131125,gemAlert_v4,c,lock-other,>16,3
+131125,gemAlert_v4,c,lock,=16,2
+131125,Colossus,c,first,=16,2
+131125,gemAlert_v4,c,lock-other,=16,6
+131125,Colossus,c,first,5-15,1
+131125,Colossus,d,lock,<4,2744
+131125,Colossus,d,lock,=4,166604
+131125,gemAlert_v4,d,lock,=4,9600
+131125,Colossus,d,lock,5-15,277
+131125,Colossus,d,lock-other,=16,25
+131125,gemAlert_v4,d,lock-other,=4,15
+131125,Colossus,d,lock-other,5-15,38
+131125,Colossus,d,lock-other,=4,81
+131125,gemAlert_v4,d,lock,<4,162
+131125,gemAlert_v4,d,lock,5-15,98
+131125,gemAlert_v4,d,lock-other,=16,7
+131125,Colossus,d,lock-other,>16,35
+131125,gemAlert_v4,d,lock-other,>16,7
+131125,Colossus,d,lock,other,2485
+131125,gemAlert_v4,d,lock-other,5-15,12
+131125,Colossus,d,lock-other,other,34
+131125,Colossus,d,lock-other,<4,2
+131125,gemAlert_v4,d,lock,other,48
+131125,gemAlert_v4,d,lock-other,other,8
+131125,gemAlert_v4,d,lock-other,<4,1
+131188,Conviction,a,first,other,4
+131188,Conviction,b,first,other,36
+131188,Conviction,b,lock,other,44
+131188,Conviction,b,lock,<4,22
+131188,Conviction,b,lock-other,other,12
+131188,Conviction,b,lock,=4,87
+131188,CogSpore-Siect-F,b,first,other,14
+131188,CogSpore-Siect-F,b,lock,<4,13
+131188,Conviction,b,lock,5-15,11
+131188,CogSpore-Siect-F,b,first,>16,6
+131188,Conviction,b,lock,>16,1
+131188,Conviction,b,first,>16,4
+131188,CogSpore-Siect-F,b,lock,=4,35
+131188,CogSpore-Siect-F,b,lock,other,6
+131188,CogSpore-Siect-F,b,first,5-15,5
+131188,Conviction,b,lock-other,5-15,2
+131188,CogSpore-Siect-F,b,first,=4,2
+131188,CogSpore-Siect-F,b,lock-other,other,1
+131188,CogSpore-Siect-F,b,lock,5-15,2
+131188,Conviction,b,lock-other,=4,1
+131188,Conviction,b,first,5-15,1
+131188,Conviction,b,lock,=16,1
+131188,Conviction,c,lock,<4,66
+131188,CogSpore-Siect-F,c,lock,<4,15
+131188,Conviction,c,lock,=4,254
+131188,CogSpore-Siect-F,c,lock,=4,79
+131188,CogSpore-Siect-F,c,lock,5-15,9
+131188,CogSpore-Siect-F,c,first,5-15,5
+131188,Conviction,c,first,5-15,2
+131188,CogSpore-Siect-F,c,lock,other,3
+131188,Conviction,c,lock,other,13
+131188,Conviction,c,lock-other,other,1
+131188,CogSpore-Siect-F,c,lock-other,other,2
+131188,CogSpore-Siect-F,c,first,other,9
+131188,Conviction,c,first,other,6
+131188,Conviction,c,first,=4,2
+131188,Conviction,c,lock,5-15,47
+131188,CogSpore-Siect-F,c,first,=16,5
+131188,CogSpore-Siect-F,c,first,>16,6
+131188,Conviction,c,first,>16,1
+131188,Conviction,d,lock,<4,5981
+131188,CogSpore-Siect-F,d,lock,<4,280
+131188,Conviction,d,lock,5-15,3358
+131188,Conviction,d,first,5-15,144
+131188,CogSpore-Siect-F,d,first,>16,24
+131188,Conviction,d,lock,=4,5891
+131188,CogSpore-Siect-F,d,lock,=4,281
+131188,CogSpore-Siect-F,d,lock,5-15,187
+131188,CogSpore-Siect-F,d,first,5-15,19
+131188,CogSpore-Siect-F,d,lock,other,149
+131188,CogSpore-Siect-F,d,first,other,44
+131188,Conviction,d,first,>16,155
+131188,Conviction,d,lock,other,2877
+131188,Conviction,d,stunprev,=4,14
+131188,Conviction,d,first,other,316
+131188,CogSpore-Siect-F,d,first,=16,8
+131188,Conviction,d,first,=16,29
+131188,CogSpore-Siect-F,d,stunprev,5-15,1
+131188,CogSpore-Siect-F,d,stunprev,other,3
+131188,CogSpore-Siect-F,d,lock,>16,1
+131188,CogSpore-Siect-F,d,stunprev,=4,5
+131188,Conviction,d,first,=4,1
+131188,Conviction,d,stunprev,5-15,7
+131188,Conviction,d,stunprev,<4,12
+131188,Conviction,d,stunprev,other,6
+131188,CogSpore-Siect-F,d,stunprev,<4,1
+131188,Conviction,d,lock-other,>16,1
+131188,CogSpore-Siect-F,d,lock-other,=16,1
+131188,Conviction,d,lock-other,other,1
+131198,CogSpore-Siect-F,b,first,other,11
+131198,CogSpore-Siect-F,b,lock,other,7
+131198,CogSpore-Siect-F,b,lock,<4,5
+131198,CogSpore-Siect-F,b,lock,=4,8
+131198,CogSpore-Siect-F,b,lock,5-15,1
+131198,CogSpore-Siect-F,b,first,>16,1
+131198,CogSpore-Siect-F,c,lock,<4,21
+131198,CogSpore-Siect-F,c,lock,=4,25
+131198,CogSpore-Siect-F,c,lock,other,22
+131198,CogSpore-Siect-F,c,first,other,19
+131198,CogSpore-Siect-F,c,lock,5-15,4
+131198,CogSpore-Siect-F,c,first,>16,6
+131198,CogSpore-Siect-F,c,lock-other,other,4
+131198,CogBloomXT,c,stunprev,=4,4
+131198,CogSpore-Siect-F,c,first,5-15,3
+131198,CogSpore-Siect-F,c,lock-other,>16,2
+131198,CogBloomXT,c,lock,5-15,22
+131198,CogBloomXT,c,first,>16,3
+131198,CogBloomXT,c,lock,<4,24
+131198,CogBloomXT,c,stunprev,other,4
+131198,CogBloomXT,c,first,other,3
+131198,CogBloomXT,c,lock-other,=4,1
+131198,CogBloomXT,c,lock,=4,59
+131198,CogBloomXT,c,first,5-15,2
+131198,CogBloomXT,c,stunprev,<4,3
+131198,CogBloomXT,c,lock,other,5
+131198,CogBloomXT,c,lock-other,other,1
+131198,CogBloomXT,c,lock-other,5-15,3
+131198,CogBloomXT,c,lock-other,>16,2
+131198,CogBloomXT,c,first,=16,2
+131198,CogBloomXT,c,lock-other,=16,2
+131198,CogBloomXT,c,lock,>16,1
+131198,CogBloomXT,d,lock,<4,205
+131198,CogBloomXT,d,first,=4,3
+131198,CogBloomXT,d,lock,=4,2325
+131198,CogBloomXT,d,stunprev,=4,9
+131198,CogBloomXT,d,lock,5-15,138
+131198,CogBloomXT,d,lock-other,=16,16
+131198,CogBloomXT,d,first,=16,2
+131198,CogBloomXT,d,lock,other,49
+131198,CogBloomXT,d,lock-other,=4,16
+131198,CogBloomXT,d,first,>16,1
+131198,CogBloomXT,d,stunprev,<4,1
+131198,CogSpore-Siect-F,d,lock-other,=16,2
+131198,CogSpore-Siect-F,d,lock,<4,55
+131198,CogSpore-Siect-F,d,lock,=4,251
+131198,CogBloomXT,d,lock-other,other,4
+131198,CogBloomXT,d,first,5-15,1
+131198,CogSpore-Siect-F,d,first,5-15,5
+131198,CogBloomXT,d,first,other,1
+131198,CogSpore-Siect-F,d,lock,5-15,39
+131198,CogSpore-Siect-F,d,first,other,4
+131198,CogSpore-Siect-F,d,first,>16,3
+131198,CogBloomXT,d,lock-other,5-15,10
+131198,CogSpore-Siect-F,d,lock-other,5-15,7
+131198,CogSpore-Siect-F,d,lock-other,other,4
+131198,CogSpore-Siect-F,d,lock-other,=4,3
+131198,CogSpore-Siect-F,d,first,=16,2
+131198,CogSpore-Siect-F,d,lock,other,2694
+131198,CogSpore-Siect-F,d,lock-other,>16,3
+131198,CogBloomXT,d,lock-other,<4,1
+131198,CogBloomXT,d,lock-other,>16,5
+131198,CogSpore-Siect-F,d,lock-other,<4,7
+131245,CogSpore-Siect-F,b,first,other,13
+131245,CogSpore-Siect-F,b,lock,other,8
+131245,CogSpore-Siect-F,b,lock,<4,5
+131245,CogSpore-Siect-F,b,lock,=4,8
+131245,CogSpore-Siect-F,b,first,=4,1
+131245,CogSpore-Siect-F,c,lock,<4,42
+131245,CogSpore-Siect-F,c,lock,=4,126
+131245,CogSpore-Siect-F,c,lock,other,10
+131245,CogSpore-Siect-F,c,lock-other,other,3
+131245,CogSpore-Siect-F,c,first,other,12
+131245,CogSpore-Siect-F,c,lock,5-15,31
+131245,CogSpore-Siect-F,c,first,5-15,15
+131245,CogSpore-Siect-F,c,first,>16,12
+131245,CogSpore-Siect-F,c,lock-other,=4,1
+131245,CogSpore-Siect-F,c,first,=16,5
+131245,CogSpore-Siect-F,c,lock-other,5-15,1
+131245,CogSpore-Siect-F,d,lock,<4,106
+131245,CogSpore-Siect-F,d,lock,=4,198
+131245,CogSpore-Siect-F,d,lock,5-15,129
+131245,CogSpore-Siect-F,d,first,<4,1
+131245,CogSpore-Siect-F,d,first,>16,27
+131245,CogSpore-Siect-F,d,lock-other,>16,1
+131245,CogSpore-Siect-F,d,lock,other,272
+131245,CogSpore-Siect-F,d,first,other,30
+131245,CogSpore-Siect-F,d,first,5-15,20
+131245,CogSpore-Siect-F,d,first,=16,14
+131245,Brawler v2,d,stunprev,=4,14
+131245,Brawler v2,d,lock,<4,212
+131245,Brawler v2,d,lock,=4,389
+131245,Brawler v2,d,stunprev,<4,5
+131245,Brawler v2,d,first,other,1
+131245,Brawler v2,d,lock,5-15,87
+131245,CogSpore-Siect-F,d,lock-other,=16,2
+131245,Brawler v2,d,first,>16,1
+131245,Brawler v2,d,lock-other,=4,4
+131245,Brawler v2,d,lock-other,>16,3
+131245,Brawler v2,d,lock-other,=16,1
+131245,Brawler v2,d,lock-other,5-15,2
+131245,Brawler v2,d,lock,other,29
+131245,Brawler v2,d,lock-other,other,3
+131245,Brawler v2,d,lock-other,<4,1
+131265,CogSpore - VarSi,a,stunprev,other,3
+131265,CogSpore - VarSi,a,lock,other,4
+131265,CogSpore - VarSi,a,first,other,2
+131265,CogSpore - VarSi,a,lock,<4,2
+131265,CogSpore - VarSi,a,lock-other,=4,1
+131265,CogSpore - VarSi,b,lock,other,20
+131265,CogSpore - VarSi,b,lock-other,other,8
+131265,CogSpore - VarSi,b,stunprev,other,9
+131265,CogSpore - VarSi,b,lock,<4,37
+131265,CogSpore - VarSi,b,first,other,11
+131265,CogSpore - VarSi,b,lock,=4,315
+131265,CogSpore - VarSi,b,stunprev,=4,22
+131265,CogSpore - VarSi,b,lock-other,=4,17
+131265,CogSpore - VarSi,b,first,=4,3
+131265,gemAlert_v5,b,first,other,4
+131265,CogSpore - VarSi,b,lock-other,<4,6
+131265,gemAlert_v5,b,stunprev,=4,8
+131265,gemAlert_v5,b,lock,5-15,6
+131265,CogSpore - VarSi,b,lock,5-15,14
+131265,CogSpore - VarSi,b,first,>16,2
+131265,CogSpore - VarSi,b,lock-other,>16,3
+131265,gemAlert_v5,b,lock,<4,4
+131265,gemAlert_v5,b,lock-other,=4,10
+131265,gemAlert_v5,b,lock,other,4
+131265,gemAlert_v5,b,lock,=4,73
+131265,gemAlert_v5,b,lock-other,other,3
+131265,gemAlert_v5,b,lock-other,5-15,15
+131265,gemAlert_v5,b,first,>16,3
+131265,gemAlert_v5,b,lock-other,>16,4
+131265,CogSpore - VarSi,b,stunprev,<4,2
+131265,CogSpore - VarSi,b,lock,>16,1
+131265,gemAlert_v5,b,first,5-15,4
+131265,CogSpore - VarSi,b,first,=16,2
+131265,CogSpore - VarSi,b,lock-other,=16,1
+131265,CogSpore - VarSi,b,first,5-15,2
+131265,CogSpore - VarSi,b,lock-other,5-15,2
+131265,CogSpore - VarSi,b,first,<4,1
+131265,gemAlert_v5,b,lock-other,<4,1
+131265,gemAlert_v5,b,first,=16,2
+131265,gemAlert_v5,b,lock-other,=16,1
+131265,CogSpore - VarSi,c,lock,<4,34
+131265,gemAlert_v5,c,lock,=4,865
+131265,CogSpore - VarSi,c,lock,=4,1751
+131265,CogSpore - VarSi,c,lock-other,=4,25
+131265,gemAlert_v5,c,lock-other,=4,15
+131265,CogSpore - VarSi,c,stunprev,=4,19
+131265,gemAlert_v5,c,stunprev,=4,9
+131265,gemAlert_v5,c,lock,5-15,15
+131265,gemAlert_v5,c,first,5-15,4
+131265,gemAlert_v5,c,lock-other,5-15,9
+131265,gemAlert_v5,c,lock-other,=16,22
+131265,CogSpore - VarSi,c,first,=16,5
+131265,gemAlert_v5,c,lock,<4,16
+131265,CogSpore - VarSi,c,lock,5-15,34
+131265,CogSpore - VarSi,c,lock-other,5-15,5
+131265,CogSpore - VarSi,c,first,5-15,3
+131265,gemAlert_v5,c,first,=16,9
+131265,CogSpore - VarSi,c,lock-other,=16,13
+131265,gemAlert_v5,c,lock,>16,1
+131265,gemAlert_v5,c,lock-other,>16,12
+131265,CogSpore - VarSi,c,lock,>16,1
+131265,CogSpore - VarSi,c,lock-other,>16,5
+131265,CogSpore - VarSi,c,first,>16,2
+131265,gemAlert_v5,c,lock,=16,3
+131265,gemAlert_v5,c,first,>16,3
+131265,gemAlert_v5,c,lock-other,<4,1
+131265,gemAlert_v5,c,first,=4,1
+131265,CogSpore - VarSi,c,lock,other,1
+131265,gemAlert_v5,c,first,other,1
+131265,CogSpore - VarSi,d,lock,<4,2970
+131265,CogSpore - VarSi,d,lock,=4,172156
+131265,gemAlert_v5,d,lock,=4,3230
+131265,gemAlert_v5,d,stunprev,=4,1
+131265,CogSpore - VarSi,d,lock,5-15,99
+131265,CogSpore - VarSi,d,lock-other,=16,8
+131265,gemAlert_v5,d,first,=16,1
+131265,CogSpore - VarSi,d,lock-other,>16,2
+131265,gemAlert_v5,d,lock,<4,51
+131265,CogSpore - VarSi,d,lock-other,=4,7
+131265,gemAlert_v5,d,lock,5-15,33
+131265,gemAlert_v5,d,lock-other,=16,10
+131265,gemAlert_v5,d,lock-other,=4,12
+131265,gemAlert_v5,d,lock,=16,1
+131265,gemAlert_v5,d,lock-other,5-15,11
+131265,gemAlert_v5,d,lock-other,>16,9
+131265,CogSpore - VarSi,d,lock-other,5-15,1
+131265,CogSpore - VarSi,d,lock,other,2807
+131265,gemAlert_v5,d,lock-other,other,2
+131265,gemAlert_v5,d,lock,other,17
+131265,gemAlert_v5,d,lock,>16,2
+131276,CogSpore - VarSi,a,stunprev,other,2
+131276,CogSpore - VarSi,a,lock,other,7
+131276,CogSpore - VarSi,a,first,other,1
+131276,CogSpore - VarSi,a,stunprev,<4,5
+131276,CogSpore - VarSi,a,lock,<4,3
+131276,CogSpore - VarSi,a,stunprev,=4,1
+131276,CogSpore - VarSi,a,lock-other,other,2
+131276,CogSpore - VarSi,a,lock-other,<4,1
+131276,CogSpore - VarSi,b,lock,other,37
+131276,CogSpore - VarSi,b,first,>16,4
+131276,CogSpore - VarSi,b,lock-other,>16,9
+131276,CogSpore - VarSi,b,lock,<4,35
+131276,CogSpore - VarSi,b,lock,=4,323
+131276,CogSpore - VarSi,b,first,other,26
+131276,CogSpore - VarSi,b,stunprev,other,3
+131276,CogSpore - VarSi,b,stunprev,<4,3
+131276,CogSpore - VarSi,b,stunprev,=4,41
+131276,CogSpore - VarSi,b,lock-other,=4,28
+131276,CogSpore - VarSi,b,lock-other,other,15
+131276,CogSpore - VarSi,b,lock,5-15,14
+131276,CogSpore - VarSi,b,first,5-15,3
+131276,CogSpore - VarSi,b,first,=4,1
+131276,CogSpore - VarSi,b,lock-other,5-15,6
+131276,CogSpore - VarSi,b,stunprev,5-15,2
+131276,shrimp,b,stunprev,=4,1
+131276,shrimp,b,lock,=4,1
+131276,shrimp,b,lock,<4,1
+131276,shrimp,b,lock-other,=4,1
+131276,CogSpore - VarSi,c,lock,<4,52
+131276,CogSpore - VarSi,c,lock,=4,2004
+131276,shrimp,c,lock,=4,224
+131276,CogSpore - VarSi,c,lock-other,=4,90
+131276,CogSpore - VarSi,c,stunprev,=4,68
+131276,CogSpore - VarSi,c,lock,other,4
+131276,CogSpore - VarSi,c,lock-other,other,5
+131276,CogSpore - VarSi,c,lock,5-15,47
+131276,CogSpore - VarSi,c,lock-other,=16,23
+131276,shrimp,c,first,=16,7
+131276,shrimp,c,stunprev,=4,15
+131276,shrimp,c,lock-other,=4,27
+131276,CogSpore - VarSi,c,lock-other,>16,14
+131276,CogSpore - VarSi,c,first,>16,3
+131276,CogSpore - VarSi,c,stunprev,<4,2
+131276,CogSpore - VarSi,c,lock-other,5-15,16
+131276,CogSpore - VarSi,c,first,=16,6
+131276,shrimp,c,lock,<4,6
+131276,shrimp,c,first,>16,3
+131276,shrimp,c,lock-other,>16,8
+131276,CogSpore - VarSi,c,lock-other,<4,1
+131276,shrimp,c,lock,5-15,4
+131276,CogSpore - VarSi,c,lock,=16,1
+131276,CogSpore - VarSi,c,first,other,1
+131276,CogSpore - VarSi,c,first,5-15,2
+131276,shrimp,c,lock-other,5-15,8
+131276,shrimp,c,lock-other,=16,10
+131276,shrimp,c,lock,=16,1
+131276,shrimp,c,first,=4,1
+131276,shrimp,c,lock,>16,1
+131276,CogSpore - VarSi,d,lock,<4,4284
+131276,CogSpore - VarSi,d,lock,=4,151975
+131276,CogSpore - VarSi,d,stunprev,=4,4
+131276,CogSpore - VarSi,d,lock-other,=4,44
+131276,shrimp,d,lock,=4,695
+131276,shrimp,d,lock-other,=4,17
+131276,CogSpore - VarSi,d,lock,5-15,122
+131276,shrimp,d,lock-other,=16,8
+131276,CogSpore - VarSi,d,lock-other,>16,7
+131276,shrimp,d,lock,5-15,18
+131276,CogSpore - VarSi,d,lock-other,5-15,14
+131276,shrimp,d,lock-other,>16,6
+131276,CogSpore - VarSi,d,lock-other,=16,10
+131276,shrimp,d,lock-other,<4,1
+131276,shrimp,d,lock-other,5-15,5
+131276,shrimp,d,lock,<4,11
+131276,CogSpore - VarSi,d,lock,other,3075
+131276,CogSpore - VarSi,d,lock-other,other,11
+131276,shrimp,d,lock,other,2
+131276,CogSpore - VarSi,d,lock-other,<4,2
+131276,shrimp,d,lock-other,other,1
+131312,shrimp,a,stunprev,other,1
+131312,shrimp,a,lock,other,5
+131312,CogSpore - VarSi,a,stunprev,<4,1
+131312,shrimp,a,lock-other,other,1
+131312,CogSpore - VarSi,a,lock,other,2
+131312,CogSpore - VarSi,a,lock,<4,2
+131312,CogSpore - VarSi,a,stunprev,=4,1
+131312,CogSpore - VarSi,a,lock,=4,1
+131312,shrimp,a,lock,<4,1
+131312,CogSpore - VarSi,b,lock-other,<4,2
+131312,shrimp,b,lock,other,12
+131312,CogSpore - VarSi,b,first,other,11
+131312,shrimp,b,lock-other,other,4
+131312,CogSpore - VarSi,b,stunprev,other,1
+131312,shrimp,b,lock,<4,10
+131312,CogSpore - VarSi,b,lock,=4,213
+131312,CogSpore - VarSi,b,lock,other,11
+131312,CogSpore - VarSi,b,lock,<4,26
+131312,shrimp,b,lock,=4,97
+131312,shrimp,b,stunprev,<4,3
+131312,CogSpore - VarSi,b,stunprev,=4,13
+131312,CogSpore - VarSi,b,lock-other,other,10
+131312,CogSpore - VarSi,b,stunprev,<4,3
+131312,shrimp,b,first,other,1
+131312,shrimp,b,stunprev,=4,7
+131312,shrimp,b,lock-other,=4,5
+131312,CogSpore - VarSi,b,lock-other,=4,18
+131312,CogSpore - VarSi,b,first,=4,2
+131312,Noob++,b,stunprev,=4,11
+131312,shrimp,b,lock,5-15,6
+131312,shrimp,b,stunprev,5-15,1
+131312,CogSpore - VarSi,b,lock,5-15,5
+131312,CogSpore - VarSi,b,first,5-15,1
+131312,CogSpore - VarSi,b,lock-other,5-15,2
+131312,CogSpore - VarSi,b,lock,>16,3
+131312,Noob++,b,lock,=4,28
+131312,Noob++,b,stunprev,<4,2
+131312,CogSpore - VarSi,b,lock-other,>16,2
+131312,Noob++,b,first,>16,1
+131312,Noob++,b,first,5-15,1
+131312,shrimp,b,lock-other,5-15,2
+131312,Noob++,b,lock,5-15,1
+131312,Noob++,b,lock,<4,1
+131312,Noob++,b,first,=16,2
+131312,shrimp,b,lock-other,=16,1
+131312,CogSpore - VarSi,b,lock,=16,1
+131312,CogSpore - VarSi,b,first,=16,1
+131312,CogSpore - VarSi,c,stunprev,<4,1
+131312,CogSpore - VarSi,c,lock,<4,28
+131312,Noob++,c,lock,=4,1200
+131312,CogSpore - VarSi,c,lock,=4,1419
+131312,CogSpore - VarSi,c,lock-other,=4,38
+131312,shrimp,c,lock,=4,395
+131312,shrimp,c,lock-other,=4,17
+131312,CogSpore - VarSi,c,stunprev,=4,10
+131312,Noob++,c,stunprev,=4,35
+131312,CogSpore - VarSi,c,lock,5-15,28
+131312,Noob++,c,first,5-15,5
+131312,CogSpore - VarSi,c,lock-other,=16,21
+131312,shrimp,c,first,=16,4
+131312,shrimp,c,lock-other,>16,4
+131312,CogSpore - VarSi,c,first,>16,1
+131312,Noob++,c,lock,<4,19
+131312,Noob++,c,stunprev,5-15,1
+131312,CogSpore - VarSi,c,first,5-15,4
+131312,Noob++,c,first,>16,8
+131312,CogSpore - VarSi,c,lock-other,>16,13
+131312,Noob++,c,lock,5-15,13
+131312,shrimp,c,lock-other,5-15,4
+131312,shrimp,c,first,5-15,4
+131312,CogSpore - VarSi,c,lock-other,<4,3
+131312,CogSpore - VarSi,c,lock-other,5-15,8
+131312,Noob++,c,first,=16,7
+131312,CogSpore - VarSi,c,first,=4,2
+131312,CogSpore - VarSi,c,lock,>16,1
+131312,Noob++,c,lock-other,=4,15
+131312,shrimp,c,lock,5-15,4
+131312,Noob++,c,lock-other,=16,24
+131312,shrimp,c,lock-other,=16,8
+131312,Noob++,c,lock-other,>16,3
+131312,shrimp,c,stunprev,=4,3
+131312,shrimp,c,lock,>16,1
+131312,shrimp,c,lock,<4,2
+131312,shrimp,c,lock,other,1
+131312,CogSpore - VarSi,c,lock,other,1
+131312,shrimp,c,first,other,1
+131312,CogSpore - VarSi,c,first,other,1
+131312,CogSpore - VarSi,c,lock-other,other,1
+131312,shrimp,c,first,=4,2
+131312,Noob++,c,lock-other,5-15,5
+131312,CogSpore - VarSi,c,stunprev,5-15,1
+131312,CogSpore - VarSi,c,lock,=16,2
+131312,shrimp,c,first,>16,1
+131312,CogSpore - VarSi,c,first,=16,1
+131312,Noob++,c,lock,=16,1
+131312,CogSpore - VarSi,d,lock,<4,3062
+131312,Noob++,d,lock,=4,13778
+131312,shrimp,d,lock,=4,14
+131312,CogSpore - VarSi,d,lock,=4,150673
+131312,CogSpore - VarSi,d,lock-other,=4,52
+131312,Noob++,d,stunprev,=4,5
+131312,Noob++,d,lock,5-15,151
+131312,shrimp,d,lock-other,5-15,1
+131312,CogSpore - VarSi,d,lock-other,5-15,35
+131312,CogSpore - VarSi,d,lock,5-15,559
+131312,Noob++,d,lock,<4,144
+131312,Noob++,d,lock-other,=4,182
+131312,shrimp,d,lock-other,=16,2
+131312,CogSpore - VarSi,d,lock-other,>16,24
+131312,Noob++,d,lock-other,>16,112
+131312,CogSpore - VarSi,d,lock-other,=16,26
+131312,Noob++,d,lock-other,=16,122
+131312,Noob++,d,lock-other,5-15,82
+131312,CogSpore - VarSi,d,lock,=16,1
+131312,Noob++,d,first,=16,2
+131312,Noob++,d,lock,>16,1
+131312,Noob++,d,lock,other,13
+131312,CogSpore - VarSi,d,lock,other,2322
+131312,Noob++,d,lock-other,other,24
+131312,Noob++,d,lock,=16,2
+131312,Noob++,d,lock-other,<4,1
+131312,CogSpore - VarSi,d,lock-other,other,22
+131312,CogSpore - VarSi,d,lock-other,<4,3
+131312,CogSpore - VarSi,d,lock,>16,1
+131332,Sho,a,first,other,1
+131332,Sho,a,lock,other,3
+131332,Sho,a,lock-other,other,1
+131332,Sho,b,lock,other,33
+131332,Sho,b,first,other,8
+131332,Sho,b,lock,<4,22
+131332,Sho,b,lock-other,other,21
+131332,Sho,b,lock,=4,52
+131332,Sho,b,first,=4,1
+131332,Sho,b,lock,5-15,9
+131332,Sho,b,lock-other,>16,4
+131332,Sho,b,lock-other,5-15,6
+131332,Sho,b,first,5-15,2
+131332,Sho,b,first,>16,2
+131332,Sho,b,first,<4,1
+131332,Colossus,b,first,5-15,1
+131332,Sho,b,lock-other,=16,2
+131332,Colossus,b,lock-other,>16,1
+131332,Colossus,b,lock,<4,1
+131332,Colossus,b,lock,=4,4
+131332,Colossus,b,stunprev,other,1
+131332,Sho,b,lock,>16,1
+131332,Sho,b,lock-other,<4,1
+131332,CogSpore-Siect-F,b,first,other,4
+131332,Colossus,b,lock-other,=4,1
+131332,CogSpore-Siect-F,b,lock,=4,1
+131332,CogSpore-Siect-F,b,lock,other,1
+131332,CogSpore-Siect-F,b,lock,5-15,2
+131332,Colossus,b,stunprev,5-15,1
+131332,Sho,c,lock,<4,6
+131332,Colossus,c,lock,=4,355
+131332,Sho,c,lock,=4,53
+131332,CogSpore-Siect-F,c,lock,=4,187
+131332,Sho,c,lock,other,5
+131332,Sho,c,lock-other,other,4
+131332,Sho,c,first,other,1
+131332,Colossus,c,stunprev,<4,1
+131332,Colossus,c,lock-other,<4,7
+131332,Colossus,c,lock,<4,32
+131332,Sho,c,lock-other,=4,1
+131332,Colossus,c,stunprev,=4,16
+131332,CogSpore-Siect-F,c,first,=4,1
+131332,Colossus,c,lock,5-15,23
+131332,Colossus,c,first,5-15,4
+131332,CogSpore-Siect-F,c,first,5-15,7
+131332,Sho,c,lock-other,5-15,6
+131332,Sho,c,lock,5-15,7
+131332,Sho,c,lock-other,>16,9
+131332,CogSpore-Siect-F,c,first,>16,8
+131332,Colossus,c,first,>16,7
+131332,CogSpore-Siect-F,c,lock,5-15,17
+131332,Colossus,c,lock-other,5-15,8
+131332,Colossus,c,lock-other,>16,8
+131332,CogSpore-Siect-F,c,lock,<4,16
+131332,Colossus,c,first,=4,1
+131332,CogSpore-Siect-F,c,stunprev,>16,1
+131332,Colossus,c,lock-other,=4,12
+131332,Colossus,c,lock,other,2
+131332,CogSpore-Siect-F,c,first,other,3
+131332,CogSpore-Siect-F,c,lock-other,other,3
+131332,Colossus,c,lock-other,other,3
+131332,Colossus,c,first,other,1
+131332,CogSpore-Siect-F,c,lock-other,5-15,6
+131332,CogSpore-Siect-F,c,lock-other,>16,2
+131332,CogSpore-Siect-F,c,lock,=16,1
+131332,CogSpore-Siect-F,c,lock-other,=4,2
+131332,Colossus,c,first,=16,7
+131332,Colossus,c,lock-other,=16,4
+131332,CogSpore-Siect-F,c,first,=16,9
+131332,CogSpore-Siect-F,c,lock-other,=16,4
+131332,Colossus,d,lock,<4,442
+131332,Colossus,d,lock,=4,3012
+131332,CogSpore-Siect-F,d,lock,=4,3417
+131332,CogSpore-Siect-F,d,lock,5-15,848
+131332,Colossus,d,lock-other,=16,2
+131332,Colossus,d,lock-other,>16,4
+131332,CogSpore-Siect-F,d,lock,<4,921
+131332,Colossus,d,lock,5-15,313
+131332,CogSpore-Siect-F,d,first,=16,106
+131332,Colossus,d,lock-other,=4,6
+131332,CogSpore-Siect-F,d,first,5-15,106
+131332,Colossus,d,lock-other,<4,1
+131332,Colossus,d,lock,>16,3
+131332,CogSpore-Siect-F,d,lock-other,=16,12
+131332,Colossus,d,lock,=16,1
+131332,CogSpore-Siect-F,d,lock-other,>16,8
+131332,CogSpore-Siect-F,d,first,>16,204
+131332,CogSpore-Siect-F,d,first,=4,4
+131332,CogSpore-Siect-F,d,lock-other,<4,21
+131332,Colossus,d,lock,other,86
+131332,CogSpore-Siect-F,d,lock-other,5-15,15
+131332,CogSpore-Siect-F,d,lock-other,=4,16
+131332,CogSpore-Siect-F,d,lock,other,1183
+131332,CogSpore-Siect-F,d,first,other,170
+131332,CogSpore-Siect-F,d,lock,>16,2
+131332,CogSpore-Siect-F,d,lock-other,other,44
+131332,Colossus,d,lock-other,other,1
+131332,Colossus,d,lock-other,5-15,1
+131332,CogSpore-Siect-F,d,first,<4,14
+129255,medivac,a,stunprev,other,1
+129255,medivac,a,stunprev,<4,1
+129255,medivac,a,lock,other,1
+129255,medivac,b,lock,other,24
+129255,medivac,b,lock-other,other,18
+129255,medivac,b,lock,<4,30
+129255,medivac,b,stunprev,=4,18
+129255,medivac,b,lock,=4,336
+129255,medivac,b,first,other,14
+129255,medivac,b,stunprev,<4,2
+129255,medivac,b,lock-other,=4,16
+129255,medivac,b,lock-other,<4,3
+129255,medivac,b,first,<4,1
+129255,medivac,b,lock,5-15,8
+129255,medivac,b,stunprev,5-15,1
+129255,medivac,b,lock-other,>16,6
+129255,medivac,b,lock-other,5-15,3
+129255,CogBloomXT,b,stunprev,=4,1
+129255,medivac,b,first,5-15,1
+129255,medivac,b,first,>16,1
+129255,medivac,c,lock,<4,39
+129255,medivac,c,lock,=4,1746
+129255,medivac,c,stunprev,=4,46
+129255,CogBloomXT,c,stunprev,=4,18
+129255,medivac,c,lock,other,5
+129255,medivac,c,lock-other,other,11
+129255,medivac,c,stunprev,<4,2
+129255,CogBloomXT,c,lock,=4,232
+129255,medivac,c,lock,5-15,39
+129255,medivac,c,first,5-15,4
+129255,medivac,c,lock-other,=4,69
+129255,medivac,c,lock-other,5-15,40
+129255,medivac,c,lock-other,>16,30
+129255,medivac,c,lock-other,=16,51
+129255,medivac,c,first,=16,8
+129255,CogBloomXT,c,first,other,1
+129255,CogBloomXT,c,lock-other,=4,7
+129255,CogBloomXT,c,lock-other,=16,5
+129255,medivac,c,first,>16,5
+129255,CogBloomXT,c,lock-other,>16,3
+129255,Random,c,first,>16,3
+129255,Random,c,lock,=4,84
+129255,Random,c,lock-other,=16,6
+129255,CogBloomXT,c,lock,<4,8
+129255,medivac,c,lock,=16,1
+129255,Random,c,first,=16,3
+129255,Random,c,lock-other,>16,4
+129255,Random,c,lock-other,5-15,3
+129255,Random,c,lock-other,=4,2
+129255,CogBloomXT,c,first,=16,1
+129255,CogBloomXT,c,lock-other,5-15,1
+129255,Random,c,lock,5-15,2
+129255,CogBloomXT,c,lock,=16,1
+129255,CogBloomXT,c,lock,5-15,1
+129255,medivac,d,lock,<4,311
+129255,medivac,d,lock-other,=4,354
+129255,CogBloomXT,d,lock,=4,102308
+129255,medivac,d,lock,=4,20323
+129255,Random,d,lock,=4,401
+129255,medivac,d,lock,5-15,300
+129255,CogBloomXT,d,lock,5-15,361
+129255,medivac,d,lock-other,=16,109
+129255,medivac,d,lock-other,>16,165
+129255,CogBloomXT,d,lock-other,=4,82
+129255,CogBloomXT,d,lock-other,=16,12
+129255,Random,d,lock-other,=16,14
+129255,Random,d,lock,=16,3
+129255,medivac,d,lock-other,5-15,133
+129255,Random,d,lock-other,=4,4
+129255,CogBloomXT,d,lock,=16,2
+129255,Random,d,lock-other,>16,5
+129255,Random,d,lock-other,5-15,6
+129255,CogBloomXT,d,lock,<4,4415
+129255,Random,d,lock,5-15,5
+129255,medivac,d,stunprev,=4,1
+129255,Random,d,lock,<4,5
+129255,CogBloomXT,d,lock-other,>16,24
+129255,medivac,d,lock-other,<4,10
+129255,Random,d,lock,>16,2
+129255,medivac,d,lock,>16,2
+129255,medivac,d,lock,other,173
+129255,medivac,d,lock-other,other,157
+129255,CogBloomXT,d,lock,other,3246
+129255,Random,d,lock-other,other,1
+129255,CogBloomXT,d,lock-other,5-15,39
+129255,CogBloomXT,d,lock-other,other,16
+129255,CogBloomXT,d,lock-other,<4,4
+129255,CogBloomXT,d,lock,>16,1
+129255,CogBloomXT,d,stunprev,=4,1
+129308,CogSpore - VarSi,b,stunprev,other,6
+129308,CogSpore - VarSi,b,lock,other,29
+129308,CogSpore - VarSi,b,first,other,20
+129308,CogSpore - VarSi,b,lock,<4,27
+129308,CogSpore - VarSi,b,stunprev,<4,5
+129308,CogSpore - VarSi,b,lock,=4,99
+129308,CogSpore - VarSi,b,lock-other,other,12
+129308,CogSpore - VarSi,b,stunprev,=4,13
+129308,CogSpore - VarSi,b,lock-other,=4,15
+129308,CogSpore - VarSi,b,lock-other,<4,4
+129308,Conviction,b,first,other,13
+129308,Conviction,b,lock-other,other,8
+129308,Conviction,b,lock,=4,17
+129308,CogSpore - VarSi,b,lock,5-15,1
+129308,CogSpore - VarSi,b,lock-other,5-15,2
+129308,CogSpore - VarSi,b,first,5-15,1
+129308,Conviction,b,lock-other,5-15,1
+129308,CogSpore - VarSi,b,first,>16,1
+129308,Conviction,b,lock,<4,1
+129308,CogSpore - VarSi,c,lock,<4,51
+129308,CogSpore - VarSi,c,lock,=4,818
+129308,Conviction,c,lock,=4,179
+129308,CogSpore - VarSi,c,lock,other,13
+129308,CogSpore - VarSi,c,first,other,2
+129308,CogSpore - VarSi,c,lock-other,other,6
+129308,Conviction,c,first,other,9
+129308,CogSpore - VarSi,c,stunprev,<4,3
+129308,CogSpore - VarSi,c,lock-other,=4,34
+129308,CogSpore - VarSi,c,stunprev,=4,12
+129308,CogSpore - VarSi,c,lock,5-15,31
+129308,Conviction,c,first,5-15,5
+129308,Conviction,c,first,=16,10
+129308,Conviction,c,first,>16,5
+129308,CogSpore - VarSi,c,stunprev,other,1
+129308,CogSpore - VarSi,c,lock-other,<4,2
+129308,CogSpore - VarSi,c,lock-other,=16,8
+129308,Conviction,c,lock,<4,8
+129308,CogSpore - VarSi,c,first,=16,1
+129308,CogSpore - VarSi,c,lock-other,>16,5
+129308,CogSpore - VarSi,c,stunprev,5-15,1
+129308,CogSpore - VarSi,c,lock-other,5-15,3
+129308,Conviction,c,lock-other,>16,2
+129308,Conviction,c,lock-other,other,2
+129308,Conviction,c,lock,5-15,12
+129308,Conviction,c,stunprev,=4,5
+129308,CogSpore - VarSi,c,lock,>16,1
+129308,Conviction,c,lock-other,=4,1
+129308,Conviction,c,lock,other,3
+129308,Conviction,c,lock-other,=16,1
+129308,Conviction,d,lock,<4,633
+129308,CogSpore - VarSi,d,lock,=4,55838
+129308,CogSpore - VarSi,d,lock-other,=4,13
+129308,Conviction,d,stunprev,=4,17
+129308,Conviction,d,lock,=4,11854
+129308,CogSpore - VarSi,d,lock,other,2425
+129308,Conviction,d,lock,other,1392
+129308,CogSpore - VarSi,d,lock-other,other,11
+129308,CogSpore - VarSi,d,lock,<4,4635
+129308,CogSpore - VarSi,d,lock,5-15,385
+129308,Conviction,d,lock,5-15,230
+129308,CogSpore - VarSi,d,lock-other,=16,1
+129308,CogSpore - VarSi,d,lock-other,>16,3
+129308,Conviction,d,stunprev,other,2
+129308,CogSpore - VarSi,d,lock-other,<4,1
+129308,Conviction,d,first,>16,8
+129308,CogSpore - VarSi,d,lock-other,5-15,1
+129308,Conviction,d,first,other,142
+129308,Conviction,d,lock-other,>16,6
+129308,Conviction,d,lock-other,other,28
+129308,Conviction,d,lock-other,5-15,2
+129308,Conviction,d,first,5-15,5
+129308,Conviction,d,stunprev,<4,1
+129308,Conviction,d,stunprev,5-15,1

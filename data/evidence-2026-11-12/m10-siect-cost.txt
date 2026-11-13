@@ -1,0 +1,2 @@
+131094 ['Bouncer', 'Penalty', 'CogSpore-Siect-F', 'zergling'] | our 3-markers 43708 | Siect-F eats 130603: <3 5.6% =3 84.6% 3-4 0.0% =4 0.0% >4 0.0% other 9.8%
+131188 ['Artemis', 'Bane v2.2', 'CogSpore-Siect-F', 'Conviction'] | our 3-markers 64558 | Siect-F eats 146022: <3 4.4% =3 91.3% 3-4 3.8% =4 0.0% >4 0.3% other 0.2%

@@ -1,0 +1,20 @@
+Bane v2.2 eats on enemies: event-order cost class (our markers) by category; % of n
+all      lock             2734532 | <4   3.1 =4  94.1 5-15   0.5 =16   0.0 >16   0.0 other   2.3
+all      first               3058 | <4   0.8 =4   3.8 5-15  17.9 =16  12.8 >16  22.6 other  42.2
+all      stunprev            1967 | <4   8.2 =4  81.5 5-15   2.3 =16   0.0 >16   0.1 other   7.9
+all      lock-other         16364 | <4   1.6 =4  35.0 5-15  14.4 =16  15.6 >16  14.0 other  19.4
+Yen      lock             1831684 | <4   3.2 =4  94.4 5-15   0.2 =16   0.0 >16   0.0 other   2.2
+Yen      first                468 | <4   1.3 =4  10.3 5-15  14.7 =16   9.4 >16  16.2 other  48.1
+Yen      stunprev             917 | <4   9.8 =4  81.2 5-15   1.6 =16   0.0 >16   0.0 other   7.3
+Yen      lock-other          2611 | <4   3.2 =4  45.2 5-15  14.1 =16  12.1 >16  13.3 other  12.2
+Siect-F  lock               11723 | <4  12.6 =4  39.4 5-15  10.8 =16   0.0 >16   0.0 other  37.1
+Siect-F  first                987 | <4   1.5 =4   0.8 5-15  18.7 =16  15.1 >16  30.1 other  33.7
+Siect-F  lock-other           177 | <4  15.8 =4  12.4 5-15  16.4 =16  11.9 >16   9.0 other  34.5
+feeder   lock              636216 | <4   1.9 =4  96.0 5-15   0.4 =16   0.0 >16   0.0 other   1.7
+feeder   first                134 | <4   0.7 =4   5.2 5-15  19.4 =16  18.7 >16  16.4 other  39.6
+feeder   stunprev             206 | <4   4.4 =4  85.0 5-15   1.9 =16   0.0 >16   0.0 other   8.7
+feeder   lock-other          5400 | <4   1.1 =4  29.4 5-15  13.9 =16   6.3 >16  10.4 other  38.9
+other    lock              254909 | <4   4.7 =4  90.0 5-15   2.8 =16   0.0 >16   0.0 other   2.3
+other    first               1469 | <4   0.1 =4   3.5 5-15  18.1 =16  11.8 >16  20.1 other  46.3
+other    stunprev             833 | <4   7.4 =4  81.4 5-15   3.0 =16   0.0 >16   0.0 other   8.2
+other    lock-other          8176 | <4   1.1 =4  35.9 5-15  14.8 =16  22.9 >16  16.8 other   8.4
