@@ -291,6 +291,11 @@ class Engine(object):
         # contMask = colonies with a living cell orthogonally adjacent at the moment of death.
         self.races = [] if record_races else None
         self._race_pending = {}         # grid index -> (tDeath, deadCol, killerCol, contMask)
+        # OPTION hooks (measurement only, None = off): order_hook(tick, acts) once per tick with the sorted turn list
+        # [(count, cell id, action)] before any action applies; act_hook(tick, cell id, action, target id or -1) on
+        # every EAT and FEED turn, before it applies (-1: no living cell in the target square).
+        self.order_hook = None
+        self.act_hook = None
         self._last_eater = {}           # cell id -> colony of its last eater
         self.start_positions = {}
 
@@ -456,6 +461,8 @@ class Engine(object):
         # ---- 2. Act: one pass, fewest instructions first, ties shuffled with the match RNG ----
         self.rng.shuffle(acts)
         acts.sort(key=_first)
+        if self.order_hook is not None:
+            self.order_hook(t, acts)
         track = self.deltas is not None or self._idle_rng is not None
         if track:
             start = [(i, en[i]) for i in live]
@@ -551,6 +558,7 @@ class Engine(object):
         rested = self._rested
         bonus = self.feed_bonus
         races = self.races
+        hook = self.act_hook
         if bf is not None:
             seen = [0] * MAX_COLONIES      # successful eats so far this tick, per colony
             others = [tuple(o for o in range(MAX_COLONIES) if o != b) for b in range(MAX_COLONIES)]
@@ -583,6 +591,8 @@ class Engine(object):
                     if ev is not None:
                         ev[i] = ev.get(i, 0) + 1
             elif kind == ACT_EAT:
+                if hook is not None:
+                    hook(t, i, a, g if g >= 0 and alive[g] else -1)
                 if g >= 0 and alive[g]:
                     eg = en[g]
                     take = EAT_TAKE if eg > EAT_TAKE else eg
@@ -618,6 +628,8 @@ class Engine(object):
                         if saved is not None and g in saved:
                             self.c_mem[g][:] = saved[g]   # the call never took effect: drop its writes
             elif kind == ACT_FEED:
+                if hook is not None:
+                    hook(t, i, a, g if g >= 0 and alive[g] else -1)
                 if g >= 0 and alive[g]:
                     e = en[i]
                     give = FEED_AMOUNT if e > FEED_AMOUNT else e

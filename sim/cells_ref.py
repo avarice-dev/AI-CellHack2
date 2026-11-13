@@ -733,6 +733,124 @@ def make_penalty(kill_max=PENALTY_KILL_MAX, q_max=CONVICTION_Q_MAX, q_min=CONVIC
 
 
 penalty = make_penalty()
+# ---- Misfortune (planned, no asm yet; briefs/misfortune-spec-2026-11-13.md) --------------------------------------
+# Whoever bites it is bitten first on the next tick: a 2-instruction chain bite read from a slot table indexed by the
+# cell's own energy.  Memory: [0] bearing, [1] steps, [4..7] position (Bane v2.2), [8] = e0 of the last arming,
+# slot(e) = byte 13 + e (byte 63 = slot 50); bytes 2-3 and 9-12 unused.  Entry assumptions: rax = 0, xmm0 = 0,
+# esi = own energy.  The listing behind every count is in briefs/misfortune-build-review-2026-11-13.md.
+#   entry   or al, [abs MEM + 13 + rsi] / jnz EXIT_ADDR                     armed bite: 2 (1 without taken jumps)
+#   prefix  movzx ecx, byte [abs MEM + 8] / movdqu [abs MEM + 9 + rcx], xmm0 (zeroes the last armed window)
+#   then Bane v2.2's paths (make_bane2().core, whose scan ends `or al, [bite_tbl + rcx]` / `jnz`): core + 4, which is
+#   Bane v2.3a's count - 1 on every slow path (v2.3a loads action and square with mov ax / test al instead of `or`).
+# Arming (an enemy beside the cell, scan bite toward d at energy e0): byte 8 = e0, one 16-byte pattern store to
+# bytes 9 + e0 .. 24 + e0 (slots e0 - 4 .. e0 + 11): EAT + d on the slots of e0's parity up to e0 + 10, zero on the
+# rest; exact=1 keeps only the slots up to e0 + 2k (k = (te + 1) // 2 - 1 more bites kill the target at the scan,
+# te its energy; k = 0 arms nothing); then slot 50: cap A stores (slot 48 | slot 49) & (e0 >= 40 ? 0xFF : 0), i.e. it
+# arms slot 50 when the run reaches the cap, cap B and N store 0.  First bite: 16 (exact=0) / 19 (exact=1), cap A + 3.
+# Boxed cap rules, ahead of Bane's boxed rules (edge friend = a friend on one of my four edges; its edges are the three
+# other squares around it, all inside the 5x5 view):
+#   A: EAT the first edge friend (U, R, D, L) at 47+ with an empty edge and no enemy on its edges (release);
+#   B: EAT the first edge friend at 48+ with an enemy on its edges (hold it at 48), else FEED the first edge friend
+#      at 47+ with an empty edge and no enemy on its edges (lift it out at 50); the feed needs my energy >= 6;
+#   N: neither.  A cap-rule action is padded to MISFORTUNE_PULL_N instructions, more than any path the pulled cell
+#   can be on, so a pull never runs before (and so never stuns) the friend it pulls.  A missed cap rule adds its tests
+#   (6 per edge for A and B's eat pass, 8 per edge for B's feed pass) to Bane's boxed count.
+MISFORTUNE_SLOT0 = 13
+MISFORTUNE_E0 = 8
+MISFORTUNE_LOW, MISFORTUNE_HIGH = 4, 10      # armed slots lie in e0 - 4 .. e0 + 10
+MISFORTUNE_CAP_A_MIN = 40                    # slot 50 is inside e0 - 4 .. e0 + 10 only from e0 = 40
+MISFORTUNE_RELEASE_MIN = 47
+MISFORTUNE_HOLD_MIN = 48
+MISFORTUNE_FEED_MIN = SCHISM_FEED_MIN
+MISFORTUNE_PREFIX_N = 4                      # entry 2 + prefix 2
+MISFORTUNE_BITE_N = {(0, 'A'): 19, (0, 'B'): 16, (0, 'N'): 16, (1, 'A'): 22, (1, 'B'): 19, (1, 'N'): 19}
+MISFORTUNE_PULL_N = 80
+MISFORTUNE_RING = _RING
+
+
+def misfortune_prefix(mem):
+    """The slow-path prefix: zero bytes 9 + [8] .. 24 + [8] (bytes past 63 are scratch)."""
+    b = mem[MISFORTUNE_E0]
+    hi = min(64, 25 + b)
+    if hi > 9 + b:
+        mem[9 + b:hi] = bytes(hi - (9 + b))
+
+
+def misfortune_pattern(e0, d, te, exact, cap):
+    """{memory byte: value} written by the arming path (the 16-byte store, then slot 50).  Bytes > 63 dropped."""
+    act = ACT_EAT + d
+    top = e0 + MISFORTUNE_HIGH
+    if exact:
+        k = (te + 1) // 2 - 1
+        top = min(top, e0 + 2 * k) if k > 0 else e0 - MISFORTUNE_LOW - 1
+    out = {}
+    for s in range(e0 - MISFORTUNE_LOW, e0 + MISFORTUNE_HIGH + 2):     # 16 slots: e0 - 4 .. e0 + 11
+        out[MISFORTUNE_SLOT0 + s] = act if ((s - e0) % 2 == 0 and s <= top) else 0
+    reach = out.get(MISFORTUNE_SLOT0 + 48, 0) | out.get(MISFORTUNE_SLOT0 + 49, 0)
+    out[MISFORTUNE_SLOT0 + 50] = reach if (cap == 'A' and e0 >= MISFORTUNE_CAP_A_MIN) else 0
+    return {b: v for b, v in out.items() if b < 64}
+
+
+def misfortune_cap_rule(view, cap):
+    """Boxed cap rules: (action or None, instructions of the tests run, taken jumps among them)."""
+    if cap == 'N':
+        return None, 0, 0
+    c, en, e = view.cells, view.energies, view.energy
+    tested = taken = 0
+    passes = (('release', 6),) if cap == 'A' else (('hold', 6), ('lift', 8))
+    for kind, cost in passes:
+        for d in _FEED_ORDER:
+            tested += cost
+            i = VIEW_DIR[d]
+            if c[i] == CELL_FRIEND:
+                ring = [c[q] for q in MISFORTUNE_RING[d]]
+                enemy, empty = CELL_ENEMY in ring, CELL_EMPTY in ring
+                if kind == 'release' and en[i] >= MISFORTUNE_RELEASE_MIN and empty and not enemy:
+                    return ACT_EAT + d, tested, taken
+                if kind == 'hold' and en[i] >= MISFORTUNE_HOLD_MIN and enemy:
+                    return ACT_EAT + d, tested, taken
+                if kind == 'lift' and e >= MISFORTUNE_FEED_MIN and en[i] >= MISFORTUNE_RELEASE_MIN and empty \
+                        and not enemy:
+                    return ACT_FEED + d, tested, taken
+            taken += 1
+    return None, tested, taken
+
+
+def make_misfortune(cap='B', exact=1, **kw):
+    if cap not in ('A', 'B', 'N'):
+        raise ValueError("cap must be 'A', 'B' or 'N'")
+    if exact not in (0, 1):
+        raise ValueError('exact must be 0 or 1')
+    core = make_bane2(**kw).core
+    bite_n = MISFORTUNE_BITE_N[(exact, cap)]
+
+    def misfortune(view, mem):
+        e = view.energy
+        a = mem[MISFORTUNE_SLOT0 + e] if 0 <= e <= 50 else 0
+        if a:
+            return a, 2, 1                         # or al, [slot] / jnz EXIT (taken)
+        misfortune_prefix(mem)
+        c = view.cells
+        act, n, t = core(view, mem)
+        if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
+            d = act & 3
+            mem[MISFORTUNE_E0] = e
+            for k, v in misfortune_pattern(e, d, view.energies[VIEW_DIR[d]] & 63, exact, cap).items():
+                mem[k] = v
+            return act, bite_n, bite_n - 1         # jnz arm taken
+        n, t = n + MISFORTUNE_PREFIX_N, t + MISFORTUNE_PREFIX_N
+        if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
+            return act, n, t
+        rule, tested, taken = misfortune_cap_rule(view, cap)
+        if rule is not None:
+            return rule, MISFORTUNE_PULL_N, MISFORTUNE_PULL_N - taken - 1
+        return act, n + tested, t + tested - taken
+    misfortune.core = core
+    misfortune.cap, misfortune.exact = cap, exact
+    return misfortune
+
+
+misfortune = make_misfortune()
 # ---- Pestilence (cells/pestilence.asm, generated by cells/gen_pestilence.py; designs.md 11.2, change 1 only) -------
 # Schism plus move refills: on gate 1 with a freed empty neighbour (refill) and e >= 20, MOVE there instead of split.
 # Before gate 1 loads its action: cmp mv_tbl / jae move.  The move takes 13 (mov act, sub, ret); every other path
@@ -763,4 +881,4 @@ FACTORIES = {'covetous': make_covetous, 'scourge': make_scourge, 'contagion': ma
              'woe': make_woe, 'conceit': make_conceit, 'endemic': make_endemic,
              'complacency': make_complacency, 'schism': make_schism, 'pestilence': make_pestilence,
              'bane': make_bane, 'bane2': make_bane2, 'bane3': make_bane3, 'bane4': make_bane4, 'conviction': make_conviction,
-             'penalty': make_penalty}
+             'penalty': make_penalty, 'misfortune': make_misfortune}
