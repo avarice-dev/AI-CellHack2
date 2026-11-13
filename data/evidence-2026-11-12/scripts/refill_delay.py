@@ -5,7 +5,8 @@ colony entered it first, by birth or move) / 'none' (still empty after 12 ticks)
 bitten on its first live tick (birth tick + 1) by any enemy, by the killer; the killer's state at the refill (alive and
 still on an edge of the square: 0/1); child dead within 5 ticks.
 Rows: replay, killer colony (name), window (a t < 100, b < 300, c later), delay (0, 1, 2, 3+, taken, none), killer
-adjacent at the refill (0/1/-), bitten1 any, bitten1 by killer, dead5, n.
+adjacent at the refill (0/1/-), bitten1 any, bitten1 by killer, dead5, child birth energy (e; for taken rows: the
+tick it was taken, 0 / 1 / 2+ after the death tick, as 't0' / 't1' / 't2+'), n.
 Usage: python refill_delay.py <replay dir> <names.json> <out.csv> [id ...]
 """
 import collections
@@ -83,9 +84,10 @@ def run(path, bane):
                             dk = str(d) if d < 3 else '3+'
                             ks = sqOf.get(kil)
                             adj = int(kil not in died_at and ks is not None and ks in set(nbrs(s)))
-                            child[cid] = [t, kil, (kc, win(td), dk, adj), adj, 0, 0]
+                            child[cid] = [t, kil, (kc, win(td), dk, adj), adj, 0, 0, e]
                         else:
-                            out[(kc, win(td), 'taken', '-', '-', '-', '-')] += 1
+                            dt = t - td - 1
+                            out[(kc, win(td), 'taken', '-', '-', '-', '-', 't%s' % (dt if dt < 2 else '2+'))] += 1
                 elif k == 2:
                     cid, x, y = MOVE.unpack_from(raw, p + 1); p += 9
                     s0 = sqOf[cid]
@@ -95,7 +97,8 @@ def run(path, bane):
                     grid[s] = cid + 1; sqOf[cid] = s
                     f = freed.pop(s, None)
                     if f is not None:
-                        out[(colOf[f[1]], win(f[0]), 'taken', '-', '-', '-', '-')] += 1
+                        dt = t - f[0] - 1
+                        out[(colOf[f[1]], win(f[0]), 'taken', '-', '-', '-', '-', 't%s' % (dt if dt < 2 else '2+'))] += 1
                 elif k == 3:
                     cid = U32.unpack_from(raw, p + 1)[0]; p += 5
                     dead.add(cid)
@@ -108,11 +111,11 @@ def run(path, bane):
                     freed[sqOf[cid]] = (t, a)
             for s in [s for s, (td, _) in freed.items() if t - td > MAXD]:
                 td, kil = freed.pop(s)
-                out[(colOf[kil], win(td), 'none', '-', '-', '-', '-')] += 1
+                out[(colOf[kil], win(td), 'none', '-', '-', '-', '-', '-')] += 1
             for cid in list(child):
-                tb, kil, key, adj, b1, bk = child[cid]
+                tb, kil, key, adj, b1, bk, e0 = child[cid]
                 if cid in dead or t - tb >= 5:
-                    out[key + (b1, bk, int(cid in dead and t - tb <= 5))] += 1
+                    out[key + (b1, bk, int(cid in dead and t - tb <= 5), str(e0))] += 1
                     del child[cid]
             n = U32.unpack_from(raw, p)[0]; p += 4 + n
             for cid in dead:
@@ -127,7 +130,7 @@ def run(path, bane):
     return out
 
 
-COLS = ['replay', 'killer', 'window', 'delay', 'killer_adj', 'bitten1', 'bitten1_killer', 'dead5', 'n']
+COLS = ['replay', 'killer', 'window', 'delay', 'killer_adj', 'bitten1', 'bitten1_killer', 'dead5', 'e', 'n']
 
 if __name__ == '__main__':
     rdir, names_path, outp = sys.argv[1:4]

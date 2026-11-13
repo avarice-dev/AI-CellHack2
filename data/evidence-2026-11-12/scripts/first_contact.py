@@ -17,6 +17,9 @@ Fields per new pair (CSV columns):
   result    on t, between A and X: we (A bit X before X bit A) / enemy (X bit A first) / neither
   ecost     result enemy: X's bite cost class from our cells' event-order markers (<4, =4, 5-15, =16, >16, other)
   edir      result enemy: X's bite direction from X's side (UD / LR)
+  rs1, rs2  enemy entered: the v2.3 part A rule (rest tail only: prev = hold / rest<5 / none-other) would have stored
+            the entered square at the start of t - 1: rs1 = refill pattern as in Bane (FREED_BY: beyond only LEFT /
+            RIGHT, view 10 / 14), rs2 = with straight beyond UP / DOWN added (view 2 / 22).  0/1, '-' otherwise
   flip      first-order flip if A's bite cost 4 (s15): result enemy and plan first: 5-15 -> 1, =4 -> 0.5, else 0
   d5, d10   A dead within 5 / 10 ticks of t (0/1)
 Split parents: energy-matched (parents.py).  Windows: a t < 30, b < 60, c < 100, d later.
@@ -37,6 +40,7 @@ from race import choose, cls, era  # noqa: E402
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))          # UP RIGHT DOWN LEFT
 PRIO = (2, 1, 0, 3)                                 # gate split order DOWN, RIGHT, UP, LEFT
 FREED = {0: ((-1, -1), (1, -1)), 1: ((1, -1), (2, 0), (1, 1)), 2: ((-1, 1), (1, 1)), 3: ((-1, -1), (-2, 0), (-1, 1))}
+FREED2 = {0: ((-1, -1), (1, -1), (0, -2)), 1: FREED[1], 2: ((-1, 1), (1, 1), (0, 2)), 3: FREED[3]}
 RUN = parents.Running()
 
 
@@ -60,6 +64,7 @@ def run(path, bane):
     nbinfo = {}                      # newborn id -> (parent rule, parent square)
     adj_prev = set()                 # (A, X) edge pairs at the previous tick start
     pstate, pgate = {}, {}           # A -> its state on the previous tick / its gate first choice square then
+    prs1, prs2 = {}, {}              # A -> the part A rule's stored square on the previous tick (as briefed / + 2, 22)
     watch = []                       # [A, t, key] waiting for the 5 / 10 tick death checks
     died_at = {}
     DV = {-W: 0, 1: 1, W: 2, -1: 3}
@@ -76,6 +81,14 @@ def run(path, bane):
     def enemy(snap, x, y, c):
         g = at(snap, x, y)
         return g > 0 and colOf[g - 1] != c
+
+    def rule_store(snap, s, c, table):
+        """Part A: the square the rest tail would store (first refill-pattern empty edge in gate order), or None."""
+        cx, cy = s % W, s // W
+        for k in PRIO:
+            if at(snap, cx + DIRS[k][0], cy + DIRS[k][1]) == 0 and                     any(enemy(snap, cx + a, cy + b, c) for a, b in table[k]):
+                return (cy + DIRS[k][1]) * W + cx + DIRS[k][0]
+        return None
 
     def gate_choice(snap, s, c):
         cx, cy = s % W, s // W
@@ -201,10 +214,13 @@ def run(path, bane):
                         ent = 'our-move'
                     else:
                         ent = 'other'
-                    prev = gatech = nbrule = nblock = nbplace = '-'
+                    prev = gatech = nbrule = nblock = nbplace = rs1 = rs2 = '-'
                     if ent.startswith('enemy'):
                         prev = pstate.get(A, '?')
                         gatech = str(int(pgate.get(A) == sq0.get(X)))
+                        if prev in ('hold', 'rest<5', 'none-other'):
+                            rs1 = str(int(prs1.get(A) == sq0.get(X)))
+                            rs2 = str(int(prs2.get(A) == sq0.get(X)))
                     if ent == 'our-split':
                         nbrule, ps = nbinfo.get(A, ('?', None))
                         L = lock.get(A)
@@ -226,11 +242,12 @@ def run(path, bane):
                     flip = '-'
                     if res == 'enemy':
                         flip = '0' if plan == 'lock' else '1' if ec == '5-15' else '0.5' if ec == '=4' else '0'
-                    key = (colOf[X], w, ent, prev, other, gatech, nbrule, nblock, nbplace, plan, res, ec, ed, flip)
+                    key = (colOf[X], w, ent, prev, other, gatech, nbrule, nblock, nbplace, plan, res, ec, ed, flip, rs1, rs2)
                     watch.append([A, t, key])
             adj_prev = adj_now
             # state of our cells on this tick (for new pairs next tick)
             pstate, pgate = {}, {}
+            prs1, prs2 = {}, {}
             for A in ids:
                 if colOf.get(A) != bane or A not in sq0:
                     continue
@@ -254,6 +271,9 @@ def run(path, bane):
                     st = 'none-other'
                 pstate[A] = st
                 pgate[A] = gate_choice(snap, s, bane)[0]
+                if st in ('hold', 'rest<5', 'none-other'):
+                    prs1[A] = rule_store(snap, s, bane, FREED)
+                    prs2[A] = rule_store(snap, s, bane, FREED2)
             # stored bites (race.py): last bite direction, copied to a child
             eats = set()
             for kind, a, b in evs:
@@ -296,7 +316,7 @@ def run(path, bane):
 
 
 COLS = ['replay', 'rival', 'window', 'entered', 'prev', 'other', 'gatech', 'nbrule', 'nblock', 'nbplace', 'plan',
-        'result', 'ecost', 'edir', 'flip', 'd5', 'd10', 'n']
+        'result', 'ecost', 'edir', 'flip', 'rs1', 'rs2', 'd5', 'd10', 'n']
 
 if __name__ == '__main__':
     rdir, names_path, outp = sys.argv[1:4]
