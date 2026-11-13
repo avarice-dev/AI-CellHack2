@@ -226,6 +226,17 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 - **Grab assist.** A donor with no empty neighbour and 8 or more energy feeds a poor friend with 4 or less, when that friend has room to grow and no enemy is in view.
 - **Scouts.** A start cell within 10 squares of an edge splits a scout child. A scout moves along its bearing at most 10 times, and stores its origin and steps in the cell memory.
 
+## Misfortune additions
+
+Misfortune (`cells/gen_misfortune.py`, cap B, exact 1) is Bane v2.2 with a blind bite indexed by energy. The reference is `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py`.
+
+- **Armed bite.** `or al, [esi + CELLMEM_BASE + 13]` / `jnz EXIT_ADDR`: 2 instructions. Byte 13 + e holds the bite to play at energy e. The access uses esi (address-size prefix 0x67), not rsi.
+- **Prefix.** Every other path first zeroes the 16 bytes at 9 + e0 with xmm0 (zero at entry). Byte 8 holds e0, the energy at the last arming. Slow paths cost Bane v2.2's core + 4.
+- **Arming.** A bite found by the view scan writes byte 8 and one 16-byte pattern row (direction, k) at 9 + e0: 19 instructions. k is the number of bites an unfed target still needs, at most 5.
+- **Cap B rule.** A boxed cell tests its edge friends without branches: two SSE compares for the ring squares, then table lookups. A hit takes exactly 80 instructions; a miss takes exactly 56. Filler instructions (`xor r11d, r11d`) set both counts to the reference's counts.
+
+The checker compares the asm with the reference on energies 0 to 50, random memory and random views, and on every empty / friend / enemy pattern of the 8 squares around the edge friends.
+
 ## Open items
 
 - Schism was on the ladder until 2026-11-11: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.

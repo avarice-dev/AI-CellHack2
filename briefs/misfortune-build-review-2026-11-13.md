@@ -78,7 +78,7 @@ Listing behind the new counts (asm not written yet; tables named only):
 
 ```
 ; entry: rax = 0, xmm0 = 0, esi = own energy
- 1  or      al, [abs MEM + 13 + rsi]       ; slot(e)
+ 1  or      al, [abs MEM + 13 + esi]       ; slot(e)
  2  jnz     EXIT_ADDR                      ; armed bite = 2
 ; prefix
  3  movzx   ecx, byte [abs MEM + 8]        ; e0 of the last arming
@@ -94,7 +94,7 @@ arm:                                       ; exact 0, cap B / N
 11  movzx   edx, al
 12  shl     edx, 4
 13  movdqu  xmm1, [pat0_tbl - 0x300 + rdx] ; one 16-byte row per direction
-14  movdqu  [abs MEM + 9 + rsi], xmm1      ; slots e0-4 .. e0+11 (bytes past 63: scratch)
+14  movdqu  [abs MEM + 9 + esi], xmm1      ; slots e0-4 .. e0+11 (bytes past 63: scratch)
 15  mov     byte [abs MEM + 63], 0         ; slot 50 never armed
 16  ret                                    ; = 16
 ; exact 1: lines 11-13 become 6 (19 in all)
@@ -107,7 +107,7 @@ arm:                                       ; exact 0, cap B / N
 ; cap A: line 15 becomes 4 (+3)
     mov     dl, [abs MEM + 61]             ; slot 48
     or      dl, [abs MEM + 62]             ; slot 49
-    and     dl, [a50_tbl + rsi]            ; 0xFF from e0 = 40, else 0
+    and     dl, [a50_tbl + esi]            ; 0xFF from e0 = 40, else 0
     mov     [abs MEM + 63], dl             ; slot 50
 ; cap rule action (pull, hold, lift): padded to 80 (for example a counted loop), see d.7
 ```

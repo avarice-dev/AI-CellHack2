@@ -25,6 +25,9 @@ the gate-1 exit is `jae rel32` to EXIT_ADDR, and a Unicorn diff against sim/cell
 enemies on the refill window's squares and on the unread squares 2 and 22.  For contagion: Scourge's checks,
 its bite and gate-1 source lines verbatim (no memory access there), and a Unicorn diff against
 sim/cells_ref.contagion that also varies memory state and position and compares memory after the call.
+For misfortune: generated source, aligned SSE constants, table bytes, the 0x67 prefix on every esi-indexed operand
+(no rsi-indexed memory operand), the build review's path table and a Unicorn diff against
+sim/cells_ref.make_misfortune(cap='B', exact=1) with registers and xmm zeroed at entry (outputs in sim/out/misfortune/asm/).
 VEX variants (designs.md round 5): woe (of scourge), conceit (of covetous), endemic (of contagion) get their parent's
 static checks (without the 16-byte rule: they have no legacy-SSE memory operand, which is checked instead) and the
 parent's Unicorn diff against sim/cells_ref.woe / conceit / endemic.  Every cell (not calib/) must use only the
@@ -224,7 +227,8 @@ class Runner(object):
         uc.hook_add(U.UC_HOOK_CODE, hook, begin=CODE_BASE, end=CODE_BASE + CODE_SIZE - 1)
         self.uc = uc
 
-    def call(self, view_bytes, energy, rax=0, mem=None):
+    def call(self, view_bytes, energy, rax=0, mem=None, reset_all=False):
+        """reset_all: also zero rbp, r9..r15 and xmm0..xmm15, as the site does (calib-q / calib-r)."""
         uc, X = self.uc, self.X
         uc.mem_write(VIEW_BASE, view_bytes.ljust(0x1000, b'\0'))
         if mem is not None:
@@ -234,6 +238,11 @@ class Runner(object):
         uc.mem_write(CELLMEM_BASE + 64, b'\0' * (0x1000 - 64))
         for r in (X.UC_X86_REG_RAX, X.UC_X86_REG_RBX, X.UC_X86_REG_RCX, X.UC_X86_REG_R8):
             uc.reg_write(r, 0)
+        if reset_all:
+            for g in ('RBP', 'R9', 'R10', 'R11', 'R12', 'R13', 'R14', 'R15'):
+                uc.reg_write(getattr(X, 'UC_X86_REG_' + g), 0)
+            for i in range(16):
+                uc.reg_write(getattr(X, 'UC_X86_REG_XMM%d' % i), 0)
         uc.reg_write(X.UC_X86_REG_RAX, rax)
         uc.reg_write(X.UC_X86_REG_RDI, VIEW_BASE)
         uc.reg_write(X.UC_X86_REG_RSI, energy)
@@ -675,17 +684,217 @@ def diff_schism(blob, policy=None):
     print('  schism boxed diff: %d cases, %d differ from Complacency, %d mismatches' % (n, nfeed, mism))
 
 
+MISFORTUNE_K = ('kEnemy', 'kRefill', 'kZero', 'kTwoLo', 'kTwoHi', 'kNearLo', 'kNearHi',
+                 'kRingE1', 'kRingE2', 'kRingZ1', 'kRingZ2')
+
+
+def check_misfortune(path, blob, syms, lst):
+    """Misfortune (cap B, exact 1): generated source, aligned SSE constants, table bytes equal to gen_misfortune,
+    and every memory operand indexed by esi encoded with the 0x67 address-size prefix (no rsi-indexed load/store)."""
+    import gen_misfortune as M
+    if open(path).read() != M.generate():
+        fail('misfortune.asm differs from gen_misfortune.generate()')
+    for k in MISFORTUNE_K:
+        if syms[k] % 16:
+            fail('misfortune %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
+
+    def tb(name, n):
+        o = syms[name] - CODE_BASE
+        return blob[o:o + n]
+    want = {'dir_tbl': bytes(M.ENERGY_OFF),
+            'row_tbl': bytes(M.row_index(i >> 2, i & 3) for i in range(1024)),
+            'pat1_tbl': b''.join(M.pattern_row(d, k) for d in range(4) for k in range(M.K_MAX + 1)),
+            'c2e_tbl': b''.join(struct.pack('<H', 0x8000 if c == 2 else 0) for c in range(256)),
+            'c2z_tbl': b''.join(struct.pack('<H', 0x8000 if c == 0 else 0) for c in range(256)),
+            'ring_e': bytes(M.ring_e(m) for m in range(1024)), 'ring_z': bytes(M.ring_z(m) for m in range(1024)),
+            'e6_tbl': bytes(M.e6_value(e) for e in range(256)), 'cap_tbl': bytes(M.cap_action(i) for i in range(256))}
+    for d, n in enumerate(('en_up', 'en_right', 'en_down', 'en_left')):
+        want[n] = bytes(M.en_value(d, e) for e in range(256))
+    for name, w in want.items():
+        if tb(name, len(w)) != w:
+            fail('misfortune %s bytes differ from gen_misfortune' % name)
+    esi_lines = rsi_mem = 0
+    for line in open(lst):
+        parts = line.rstrip('\n').split(None, 3)
+        if len(parts) < 4:
+            continue
+        src = parts[3].split(';', 1)[0]
+        m = re.search(r'\[([^\]]*)\]', src)
+        if not m:
+            continue
+        ops = m.group(1).lower()
+        if re.search(r'\besi\b', ops):
+            esi_lines += 1
+            if not parts[2].upper().startswith('67'):
+                fail('misfortune: esi-indexed operand without the 0x67 prefix: %r' % line.strip())
+        if re.search(r'\brsi\b', ops) and not src.strip().lower().startswith('lea'):
+            rsi_mem += 1
+            fail('misfortune: rsi-indexed memory operand: %r' % line.strip())
+    print('  esi-indexed memory operands: %d, all with the 0x67 prefix; rsi-indexed memory operands: %d'
+          % (esi_lines, rsi_mem))
+    print('  slot 0 = CELLMEM_BASE + %d; pat1_tbl 0x%x (%d rows), row_tbl 0x%x, cap_tbl 0x%x'
+          % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1), syms['row_tbl'], syms['cap_tbl']))
+
+
+def _mis_view(rng, kind, energy):
+    """(cells, energies, tick, (x, y)) of a random view of one kind: bite (an enemy beside me), boxed (no empty and
+    no enemy beside me), open (an empty neighbour, no enemy beside me) or any.  Empty and wall squares have energy 0
+    (docs/cellhack.inc); friend / enemy energies lean to the cap."""
+    adj = (7, 13, 17, 11)
+    while True:
+        cells = [rng.choice((0, 0, 1, 1, 2, 3)) for _ in range(25)]
+        cells[12] = 1
+        if kind == 'boxed':
+            for i in adj:
+                cells[i] = rng.choice((1, 1, 1, 3))
+        a = [cells[i] for i in adj]
+        if kind == 'bite' and 2 not in a or kind == 'open' and (2 in a or 0 not in a):
+            continue
+        break
+    ens = [0] * 25
+    for i, c in enumerate(cells):
+        if c in (1, 2):
+            ens[i] = rng.choice((rng.randint(1, 50), rng.randint(44, 50), rng.randint(1, 12)))
+    ens[12] = energy
+    tick = rng.choice((0, 1, 5, 500, 2979, 2980, 2999))
+    return cells, ens, tick, (rng.randint(0, 63), rng.randint(0, 63))
+
+
+def _mis_mem(rng, energy, pos):
+    m = bytearray(rng.getrandbits(8) for _ in range(64))
+    if rng.random() < 0.75:
+        m[13 + energy] = 0                       # a slow path (else the armed bite plays the random byte)
+    m[8] = rng.randint(0, 50) if rng.random() < 0.9 else rng.randint(0, 255)
+    m[1] = rng.choice((0, 0, rng.randint(0, 10), m[1]))
+    if rng.random() < 0.4:
+        m[4:8] = struct.pack('<HH', pos[0], pos[1])
+    return m
+
+
+def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
+    """Misfortune vs sim/cells_ref.make_misfortune(cap='B', exact=1): energies 0..50 x random 64-byte memory x
+    view kinds (bite, boxed, open, any), then a chain call after every arming at e0 - 4 .. e0 + 11 on the
+    memory the arming left.  Compares action, instruction count and memory bytes 0..63 after the call; registers and
+    xmm0..15 are zero at entry, as on the site."""
+    import random
+    import collections
+    import cells_ref
+    pol = cells_ref.make_misfortune(cap='B', exact=1)
+    r = Runner(blob)
+    rng = random.Random(seed)
+    n = mism = 0
+    paths = collections.Counter()
+    maxn = collections.Counter()
+
+    def one(cells, ens, tick, pos, energy, mem, label):
+        nonlocal n, mism
+        v = V()
+        v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+        v.x, v.y, v.w, v.h = pos[0], pos[1], 64, 64
+        mref = bytearray(mem)
+        want = pol(v, mref)[:2]
+        got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)), energy, mem=bytes(mem),
+                     reset_all=True)
+        gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
+        n += 1
+        if got != want or gmem != bytes(mref):
+            mism += 1
+            if mism <= 10:
+                fail('misfortune diff %s e=%d cells=%s ens=%s tick=%d mem=%s: asm %s %s ref %s %s'
+                     % (label, energy, cells, ens, tick, bytes(mem).hex(), got, gmem.hex(), want, bytes(mref).hex()))
+        kind = ('armed' if want[1] == 2 else 'arm' if want[1] == 19 and want[0] >> 4 == 3 and mem[13 + energy] == 0
+                and any(cells[i] == 2 for i in (7, 13, 17, 11)) else
+                'cap rule' if want[1] == 80 else label)
+        paths[(kind, want[1])] += 1
+        maxn[kind] = max(maxn[kind], want[1])
+        return gmem, want
+
+    for energy in range(51):
+        for j in range(n_per):
+            kind = ('bite', 'boxed', 'open', 'any')[j % 4]
+            cells, ens, tick, pos = _mis_view(rng, kind, energy)
+            mem = _mis_mem(rng, energy, pos)
+            gmem, want = one(cells, ens, tick, pos, energy, mem, kind)
+            if want[1] == 19 and mem[13 + energy] == 0:                  # armed: play the next tick on its memory
+                e1 = max(0, min(50, energy + rng.randint(-4, 11)))
+                c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), e1)
+                one(c2, en2, t2, p2, e1, bytearray(gmem), 'chain')
+    # boxed sweep: every empty / friend / enemy pattern of the 8 edge squares x edge energies (walls: energy 0)
+    ring = (2, 6, 8, 10, 14, 16, 18, 22)
+    edge_pats = (((1, 48), (1, 47), (1, 46), (1, 50)), ((1, 47), (1, 47), (1, 47), (1, 47)),
+                 ((1, 50), (1, 48), (1, 20), (1, 49)), ((3, 0), (1, 46), (3, 0), (1, 48)),
+                 ((1, 46), (1, 46), (1, 30), (1, 46)))
+    for code in itertools.product((0, 1, 2), repeat=8):
+        for k, pat in enumerate(edge_pats):
+            energy = (5, 6, 30, 47, 50)[(sum(code) + k) % 5]
+            cells, ens = [1] * 25, [0] * 25
+            for i, c in zip(ring, code):
+                cells[i] = c
+            for i in range(25):
+                ens[i] = 25 if cells[i] in (1, 2) else 0
+            for i, (t, e) in zip((7, 13, 17, 11), pat):
+                cells[i], ens[i] = t, e
+            ens[12] = energy
+            mem = bytearray(64)
+            mem[8] = (sum(code) * 7 + k) % 51
+            one(cells, ens, 500, (30, 31), energy, mem, 'sweep')
+    print('  misfortune unicorn diff: %d cases, %d mismatches (action, count, memory 0..63)' % (n, mism))
+    lines = ['  path (by the reference) / instruction count: cases']
+    for (k, c), m in sorted(paths.items()):
+        lines.append('    %-6s %3d: %d' % (k, c, m))
+    lines.append('  longest count per path: ' + ', '.join('%s %d' % kv for kv in sorted(maxn.items())))
+    print('\n'.join(lines))
+    if out:
+        with open(out, 'w', newline='\n') as f:
+            f.write('cases %d mismatches %d\n%s\n' % (n, mism, '\n'.join(lines)))
+    return n, mism
+
+
+def misfortune_path_table(blob):
+    """Section b of the build review, B1 column, run in Unicorn next to the reference."""
+    import cells_ref
+    import misfortune_dump as D
+    pol = cells_ref.make_misfortune(cap='B', exact=1)
+    r = Runner(blob)
+    rows, bad = [], 0
+    for name, v, mk in D.cases():
+        m = mk()
+        want = pol(v, bytearray(m))[:2]
+        got = r.call(view_bytes(v.tick, v.energy, v.cells, v.energies, (v.x, v.y, v.w, v.h)), v.energy,
+                     mem=bytes(m), reset_all=True)
+        bad += got != want
+        rows.append('| %s | %s %d | %s %d | %s |' % (name, D.act_name(got[0]), got[1], D.act_name(want[0]), want[1],
+                                                   'ok' if got == want else 'DIFF'))
+    if bad:
+        fail('misfortune path table: %d rows differ' % bad)
+    return '\n'.join(['| path | asm | reference B1 | |', '|---|---|---|---|'] + rows)
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
                     if f.endswith('.asm'))
+    import argparse
+    ap = argparse.ArgumentParser(description='Check cells (default: all).')
+    ap.add_argument('--only', action='append', default=[], metavar='NAME',
+                    help='check only these cells (comma-separated or repeated; basename without .asm)')
+    ap.add_argument('--all', action='store_true', help='check every cell (the default)')
+    opts = ap.parse_args()
+    only = [n.strip() for a in opts.only for n in a.split(',') if n.strip()]
+    if only and not opts.all:
+        avail = {os.path.splitext(os.path.basename(p))[0] for p in files}
+        bad_names = [n for n in only if n not in avail]
+        if bad_names:
+            print('unknown cell(s): %s\navailable: %s' % (', '.join(bad_names), ', '.join(sorted(avail))))
+            sys.exit(2)
+        files = [p for p in files if os.path.splitext(os.path.basename(p))[0] in only]
     try:
         import unicorn  # noqa: F401
         have_uc = True
     except ImportError:
         have_uc = False
         print('unicorn not importable: emulator checks skipped')
-    if have_uc:
+    if have_uc and any(os.path.splitext(os.path.basename(p))[0] in VEX_OF for p in files):
         vex_selftest()
     for p in files:
         CURRENT[0] = os.path.splitext(os.path.basename(p))[0]
@@ -850,6 +1059,16 @@ def main():
             check_contagion(blob, syms, lst, vex)
             if have_uc:
                 diff_contagion(blob, name)
+        elif name == 'misfortune':
+            check_misfortune(p, blob, syms, lst)
+            if have_uc:
+                odir = os.path.join(ROOT, 'sim', 'out', 'misfortune', 'asm')     # git-ignored
+                os.makedirs(odir, exist_ok=True)
+                table = misfortune_path_table(blob)
+                print(table)
+                with open(os.path.join(odir, 'path-table.md'), 'w', newline='\n') as f:
+                    f.write(table + '\n')
+                diff_misfortune(blob, out=os.path.join(odir, 'unicorn-diff.txt'))
         elif have_uc:
             base = view_bytes(5, 10, [0] * 12 + [1] + [0] * 12)
             import unicorn

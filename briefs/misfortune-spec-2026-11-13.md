@@ -22,9 +22,9 @@ Bytes above 63 are scratch and do not persist. A pattern store that reaches past
 
 ## 3. Paths
 
-Entry assumptions: rax = 0, xmm0 = 0, esi = own energy. Every energy-indexed access uses rsi.
+Entry assumptions: rax = 0, xmm0 = 0, esi = own energy. Every energy-indexed access uses esi (an address-size prefix), not rsi.
 
-1. **Armed bite (entry).** `or al, [abs MEM + 13 + rsi]` / `jnz EXIT_ADDR`. A non-zero slot is played without reading the view: 2 instructions.
+1. **Armed bite (entry).** `or al, [abs MEM + 13 + esi]` / `jnz EXIT_ADDR`. A non-zero slot is played without reading the view: 2 instructions.
 2. **Prefix (every slow path, no condition).** `movzx ecx, byte [abs MEM + 8]` / `movdqu [abs MEM + 9 + rcx], xmm0`. This zeroes the last armed window (bytes 9 + e0 to 24 + e0). So the table is zero on every slow tick, and every child is born with a clean table, because the engine copies the parent's memory after its call. If byte 8 = 0, the prefix zeroes only slots -4 to 11.
 3. **Slow paths.** After the prefix come Bane v2.2's paths (`make_bane2().core`), whose scan ends with `or al, [bite_tbl + rcx]` / `jnz`. Count = core + 4. That is Bane v2.3a's count minus 1 on every slow path. See the build review, section 2: v2.3a loads action and square with `mov ax` / `test al`.
 4. **Arming (an enemy beside the cell; scan bite toward d at energy e0).**
