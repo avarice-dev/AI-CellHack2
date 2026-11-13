@@ -44,6 +44,27 @@ FREED = {0: ((-1, -1), (1, -1)), 1: ((1, -1), (2, 0), (1, 1)), 2: ((-1, 1), (1, 
 RUN = parents.Running()
 
 
+def rule_store_at(at, enemy, cx, cy, vertical):
+    """Part A rest tail, the one precedence (brief v2.3 section 2; the oracle of sim/tests/test_bane4.py).
+    at(x, y): 0 = empty, -1 = wall / off the board, > 0 = a cell; enemy(x, y): an enemy cell there.  Returns the
+    (x, y) of the square the tail stores a bite on, or None (stored bite left unchanged):
+    1. a refill pattern (FREED_BY, as gate 1's thr_tbl = 12): gate 1's first choice (first refill-pattern empty edge
+       in gate order DOWN, RIGHT, UP, LEFT);
+    2. else (vertical only) the square two below holds an enemy and DOWN is empty: DOWN;
+    3. else (vertical only) the square two above holds an enemy and UP is empty: UP;
+    4. else None."""
+    for k in PRIO:
+        x, y = cx + DIRS[k][0], cy + DIRS[k][1]
+        if at(x, y) == 0 and any(enemy(cx + a, cy + b) for a, b in FREED[k]):
+            return (x, y)
+    if vertical:
+        if at(cx, cy + 1) == 0 and enemy(cx, cy + 2):
+            return (cx, cy + 1)
+        if at(cx, cy - 1) == 0 and enemy(cx, cy - 2):
+            return (cx, cy - 1)
+    return None
+
+
 def win(t):
     return 'a' if t < 30 else 'b' if t < 60 else 'c' if t < 100 else 'd'
 
@@ -83,23 +104,8 @@ def run(path, bane):
         return g > 0 and colOf[g - 1] != c
 
     def rule_store(snap, s, c, vertical):
-        """Part A rest tail, the one precedence (brief section 2; also the oracle of the table-driven test):
-        1. a refill pattern (FREED_BY, as gate 1's thr_tbl = 12): gate 1's first choice (first refill-pattern empty
-           edge in gate order DOWN, RIGHT, UP, LEFT);
-        2. else (vertical only) view idx 22 holds an enemy and DOWN is empty: DOWN;
-        3. else (vertical only) view idx 2 holds an enemy and UP is empty: UP;
-        4. else None (the stored bite is left unchanged)."""
-        cx, cy = s % W, s // W
-        for k in PRIO:
-            if at(snap, cx + DIRS[k][0], cy + DIRS[k][1]) == 0 and \
-                    any(enemy(snap, cx + a, cy + b, c) for a, b in FREED[k]):
-                return (cy + DIRS[k][1]) * W + cx + DIRS[k][0]
-        if vertical:
-            if at(snap, cx, cy + 1) == 0 and enemy(snap, cx, cy + 2, c):
-                return (cy + 1) * W + cx
-            if at(snap, cx, cy - 1) == 0 and enemy(snap, cx, cy - 2, c):
-                return (cy - 1) * W + cx
-        return None
+        q = rule_store_at(lambda x, y: at(snap, x, y), lambda x, y: enemy(snap, x, y, c), s % W, s // W, vertical)
+        return None if q is None else q[1] * W + q[0]
 
     def gate_choice(snap, s, c):
         cx, cy = s % W, s // W

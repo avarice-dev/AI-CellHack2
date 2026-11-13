@@ -56,8 +56,9 @@ squares (m1, rule4 columns): dropped. Finding 2: the hold and the gate are one b
   square from the gate table, not from `al`: at `rest:` `al` is 0 on the boxed path and a feed action on the feed path.
 - **Cost.** None on any racing path: stored bite 4, first bite 12, refill 16, split 16, walker move 39 do not change.
   A rest races nothing. Confidence 95% (source reading).
-- **Gain.** About 45 such contacts per game (holder or thin rester, no other enemy). First-order flips: 13.4% of
-  holder contacts and 30.0% of thin-rester contacts, about 12 first bites per game. The measured armed case (row 7)
+- **Gain.** About 190 such contacts per game (holder or thin rester, no other enemy; 5,069 entries over the 27 Bane
+  v2.2 games). First-order flips with the coverage count: 9.4% of holder contacts and 21.7% of thin-rester contacts,
+  about 25 first bites per game (corrected 2026-11-13: first written over 81 replays as about 45 and about 12). The measured armed case (row 7)
   suggests up to twice that (inferred). Works against every rival whose bite costs 4 or more. Confidence it helps: 85%.
 - **Tests** (each shown failing first on v2.3a):
   - unit, scripted enemy: an enemy enters the first-choice square of a holder; Bane's bite is logged at 4 instructions.
