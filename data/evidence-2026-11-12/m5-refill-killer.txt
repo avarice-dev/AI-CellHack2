@@ -1,0 +1,153 @@
+killer      refill  t0           nbrs        n | t1 %: eat-c eat-s eat-n stunn stunn split  move  feed  none  dead child unkno eat-f
+(t1 columns: eat-child, eat-same, eat-new, stunned-child, stunned-other, split, move, feed, none, dead, child-dead, unknown, eat-friend)
+Bane v2.2   Yen     all          all      1632 |  31.1  23.3  16.0  16.7   8.6   0.2   0.0   0.0   1.3   2.9   0.0   0.0   0.0 | free  1492: eat-child  34.0%
+Bane v2.2   Yen     t0=none      all       557 |  78.3   0.0   0.2  19.0   1.3   0.2   0.0   0.0   1.1   0.0   0.0   0.0   0.0 | free   550: eat-child  79.3%
+Bane v2.2   Yen     t0=none      nb=0      466 |  87.6   0.0   0.0  10.3   1.3   0.0   0.0   0.0   0.9   0.0   0.0   0.0   0.0 | free   460: eat-child  88.7%
+Bane v2.2   Yen     t0=none      nb=1       88 |  31.8   0.0   1.1  62.5   1.1   1.1   0.0   0.0   2.3   0.0   0.0   0.0   0.0 | free    87: eat-child  32.2%
+Bane v2.2   all     all          all     13231 |  29.9  33.6  18.8  12.2   1.6   1.6   0.0   0.0   1.3   1.1   0.0   0.0   0.0 | free 13025: eat-child  30.3%
+Bane v2.2   all     all          nb=-1      31 |   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 100.0   0.0   0.0   0.0 | free    31: eat-child   0.0%
+Bane v2.2   all     all          nb=0     3093 |  97.3   0.0   0.0   2.0   0.3   0.0   0.0   0.0   0.4   0.0   0.0   0.0   0.0 | free  3084: eat-child  97.6%
+Bane v2.2   all     all          nb=1     9710 |   9.6  44.3  24.6  15.2   1.7   2.2   0.0   0.0   1.6   0.8   0.0   0.0   0.0 | free  9541: eat-child   9.8%
+Bane v2.2   all     all          nb=2+     397 |   0.8  37.8  25.4  19.6   7.1   0.0   0.0   0.0   0.0   9.3   0.0   0.0   0.0 | free   369: eat-child   0.8%
+Bane v2.2   all     t0=dead      all        31 |   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 100.0   0.0   0.0   0.0 | free    31: eat-child   0.0%
+Bane v2.2   all     t0=dead      nb=-1      31 |   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 100.0   0.0   0.0   0.0 | free    31: eat-child   0.0%
+Bane v2.2   all     t0=eat-new   all      6027 |   7.8  73.8   0.0  15.0   0.4   0.7   0.0   0.0   2.3   0.0   0.0   0.0   0.0 | free  6000: eat-child   7.8%
+Bane v2.2   all     t0=eat-new   nb=1     5831 |   8.0  73.7   0.0  14.8   0.4   0.7   0.0   0.0   2.3   0.0   0.0   0.0   0.0 | free  5806: eat-child   8.1%
+Bane v2.2   all     t0=eat-new   nb=2+     196 |   0.0  76.5   0.0  22.4   1.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   194: eat-child   0.0%
+Bane v2.2   all     t0=none      all      4060 |  78.4   0.0   0.1  16.6   0.3   4.2   0.0   0.0   0.4   0.0   0.0   0.0   0.0 | free  4049: eat-child  78.6%
+Bane v2.2   all     t0=none      nb=0     2794 |  97.2   0.0   0.0   2.1   0.3   0.0   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free  2785: eat-child  97.5%
+Bane v2.2   all     t0=none      nb=1     1237 |  37.6   0.0   0.2  47.7   0.2  13.8   0.0   0.0   0.6   0.0   0.0   0.0   0.0 | free  1235: eat-child  37.7%
+Bane v2.2   all     t0=split     all       299 |  98.3   0.0   0.0   1.0   0.0   0.0   0.0   0.0   0.7   0.0   0.0   0.0   0.0 | free   299: eat-child  98.3%
+Bane v2.2   all     t0=split     nb=0      299 |  98.3   0.0   0.0   1.0   0.0   0.0   0.0   0.0   0.7   0.0   0.0   0.0   0.0 | free   299: eat-child  98.3%
+Bane v2.2   all     t0=stunned   all      2814 |   0.1   0.0  88.4   1.2   6.0   0.0   0.0   0.0   0.4   3.9   0.0   0.0   0.0 | free  2646: eat-child   0.1%
+Bane v2.2   all     t0=stunned   nb=1     2642 |   0.1   0.0  90.4   0.9   5.4   0.0   0.0   0.0   0.5   2.8   0.0   0.0   0.0 | free  2500: eat-child   0.1%
+Bane v2.2   all     t0=stunned   nb=2+     172 |   0.0   0.0  58.1   5.2  15.1   0.0   0.0   0.0   0.0  21.5   0.0   0.0   0.0 | free   146: eat-child   0.0%
+Bane v2.2   feeder  all          all      6602 |  27.5  35.9  19.5  12.0   0.2   3.0   0.0   0.0   1.3   0.7   0.0   0.0   0.0 | free  6590: eat-child  27.5%
+Bane v2.2   feeder  t0=none      all      2022 |  72.0   0.0   0.0  19.4   0.0   8.2   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free  2022: eat-child  72.0%
+Bane v2.2   feeder  t0=none      nb=0     1129 |  99.6   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.4   0.0   0.0   0.0   0.0 | free  1129: eat-child  99.6%
+Bane v2.2   feeder  t0=none      nb=1      881 |  37.2   0.0   0.0  43.6   0.0  18.8   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free   881: eat-child  37.2%
+Bane v2.2   other   all          all      4961 |  32.6  34.1  19.0  11.0   0.9   0.3   0.0   0.0   1.2   1.0   0.0   0.0   0.0 | free  4916: eat-child  32.9%
+Bane v2.2   other   t0=none      all      1465 |  87.3   0.0   0.1  11.8   0.3   0.3   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free  1461: eat-child  87.5%
+Bane v2.2   other   t0=none      nb=0     1184 |  98.8   0.0   0.0   0.8   0.3   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free  1181: eat-child  99.1%
+Bane v2.2   other   t0=none      nb=1      267 |  40.8   0.0   0.4  56.2   0.4   1.5   0.0   0.0   0.7   0.0   0.0   0.0   0.0 | free   266: eat-child  41.0%
+CogBloomXT  all     all          all     26024 |  83.6  14.9   0.1   0.8   0.2   0.0   0.0   0.0   0.3   0.1   0.0   0.0   0.0 | free 25959: eat-child  83.8%
+CogBloomXT  all     all          nb=0    12437 |  99.0   0.0   0.1   0.7   0.0   0.0   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free 12435: eat-child  99.0%
+CogBloomXT  all     all          nb=1    13349 |  69.3  28.8   0.1   0.9   0.4   0.0   0.0   0.0   0.4   0.1   0.0   0.0   0.0 | free 13290: eat-child  69.6%
+CogBloomXT  all     all          nb=2+     231 |  81.4  15.2   0.0   0.4   1.7   0.0   0.0   0.0   0.0   1.3   0.0   0.0   0.0 | free   227: eat-child  82.8%
+CogBloomXT  all     t0=eat-new   all     11341 |  64.2  34.2   0.0   1.0   0.2   0.0   0.0   0.0   0.4   0.0   0.0   0.0   0.0 | free 11319: eat-child  64.3%
+CogBloomXT  all     t0=eat-new   nb=1    11140 |  63.8  34.5   0.0   1.1   0.2   0.0   0.0   0.0   0.4   0.0   0.0   0.0   0.0 | free 11119: eat-child  64.0%
+CogBloomXT  all     t0=eat-new   nb=2+     201 |  82.1  17.4   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   200: eat-child  82.5%
+CogBloomXT  all     t0=feed      all       358 |  99.7   0.0   0.0   0.3   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   358: eat-child  99.7%
+CogBloomXT  all     t0=feed      nb=0      358 |  99.7   0.0   0.0   0.3   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   358: eat-child  99.7%
+CogBloomXT  all     t0=none      all     13636 |  99.1   0.0   0.1   0.6   0.0   0.0   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free 13634: eat-child  99.1%
+CogBloomXT  all     t0=none      nb=0    11874 |  99.0   0.0   0.2   0.7   0.0   0.0   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free 11872: eat-child  99.0%
+CogBloomXT  all     t0=none      nb=1     1752 |  99.9   0.0   0.1   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free  1752: eat-child  99.9%
+CogBloomXT  all     t0=split     all       204 |  99.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0 | free   204: eat-child  99.0%
+CogBloomXT  all     t0=split     nb=0      203 |  99.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0 | free   203: eat-child  99.0%
+CogBloomXT  all     t0=stunned   all       476 |  83.4   0.0   3.4   1.5   8.6   0.0   0.0   0.0   0.0   3.2   0.0   0.0   0.0 | free   435: eat-child  91.3%
+CogBloomXT  all     t0=stunned   nb=1      456 |  84.2   0.0   3.5   1.3   8.3   0.0   0.0   0.0   0.0   2.6   0.0   0.0   0.0 | free   418: eat-child  91.9%
+CogSpore    all     all          all     14801 |  80.1  19.0   0.1   0.2   0.2   0.0   0.0   0.0   0.3   0.2   0.0   0.0   0.0 | free 14778: eat-child  80.2%
+CogSpore    all     all          nb=0     6292 |  99.0   0.0   0.2   0.2   0.1   0.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0 | free  6288: eat-child  99.1%
+CogSpore    all     all          nb=1     8378 |  65.9  33.6   0.1   0.1   0.1   0.0   0.0   0.0   0.0   0.2   0.0   0.0   0.0 | free  8370: eat-child  65.9%
+CogSpore    all     all          nb=2+     122 |  85.2   0.8   0.8   0.0   9.0   0.0   0.0   0.0   0.0   4.1   0.0   0.0   0.0 | free   111: eat-child  93.7%
+CogSpore    all     t0=eat-new   all      7302 |  61.3  38.5   0.0   0.1   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free  7300: eat-child  61.3%
+CogSpore    all     t0=eat-new   nb=1     7225 |  60.9  38.9   0.0   0.1   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free  7224: eat-child  60.9%
+CogSpore    all     t0=eat-new   nb=2+      77 |  97.4   1.3   0.0   0.0   1.3   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free    76: eat-child  98.7%
+CogSpore    all     t0=feed      all       202 |  99.5   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   202: eat-child  99.5%
+CogSpore    all     t0=feed      nb=0      202 |  99.5   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   202: eat-child  99.5%
+CogSpore    all     t0=none      all      6979 |  99.1   0.0   0.2   0.2   0.1   0.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0 | free  6975: eat-child  99.1%
+CogSpore    all     t0=none      nb=0     5994 |  99.0   0.0   0.2   0.2   0.1   0.0   0.0   0.0   0.6   0.0   0.0   0.0   0.0 | free  5990: eat-child  99.1%
+CogSpore    all     t0=none      nb=1      982 |  99.6   0.0   0.0   0.3   0.0   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free   982: eat-child  99.6%
+CogSpore    all     t0=split     all        96 |  99.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   1.0   0.0   0.0   0.0   0.0 | free    96: eat-child  99.0%
+CogSpore    all     t0=split     nb=0       96 |  99.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   1.0   0.0   0.0   0.0   0.0 | free    96: eat-child  99.0%
+CogSpore    all     t0=stunned   all       213 |  77.9   0.0   4.7   0.0   8.0   0.0   0.0   0.0   0.0   9.4   0.0   0.0   0.0 | free   196: eat-child  84.7%
+CogSpore    all     t0=stunned   nb=1      171 |  81.9   0.0   5.3   0.0   4.1   0.0   0.0   0.0   0.0   8.8   0.0   0.0   0.0 | free   164: eat-child  85.4%
+CogSpore    all     t0=stunned   nb=2+      42 |  61.9   0.0   2.4   0.0  23.8   0.0   0.0   0.0   0.0  11.9   0.0   0.0   0.0 | free    32: eat-child  81.2%
+Colossus    all     all          all     22831 |  94.0   2.5   0.1   1.2   1.1   0.0   0.0   0.0   1.1   0.1   0.0   0.0   0.0 | free 22584: eat-child  95.0%
+Colossus    all     all          nb=0    13453 |  98.4   0.0   0.2   0.7   0.0   0.0   0.0   0.0   0.7   0.0   0.0   0.0   0.0 | free 13450: eat-child  98.4%
+Colossus    all     all          nb=1     9236 |  87.8   6.1   0.0   1.8   2.5   0.0   0.0   0.0   1.7   0.1   0.0   0.0   0.0 | free  9006: eat-child  90.1%
+Colossus    all     all          nb=2+     139 |  80.6   5.0   0.7   0.7  10.1   0.0   0.0   0.0   0.0   2.9   0.0   0.0   0.0 | free   125: eat-child  89.6%
+Colossus    all     t0=eat-new   all      8748 |  89.0   6.5   0.0   1.8   1.1   0.0   0.0   0.0   1.6   0.0   0.0   0.0   0.0 | free  8655: eat-child  90.0%
+Colossus    all     t0=eat-new   nb=1     8633 |  89.0   6.5   0.0   1.8   1.1   0.0   0.0   0.0   1.6   0.0   0.0   0.0   0.0 | free  8542: eat-child  89.9%
+Colossus    all     t0=eat-new   nb=2+     115 |  91.3   6.1   0.0   0.9   1.7   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   113: eat-child  92.9%
+Colossus    all     t0=none      all     13642 |  98.4   0.0   0.2   0.6   0.0   0.0   0.0   0.0   0.8   0.0   0.0   0.0   0.0 | free 13639: eat-child  98.4%
+Colossus    all     t0=none      nb=0    13249 |  98.5   0.0   0.2   0.7   0.0   0.0   0.0   0.0   0.7   0.0   0.0   0.0   0.0 | free 13246: eat-child  98.5%
+Colossus    all     t0=none      nb=1      392 |  95.4   0.0   0.0   0.3   0.0   0.0   0.0   0.0   4.3   0.0   0.0   0.0   0.0 | free   392: eat-child  95.4%
+Colossus    all     t0=split     all       204 |  93.1   0.0   0.0   4.4   0.0   0.0   0.0   0.0   2.5   0.0   0.0   0.0   0.0 | free   204: eat-child  93.1%
+Colossus    all     t0=split     nb=0      204 |  93.1   0.0   0.0   4.4   0.0   0.0   0.0   0.0   2.5   0.0   0.0   0.0   0.0 | free   204: eat-child  93.1%
+Colossus    all     t0=stunned   all       232 |  25.9   0.0   0.9   4.3  64.7   0.0   0.0   0.0   0.0   4.3   0.0   0.0   0.0 | free    82: eat-child  73.2%
+Colossus    all     t0=stunned   nb=1      210 |  25.7   0.0   1.0   4.8  65.7   0.0   0.0   0.0   0.0   2.9   0.0   0.0   0.0 | free    72: eat-child  75.0%
+Conviction  all     all          all      9138 |  50.6   1.3   7.5  24.4  15.8   0.0   0.0   0.0   0.1   0.1   0.0   0.0   0.0 | free  7691: eat-child  60.1%
+Conviction  all     all          nb=0     4510 |  93.0   0.0   0.0   6.9   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free  4508: eat-child  93.0%
+Conviction  all     all          nb=1     4546 |   8.8   2.6  15.0  42.2  31.1   0.0   0.0   0.0   0.2   0.1   0.0   0.0   0.0 | free  3132: eat-child  12.8%
+Conviction  all     all          nb=2+      80 |  35.0   6.2   8.8   5.0  38.8   0.0   0.0   0.0   0.0   6.2   0.0   0.0   0.0 | free    49: eat-child  57.1%
+Conviction  all     t0=eat-new   all       157 |   0.0  77.7   0.0  16.6   0.6   0.0   0.0   0.0   5.1   0.0   0.0   0.0   0.0 | free   156: eat-child   0.0%
+Conviction  all     t0=eat-new   nb=1      150 |   0.0  78.0   0.0  16.0   0.7   0.0   0.0   0.0   5.3   0.0   0.0   0.0   0.0 | free   149: eat-child   0.0%
+Conviction  all     t0=none      all      6020 |  74.5   0.0   0.0  24.7   0.7   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free  5978: eat-child  75.0%
+Conviction  all     t0=none      nb=0     4503 |  93.1   0.0   0.0   6.8   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free  4501: eat-child  93.1%
+Conviction  all     t0=none      nb=1     1506 |  18.7   0.0   0.2  78.4   2.6   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free  1467: eat-child  19.2%
+Conviction  all     t0=stunned   all      2952 |   4.6   0.0  23.2  24.2  47.6   0.0   0.0   0.0   0.0   0.4   0.0   0.0   0.0 | free  1548: eat-child   8.9%
+Conviction  all     t0=stunned   nb=1     2890 |   4.1   0.0  23.5  24.7  47.5   0.0   0.0   0.0   0.0   0.2   0.0   0.0   0.0 | free  1516: eat-child   7.8%
+Conviction  all     t0=stunned   nb=2+      62 |  29.0   0.0  11.3   3.2  48.4   0.0   0.0   0.0   0.0   8.1   0.0   0.0   0.0 | free    32: eat-child  56.2%
+NomNom2     all     all          all       137 |  88.3   0.7   0.7   2.2   5.1   0.0   0.0   0.0   2.9   0.0   0.0   0.0   0.0 | free   130: eat-child  93.1%
+NomNom2     all     all          nb=0       42 |  85.7   0.0   2.4   4.8   2.4   0.0   0.0   0.0   4.8   0.0   0.0   0.0   0.0 | free    41: eat-child  87.8%
+NomNom2     all     all          nb=1       94 |  89.4   1.1   0.0   1.1   6.4   0.0   0.0   0.0   2.1   0.0   0.0   0.0   0.0 | free    88: eat-child  95.5%
+NomNom2     all     t0=eat-new   all        84 |  92.9   1.2   0.0   1.2   2.4   0.0   0.0   0.0   2.4   0.0   0.0   0.0   0.0 | free    82: eat-child  95.1%
+NomNom2     all     t0=eat-new   nb=1       83 |  92.8   1.2   0.0   1.2   2.4   0.0   0.0   0.0   2.4   0.0   0.0   0.0   0.0 | free    81: eat-child  95.1%
+NomNom2     all     t0=none      all        32 |  93.8   0.0   3.1   0.0   0.0   0.0   0.0   0.0   3.1   0.0   0.0   0.0   0.0 | free    32: eat-child  93.8%
+Penalty     all     all          all      2765 |  34.9   2.6  10.6  17.8   7.7   0.1   0.0   0.0  25.8   0.7   0.0   0.0   0.0 | free  2553: eat-child  37.8%
+Penalty     all     all          nb=0     1420 |  38.9   0.0   0.0  18.2   0.0   0.0   0.0   0.0  42.9   0.0   0.0   0.0   0.0 | free  1420: eat-child  38.9%
+Penalty     all     all          nb=1     1303 |  30.6   5.4  22.4  17.9  15.4   0.2   0.0   0.0   7.4   0.7   0.0   0.0   0.0 | free  1102: eat-child  36.2%
+Penalty     all     all          nb=2+      37 |  32.4   2.7   2.7   0.0  29.7   0.0   0.0   0.0  21.6  10.8   0.0   0.0   0.0 | free    26: eat-child  46.2%
+Penalty     all     t0=eat-new   all        73 |   0.0  97.3   0.0   1.4   0.0   1.4   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free    73: eat-child   0.0%
+Penalty     all     t0=eat-new   nb=1       72 |   0.0  97.2   0.0   1.4   0.0   1.4   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free    72: eat-child   0.0%
+Penalty     all     t0=none      all      1925 |  41.2   0.0   0.3  21.1   1.0   0.1   0.0   0.0  36.4   0.0   0.0   0.0   0.0 | free  1906: eat-child  41.6%
+Penalty     all     t0=none      nb=0     1420 |  38.9   0.0   0.0  18.2   0.0   0.0   0.0   0.0  42.9   0.0   0.0   0.0   0.0 | free  1420: eat-child  38.9%
+Penalty     all     t0=none      nb=1      491 |  47.9   0.0   1.0  30.3   3.3   0.2   0.0   0.0  17.3   0.0   0.0   0.0   0.0 | free   475: eat-child  49.5%
+Penalty     all     t0=stunned   all       762 |  22.4   0.0  37.8  10.9  25.3   0.0   0.0   0.0   1.8   1.7   0.0   0.0   0.0 | free   569: eat-child  30.1%
+Penalty     all     t0=stunned   nb=1      740 |  22.2   0.0  38.8  11.2  25.0   0.0   0.0   0.0   1.6   1.2   0.0   0.0   0.0 | free   555: eat-child  29.5%
+Siect-F     all     all          all     18396 |  76.9  12.9   6.7   2.4   0.1   0.0   0.0   0.0   0.7   0.3   0.0   0.0   0.0 | free 18377: eat-child  76.9%
+Siect-F     all     all          nb=0    13318 |  99.9   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free 13315: eat-child  99.9%
+Siect-F     all     all          nb=1     4555 |  18.2  51.8  17.1   9.4   0.1   0.0   0.0   0.0   2.5   0.8   0.0   0.0   0.0 | free  4550: eat-child  18.2%
+Siect-F     all     all          nb=2+     514 |   1.0   2.7  89.7   2.1   2.1   0.0   0.0   0.0   0.2   2.1   0.0   0.0   0.0 | free   503: eat-child   1.0%
+Siect-F     all     t0=eat-new   all      3178 |  13.1  74.7   0.0   8.6   0.1   0.0   0.0   0.0   3.5   0.0   0.0   0.0   0.0 | free  3175: eat-child  13.1%
+Siect-F     all     t0=eat-new   nb=1     3153 |  13.1  74.9   0.0   8.5   0.0   0.0   0.0   0.0   3.5   0.0   0.0   0.0   0.0 | free  3152: eat-child  13.1%
+Siect-F     all     t0=none      all     13832 |  98.7   0.0   0.0   1.2   0.0   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free 13829: eat-child  98.7%
+Siect-F     all     t0=none      nb=0    13246 |  99.9   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free 13243: eat-child  99.9%
+Siect-F     all     t0=none      nb=1      578 |  72.0   0.0   0.0  27.5   0.0   0.0   0.0   0.0   0.5   0.0   0.0   0.0   0.0 | free   578: eat-child  72.0%
+Siect-F     all     t0=split     all        72 |  98.6   0.0   0.0   1.4   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free    72: eat-child  98.6%
+Siect-F     all     t0=split     nb=0       71 | 100.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free    71: eat-child 100.0%
+Siect-F     all     t0=stunned   all      1304 |   0.0   0.0  95.1   0.2   1.0   0.0   0.0   0.0   0.1   3.6   0.0   0.0   0.0 | free  1291: eat-child   0.0%
+Siect-F     all     t0=stunned   nb=1      823 |   0.0   0.0  94.8   0.2   0.5   0.0   0.0   0.0   0.1   4.4   0.0   0.0   0.0 | free   819: eat-child   0.0%
+Siect-F     all     t0=stunned   nb=2+     481 |   0.0   0.0  95.6   0.2   1.9   0.0   0.0   0.0   0.0   2.3   0.0   0.0   0.0 | free   472: eat-child   0.0%
+VarSi       all     all          all     17095 |  78.5  17.7   0.4   1.9   0.5   0.0   0.0   0.0   0.6   0.3   0.0   0.0   0.0 | free 17014: eat-child  78.9%
+VarSi       all     all          nb=0     7022 |  94.6   0.0   0.7   3.3   0.1   0.0   0.0   0.0   1.3   0.0   0.0   0.0   0.0 | free  7014: eat-child  94.7%
+VarSi       all     all          nb=1     9851 |  67.1  30.5   0.3   1.0   0.7   0.0   0.0   0.0   0.1   0.3   0.0   0.0   0.0 | free  9784: eat-child  67.6%
+VarSi       all     all          nb=2+     207 |  80.7  10.1   1.0   2.4   2.9   0.0   0.0   0.0   0.0   2.9   0.0   0.0   0.0 | free   201: eat-child  83.1%
+VarSi       all     t0=eat-new   all      7756 |  59.4  39.1   0.0   1.1   0.3   0.0   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free  7735: eat-child  59.5%
+VarSi       all     t0=eat-new   nb=1     7594 |  58.9  39.6   0.0   1.1   0.3   0.0   0.0   0.0   0.2   0.0   0.0   0.0   0.0 | free  7575: eat-child  59.0%
+VarSi       all     t0=eat-new   nb=2+     162 |  82.7  13.0   0.0   3.1   1.2   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   160: eat-child  83.8%
+VarSi       all     t0=feed      all       400 | 100.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   400: eat-child 100.0%
+VarSi       all     t0=feed      nb=0      400 | 100.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   400: eat-child 100.0%
+VarSi       all     t0=none      all      8152 |  95.4   0.0   0.6   2.9   0.1   0.0   0.0   0.0   1.1   0.0   0.0   0.0   0.0 | free  8144: eat-child  95.5%
+VarSi       all     t0=none      nb=0     6441 |  94.3   0.0   0.7   3.5   0.1   0.0   0.0   0.0   1.4   0.0   0.0   0.0   0.0 | free  6433: eat-child  94.4%
+VarSi       all     t0=none      nb=1     1698 |  99.5   0.0   0.0   0.5   0.0   0.0   0.0   0.0   0.1   0.0   0.0   0.0   0.0 | free  1698: eat-child  99.5%
+VarSi       all     t0=split     all       181 |  95.0   0.0   0.0   3.9   0.0   0.0   0.0   0.0   1.1   0.0   0.0   0.0   0.0 | free   181: eat-child  95.0%
+VarSi       all     t0=split     nb=0      181 |  95.0   0.0   0.0   3.9   0.0   0.0   0.0   0.0   1.1   0.0   0.0   0.0   0.0 | free   181: eat-child  95.0%
+VarSi       all     t0=stunned   all       591 |  80.0   0.0   4.9   0.7   8.8   0.0   0.0   0.0   0.0   5.6   0.0   0.0   0.0 | free   539: eat-child  87.8%
+VarSi       all     t0=stunned   nb=1      559 |  81.0   0.0   4.8   0.7   8.6   0.0   0.0   0.0   0.0   4.8   0.0   0.0   0.0 | free   511: eat-child  88.6%
+VarSi       all     t0=stunned   nb=2+      32 |  62.5   0.0   6.2   0.0  12.5   0.0   0.0   0.0   0.0  18.8   0.0   0.0   0.0 | free    28: eat-child  71.4%
+medivac     all     all          all     22821 |  87.4   7.9   0.1   1.7   1.2   0.0   0.0   0.0   1.7   0.0   0.0   0.0   0.0 | free 22551: eat-child  88.5%
+medivac     all     all          nb=0    11684 |  98.4   0.0   0.1   1.1   0.1   0.0   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free 11678: eat-child  98.5%
+medivac     all     all          nb=1    11008 |  75.7  16.5   0.1   2.3   2.3   0.0   0.0   0.0   3.1   0.0   0.0   0.0   0.0 | free 10757: eat-child  77.5%
+medivac     all     all          nb=2+     128 |  87.5   0.0   0.0   0.8  10.2   0.0   0.0   0.0   0.0   1.6   0.0   0.0   0.0 | free   115: eat-child  97.4%
+medivac     all     t0=eat-new   all     10220 |  75.3  17.7   0.0   2.3   1.2   0.0   0.0   0.0   3.4   0.0   0.0   0.0   0.0 | free 10095: eat-child  76.3%
+medivac     all     t0=eat-new   nb=1    10105 |  75.1  17.9   0.0   2.3   1.2   0.0   0.0   0.0   3.4   0.0   0.0   0.0   0.0 | free  9984: eat-child  76.0%
+medivac     all     t0=eat-new   nb=2+     115 |  96.5   0.0   0.0   0.0   3.5   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   111: eat-child 100.0%
+medivac     all     t0=none      all     12198 |  98.5   0.0   0.1   1.1   0.0   0.0   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free 12192: eat-child  98.6%
+medivac     all     t0=none      nb=0    11553 |  98.4   0.0   0.1   1.1   0.1   0.0   0.0   0.0   0.3   0.0   0.0   0.0   0.0 | free 11547: eat-child  98.5%
+medivac     all     t0=none      nb=1      645 | 100.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0 | free   645: eat-child 100.0%
+medivac     all     t0=split     all       131 |  98.5   0.0   0.0   0.8   0.0   0.0   0.0   0.0   0.8   0.0   0.0   0.0   0.0 | free   131: eat-child  98.5%
+medivac     all     t0=split     nb=0      131 |  98.5   0.0   0.0   0.8   0.0   0.0   0.0   0.0   0.8   0.0   0.0   0.0   0.0 | free   131: eat-child  98.5%
+medivac     all     t0=stunned   all       270 |  38.9   0.0   1.9   5.6  51.1   0.0   0.0   0.0   0.4   2.2   0.0   0.0   0.0 | free   132: eat-child  79.5%
+medivac     all     t0=stunned   nb=1      258 |  40.3   0.0   1.9   5.4  50.4   0.0   0.0   0.0   0.4   1.6   0.0   0.0   0.0 | free   128: eat-child  81.2%
