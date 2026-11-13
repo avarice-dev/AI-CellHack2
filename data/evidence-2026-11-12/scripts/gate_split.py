@@ -18,6 +18,7 @@ Rows (kind, key = '|'-joined fields, n = count):
         after 10 (0/1)
   hep   per episode (any outcome) in which our best neighbour held at least one tick: outcome (won / lost / left =
         no longer contested) | ticks contested | hold ticks | of those at e >= 8 | energy at the first hold tick
+  hcx   near-hold cell-ticks as budget.py counts them, classed best / notbest / freed / uncontested
   hct   hold cell-ticks: distinct cells of this colony holding beside >= 1 contested square this tick | energy 0..63
   parent  split-parent attribution counts (match / ambiguous / nomatch / none); a child gets floor(parent e / 2)
 Windows (budget.py's): a t < 30, b < 60, c < 100, d later.
@@ -205,6 +206,37 @@ def run(path):
                             e_[3] = e
             for (sc, ours), e in holders.items():
                 out[('hct', w, '%d' % e, ours, -1)] += 1
+            # hcx: every near-hold cell-tick as budget.py counts it (open, no enemy on an edge, an enemy on a diagonal,
+            # 5-11 energy, no event), classed against this file's hct: best (= an hct holder), notbest (beside a
+            # contested square, another own cell was its best neighbour), freed (its contested edge squares were all
+            # freed by a death last tick: excluded here), uncontested (no empty edge square has an enemy beside it)
+            for cid in ids:
+                if what.get(cid, 'none') != 'none':
+                    continue
+                e = enOf.get(cid, 0)
+                if not 5 <= e < 12:
+                    continue
+                c = colOf[cid]
+                sc = sqOf[cid]
+                cx, cy = sc % W, sc // W
+                edge = list(nbrs(sc))
+                if any(snap[q] and colOf[snap[q] - 1] != c for q in edge):
+                    continue
+                empt = [q for q in edge if not snap[q]]
+                if not empt:
+                    continue
+                if not any(0 <= cx + a_ < W and 0 <= cy + b_ < H and snap[(cy + b_) * W + cx + a_]
+                           and colOf[snap[(cy + b_) * W + cx + a_] - 1] != c for a_ in (-1, 1) for b_ in (-1, 1)):
+                    continue
+                if (sc, c) in holders:
+                    cls = 'best'
+                elif any(q in contested for q in empt):
+                    cls = 'notbest'
+                elif any(q in freed_prev and len(cand[q]) > 1 for q in empt):
+                    cls = 'freed'
+                else:
+                    cls = 'uncontested'
+                out[('hcx', w, cls, c, -1)] += 1
             for key in [k for k in ep if k not in seen]:
                 e_ = ep.pop(key)                # no longer contested: the episode ended without a loss
                 if e_[1]:

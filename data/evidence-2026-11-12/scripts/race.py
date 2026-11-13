@@ -5,6 +5,8 @@ an enemy: bite it, 4 instructions) or 'first' (bite_tbl's choice, 16).  Outcome:
 target before anything bit it; 'B' = an enemy bit our cell before it acted (the cell is stunned).  For 'B', the
 enemy's bite cost class comes from the event-order markers (see order.py) and its direction is from the enemy's view.
 Plan 'lock-other' / 'first-other' = our cell meant to bite someone else.  Checks: our eats go the planned direction.
+Column newborn (review measure 7): 1 = the race is on our cell's first live tick (born on the tick before; its
+stored bite is the one copied from its parent).  Split parents: energy-matched (parents.py) since 2026-11-13.
 Usage: python race.py <replay dir> <names.json> <out.csv> [id ...]
 """
 import collections
@@ -15,6 +17,10 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
+RUN = parents.Running()
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
 BANE = {'Bane', 'Bane v2', 'Bane v2.1', 'Bane v2.2', 'Bane L', 'Bane W'}
 
@@ -62,6 +68,7 @@ def run(path, own, bane):
     out = collections.Counter()
     prev = set()
     lock = {}
+    born_at = {}
     SPLIT = {'v1': 11, 'v2.0': 11, 'v2.1': 16, 'v2.2': 16, 'conv': 14}
 
     def nbrs(s):
@@ -82,6 +89,7 @@ def run(path, own, bane):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             snap = grid
             sq0 = dict(sqOf)
             grid = snap[:]
@@ -92,16 +100,15 @@ def run(path, own, bane):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     evs.append(('eat' if k == 4 else 'feed', a, b))
                 elif k == 1:
                     cid, c, x, y, e = BIRTH.unpack_from(raw, p + 1); p += 11
                     s = y * W + x
-                    par = None            # parent: a same-colony edge neighbour at tick start that has not acted,
-                    for q in nbrs(s):     # preferring one with floor(E / 2) = the child's energy
-                        g = snap[q]
-                        if g and colOf.get(g - 1) == c and g - 1 not in acted and g - 1 not in dead:
-                            if par is None or enOf.get(g - 1, 0) // 2 == e:
-                                par = g - 1
+                    cnd = [g - 1 for g in (snap[q] for q in nbrs(s))
+                           if g and colOf.get(g - 1) == c and g - 1 not in acted and g - 1 not in dead]
+                    par, _tag = RUN.parent(cnd, e)   # energy-matched parent (parents.py); None if unknown
+                    born_at[cid] = t
                     colOf[cid] = c; sqOf[cid] = s; grid[s] = cid + 1; enOf[cid] = e
                     births.append(cid)
                     evs.append(('split', par, cid))
@@ -195,7 +202,7 @@ def run(path, own, bane):
                         out[('_check', 'eat_dir_ok' if dd == d else 'eat_dir_bad', plan)] += 1
                         if b == T:
                             out[(colOf[T], 'UR DL'[0] if False else 'URDL'[(d + 2) % 4], plan, (A, T) in prev,
-                                 (T, A) in prev, 'A', '-', w)] += 1
+                                 (T, A) in prev, 'A', '-', w, int(born_at.get(A) == t - 1))] += 1
                     else:
                         out[('_check', 'acted_not_eat', kind)] += 1
                 elif fb is not None:
@@ -206,7 +213,7 @@ def run(path, own, bane):
                         continue
                     c = cls(lo[i], hi[i])
                     out[(colOf[B], 'URDL'[(dab + 2) % 4], plan if B == T else plan + '-other', (A, B) in prev,
-                         (B, A) in prev, 'B', c, w)] += 1
+                         (B, A) in prev, 'B', c, w, int(born_at.get(A) == t - 1))] += 1
             eats = set()
             for i, (kind, a, b) in enumerate(evs):
                 if kind == 'eat' and colOf.get(a) != colOf.get(b):
@@ -252,15 +259,15 @@ if __name__ == '__main__':
         for key, n in out.items():
             if key[0] == '_check':
                 rows.append(dict(replay=rid, era=own[bc[0]], rival='_check', rdir=key[1], plan=key[2], a_armed='',
-                                 b_armed='', first='', bcost='', window='', n=n))
+                                 b_armed='', first='', bcost='', window='', newborn='', n=n))
                 continue
-            c, rd, plan, aa, ba, fi, bcost, w = key
+            c, rd, plan, aa, ba, fi, bcost, w, nb = key
             rows.append(dict(replay=rid, era=own[bc[0]], rival=nm[c] if c < len(nm) else 'colony %d' % c, rdir=rd,
-                             plan=plan, a_armed=int(aa), b_armed=int(ba), first=fi, bcost=bcost, window=w, n=n))
+                             plan=plan, a_armed=int(aa), b_armed=int(ba), first=fi, bcost=bcost, window=w, newborn=nb, n=n))
         print(rid, 'done', flush=True)
     with open(outp, 'w', newline='', encoding='utf-8') as fh:
         wr = csv.DictWriter(fh, fieldnames=['replay', 'era', 'rival', 'rdir', 'plan', 'a_armed', 'b_armed', 'first',
-                                            'bcost', 'window', 'n'])
+                                            'bcost', 'window', 'newborn', 'n'])
         wr.writeheader()
         wr.writerows(rows)
     print('wrote', outp, len(rows))
