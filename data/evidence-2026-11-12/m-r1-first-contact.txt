@@ -1,0 +1,751 @@
+
+## (1) who entered
+group    w   key | n | we / enemy / neither % | dead 5 / 10 % | flips if our bite were 4 (% of n)
+all      a   enemy-split                                  116 |  15.5  74.1  10.3 |  44.8  55.2 |   0.4
+all      all enemy-move                                   579 |  36.4  51.5  12.1 |  35.9  38.0 |  19.7
+all      all enemy-split                                27366 |  24.8  43.7  31.5 |  12.2  15.1 |   8.9
+all      all our-move                                    1033 |  47.6  45.6   6.8 |  44.9  47.0 |  22.2
+all      all our-split                                  73618 |  31.9  27.9  40.2 |  25.8  34.9 |   2.0
+all      b   enemy-move                                   228 |  32.5  61.0   6.6 |  48.7  51.8 |  11.4
+all      b   enemy-split                                 3089 |  27.2  54.9  17.9 |  32.5  39.8 |   9.6
+all      b   our-move                                     329 |  35.6  55.3   9.1 |  56.5  59.9 |  14.0
+all      b   our-split                                   1353 |  48.9  31.5  19.6 |  29.6  33.3 |   5.7
+all      c   enemy-move                                   267 |  38.6  47.6  13.9 |  24.7  26.6 |  28.7
+all      c   enemy-split                                 7642 |  26.1  47.8  26.1 |  23.8  28.9 |  15.9
+all      c   our-move                                     468 |  47.0  46.6   6.4 |  45.7  47.6 |  30.0
+all      c   our-split                                   7800 |  48.2  20.9  30.9 |  17.9  20.0 |   5.2
+all      d   enemy-move                                    65 |  46.2  27.7  26.2 |  26.2  26.2 |  17.7
+all      d   enemy-split                                16519 |  23.9  39.5  36.6 |   2.8   3.7 |   5.7
+all      d   our-move                                     222 |  68.5  27.5   4.1 |  23.9  24.8 |  19.4
+all      d   our-split                                  64448 |  29.6  28.6  41.8 |  26.6  36.7 |   1.5
+Yen      a   enemy-split                                   75 |  10.7  77.3  12.0 |  49.3  58.7 |   0.7
+Yen      all enemy-move                                   149 |   6.0  85.9   8.1 |  90.6  91.3 |  26.8
+Yen      all enemy-split                                 5922 |  21.8  52.3  25.9 |  27.1  33.3 |  13.5
+Yen      all our-move                                     318 |  30.8  63.2   6.0 |  60.1  62.9 |  25.5
+Yen      all our-split                                   9323 |  43.2  25.5  31.2 |  17.4  21.0 |   2.7
+Yen      b   enemy-move                                    74 |   0.0  95.9   4.1 |  98.6  98.6 |  17.6
+Yen      b   enemy-split                                 1620 |  25.1  56.7  18.2 |  34.8  42.3 |  10.5
+Yen      b   our-move                                     161 |  32.9  62.1   5.0 |  56.5  59.0 |  16.8
+Yen      b   our-split                                    707 |  45.0  33.7  21.4 |  31.8  35.9 |   7.1
+Yen      c   enemy-move                                    45 |  13.3  75.6  11.1 |  77.8  80.0 |  41.1
+Yen      c   enemy-split                                 2995 |  21.7  50.9  27.4 |  28.0  34.9 |  16.9
+Yen      c   our-move                                     123 |  30.1  62.6   7.3 |  61.8  65.0 |  37.8
+Yen      c   our-split                                   2660 |  44.3  23.3  32.4 |  17.3  19.3 |   6.0
+Yen      d   enemy-split                                 1232 |  18.4  48.5  33.1 |  13.6  16.3 |  10.1
+Yen      d   our-split                                   5945 |  42.6  25.5  32.0 |  15.6  19.8 |   0.7
+Siect-F  all enemy-split                                 2145 |   7.0  55.1  37.9 |  34.7  42.5 |   2.1
+Siect-F  all our-move                                      56 |  17.9  76.8   5.4 |  85.7  94.6 |  19.6
+Siect-F  all our-split                                  32234 |   6.1  46.1  47.8 |  47.5  66.1 |   2.6
+Siect-F  b   enemy-split                                  184 |  21.7  66.8  11.4 |  81.5  90.8 |   5.4
+Siect-F  b   our-split                                     71 |  28.2  60.6  11.3 |  78.9  88.7 |   2.8
+Siect-F  c   enemy-split                                  663 |  12.1  58.1  29.9 |  70.7  84.5 |   3.8
+Siect-F  c   our-split                                    797 |  14.8  49.6  35.6 |  79.2  88.8 |   9.8
+Siect-F  d   enemy-split                                 1298 |   2.3  51.9  45.8 |   9.6  14.3 |   0.8
+Siect-F  d   our-split                                  31366 |   5.9  46.0  48.2 |  46.6  65.5 |   2.4
+feeder   all enemy-split                                 9217 |  26.3  38.3  35.4 |   2.8   3.3 |   5.0
+feeder   all our-move                                      64 |  29.7  56.2  14.1 |  60.9  60.9 |  21.9
+feeder   all our-split                                   6343 |  53.2   2.8  44.0 |   0.8   1.0 |   0.5
+feeder   b   enemy-split                                  290 |  20.0  63.4  16.6 |  29.0  32.1 |   6.2
+feeder   b   our-move                                      30 |  20.0  63.3  16.7 |  66.7  66.7 |  10.0
+feeder   b   our-split                                     76 |  50.0  19.7  30.3 |   9.2   9.2 |   1.3
+feeder   c   enemy-split                                 1095 |  26.7  46.1  27.2 |  14.0  16.8 |  16.5
+feeder   c   our-split                                    715 |  56.5   7.0  36.5 |   3.9   4.5 |   2.9
+feeder   d   enemy-split                                 7826 |  26.5  36.3  37.2 |   0.2   0.3 |   3.3
+feeder   d   our-split                                   5552 |  52.8   2.0  45.2 |   0.3   0.4 |   0.2
+other    a   enemy-split                                   34 |  26.5  64.7   8.8 |  32.4  41.2 |   0.0
+other    all enemy-move                                   351 |  46.4  37.9  15.7 |  10.0  11.7 |  19.1
+other    all enemy-split                                 9623 |  27.9  42.8  29.2 |   7.0   8.7 |  11.8
+other    all our-move                                     581 |  60.8  32.5   6.7 |  30.5  31.5 |  21.3
+other    all our-split                                  23252 |  56.4   8.2  35.4 |   1.8   1.9 |   1.4
+other    b   enemy-move                                    93 |  46.2  43.0  10.8 |   9.7  12.9 |   8.6
+other    b   enemy-split                                  906 |  30.4  51.2  18.4 |  20.0  26.7 |  10.8
+other    b   our-move                                     102 |  41.2  43.1  15.7 |  46.1  48.0 |  12.7
+other    b   our-split                                    430 |  54.2  27.4  18.4 |  15.6  16.0 |   5.5
+other    c   enemy-move                                   209 |  44.0  41.1  14.8 |  11.5  12.9 |  26.8
+other    c   enemy-split                                 2801 |  33.1  43.9  23.0 |  11.8  14.1 |  17.9
+other    c   our-move                                     289 |  58.5  35.6   5.9 |  33.6  34.6 |  26.0
+other    c   our-split                                   3511 |  57.5  15.0  27.5 |   5.5   5.8 |   4.3
+other    d   enemy-move                                    47 |  57.4  12.8  29.8 |   4.3   4.3 |   6.4
+other    d   enemy-split                                 5882 |  25.1  40.9  34.0 |   2.5   3.1 |   9.2
+other    d   our-move                                     186 |  75.3  21.5   3.2 |  16.7  17.2 |  19.1
+other    d   our-split                                  19305 |  56.3   6.5  37.2 |   0.8   0.9 |   0.8
+
+## (2) enemy entered: our state on the previous tick x other enemy on an edge (other=1)
+group    w   key | n | we / enemy / neither % | dead 5 / 10 % | flips if our bite were 4 (% of n)
+all      a   hold other=0                                  34 |  23.5  76.5   0.0 |  38.2  50.0 |   0.0
+all      all ? other=0                                    379 |  41.2  55.4   3.4 |  49.6  51.7 |  26.4
+all      all ? other=1                                    873 |   7.8  31.2  61.1 |  27.8  29.1 |   4.6
+all      all acted other=0                               3383 |  45.5  52.2   2.4 |  12.0  14.1 |  27.7
+all      all acted other=1                               9179 |   0.3  54.0  45.8 |   7.5   9.1 |   1.1
+all      all hold other=0                                3469 |  51.9  47.4   0.7 |   8.5  14.0 |  13.4
+all      all hold other=1                                 549 |  18.8  55.4  25.9 |  39.2  48.8 |  16.6
+all      all none-other other=0                          3447 |  77.3  22.5   0.3 |   1.0   1.4 |   3.5
+all      all none-other other=1                           198 |  45.5  27.3  27.3 |   1.5   2.5 |   0.5
+all      all rest<5 other=0                              1600 |  34.1  64.8   1.2 |  24.3  31.3 |  30.0
+all      all rest<5 other=1                               337 |   4.5  71.5  24.0 |  68.5  74.5 |  32.2
+all      all stunned other=1                             4525 |   0.0  22.1  77.9 |  18.9  22.5 |   2.6
+all      b   ? other=0                                    134 |  37.3  59.0   3.7 |  57.5  59.7 |  13.4
+all      b   ? other=1                                    129 |   7.0  32.6  60.5 |  48.8  50.4 |   6.2
+all      b   acted other=0                                481 |  36.6  60.1   3.3 |  41.2  45.9 |  14.4
+all      b   acted other=1                                590 |   1.7  58.0  40.3 |  36.6  43.4 |   2.1
+all      b   hold other=0                                 673 |  55.0  44.7   0.3 |  12.5  21.5 |   9.2
+all      b   hold other=1                                 144 |  17.4  63.2  19.4 |  48.6  56.9 |  15.6
+all      b   none-other other=0                           112 |  67.0  32.1   0.9 |   6.2   9.8 |   7.1
+all      b   rest<5 other=0                               597 |  32.5  66.5   1.0 |  25.5  33.7 |  16.0
+all      b   rest<5 other=1                                80 |   5.0  75.0  20.0 |  65.0  72.5 |   6.9
+all      b   stunned other=1                              371 |   0.0  52.6  47.4 |  53.1  61.7 |   5.3
+all      c   ? other=0                                    174 |  42.0  54.6   3.4 |  47.7  50.6 |  34.8
+all      c   ? other=1                                    380 |   8.4  30.0  61.6 |  33.7  35.3 |   6.7
+all      c   acted other=0                                839 |  44.6  51.3   4.2 |  17.6  22.4 |  33.8
+all      c   acted other=1                               1963 |   0.5  53.9  45.6 |  19.2  23.3 |   3.1
+all      c   hold other=0                                1622 |  58.3  40.7   1.0 |  10.5  16.3 |  18.9
+all      c   hold other=1                                 305 |  17.7  55.7  26.6 |  39.3  50.5 |  17.5
+all      c   none-other other=0                           458 |  67.2  31.9   0.9 |   4.4   6.1 |   9.1
+all      c   rest<5 other=0                               790 |  36.5  62.3   1.3 |  23.5  29.9 |  38.0
+all      c   rest<5 other=1                               219 |   2.7  71.7  25.6 |  72.6  78.1 |  39.7
+all      c   stunned other=1                             1138 |   0.1  39.6  60.3 |  43.2  48.9 |   6.2
+all      d   ? other=0                                     63 |  47.6  49.2   3.2 |  36.5  36.5 |  34.1
+all      d   ? other=1                                    358 |   7.3  31.8  60.9 |  13.4  13.7 |   1.8
+all      d   acted other=0                               2041 |  48.2  50.4   1.4 |   2.3   2.6 |  28.6
+all      d   acted other=1                               6613 |   0.1  53.6  46.3 |   1.5   1.8 |   0.4
+all      d   hold other=0                                1140 |  41.8  57.7   0.5 |   2.5   5.3 |   8.5
+all      d   hold other=1                                  92 |  23.9  43.5  32.6 |  22.8  28.3 |  16.3
+all      d   none-other other=0                          2876 |  79.3  20.6   0.1 |   0.2   0.3 |   2.5
+all      d   none-other other=1                           175 |  48.0  26.9  25.1 |   1.7   1.7 |   0.0
+all      d   rest<5 other=0                               188 |  33.0  65.4   1.6 |  23.9  30.3 |  44.9
+all      d   rest<5 other=1                                34 |  14.7  58.8  26.5 |  47.1  52.9 |  47.1
+all      d   stunned other=1                             3002 |   0.0  11.4  88.6 |   5.1   7.3 |   0.8
+Yen      all ? other=0                                    140 |  32.1  65.7   2.1 |  57.9  60.7 |  25.0
+Yen      all ? other=1                                    232 |   6.5  32.8  60.8 |  47.8  51.3 |   5.8
+Yen      all acted other=0                                665 |  36.7  59.5   3.8 |  31.6  37.3 |  27.3
+Yen      all acted other=1                               1537 |   0.7  57.6  41.7 |  23.9  28.4 |   2.7
+Yen      all hold other=0                                1185 |  52.4  46.7   0.9 |   9.1  15.7 |  18.4
+Yen      all hold other=1                                 297 |  15.5  58.6  25.9 |  44.8  55.9 |  18.7
+Yen      all none-other other=0                           213 |  49.3  48.4   2.3 |   5.2   7.5 |  13.4
+Yen      all rest<5 other=0                               632 |  32.3  66.6   1.1 |  28.2  36.9 |  27.0
+Yen      all rest<5 other=1                               164 |   4.3  69.5  26.2 |  79.3  86.6 |  34.5
+Yen      all stunned other=1                             1001 |   0.0  41.2  58.8 |  41.2  47.6 |   4.0
+Yen      b   ? other=0                                     65 |  33.8  64.6   1.5 |  60.0  64.6 |  10.8
+Yen      b   ? other=1                                     62 |   1.6  30.6  67.7 |  58.1  59.7 |   3.2
+Yen      b   acted other=0                                240 |  27.9  67.9   4.2 |  45.8  51.2 |  17.9
+Yen      b   acted other=1                                276 |   1.4  59.1  39.5 |  46.7  53.3 |   2.5
+Yen      b   hold other=0                                 367 |  49.6  49.9   0.5 |   9.5  18.0 |  10.6
+Yen      b   hold other=1                                  91 |  14.3  67.0  18.7 |  57.1  61.5 |  14.8
+Yen      b   none-other other=0                            40 |  42.5  57.5   0.0 |   7.5  12.5 |  13.8
+Yen      b   rest<5 other=0                               297 |  32.3  67.0   0.7 |  26.6  35.0 |  17.7
+Yen      b   rest<5 other=1                                43 |   4.7  69.8  25.6 |  67.4  76.7 |   8.1
+Yen      b   stunned other=1                              211 |   0.0  50.7  49.3 |  58.8  68.7 |   4.5
+Yen      c   ? other=0                                     51 |  25.5  70.6   3.9 |  58.8  60.8 |  44.1
+Yen      c   ? other=1                                    133 |   5.3  31.6  63.2 |  45.1  48.1 |   7.5
+Yen      c   acted other=0                                285 |  41.1  55.1   3.9 |  23.2  30.9 |  34.0
+Yen      c   acted other=1                                758 |   0.5  54.9  44.6 |  25.2  30.7 |   4.0
+Yen      c   hold other=0                                 642 |  54.7  44.4   0.9 |   8.7  14.6 |  22.4
+Yen      c   hold other=1                                 157 |  15.9  58.0  26.1 |  39.5  56.1 |  21.0
+Yen      c   none-other other=0                           111 |  45.9  51.4   2.7 |   5.4   7.2 |  15.8
+Yen      c   rest<5 other=0                               257 |  32.7  66.1   1.2 |  31.9  42.0 |  39.3
+Yen      c   rest<5 other=1                               113 |   3.5  70.8  25.7 |  84.1  89.4 |  43.4
+Yen      c   stunned other=1                              530 |   0.0  42.3  57.7 |  42.6  49.6 |   4.1
+Yen      d   ? other=1                                     33 |  18.2  42.4  39.4 |  39.4  42.4 |   4.5
+Yen      d   acted other=0                                123 |  46.3  50.4   3.3 |  16.3  18.7 |  33.7
+Yen      d   acted other=1                                495 |   0.6  60.8  38.6 |   8.9  10.5 |   0.9
+Yen      d   hold other=0                                 156 |  55.8  42.3   1.9 |   5.1   9.0 |  23.1
+Yen      d   hold other=1                                  45 |  17.8  44.4  37.8 |  33.3  40.0 |  20.0
+Yen      d   none-other other=0                            62 |  59.7  37.1   3.2 |   3.2   4.8 |   8.9
+Yen      d   rest<5 other=0                                59 |  39.0  57.6   3.4 |  20.3  25.4 |  28.0
+Yen      d   stunned other=1                              252 |   0.0  30.2  69.8 |  22.2  24.6 |   3.6
+Siect-F  all ? other=0                                     31 |  25.8  74.2   0.0 |  83.9  87.1 |  12.9
+Siect-F  all ? other=1                                     41 |  17.1  36.6  46.3 |  87.8  90.2 |   2.4
+Siect-F  all acted other=0                                143 |  24.5  74.8   0.7 |  35.0  46.2 |   4.2
+Siect-F  all acted other=1                                138 |   0.0  54.3  45.7 |  55.1  70.3 |   2.2
+Siect-F  all hold other=0                                 724 |   7.2  92.8   0.0 |  20.6  29.6 |   1.7
+Siect-F  all hold other=1                                  49 |   6.1  75.5  18.4 |  91.8  95.9 |   2.0
+Siect-F  all none-other other=0                            73 |  13.7  86.3   0.0 |  27.4  34.2 |   0.0
+Siect-F  all rest<5 other=0                               129 |  28.7  70.5   0.8 |  79.8  88.4 |   9.3
+Siect-F  all rest<5 other=1                                32 |   0.0  78.1  21.9 | 100.0 100.0 |  15.6
+Siect-F  all stunned other=1                              808 |   0.0  11.5  88.5 |  28.3  34.0 |   0.6
+Siect-F  b   acted other=0                                 31 |  16.1  80.6   3.2 |  80.6  90.3 |   6.5
+Siect-F  b   hold other=0                                  44 |  20.5  79.5   0.0 |  86.4  97.7 |   9.1
+Siect-F  b   rest<5 other=0                                55 |  36.4  63.6   0.0 |  72.7  87.3 |   5.5
+Siect-F  c   acted other=0                                 40 |  40.0  60.0   0.0 |  50.0  75.0 |   5.0
+Siect-F  c   acted other=1                                 72 |   0.0  52.8  47.2 |  66.7  87.5 |   1.4
+Siect-F  c   hold other=0                                 176 |  18.8  81.2   0.0 |  52.3  77.3 |   3.4
+Siect-F  c   hold other=1                                  37 |   2.7  81.1  16.2 | 100.0 100.0 |   2.7
+Siect-F  c   none-other other=0                            40 |  25.0  75.0   0.0 |  35.0  47.5 |   0.0
+Siect-F  c   rest<5 other=0                                56 |  21.4  76.8   1.8 |  85.7  89.3 |   8.9
+Siect-F  c   stunned other=1                              178 |   0.0  22.5  77.5 |  85.4  92.7 |   1.7
+Siect-F  d   acted other=0                                 72 |  19.4  80.6   0.0 |   6.9  11.1 |   2.8
+Siect-F  d   acted other=1                                 49 |   0.0  53.1  46.9 |  26.5  36.7 |   4.1
+Siect-F  d   hold other=0                                 504 |   2.0  98.0   0.0 |   3.8   6.9 |   0.4
+Siect-F  d   none-other other=0                            30 |   0.0 100.0   0.0 |  13.3  13.3 |   0.0
+Siect-F  d   stunned other=1                              608 |   0.0   7.2  92.8 |   9.0  14.5 |   0.0
+feeder   all ? other=0                                     45 |  44.4  48.9   6.7 |  44.4  46.7 |  24.4
+feeder   all ? other=1                                     90 |  10.0  18.9  71.1 |  17.8  17.8 |   4.4
+feeder   all acted other=0                               1179 |  43.2  56.4   0.4 |   3.2   3.5 |  23.6
+feeder   all acted other=1                               3835 |   0.1  53.1  46.8 |   2.2   2.5 |   0.3
+feeder   all hold other=0                                 256 |  66.4  32.0   1.6 |   2.0   5.5 |  14.8
+feeder   all hold other=1                                  48 |  31.2  35.4  33.3 |  10.4  14.6 |  14.6
+feeder   all none-other other=0                          2003 |  80.0  19.9   0.1 |   0.0   0.0 |   0.4
+feeder   all none-other other=1                            64 |  50.0   9.4  40.6 |   0.0   0.0 |   0.0
+feeder   all rest<5 other=0                               186 |  35.5  62.4   2.2 |  14.0  18.8 |  33.3
+feeder   all rest<5 other=1                                56 |   1.8  73.2  25.0 |  44.6  48.2 |  32.1
+feeder   all stunned other=1                             1468 |   0.0   9.5  90.5 |   3.1   3.8 |   1.6
+feeder   b   acted other=0                                 43 |  25.6  74.4   0.0 |  55.8  55.8 |  11.6
+feeder   b   acted other=1                                 81 |   2.5  59.3  38.3 |  32.1  32.1 |   2.5
+feeder   b   hold other=0                                  40 |  47.5  52.5   0.0 |   5.0  12.5 |   2.5
+feeder   b   rest<5 other=0                                51 |  33.3  66.7   0.0 |  13.7  19.6 |   9.8
+feeder   b   stunned other=1                               31 |   0.0  71.0  29.0 |  22.6  32.3 |   9.7
+feeder   c   ? other=1                                     43 |   7.0  23.3  69.8 |  32.6  32.6 |   9.3
+feeder   c   acted other=0                                 98 |  40.8  55.1   4.1 |  12.2  15.3 |  42.9
+feeder   c   acted other=1                                377 |   0.8  55.7  43.5 |  13.5  16.2 |   1.9
+feeder   c   hold other=0                                 164 |  68.3  29.9   1.8 |   1.8   4.9 |  18.9
+feeder   c   hold other=1                                  34 |  32.4  32.4  35.3 |  14.7  20.6 |  17.6
+feeder   c   none-other other=0                            72 |  84.7  15.3   0.0 |   0.0   0.0 |   2.8
+feeder   c   rest<5 other=0                               125 |  37.6  59.2   3.2 |  13.6  17.6 |  40.8
+feeder   c   stunned other=1                              127 |   0.0  45.7  54.3 |  24.4  26.8 |  15.0
+feeder   d   ? other=1                                     43 |  14.0  14.0  72.1 |   0.0   0.0 |   0.0
+feeder   d   acted other=0                               1037 |  44.2  55.7   0.1 |   0.1   0.1 |  22.3
+feeder   d   acted other=1                               3376 |   0.0  52.7  47.3 |   0.2   0.2 |   0.1
+feeder   d   hold other=0                                  51 |  76.5  21.6   2.0 |   0.0   0.0 |  11.8
+feeder   d   none-other other=0                          1924 |  79.8  20.1   0.1 |   0.0   0.0 |   0.3
+feeder   d   none-other other=1                            58 |  50.0   8.6  41.4 |   0.0   0.0 |   0.0
+feeder   d   stunned other=1                             1309 |   0.0   4.4  95.6 |   0.5   0.8 |   0.2
+other    all ? other=0                                    155 |  49.0  47.1   3.9 |  38.7  40.0 |  32.3
+other    all ? other=1                                    501 |   7.0  32.1  60.9 |  14.8  15.0 |   4.3
+other    all acted other=0                               1374 |  53.0  43.4   3.6 |   7.6   8.4 |  34.2
+other    all acted other=1                               3567 |   0.2  54.6  45.2 |   4.1   5.3 |   1.3
+other    all hold other=0                                1253 |  72.2  27.0   0.8 |   2.1   4.2 |  15.7
+other    all hold other=1                                 149 |  24.2  50.3  25.5 |  20.1  29.5 |  18.5
+other    all none-other other=0                           987 |  78.6  21.2   0.2 |   0.3   0.6 |   8.5
+other    all none-other other=1                           131 |  44.3  35.9  19.8 |   2.3   2.3 |   0.0
+other    all rest<5 other=0                               636 |  34.9  64.2   0.9 |  12.7  18.2 |  37.1
+other    all rest<5 other=1                                85 |   8.2  71.8  20.0 |  51.8  58.8 |  34.1
+other    all stunned other=1                             1134 |   0.1  29.9  70.0 |  11.8  14.3 |   4.1
+other    b   ? other=0                                     33 |  42.4  51.5   6.1 |  45.5  45.5 |  21.2
+other    b   ? other=1                                     51 |   5.9  33.3  60.8 |  33.3  33.3 |  11.8
+other    b   acted other=0                                149 |  50.3  46.3   3.4 |  24.2  26.2 |  13.1
+other    b   acted other=1                                203 |   0.5  57.1  42.4 |  17.2  27.6 |   1.7
+other    b   hold other=0                                 187 |  66.8  33.2   0.0 |   1.6   7.5 |   9.6
+other    b   hold other=1                                  35 |  22.9  57.1  20.0 |  34.3  51.4 |  25.7
+other    b   none-other other=0                            52 |  82.7  17.3   0.0 |   3.8   7.7 |   4.8
+other    b   rest<5 other=0                               179 |  26.3  72.1   1.7 |  14.0  20.1 |  19.6
+other    b   stunned other=1                               91 |   0.0  56.0  44.0 |  36.3  45.1 |   5.5
+other    c   ? other=0                                     83 |  50.6  45.8   3.6 |  38.6  41.0 |  33.7
+other    c   ? other=1                                    175 |  10.3  30.3  59.4 |  16.0  16.6 |   6.0
+other    c   acted other=0                                413 |  47.9  47.2   4.8 |  11.9  13.1 |  34.5
+other    c   acted other=1                                737 |   0.3  53.1  46.7 |  10.6  12.5 |   3.2
+other    c   hold other=0                                 625 |  69.4  29.3   1.3 |   3.0   4.0 |  20.2
+other    c   hold other=1                                  73 |  20.5  50.7  28.8 |  19.2  27.4 |  18.5
+other    c   none-other other=0                           211 |  76.8  22.7   0.5 |   0.0   0.5 |  10.4
+other    c   rest<5 other=0                               350 |  40.9  58.6   0.6 |  11.1  16.0 |  40.9
+other    c   rest<5 other=1                                49 |   4.1  71.4  24.5 |  49.0  57.1 |  42.9
+other    c   stunned other=1                              281 |   0.4  44.5  55.2 |  25.3  29.2 |   9.8
+other    d   ? other=0                                     39 |  51.3  46.2   2.6 |  33.3  33.3 |  38.5
+other    d   ? other=1                                    273 |   5.1  33.0  61.9 |   9.9   9.9 |   1.8
+other    d   acted other=0                                809 |  56.1  40.9   3.0 |   2.5   2.6 |  38.1
+other    d   acted other=1                               2623 |   0.1  54.8  45.1 |   1.3   1.6 |   0.7
+other    d   hold other=0                                 429 |  79.3  20.3   0.5 |   0.2   2.6 |  12.2
+other    d   hold other=1                                  37 |  29.7  45.9  24.3 |  10.8  10.8 |  13.5
+other    d   none-other other=0                           724 |  78.9  21.0   0.1 |   0.1   0.1 |   8.2
+other    d   none-other other=1                           117 |  47.0  35.9  17.1 |   2.6   2.6 |   0.0
+other    d   rest<5 other=0                               102 |  31.4  67.6   1.0 |  15.7  22.5 |  56.9
+other    d   stunned other=1                              758 |   0.0  21.0  79.0 |   3.6   4.7 |   1.8
+
+## (2b) enemy entered: X entered our gate first choice (gatech=1) x our previous state
+group    w   key | n | we / enemy / neither % | dead 5 / 10 % | flips if our bite were 4 (% of n)
+all      all gatech=0 ?                                  1252 |  17.9  38.5  43.6 |  34.4  35.9 |  11.2
+all      all gatech=0 acted                              1520 |  35.5  49.2  15.3 |  40.9  43.9 |  17.4
+all      all gatech=0 hold                               1029 |  49.5  41.7   8.8 |  19.2  28.2 |  18.0
+all      all gatech=0 none-other                          284 |  67.6  19.4  13.0 |   1.4   2.1 |   5.5
+all      all gatech=0 rest<5                              680 |  28.5  63.1   8.4 |  35.0  45.7 |  28.8
+all      all gatech=0 stunned                             170 |   0.0  62.9  37.1 |  67.1  71.8 |   9.7
+all      all gatech=1 acted                             11042 |   9.3  54.1  36.7 |   4.3   5.9 |   7.0
+all      all gatech=1 hold                               2989 |  46.6  50.9   2.5 |  10.4  15.6 |  12.4
+all      all gatech=1 none-other                         3361 |  76.2  23.0   0.8 |   1.0   1.4 |   3.2
+all      all gatech=1 rest<5                             1257 |  29.1  67.5   3.4 |  30.4  35.1 |  31.3
+all      all gatech=1 stunned                            4361 |   0.1  20.5  79.4 |  16.9  20.5 |   2.3
+all      b   gatech=0 ?                                   263 |  22.4  46.0  31.6 |  53.2  55.1 |   9.9
+all      b   gatech=0 acted                               405 |  23.2  63.0  13.8 |  64.0  66.4 |  13.0
+all      b   gatech=0 hold                                290 |  43.1  51.7   5.2 |  27.6  39.0 |   9.1
+all      b   gatech=0 rest<5                              248 |  30.6  65.3   4.0 |  31.9  43.5 |  10.3
+all      b   gatech=0 stunned                              60 |   0.0  61.7  38.3 |  66.7  73.3 |  12.5
+all      b   gatech=1 acted                               666 |  13.8  56.5  29.7 |  23.3  31.2 |   4.4
+all      b   gatech=1 hold                                527 |  51.2  45.9   2.8 |  14.0  21.6 |  11.0
+all      b   gatech=1 none-other                          105 |  65.7  32.4   1.9 |   4.8   7.6 |   7.1
+all      b   gatech=1 rest<5                              429 |  28.4  68.8   2.8 |  29.1  35.2 |  17.6
+all      b   gatech=1 stunned                             315 |   0.6  50.8  48.6 |  49.8  58.7 |   3.8
+all      c   gatech=0 ?                                   554 |  19.0  37.7  43.3 |  38.1  40.1 |  15.5
+all      c   gatech=0 acted                               584 |  28.9  51.0  20.0 |  47.1  51.7 |  24.2
+all      c   gatech=0 hold                                516 |  46.9  42.4  10.7 |  18.4  27.3 |  23.5
+all      c   gatech=0 none-other                           50 |  64.0  24.0  12.0 |   0.0   2.0 |  13.0
+all      c   gatech=0 rest<5                              343 |  28.0  60.6  11.4 |  39.1  49.0 |  39.5
+all      c   gatech=0 stunned                              83 |   0.0  65.1  34.9 |  68.7  73.5 |   8.4
+all      c   gatech=1 acted                              2218 |   9.7  53.7  36.7 |  11.2  15.5 |   9.2
+all      c   gatech=1 hold                               1411 |  53.6  43.3   3.0 |  13.8  19.7 |  16.9
+all      c   gatech=1 none-other                          429 |  65.7  32.6   1.6 |   4.7   6.8 |   8.4
+all      c   gatech=1 rest<5                              666 |  29.7  66.2   4.1 |  31.7  35.9 |  37.8
+all      c   gatech=1 stunned                            1055 |   0.1  37.6  62.3 |  41.2  47.0 |   6.1
+all      d   gatech=0 ?                                   421 |  13.3  34.4  52.3 |  16.9  17.1 |   6.7
+all      d   gatech=0 acted                               510 |  53.5  35.1  11.4 |  13.9  15.3 |  13.8
+all      d   gatech=0 hold                                209 |  65.6  25.8   8.6 |   8.6  13.4 |  17.9
+all      d   gatech=0 none-other                          225 |  68.4  17.8  13.8 |   0.9   0.9 |   3.8
+all      d   gatech=0 rest<5                               78 |  28.2  61.5  10.3 |  26.9  39.7 |  44.9
+all      d   gatech=1 acted                              8144 |   8.8  54.0  37.3 |   0.9   1.1 |   6.6
+all      d   gatech=1 hold                               1023 |  35.3  63.0   1.8 |   3.0   5.7 |   7.2
+all      d   gatech=1 none-other                         2826 |  78.2  21.2   0.6 |   0.3   0.4 |   2.2
+all      d   gatech=1 rest<5                              144 |  31.2  66.0   2.8 |  27.8  30.6 |  45.5
+all      d   gatech=1 stunned                            2979 |   0.1  11.0  88.9 |   4.7   6.8 |   0.8
+Yen      all gatech=0 ?                                   372 |  16.1  45.2  38.7 |  51.6  54.8 |  13.0
+Yen      all gatech=0 acted                               499 |  24.0  56.9  19.0 |  62.9  66.5 |  19.9
+Yen      all gatech=0 hold                                412 |  36.7  50.5  12.9 |  26.9  39.1 |  20.5
+Yen      all gatech=0 none-other                           30 |  80.0  16.7   3.3 |   6.7  13.3 |   5.0
+Yen      all gatech=0 rest<5                              265 |  27.9  61.1  10.9 |  46.0  58.5 |  23.8
+Yen      all gatech=0 stunned                              78 |   0.0  62.8  37.2 |  76.9  84.6 |   8.3
+Yen      all gatech=1 acted                              1703 |   7.9  58.5  33.5 |  15.5  20.7 |   7.3
+Yen      all gatech=1 hold                               1070 |  48.2  48.5   3.3 |  12.1  17.9 |  17.7
+Yen      all gatech=1 none-other                          186 |  43.5  53.2   3.2 |   4.8   7.5 |  15.1
+Yen      all gatech=1 rest<5                              531 |  25.8  70.2   4.0 |  35.0  41.4 |  30.9
+Yen      all gatech=1 stunned                             925 |   0.2  39.2  60.5 |  38.1  44.3 |   3.6
+Yen      b   gatech=0 ?                                   127 |  18.1  48.0  33.9 |  59.1  62.2 |   7.1
+Yen      b   gatech=0 acted                               189 |  18.5  67.2  14.3 |  73.5  75.1 |  15.3
+Yen      b   gatech=0 hold                                147 |  33.3  60.5   6.1 |  30.6  41.5 |  11.6
+Yen      b   gatech=0 rest<5                              120 |  34.2  60.8   5.0 |  34.2  46.7 |  12.1
+Yen      b   gatech=0 stunned                              35 |   0.0  57.1  42.9 |  68.6  80.0 |  10.0
+Yen      b   gatech=1 acted                               327 |  11.0  60.9  28.1 |  30.6  39.1 |   6.4
+Yen      b   gatech=1 hold                                311 |  46.9  49.8   3.2 |  13.5  19.6 |  11.4
+Yen      b   gatech=1 none-other                           34 |  41.2  58.8   0.0 |   2.9   5.9 |  14.7
+Yen      b   gatech=1 rest<5                              220 |  25.9  70.9   3.2 |  30.5  36.8 |  18.9
+Yen      b   gatech=1 stunned                             178 |   1.1  48.9  50.0 |  56.2  65.7 |   3.4
+Yen      c   gatech=0 ?                                   184 |  10.9  42.4  46.7 |  48.9  51.6 |  17.7
+Yen      c   gatech=0 acted                               213 |  22.5  52.6  24.9 |  60.6  66.7 |  25.4
+Yen      c   gatech=0 hold                                211 |  39.8  46.4  13.7 |  23.2  37.0 |  26.8
+Yen      c   gatech=0 rest<5                              121 |  20.7  62.0  17.4 |  60.3  72.7 |  36.0
+Yen      c   gatech=0 stunned                              31 |   0.0  71.0  29.0 |  87.1  93.5 |   9.7
+Yen      c   gatech=1 acted                               830 |   8.8  55.5  35.7 |  15.4  21.6 |   8.8
+Yen      c   gatech=1 hold                                588 |  49.7  47.3   3.1 |  11.7  17.7 |  20.4
+Yen      c   gatech=1 none-other                          100 |  40.0  56.0   4.0 |   6.0   9.0 |  17.5
+Yen      c   gatech=1 rest<5                              249 |  25.3  70.3   4.4 |  41.8  48.6 |  42.8
+Yen      c   gatech=1 stunned                             499 |   0.0  40.5  59.5 |  39.9  46.9 |   3.7
+Yen      d   gatech=0 ?                                    50 |  28.0  46.0  26.0 |  40.0  42.0 |  14.0
+Yen      d   gatech=0 acted                                81 |  44.4  39.5  16.0 |  38.3  40.7 |  20.4
+Yen      d   gatech=0 hold                                 49 |  36.7  36.7  26.5 |  26.5  34.7 |  22.4
+Yen      d   gatech=1 acted                               537 |   4.5  61.6  33.9 |   6.1   7.8 |   5.5
+Yen      d   gatech=1 hold                                152 |  50.7  44.7   4.6 |   6.6   9.9 |  22.4
+Yen      d   gatech=1 none-other                           52 |  51.9  44.2   3.8 |   3.8   5.8 |  10.6
+Yen      d   gatech=1 rest<5                               49 |  32.7  61.2   6.1 |  24.5  28.6 |  31.6
+Yen      d   gatech=1 stunned                             241 |   0.0  29.0  71.0 |  19.9  22.4 |   3.7
+Siect-F  all gatech=0 ?                                    72 |  20.8  52.8  26.4 |  86.1  88.9 |   6.9
+Siect-F  all gatech=0 acted                               150 |  16.7  73.3  10.0 |  47.3  53.3 |   5.3
+Siect-F  all gatech=0 hold                                 76 |  31.6  63.2   5.3 |  75.0  92.1 |   2.6
+Siect-F  all gatech=0 rest<5                               63 |  33.3  57.1   9.5 |  79.4  90.5 |  11.1
+Siect-F  all gatech=1 acted                               131 |   7.6  55.0  37.4 |  42.0  63.4 |   0.8
+Siect-F  all gatech=1 hold                                697 |   4.4  94.8   0.7 |  19.7  27.4 |   1.6
+Siect-F  all gatech=1 none-other                           49 |  16.3  83.7   0.0 |  40.8  51.0 |   0.0
+Siect-F  all gatech=1 rest<5                               98 |  16.3  81.6   2.0 |  86.7  90.8 |  10.2
+Siect-F  all gatech=1 stunned                             789 |   0.0  10.8  89.2 |  26.6  32.4 |   0.4
+Siect-F  b   gatech=0 acted                                30 |  10.0  80.0  10.0 |  90.0  93.3 |   6.7
+Siect-F  b   gatech=1 rest<5                               30 |  26.7  73.3   0.0 |  80.0  86.7 |  10.0
+Siect-F  c   gatech=0 ?                                    42 |  21.4  45.2  33.3 |  85.7  90.5 |   4.8
+Siect-F  c   gatech=0 acted                                48 |  18.8  60.4  20.8 |  72.9  87.5 |   6.2
+Siect-F  c   gatech=0 hold                                 43 |  27.9  65.1   7.0 |  76.7  95.3 |   2.3
+Siect-F  c   gatech=1 acted                                64 |  10.9  51.6  37.5 |  51.6  79.7 |   0.0
+Siect-F  c   gatech=1 hold                                170 |  12.9  85.3   1.8 |  56.5  77.6 |   3.5
+Siect-F  c   gatech=1 none-other                           36 |  22.2  77.8   0.0 |  38.9  52.8 |   0.0
+Siect-F  c   gatech=1 rest<5                               56 |   8.9  87.5   3.6 |  91.1  92.9 |   8.9
+Siect-F  c   gatech=1 stunned                             169 |   0.0  21.3  78.7 |  84.6  92.3 |   1.8
+Siect-F  d   gatech=0 acted                                72 |  18.1  79.2   2.8 |  12.5  13.9 |   4.2
+Siect-F  d   gatech=1 acted                                49 |   2.0  55.1  42.9 |  18.4  32.7 |   2.0
+Siect-F  d   gatech=1 hold                                500 |   0.8  99.0   0.2 |   3.6   6.8 |   0.4
+Siect-F  d   gatech=1 stunned                             605 |   0.0   7.3  92.7 |   8.6  14.0 |   0.0
+feeder   all gatech=0 ?                                   135 |  21.5  28.9  49.6 |  26.7  27.4 |  11.1
+feeder   all gatech=0 acted                               194 |  37.1  51.5  11.3 |  35.6  38.1 |  16.5
+feeder   all gatech=0 hold                                 92 |  56.5  30.4  13.0 |   5.4  12.0 |  13.0
+feeder   all gatech=0 none-other                           57 |  49.1  19.3  31.6 |   0.0   0.0 |   8.8
+feeder   all gatech=0 rest<5                               93 |  26.9  61.3  11.8 |  22.6  31.2 |  29.0
+feeder   all gatech=1 acted                              4820 |   9.2  54.0  36.8 |   1.1   1.3 |   5.4
+feeder   all gatech=1 hold                                212 |  62.7  33.5   3.8 |   2.4   4.7 |  15.6
+feeder   all gatech=1 none-other                         2010 |  79.9  19.6   0.5 |   0.0   0.0 |   0.1
+feeder   all gatech=1 rest<5                              149 |  28.2  67.1   4.7 |  20.1  22.1 |  35.6
+feeder   all gatech=1 stunned                            1455 |   0.0   9.1  90.9 |   2.6   3.4 |   1.4
+feeder   b   gatech=0 acted                                55 |  16.4  70.9  12.7 |  69.1  69.1 |  12.7
+feeder   b   gatech=0 rest<5                               31 |  22.6  71.0   6.5 |  22.6  29.0 |   9.7
+feeder   b   gatech=1 acted                                69 |   5.8  59.4  34.8 |  17.4  17.4 |   0.0
+feeder   b   gatech=1 rest<5                               37 |  27.0  70.3   2.7 |  24.3  27.0 |  10.8
+feeder   b   gatech=1 stunned                              30 |   0.0  73.3  26.7 |  20.0  30.0 |   6.7
+feeder   c   gatech=0 ?                                    67 |  23.9  29.9  46.3 |  32.8  34.3 |  19.4
+feeder   c   gatech=0 acted                                66 |  28.8  51.5  19.7 |  39.4  47.0 |  24.2
+feeder   c   gatech=0 hold                                 57 |  59.6  22.8  17.5 |   7.0  12.3 |  17.5
+feeder   c   gatech=0 rest<5                               53 |  32.1  54.7  13.2 |  22.6  32.1 |  37.7
+feeder   c   gatech=1 acted                               409 |   5.9  56.2  37.9 |   9.0  11.0 |   8.1
+feeder   c   gatech=1 hold                                141 |  63.1  33.3   3.5 |   2.8   5.7 |  19.1
+feeder   c   gatech=1 none-other                           65 |  87.7  12.3   0.0 |   0.0   0.0 |   1.5
+feeder   c   gatech=1 rest<5                              101 |  29.7  64.4   5.9 |  16.8  18.8 |  42.6
+feeder   c   gatech=1 stunned                             115 |   0.0  45.2  54.8 |  21.7  24.3 |  14.8
+feeder   d   gatech=0 ?                                    48 |  16.7  16.7  66.7 |   2.1   2.1 |   2.1
+feeder   d   gatech=0 acted                                71 |  62.0  35.2   2.8 |   4.2   4.2 |  12.7
+feeder   d   gatech=0 none-other                           44 |  45.5  18.2  36.4 |   0.0   0.0 |   9.1
+feeder   d   gatech=1 acted                              4342 |   9.5  53.7  36.8 |   0.1   0.1 |   5.2
+feeder   d   gatech=1 hold                                 42 |  71.4  23.8   4.8 |   0.0   0.0 |  11.9
+feeder   d   gatech=1 none-other                         1938 |  79.7  19.8   0.5 |   0.0   0.0 |   0.1
+feeder   d   gatech=1 stunned                            1309 |   0.0   4.4  95.6 |   0.5   0.8 |   0.2
+other    all gatech=0 ?                                   656 |  16.9  35.7  47.4 |  20.4  20.9 |  10.9
+other    all gatech=0 acted                               653 |  46.6  38.3  15.2 |  24.2  25.7 |  19.1
+other    all gatech=0 hold                                433 |  61.4  33.5   5.1 |   4.2   8.1 |  20.1
+other    all gatech=0 none-other                          173 |  79.8   9.8  10.4 |   1.2   1.2 |   5.2
+other    all gatech=0 rest<5                              255 |  27.5  68.2   4.3 |  17.3  26.7 |  38.8
+other    all gatech=0 stunned                              55 |   0.0  72.7  27.3 |  45.5  49.1 |   9.1
+other    all gatech=1 acted                              4288 |  10.0  53.5  36.5 |   2.2   3.2 |   9.1
+other    all gatech=1 hold                                969 |  69.7  27.7   2.7 |   3.9   6.4 |  14.1
+other    all gatech=1 none-other                          945 |  73.7  25.3   1.1 |   0.4   0.7 |   7.9
+other    all gatech=1 rest<5                              466 |  34.1  63.3   2.6 |  17.4  21.0 |  35.6
+other    all gatech=1 stunned                            1081 |   0.3  27.7  72.1 |  10.1  12.5 |   3.8
+other    b   gatech=0 ?                                    84 |  20.2  40.5  39.3 |  38.1  38.1 |  15.5
+other    b   gatech=0 acted                               113 |  30.1  54.0  15.9 |  42.5  45.1 |  12.8
+other    b   gatech=0 hold                                 86 |  59.3  34.9   5.8 |   9.3  16.3 |   9.9
+other    b   gatech=0 rest<5                               67 |  19.4  77.6   3.0 |  17.9  25.4 |  11.9
+other    b   gatech=1 acted                               239 |  17.6  51.9  30.5 |   9.6  18.4 |   3.6
+other    b   gatech=1 hold                                136 |  60.3  38.2   1.5 |   5.1  13.2 |  13.6
+other    b   gatech=1 none-other                           51 |  80.4  17.6   2.0 |   3.9   7.8 |   4.9
+other    b   gatech=1 rest<5                              130 |  27.7  70.0   2.3 |  19.2  25.4 |  20.8
+other    b   gatech=1 stunned                              78 |   0.0  52.6  47.4 |  34.6  44.9 |   5.1
+other    c   gatech=0 ?                                   258 |  23.3  35.3  41.5 |  23.3  24.4 |  14.9
+other    c   gatech=0 acted                               252 |  35.3  48.8  15.9 |  32.5  33.3 |  27.2
+other    c   gatech=0 hold                                203 |  54.2  39.4   6.4 |   3.9   6.9 |  26.6
+other    c   gatech=0 rest<5                              140 |  32.9  62.9   4.3 |  17.1  26.4 |  47.9
+other    c   gatech=0 stunned                              30 |   0.0  70.0  30.0 |  46.7  53.3 |   6.7
+other    c   gatech=1 acted                               898 |  12.4  51.6  36.1 |   5.0   6.9 |  10.9
+other    c   gatech=1 hold                                495 |  68.5  28.3   3.2 |   5.1   6.3 |  17.3
+other    c   gatech=1 none-other                          204 |  75.0  23.5   1.5 |   0.0   0.5 |   8.6
+other    c   gatech=1 rest<5                              259 |  38.2  58.7   3.1 |  15.1  18.1 |  37.5
+other    c   gatech=1 stunned                             251 |   0.4  41.4  58.2 |  22.7  26.3 |  10.2
+other    d   gatech=0 ?                                   312 |  10.9  34.6  54.5 |  12.8  12.8 |   6.4
+other    d   gatech=0 acted                               286 |  62.9  22.7  14.3 |   9.8  11.2 |  14.7
+other    d   gatech=0 hold                                137 |  73.7  24.1   2.2 |   1.5   4.4 |  17.9
+other    d   gatech=0 none-other                          151 |  82.1   7.9   9.9 |   1.3   1.3 |   3.0
+other    d   gatech=0 rest<5                               44 |  25.0  68.2   6.8 |  15.9  29.5 |  54.5
+other    d   gatech=1 acted                              3146 |   8.8  54.2  37.1 |   0.8   1.0 |   9.0
+other    d   gatech=1 hold                                329 |  76.0  21.6   2.4 |   0.9   2.7 |  10.0
+other    d   gatech=1 none-other                          690 |  72.8  26.4   0.9 |   0.3   0.3 |   8.0
+other    d   gatech=1 rest<5                               74 |  32.4  66.2   1.4 |  20.3  21.6 |  56.8
+other    d   gatech=1 stunned                             749 |   0.3  20.2  79.6 |   3.1   4.3 |   1.6
+
+## (3) our newborn entered: parent rule x inherited lock x enemy place
+group    w   key | n | we / enemy / neither % | dead 5 / 10 % | flips if our bite were 4 (% of n)
+all      all ? none -                                      84 |  45.2  21.4  33.3 |  10.7  10.7 |  16.1
+all      all gate none ahead                            11899 |   4.6  87.2   8.2 |  49.4  66.7 |   3.1
+all      all gate none side                             11980 |   8.6   9.0  82.3 |  50.8  69.1 |   4.5
+all      all gate stale ahead                            1026 |  10.1  82.1   7.8 |  34.2  55.8 |   5.1
+all      all gate stale side                             1526 |  34.9   9.3  55.8 |  22.9  37.4 |   6.7
+all      all gate valid ahead                           24397 |  71.8  21.6   6.6 |  11.0  14.9 |   0.0
+all      all gate valid side                            20683 |  12.7   9.6  77.7 |  14.1  19.0 |   0.0
+all      all rule4 none ahead                             941 |  21.5  69.8   8.7 |  62.3  66.7 |  34.0
+all      all rule4 none side                               37 |  32.4  45.9  21.6 |  32.4  40.5 |  36.5
+all      all rule4 stale ahead                            114 |  46.5  50.9   2.6 |  21.9  23.7 |  32.9
+all      all rule4 valid ahead                            872 |  91.6   6.5   1.8 |   8.1   9.9 |   0.0
+all      all rule4 valid side                              41 |  75.6  19.5   4.9 |  24.4  26.8 |   0.0
+all      b   gate none ahead                               33 |  15.2  75.8   9.1 |  51.5  54.5 |  21.2
+all      b   gate none side                                40 |  25.0  30.0  45.0 |  42.5  45.0 |  13.8
+all      b   gate valid ahead                             373 |  80.7  14.2   5.1 |  11.5  14.7 |   0.0
+all      b   gate valid side                              332 |  24.7  19.9  55.4 |  16.3  20.2 |   0.0
+all      b   rule4 none ahead                             321 |  22.7  68.5   8.7 |  65.7  69.2 |  14.5
+all      b   rule4 valid ahead                            157 |  93.0   6.4   0.6 |  17.8  23.6 |   0.0
+all      c   gate none ahead                              409 |  12.2  75.6  12.2 |  65.8  74.3 |  17.0
+all      c   gate none side                               382 |   7.3  29.6  63.1 |  67.8  74.9 |  18.6
+all      c   gate stale side                              100 |  47.0  36.0  17.0 |   9.0  10.0 |  27.5
+all      c   gate valid ahead                            3316 |  84.2  12.1   3.7 |   7.0   8.0 |   0.0
+all      c   gate valid side                             2569 |  12.5  13.1  74.4 |  10.6  11.8 |   0.0
+all      c   rule4 none ahead                             482 |  22.0  69.5   8.5 |  60.0  65.1 |  42.5
+all      c   rule4 stale ahead                             47 |  34.0  63.8   2.1 |  23.4  25.5 |  40.4
+all      c   rule4 valid ahead                            411 |  91.2   6.8   1.9 |   7.3   8.0 |   0.0
+all      d   ? none -                                      59 |  45.8  20.3  33.9 |   6.8   6.8 |  16.9
+all      d   gate none ahead                            11457 |   4.3  87.7   8.1 |  48.8  66.4 |   2.5
+all      d   gate none side                             11558 |   8.6   8.3  83.1 |  50.2  69.0 |   4.0
+all      d   gate stale ahead                             994 |  10.1  82.6   7.3 |  34.0  56.1 |   4.6
+all      d   gate stale side                             1398 |  33.8   6.8  59.4 |  24.0  39.8 |   5.2
+all      d   gate valid ahead                           20707 |  69.6  23.3   7.1 |  11.6  15.9 |   0.0
+all      d   gate valid side                            17778 |  12.5   8.8  78.7 |  14.5  20.0 |   0.0
+all      d   rule4 none ahead                             128 |  16.4  73.4  10.2 |  60.9  65.6 |  53.5
+all      d   rule4 stale ahead                             45 |  68.9  28.9   2.2 |   4.4   6.7 |  25.6
+all      d   rule4 valid ahead                            302 |  91.4   6.3   2.3 |   4.3   5.3 |   0.0
+Yen      all gate none ahead                              132 |   8.3  72.7  18.9 |  26.5  30.3 |  41.7
+Yen      all gate none side                               129 |   7.0  38.0  55.0 |  29.5  34.1 |  21.7
+Yen      all gate stale side                               95 |  61.1  17.9  21.1 |   5.3   5.3 |   7.9
+Yen      all gate valid ahead                            4344 |  75.2  21.4   3.4 |  13.4  16.8 |   0.0
+Yen      all gate valid side                             3918 |  10.3  23.1  66.5 |  16.0  19.9 |   0.0
+Yen      all rule4 none ahead                             379 |  14.5  78.1   7.4 |  68.6  71.5 |  34.3
+Yen      all rule4 valid ahead                            229 |  83.4  15.3   1.3 |  19.2  22.7 |   0.0
+Yen      b   gate valid ahead                             202 |  80.2  16.3   3.5 |  14.4  19.8 |   0.0
+Yen      b   gate valid side                              178 |  20.2  18.0  61.8 |  19.7  25.8 |   0.0
+Yen      b   rule4 none ahead                             156 |  16.7  74.4   9.0 |  71.2  72.4 |  17.9
+Yen      b   rule4 valid ahead                             84 |  86.9  11.9   1.2 |  20.2  25.0 |   0.0
+Yen      c   gate none ahead                               84 |   7.1  70.2  22.6 |  25.0  29.8 |  42.9
+Yen      c   gate none side                                79 |   6.3  40.5  53.2 |  29.1  35.4 |  24.1
+Yen      c   gate valid ahead                            1177 |  81.5  15.5   3.0 |  10.5  11.9 |   0.0
+Yen      c   gate valid side                              976 |   8.0  15.8  76.2 |  14.1  15.8 |   0.0
+Yen      c   rule4 none ahead                             184 |  13.0  80.4   6.5 |  63.6  67.9 |  47.8
+Yen      c   rule4 valid ahead                            108 |  85.2  13.9   0.9 |  16.7  18.5 |   0.0
+Yen      d   gate stale side                               72 |  69.4   8.3  22.2 |   1.4   1.4 |   4.9
+Yen      d   gate valid ahead                            2965 |  72.4  24.1   3.5 |  14.4  18.5 |   0.0
+Yen      d   gate valid side                             2763 |  10.5  26.1  63.4 |  16.5  21.0 |   0.0
+Yen      d   rule4 none ahead                              31 |  12.9  80.6   6.5 |  80.6  83.9 |  45.2
+Yen      d   rule4 valid ahead                             35 |  68.6  28.6   2.9 |  25.7  31.4 |   0.0
+Siect-F  all gate none ahead                            10792 |   4.8  86.6   8.7 |  47.8  65.8 |   2.7
+Siect-F  all gate none side                             10842 |   2.9   7.8  89.3 |  49.2  68.4 |   4.6
+Siect-F  all gate stale ahead                             864 |   3.7  89.0   7.3 |  39.0  62.8 |   1.7
+Siect-F  all gate stale side                              798 |   4.8   4.5  90.7 |  41.7  67.4 |   2.8
+Siect-F  all gate valid ahead                            4483 |  11.8  78.7   9.6 |  43.4  60.0 |   0.0
+Siect-F  all gate valid side                             4311 |  11.8   5.8  82.4 |  48.4  67.2 |   0.0
+Siect-F  all rule4 none ahead                             123 |  29.3  61.0   9.8 |  76.4  91.9 |   9.8
+Siect-F  b   rule4 none ahead                              48 |  18.8  72.9   8.3 |  83.3  93.8 |   2.1
+Siect-F  c   gate none ahead                              281 |  11.7  79.4   8.9 |  80.8  91.1 |   8.2
+Siect-F  c   gate none side                               252 |   7.1  22.2  70.6 |  84.5  92.5 |  16.7
+Siect-F  c   gate valid ahead                              80 |  31.2  57.5  11.2 |  73.8  81.2 |   0.0
+Siect-F  c   gate valid side                               88 |  13.6  18.2  68.2 |  71.6  80.7 |   0.0
+Siect-F  c   rule4 none ahead                              66 |  34.8  56.1   9.1 |  74.2  90.9 |  15.2
+Siect-F  d   gate none ahead                            10507 |   4.6  86.8   8.7 |  46.9  65.1 |   2.5
+Siect-F  d   gate none side                             10585 |   2.8   7.5  89.7 |  48.4  67.9 |   4.3
+Siect-F  d   gate stale ahead                             852 |   3.6  89.1   7.3 |  38.6  62.6 |   1.6
+Siect-F  d   gate stale side                              787 |   4.4   4.2  91.4 |  41.4  67.3 |   2.5
+Siect-F  d   gate valid ahead                            4402 |  11.4  79.1   9.5 |  42.8  59.7 |   0.0
+Siect-F  d   gate valid side                             4217 |  11.6   5.6  82.8 |  47.9  66.9 |   0.0
+feeder   all gate stale side                               42 |  59.5  28.6  11.9 |   0.0   0.0 |  21.4
+feeder   all gate valid ahead                            3273 |  87.3   1.2  11.5 |   0.2   0.4 |   0.0
+feeder   all gate valid side                             2903 |  14.7   2.8  82.5 |   0.4   0.7 |   0.0
+feeder   all rule4 none ahead                              39 |  20.5  61.5  17.9 |  56.4  56.4 |  30.8
+feeder   all rule4 valid ahead                             48 |  91.7   4.2   4.2 |   4.2   4.2 |   0.0
+feeder   c   gate valid ahead                             366 |  96.4   1.1   2.5 |   1.1   1.4 |   0.0
+feeder   c   gate valid side                              265 |   5.7   4.9  89.4 |   1.9   3.0 |   0.0
+feeder   d   gate valid ahead                            2880 |  86.1   1.2  12.7 |   0.1   0.3 |   0.0
+feeder   d   gate valid side                             2611 |  15.7   2.5  81.8 |   0.3   0.5 |   0.0
+other    all ? none -                                      52 |  50.0  15.4  34.6 |   0.0   0.0 |  15.4
+other    all gate none ahead                               53 |   9.4  69.8  20.8 |  30.2  30.2 |  37.7
+other    all gate none side                                58 |  13.8  44.8  41.4 |  34.5  34.5 |  25.0
+other    all gate stale ahead                             111 |  61.3  27.0  11.7 |   0.0   0.0 |  24.3
+other    all gate stale side                              563 |  68.4  13.5  18.1 |   0.0   0.0 |  11.4
+other    all gate valid ahead                           12060 |  88.5   6.0   5.4 |   0.6   0.7 |   0.0
+other    all gate valid side                             9285 |  13.6   7.2  79.1 |   0.9   1.0 |   0.0
+other    all rule4 none ahead                             374 |  20.6  70.1   9.4 |  52.9  54.5 |  44.4
+other    all rule4 stale ahead                             86 |  53.5  43.0   3.5 |  16.3  16.3 |  30.8
+other    all rule4 valid ahead                            570 |  95.1   3.0   1.9 |   1.8   2.1 |   0.0
+other    b   gate valid ahead                             135 |  80.7  11.9   7.4 |   3.7   4.4 |   0.0
+other    b   gate valid side                              108 |  31.5  22.2  46.3 |   5.6   6.5 |   0.0
+other    b   rule4 none ahead                              90 |  22.2  67.8  10.0 |  50.0  50.0 |  19.4
+other    b   rule4 valid ahead                             49 | 100.0   0.0   0.0 |   0.0   0.0 |   0.0
+other    c   gate stale side                               64 |  50.0  37.5  12.5 |   0.0   0.0 |  29.7
+other    c   gate valid ahead                            1660 |  86.6   9.2   4.2 |   1.3   1.5 |   0.0
+other    c   gate valid side                             1200 |  17.8  12.1  70.2 |   2.7   2.8 |   0.0
+other    c   rule4 none ahead                             198 |  22.2  68.7   9.1 |  53.5  55.6 |  48.5
+other    c   rule4 stale ahead                             34 |  35.3  61.8   2.9 |  20.6  20.6 |  39.7
+other    c   rule4 valid ahead                            272 |  94.9   2.9   2.2 |   2.2   2.6 |   0.0
+other    d   ? none -                                      39 |  48.7  17.9  33.3 |   0.0   0.0 |  17.9
+other    d   gate stale ahead                             106 |  62.3  27.4  10.4 |   0.0   0.0 |  24.5
+other    d   gate stale side                              486 |  70.6  10.3  19.1 |   0.0   0.0 |   9.1
+other    d   gate valid ahead                           10264 |  89.0   5.4   5.6 |   0.4   0.5 |   0.0
+other    d   gate valid side                             7974 |  12.7   6.3  81.0 |   0.6   0.7 |   0.0
+other    d   rule4 none ahead                              84 |  14.3  76.2   9.5 |  54.8  57.1 |  62.5
+other    d   rule4 stale ahead                             43 |  69.8  27.9   2.3 |   4.7   4.7 |  25.6
+other    d   rule4 valid ahead                            249 |  94.4   3.6   2.0 |   1.6   2.0 |   0.0
+
+## (4) enemy bit first: cost class x direction x our plan
+group    w   key | n | we / enemy / neither % | dead 5 / 10 % | flips if our bite were 4 (% of n)
+all      a   other LR first                                47 |   0.0 100.0   0.0 |  57.4  66.0 |   0.0
+all      a   other UD first                                56 |   0.0 100.0   0.0 |  76.8  80.4 |   0.0
+all      all 5-15 LR first                               1768 |   0.0 100.0   0.0 |  40.3  49.1 | 100.0
+all      all 5-15 LR lock                                2356 |   0.0 100.0   0.0 |  15.4  17.5 |   0.0
+all      all 5-15 UD first                               1890 |   0.0 100.0   0.0 |  34.8  41.1 | 100.0
+all      all 5-15 UD lock                                2922 |   0.0 100.0   0.0 |   8.0  10.5 |   0.0
+all      all <4 LR first                                 3381 |   0.0 100.0   0.0 |  51.5  62.9 |   0.0
+all      all <4 LR lock                                  2404 |   0.0 100.0   0.0 |  55.3  69.1 |   0.0
+all      all <4 UD first                                 3641 |   0.0 100.0   0.0 |  53.4  69.0 |   0.0
+all      all <4 UD lock                                   336 |   0.0 100.0   0.0 |  49.4  60.1 |   0.0
+all      all =4 LR first                                   41 |   0.0 100.0   0.0 |  48.8  56.1 |  50.0
+all      all =4 LR lock                                   125 |   0.0 100.0   0.0 |  11.2  15.2 |   0.0
+all      all =4 UD first                                 1128 |   0.0 100.0   0.0 |  45.6  52.0 |  50.0
+all      all =4 UD lock                                  2030 |   0.0 100.0   0.0 |  30.8  37.3 |   0.0
+all      all >16 LR first                                 330 |   0.0 100.0   0.0 |  85.2  92.4 |   0.0
+all      all other LR first                              2058 |   0.0 100.0   0.0 |  58.5  69.3 |   0.0
+all      all other LR lock                               1807 |   0.0 100.0   0.0 |  43.2  58.1 |   0.0
+all      all other UD first                              4934 |   0.0 100.0   0.0 |  45.4  63.0 |   0.0
+all      all other UD lock                               2007 |   0.0 100.0   0.0 |  11.6  15.3 |   0.0
+all      b   5-15 LR first                                162 |   0.0 100.0   0.0 |  54.9  61.1 | 100.0
+all      b   5-15 LR lock                                  68 |   0.0 100.0   0.0 |  42.6  48.5 |   0.0
+all      b   5-15 UD first                                156 |   0.0 100.0   0.0 |  57.7  63.5 | 100.0
+all      b   5-15 UD lock                                  56 |   0.0 100.0   0.0 |  25.0  35.7 |   0.0
+all      b   <4 LR first                                   51 |   0.0 100.0   0.0 |  94.1  98.0 |   0.0
+all      b   <4 UD first                                   72 |   0.0 100.0   0.0 |  75.0  79.2 |   0.0
+all      b   =4 UD first                                  242 |   0.0 100.0   0.0 |  52.1  58.3 |  50.0
+all      b   =4 UD lock                                   106 |   0.0 100.0   0.0 |  37.7  46.2 |   0.0
+all      b   other LR first                               541 |   0.0 100.0   0.0 |  55.8  62.1 |   0.0
+all      b   other LR lock                                192 |   0.0 100.0   0.0 |  46.9  55.7 |   0.0
+all      b   other UD first                               565 |   0.0 100.0   0.0 |  61.9  67.3 |   0.0
+all      b   other UD lock                                170 |   0.0 100.0   0.0 |  40.6  48.2 |   0.0
+all      c   5-15 LR first                                785 |   0.0 100.0   0.0 |  46.0  51.1 | 100.0
+all      c   5-15 LR lock                                 629 |   0.0 100.0   0.0 |  29.4  33.1 |   0.0
+all      c   5-15 UD first                                722 |   0.0 100.0   0.0 |  44.7  48.1 | 100.0
+all      c   5-15 UD lock                                 674 |   0.0 100.0   0.0 |  19.7  23.7 |   0.0
+all      c   <4 LR first                                  213 |   0.0 100.0   0.0 |  81.2  89.2 |   0.0
+all      c   <4 LR lock                                    65 |   0.0 100.0   0.0 |  78.5  89.2 |   0.0
+all      c   <4 UD first                                  346 |   0.0 100.0   0.0 |  75.7  86.7 |   0.0
+all      c   <4 UD lock                                    82 |   0.0 100.0   0.0 |  58.5  65.9 |   0.0
+all      c   =4 LR first                                   30 |   0.0 100.0   0.0 |  53.3  63.3 |  50.0
+all      c   =4 UD first                                  639 |   0.0 100.0   0.0 |  47.3  54.5 |  50.0
+all      c   =4 UD lock                                   564 |   0.0 100.0   0.0 |  30.0  34.2 |   0.0
+all      c   other LR first                               274 |   0.0 100.0   0.0 |  51.8  53.3 |   0.0
+all      c   other LR lock                                130 |   0.0 100.0   0.0 |  30.0  33.8 |   0.0
+all      c   other UD first                               252 |   0.0 100.0   0.0 |  54.0  57.9 |   0.0
+all      c   other UD lock                                141 |   0.0 100.0   0.0 |  24.1  30.5 |   0.0
+all      d   5-15 LR first                                821 |   0.0 100.0   0.0 |  31.9  44.8 | 100.0
+all      d   5-15 LR lock                                1659 |   0.0 100.0   0.0 |   9.0  10.4 |   0.0
+all      d   5-15 UD first                               1012 |   0.0 100.0   0.0 |  24.1  32.7 | 100.0
+all      d   5-15 UD lock                                2192 |   0.0 100.0   0.0 |   4.0   5.7 |   0.0
+all      d   <4 LR first                                 3117 |   0.0 100.0   0.0 |  48.8  60.5 |   0.0
+all      d   <4 LR lock                                  2329 |   0.0 100.0   0.0 |  54.7  68.5 |   0.0
+all      d   <4 UD first                                 3220 |   0.0 100.0   0.0 |  50.5  66.9 |   0.0
+all      d   <4 UD lock                                   227 |   0.0 100.0   0.0 |  46.7  59.5 |   0.0
+all      d   =4 LR lock                                    88 |   0.0 100.0   0.0 |   3.4   5.7 |   0.0
+all      d   =4 UD first                                  246 |   0.0 100.0   0.0 |  35.0  39.4 |  50.0
+all      d   =4 UD lock                                  1360 |   0.0 100.0   0.0 |  30.6  37.9 |   0.0
+all      d   >16 LR first                                 318 |   0.0 100.0   0.0 |  86.2  93.7 |   0.0
+all      d   other LR first                              1196 |   0.0 100.0   0.0 |  61.3  76.4 |   0.0
+all      d   other LR lock                               1480 |   0.0 100.0   0.0 |  43.8  60.4 |   0.0
+all      d   other UD first                              4061 |   0.0 100.0   0.0 |  42.2  62.4 |   0.0
+all      d   other UD lock                               1689 |   0.0 100.0   0.0 |   7.5  10.6 |   0.0
+Yen      a   other LR first                                30 |   0.0 100.0   0.0 |  63.3  70.0 |   0.0
+Yen      a   other UD first                                43 |   0.0 100.0   0.0 |  79.1  81.4 |   0.0
+Yen      all 5-15 LR first                                472 |   0.0 100.0   0.0 |  49.4  56.4 | 100.0
+Yen      all 5-15 LR lock                                 592 |   0.0 100.0   0.0 |  39.9  44.6 |   0.0
+Yen      all 5-15 UD first                                271 |   0.0 100.0   0.0 |  60.5  67.9 | 100.0
+Yen      all 5-15 UD lock                                 337 |   0.0 100.0   0.0 |  28.8  35.9 |   0.0
+Yen      all <4 UD first                                   82 |   0.0 100.0   0.0 |  43.9  48.8 |   0.0
+Yen      all <4 UD lock                                    78 |   0.0 100.0   0.0 |  37.2  43.6 |   0.0
+Yen      all =4 UD first                                  861 |   0.0 100.0   0.0 |  44.5  50.8 |  50.0
+Yen      all =4 UD lock                                  1501 |   0.0 100.0   0.0 |  37.4  45.0 |   0.0
+Yen      all other LR first                               442 |   0.0 100.0   0.0 |  57.9  62.9 |   0.0
+Yen      all other LR lock                                592 |   0.0 100.0   0.0 |  59.0  69.6 |   0.0
+Yen      all other UD first                               420 |   0.0 100.0   0.0 |  69.5  76.0 |   0.0
+Yen      all other UD lock                                160 |   0.0 100.0   0.0 |  35.6  40.6 |   0.0
+Yen      b   5-15 LR first                                106 |   0.0 100.0   0.0 |  52.8  60.4 | 100.0
+Yen      b   5-15 LR lock                                  52 |   0.0 100.0   0.0 |  51.9  59.6 |   0.0
+Yen      b   5-15 UD first                                 51 |   0.0 100.0   0.0 |  64.7  76.5 | 100.0
+Yen      b   <4 UD first                                   42 |   0.0 100.0   0.0 |  57.1  64.3 |   0.0
+Yen      b   =4 UD first                                  205 |   0.0 100.0   0.0 |  50.7  56.1 |  50.0
+Yen      b   =4 UD lock                                    88 |   0.0 100.0   0.0 |  39.8  46.6 |   0.0
+Yen      b   other LR first                               292 |   0.0 100.0   0.0 |  57.9  63.7 |   0.0
+Yen      b   other LR lock                                 99 |   0.0 100.0   0.0 |  56.6  69.7 |   0.0
+Yen      b   other UD first                               274 |   0.0 100.0   0.0 |  69.3  75.9 |   0.0
+Yen      b   other UD lock                                 71 |   0.0 100.0   0.0 |  53.5  59.2 |   0.0
+Yen      c   5-15 LR first                                304 |   0.0 100.0   0.0 |  49.7  57.2 | 100.0
+Yen      c   5-15 LR lock                                 278 |   0.0 100.0   0.0 |  45.7  50.4 |   0.0
+Yen      c   5-15 UD first                                180 |   0.0 100.0   0.0 |  60.0  66.7 | 100.0
+Yen      c   5-15 UD lock                                 211 |   0.0 100.0   0.0 |  36.5  45.0 |   0.0
+Yen      c   <4 UD first                                   32 |   0.0 100.0   0.0 |  28.1  28.1 |   0.0
+Yen      c   <4 UD lock                                    31 |   0.0 100.0   0.0 |  19.4  29.0 |   0.0
+Yen      c   =4 UD first                                  494 |   0.0 100.0   0.0 |  46.2  53.6 |  50.0
+Yen      c   =4 UD lock                                   452 |   0.0 100.0   0.0 |  31.9  36.1 |   0.0
+Yen      c   other LR first                               108 |   0.0 100.0   0.0 |  60.2  62.0 |   0.0
+Yen      c   other LR lock                                 36 |   0.0 100.0   0.0 |  66.7  72.2 |   0.0
+Yen      c   other UD first                                92 |   0.0 100.0   0.0 |  67.4  75.0 |   0.0
+Yen      c   other UD lock                                 38 |   0.0 100.0   0.0 |  31.6  36.8 |   0.0
+Yen      d   5-15 LR first                                 62 |   0.0 100.0   0.0 |  41.9  45.2 | 100.0
+Yen      d   5-15 LR lock                                 262 |   0.0 100.0   0.0 |  31.3  35.5 |   0.0
+Yen      d   5-15 UD first                                 40 |   0.0 100.0   0.0 |  57.5  62.5 | 100.0
+Yen      d   5-15 UD lock                                  98 |   0.0 100.0   0.0 |  11.2  14.3 |   0.0
+Yen      d   =4 UD first                                  161 |   0.0 100.0   0.0 |  31.7  35.4 |  50.0
+Yen      d   =4 UD lock                                   961 |   0.0 100.0   0.0 |  39.8  49.1 |   0.0
+Yen      d   other LR lock                                453 |   0.0 100.0   0.0 |  58.9  69.3 |   0.0
+Yen      d   other UD lock                                 49 |   0.0 100.0   0.0 |  14.3  16.3 |   0.0
+Siect-F  all 5-15 LR first                                475 |   0.0 100.0   0.0 |  48.6  69.5 | 100.0
+Siect-F  all 5-15 LR lock                                  46 |   0.0 100.0   0.0 |  67.4  76.1 |   0.0
+Siect-F  all 5-15 UD first                                423 |   0.0 100.0   0.0 |  54.6  73.8 | 100.0
+Siect-F  all 5-15 UD lock                                 193 |   0.0 100.0   0.0 |  41.5  58.0 |   0.0
+Siect-F  all <4 LR first                                 3223 |   0.0 100.0   0.0 |  50.7  62.0 |   0.0
+Siect-F  all <4 LR lock                                  2369 |   0.0 100.0   0.0 |  55.4  69.0 |   0.0
+Siect-F  all <4 UD first                                 3447 |   0.0 100.0   0.0 |  52.8  68.6 |   0.0
+Siect-F  all <4 UD lock                                   216 |   0.0 100.0   0.0 |  54.2  67.1 |   0.0
+Siect-F  all other LR first                               759 |   0.0 100.0   0.0 |  64.2  77.6 |   0.0
+Siect-F  all other LR lock                                679 |   0.0 100.0   0.0 |  55.4  83.1 |   0.0
+Siect-F  all other UD first                              3727 |   0.0 100.0   0.0 |  46.7  68.7 |   0.0
+Siect-F  all other UD lock                                542 |   0.0 100.0   0.0 |  22.0  29.9 |   0.0
+Siect-F  b   <4 LR first                                   48 |   0.0 100.0   0.0 |  93.8  97.9 |   0.0
+Siect-F  b   other LR first                                44 |   0.0 100.0   0.0 |  97.7  97.7 |   0.0
+Siect-F  b   other UD first                                52 |   0.0 100.0   0.0 | 100.0 100.0 |   0.0
+Siect-F  c   5-15 LR first                                 43 |   0.0 100.0   0.0 |  88.4  97.7 | 100.0
+Siect-F  c   5-15 UD first                                 68 |   0.0 100.0   0.0 |  95.6 100.0 | 100.0
+Siect-F  c   <4 LR first                                  204 |   0.0 100.0   0.0 |  81.9  90.2 |   0.0
+Siect-F  c   <4 LR lock                                    56 |   0.0 100.0   0.0 |  82.1  91.1 |   0.0
+Siect-F  c   <4 UD first                                  299 |   0.0 100.0   0.0 |  80.9  93.3 |   0.0
+Siect-F  c   <4 UD lock                                    42 |   0.0 100.0   0.0 |  88.1  92.9 |   0.0
+Siect-F  d   5-15 LR first                                427 |   0.0 100.0   0.0 |  44.0  66.3 | 100.0
+Siect-F  d   5-15 LR lock                                  34 |   0.0 100.0   0.0 |  61.8  70.6 |   0.0
+Siect-F  d   5-15 UD first                                341 |   0.0 100.0   0.0 |  44.6  67.4 | 100.0
+Siect-F  d   5-15 UD lock                                 173 |   0.0 100.0   0.0 |  36.4  54.9 |   0.0
+Siect-F  d   <4 LR first                                 2971 |   0.0 100.0   0.0 |  47.9  59.5 |   0.0
+Siect-F  d   <4 LR lock                                  2309 |   0.0 100.0   0.0 |  54.7  68.4 |   0.0
+Siect-F  d   <4 UD first                                 3123 |   0.0 100.0   0.0 |  49.7  66.0 |   0.0
+Siect-F  d   <4 UD lock                                   171 |   0.0 100.0   0.0 |  45.0  60.2 |   0.0
+Siect-F  d   other LR first                               693 |   0.0 100.0   0.0 |  60.9  75.6 |   0.0
+Siect-F  d   other LR lock                                673 |   0.0 100.0   0.0 |  55.1  82.9 |   0.0
+Siect-F  d   other UD first                              3649 |   0.0 100.0   0.0 |  45.6  68.0 |   0.0
+Siect-F  d   other UD lock                                531 |   0.0 100.0   0.0 |  20.5  28.4 |   0.0
+feeder   all 5-15 LR first                                174 |   0.0 100.0   0.0 |  24.7  28.7 | 100.0
+feeder   all 5-15 LR lock                                 540 |   0.0 100.0   0.0 |   4.6   5.9 |   0.0
+feeder   all 5-15 UD first                                335 |   0.0 100.0   0.0 |  16.4  16.7 | 100.0
+feeder   all 5-15 UD lock                                 819 |   0.0 100.0   0.0 |   2.6   3.1 |   0.0
+feeder   all other LR first                               120 |   0.0 100.0   0.0 |  42.5  47.5 |   0.0
+feeder   all other LR lock                                279 |   0.0 100.0   0.0 |   6.1   6.1 |   0.0
+feeder   all other UD first                               464 |   0.0 100.0   0.0 |  11.4  12.7 |   0.0
+feeder   all other UD lock                               1025 |   0.0 100.0   0.0 |   1.3   1.7 |   0.0
+feeder   b   other LR first                                71 |   0.0 100.0   0.0 |  46.5  52.1 |   0.0
+feeder   b   other UD first                                72 |   0.0 100.0   0.0 |  48.6  54.2 |   0.0
+feeder   c   5-15 LR first                                109 |   0.0 100.0   0.0 |  30.3  35.8 | 100.0
+feeder   c   5-15 LR lock                                 109 |   0.0 100.0   0.0 |  18.3  23.9 |   0.0
+feeder   c   5-15 UD first                                106 |   0.0 100.0   0.0 |  38.7  38.7 | 100.0
+feeder   c   5-15 UD lock                                 117 |   0.0 100.0   0.0 |  13.7  17.1 |   0.0
+feeder   c   other LR first                                37 |   0.0 100.0   0.0 |  37.8  40.5 |   0.0
+feeder   c   other LR lock                                 30 |   0.0 100.0   0.0 |  20.0  20.0 |   0.0
+feeder   c   other UD first                                44 |   0.0 100.0   0.0 |  31.8  31.8 |   0.0
+feeder   d   5-15 LR first                                 55 |   0.0 100.0   0.0 |   5.5   7.3 | 100.0
+feeder   d   5-15 LR lock                                 424 |   0.0 100.0   0.0 |   1.2   1.4 |   0.0
+feeder   d   5-15 UD first                                216 |   0.0 100.0   0.0 |   2.3   2.3 | 100.0
+feeder   d   5-15 UD lock                                 699 |   0.0 100.0   0.0 |   0.6   0.6 |   0.0
+feeder   d   other LR lock                                223 |   0.0 100.0   0.0 |   0.9   0.9 |   0.0
+feeder   d   other UD first                               345 |   0.0 100.0   0.0 |   0.6   0.9 |   0.0
+feeder   d   other UD lock                                981 |   0.0 100.0   0.0 |   0.1   0.1 |   0.0
+other    all 5-15 LR first                                647 |   0.0 100.0   0.0 |  31.7  34.3 | 100.0
+other    all 5-15 LR lock                                1178 |   0.0 100.0   0.0 |   6.0   7.0 |   0.0
+other    all 5-15 UD first                                861 |   0.0 100.0   0.0 |  24.0  26.1 | 100.0
+other    all 5-15 UD lock                                1573 |   0.0 100.0   0.0 |   2.4   3.1 |   0.0
+other    all =4 LR first                                   41 |   0.0 100.0   0.0 |  48.8  56.1 |  50.0
+other    all =4 LR lock                                   125 |   0.0 100.0   0.0 |  11.2  15.2 |   0.0
+other    all =4 UD first                                  267 |   0.0 100.0   0.0 |  49.1  55.8 |  50.0
+other    all =4 UD lock                                   529 |   0.0 100.0   0.0 |  12.1  15.3 |   0.0
+other    all other LR first                               260 |   0.0 100.0   0.0 |  39.6  44.6 |   0.0
+other    all other LR lock                                232 |   0.0 100.0   0.0 |  11.6  14.2 |   0.0
+other    all other UD first                               283 |   0.0 100.0   0.0 |  41.3  45.2 |   0.0
+other    all other UD lock                                243 |   0.0 100.0   0.0 |   7.8  12.3 |   0.0
+other    b   5-15 LR first                                 41 |   0.0 100.0   0.0 |  51.2  56.1 | 100.0
+other    b   5-15 UD first                                 78 |   0.0 100.0   0.0 |  43.6  46.2 | 100.0
+other    b   =4 UD first                                   37 |   0.0 100.0   0.0 |  59.5  70.3 |  50.0
+other    b   other LR first                               128 |   0.0 100.0   0.0 |  42.2  50.8 |   0.0
+other    b   other LR lock                                 63 |   0.0 100.0   0.0 |  33.3  39.7 |   0.0
+other    b   other UD first                               166 |   0.0 100.0   0.0 |  43.4  48.2 |   0.0
+other    b   other UD lock                                 62 |   0.0 100.0   0.0 |  17.7  32.3 |   0.0
+other    c   5-15 LR first                                329 |   0.0 100.0   0.0 |  42.2  44.4 | 100.0
+other    c   5-15 LR lock                                 231 |   0.0 100.0   0.0 |  12.6  13.9 |   0.0
+other    c   5-15 UD first                                368 |   0.0 100.0   0.0 |  29.6  32.1 | 100.0
+other    c   5-15 UD lock                                 326 |   0.0 100.0   0.0 |   7.1   8.6 |   0.0
+other    c   =4 LR first                                   30 |   0.0 100.0   0.0 |  53.3  63.3 |  50.0
+other    c   =4 UD first                                  145 |   0.0 100.0   0.0 |  51.0  57.2 |  50.0
+other    c   =4 UD lock                                   112 |   0.0 100.0   0.0 |  22.3  26.8 |   0.0
+other    c   other LR first                               107 |   0.0 100.0   0.0 |  38.3  39.3 |   0.0
+other    c   other LR lock                                 57 |   0.0 100.0   0.0 |   5.3   8.8 |   0.0
+other    c   other UD first                                90 |   0.0 100.0   0.0 |  37.8  41.1 |   0.0
+other    c   other UD lock                                 71 |   0.0 100.0   0.0 |   9.9  11.3 |   0.0
+other    d   5-15 LR first                                277 |   0.0 100.0   0.0 |  16.2  19.1 | 100.0
+other    d   5-15 LR lock                                 939 |   0.0 100.0   0.0 |   4.4   5.2 |   0.0
+other    d   5-15 UD first                                415 |   0.0 100.0   0.0 |  15.4  17.1 | 100.0
+other    d   5-15 UD lock                                1222 |   0.0 100.0   0.0 |   0.8   1.1 |   0.0
+other    d   =4 LR lock                                    88 |   0.0 100.0   0.0 |   3.4   5.7 |   0.0
+other    d   =4 UD first                                   85 |   0.0 100.0   0.0 |  41.2  47.1 |  50.0
+other    d   =4 UD lock                                   399 |   0.0 100.0   0.0 |   8.5  10.8 |   0.0
+other    d   other LR lock                                111 |   0.0 100.0   0.0 |   1.8   1.8 |   0.0
+other    d   other UD lock                                106 |   0.0 100.0   0.0 |   0.0   0.0 |   0.0
