@@ -5,6 +5,7 @@ Every live cell-tick is classed by what the cell did and by its situation at the
   space: 'open' = at least one empty edge neighbour, 'boxed' = none
   enemy: 'front' = an enemy on an edge, 'near' = an enemy elsewhere in the 5x5, 'far' = no enemy in the 5x5
   energy bucket: <5, 5-11, 12-15, 16-49, 50 (cap)
+  diag:  1 = an enemy on one of the 4 diagonal squares (Bane v2.2: with 5-11 energy that is the prey hold)
 Windows: a t0-30, b 30-60, c 60-100, d 100-200, e 200+.
 Key derived measure: idle-with-space = none & open & energy >= 5 (could have split), split by enemy situation.
 From t300 on, 'near' is not computed (shown as 'far' unless the enemy is on an edge).
@@ -18,6 +19,9 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
 RING = [(dx, dy) for dy in range(-2, 3) for dx in range(-2, 3) if (dx, dy) != (0, 0)]
 
@@ -28,6 +32,11 @@ def win(t):
 
 def ebk(e):
     return '<5' if e < 5 else '5-11' if e < 12 else '12-15' if e < 16 else '16-49' if e < 50 else '50'
+
+
+
+
+RUN = parents.Running()
 
 
 def run(path):
@@ -54,6 +63,7 @@ def run(path):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             w = win(t)
             snap = grid
             sit = {}
@@ -78,14 +88,22 @@ def run(path):
                             if g and colOf[g - 1] != c:
                                 near = True
                                 break
+                dg = 0
+                for dx in (-1, 1):
+                    for dy in (-1, 1):
+                        if 0 <= x + dx < W and 0 <= y + dy < H:
+                            g = snap[(y + dy) * W + x + dx]
+                            if g and colOf[g - 1] != c:
+                                dg = 1
                 sit[cid] = ('open' if opn else 'boxed', 'front' if front else 'near' if near else 'far',
-                            ebk(enOf.get(cid, 0)))
+                            ebk(enOf.get(cid, 0)), dg)
             grid = snap[:]
             what, births, dead = {}, [], set()
             for _ in range(nev):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     if a not in what:
                         what[a] = 'eat' if k == 4 else 'feed'
                     if k == 4 and b not in what:
@@ -94,13 +112,13 @@ def run(path):
                     cid, c, x, y, e = BIRTH.unpack_from(raw, p + 1); p += 11
                     colOf[cid] = c; sqOf[cid] = y * W + x; grid[y * W + x] = cid + 1; enOf[cid] = e
                     births.append(cid)
-                    xs, ys = x, y
-                    for dx, dy in DIRS:
-                        if 0 <= xs + dx < W and 0 <= ys + dy < H:
-                            g = snap[(ys + dy) * W + xs + dx]
-                            if g and colOf[g - 1] == c and (g - 1) not in what:
-                                what[g - 1] = 'split'
-                                break
+                    cand = [g - 1 for g in (snap[q] for q in ((y + dy) * W + x + dx for dx, dy in DIRS if 0 <= x + dx < W and 0 <= y + dy < H)) if g and colOf[g - 1] == c and (g - 1) not in what]
+                    par, tag = RUN.parent(cand, e)
+                    if par is not None:
+                        what[par] = 'split'
+                    elif tag == 'unknown':
+                        for g in cand:
+                            what[g] = 'unknown'
                 elif k == 2:
                     cid, x, y = MOVE.unpack_from(raw, p + 1); p += 9
                     s0 = sqOf[cid]
@@ -113,8 +131,8 @@ def run(path):
                     dead.add(cid)
                 else:
                     raise ValueError(k)
-            for cid, (sp, en_, eb) in sit.items():
-                out[(colOf[cid], w, what.get(cid, 'none'), sp, en_, eb)] += 1
+            for cid, (sp, en_, eb, dg) in sit.items():
+                out[(colOf[cid], w, what.get(cid, 'none'), sp, en_, eb, dg)] += 1
             n = U32.unpack_from(raw, p)[0]; p += 4
             en = raw[p:p + n]; p += n
             for cid in dead:
@@ -142,12 +160,13 @@ if __name__ == '__main__':
             continue
         nm = names.get(rid, [])
         out = run(os.path.join(rdir, f))
-        for (c, w, act, sp, en_, eb), n in out.items():
+        for (c, w, act, sp, en_, eb, dg), n in out.items():
             name = nm[c] if c < len(nm) else 'colony %d' % c
-            rows.append(dict(replay=rid, colony=c, name=name, window=w, act=act, space=sp, enemy=en_, energy=eb, n=n))
+            rows.append(dict(replay=rid, colony=c, name=name, window=w, act=act, space=sp, enemy=en_, energy=eb, diag=dg, n=n))
         print(rid, 'done', flush=True)
     with open(outp, 'w', newline='', encoding='utf-8') as fh:
-        wr = csv.DictWriter(fh, fieldnames=['replay', 'colony', 'name', 'window', 'act', 'space', 'enemy', 'energy', 'n'])
+        wr = csv.DictWriter(fh, fieldnames=['replay', 'colony', 'name', 'window', 'act', 'space', 'enemy', 'energy', 'diag', 'n'])
         wr.writeheader()
         wr.writerows(rows)
     print('wrote', outp, len(rows))
+    print('parent attribution', dict(RUN.count))

@@ -22,7 +22,15 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
+
+
+
+
+RUN = parents.Running()
 
 
 def run(path):
@@ -60,6 +68,7 @@ def run(path):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             snap = grid
             cand = collections.defaultdict(set)
             mine = collections.defaultdict(list)            # (contested square, colony) -> its neighbour cell ids
@@ -76,6 +85,7 @@ def run(path):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     if a not in what:
                         what[a] = 'eat' if k == 4 else 'feed'
                     if k == 4 and b not in what:
@@ -87,11 +97,13 @@ def run(path):
                     if y * W + x in contested and y * W + x not in filled:
                         filled[y * W + x] = (c, 'split')
                         pending[cid] = [c, t, eb(e), y * W + x, 'split', 'a' if t < 60 else 'b' if t < 100 else 'c']
-                    for q in nbrs(y * W + x):
-                        g = snap[q]
-                        if g and colOf[g - 1] == c and (g - 1) not in what:
-                            what[g - 1] = 'split'
-                            break
+                    cand = [g - 1 for g in (snap[q] for q in nbrs(y * W + x)) if g and colOf[g - 1] == c and (g - 1) not in what]
+                    par, tag = RUN.parent(cand, e)
+                    if par is not None:
+                        what[par] = 'split'
+                    elif tag == 'unknown':
+                        for g in cand:
+                            what[g] = 'unknown'
                 elif k == 2:
                     cid, x, y = MOVE.unpack_from(raw, p + 1); p += 9
                     s0 = sqOf[cid]
@@ -120,7 +132,7 @@ def run(path):
                     if ev == 'none':
                         ev = 'none e>=12' if e >= 12 else 'none 5-11' if e >= 5 else 'none <5'
                     states.append(ev)
-                order = ('split', 'eat', 'none e>=12', 'move', 'feed', 'none 5-11', 'none <5', 'bitten')
+                order = ('split', 'eat', 'none e>=12', 'move', 'feed', 'none 5-11', 'none <5', 'bitten', 'unknown')
                 best = min(states, key=order.index)
                 out[(ours, w, res, best)] += 1
                 if res == 'lost':
@@ -182,3 +194,4 @@ if __name__ == '__main__':
         wr.writeheader()
         wr.writerows(rows)
     print('wrote', outp, len(rows))
+    print('parent attribution', dict(RUN.count))

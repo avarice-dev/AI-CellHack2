@@ -13,7 +13,13 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
+
+
+RUN = parents.Running()
 
 
 def front(path, tmin):
@@ -52,6 +58,7 @@ def front(path, tmin):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             on = t >= tmin
             snap = grid
             contact = set()
@@ -92,6 +99,7 @@ def front(path, tmin):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     if a not in what:
                         what[a] = 'eat' if k == 4 else 'feed'
                     if k == 4 and b not in what:
@@ -113,11 +121,13 @@ def front(path, tmin):
                         s['took'] += 1; s['took_e'] += e
                         s['took_e2'] += e <= 2; s['took_e4'] += e <= 4
                         watch[cid] = (c, t)
-                    for q in nbrs(y * W + x):              # parent: an own neighbour with no other event yet
-                        g = snap[q]
-                        if g and colOf[g - 1] == c and (g - 1) not in what:
-                            what[g - 1] = 'split'
-                            break
+                    cand = [g - 1 for g in (snap[q] for q in nbrs(y * W + x)) if g and colOf[g - 1] == c and (g - 1) not in what]
+                    parent, tag = RUN.parent(cand, e)          # shared matcher (parents.py)
+                    if parent is not None:
+                        what[parent] = 'split'
+                    elif tag == 'unknown':
+                        for g in cand:
+                            what[g] = 'unknown'
                 elif k == 2:
                     cid, x, y = MOVE.unpack_from(raw, p + 1); p += 9
                     s0 = sqOf[cid]

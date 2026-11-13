@@ -1,0 +1,103 @@
+Bane v2.2 games 127815-131125: 359
+
+## all: 359 games, Bane won 316 (88.0%), lost 43
+losses by winner: Conviction 13, Colossus 11, CogSpore - VarSi 11, CogSpore 5, CogBloomXT 2, Penalty 1
+rival present: games | rival won | Bane won | someone else won
+  Sho              48 |    0 |   42 |    6
+  Hunter           47 |    0 |   45 |    2
+  ClaudeHunter     40 |    0 |   38 |    2
+  shrimp           39 |    0 |   34 |    5
+  AtomCrasher      38 |    0 |   37 |    1
+  Medic            36 |    0 |   31 |    5
+  Bulwark          36 |    0 |   35 |    1
+  BigBadWolf       35 |    0 |   32 |    3
+  Colossus         34 |   11 |   21 |    2
+  NomNom2          34 |    0 |   30 |    4
+  squirtle         33 |    0 |   31 |    2
+  zergling         32 |    0 |   31 |    1
+  CogSpore         32 |    5 |   25 |    2
+  Random           31 |    0 |   30 |    1
+  gemAlert_v4      30 |    0 |   27 |    3
+  Noob++           30 |    0 |   28 |    2
+  Brawler          29 |    0 |   26 |    3
+  Walker           28 |    0 |   26 |    2
+  Smarter Hunter   27 |    0 |   24 |    3
+  Aegis            27 |    0 |   24 |    3
+  gemAlert_v6      26 |    0 |   25 |    1
+  Artemis          26 |    0 |   24 |    2
+  slow_frog        26 |    0 |   25 |    1
+  medivac          26 |    0 |   23 |    3
+  CogBloomXT       25 |    2 |   21 |    2
+  Phaedra_Rune     24 |    0 |   24 |    0
+  AtomPush         24 |    0 |   23 |    1
+  choochoo         23 |    0 |   20 |    3
+  Brawler v2       23 |    0 |   20 |    3
+  Bouncer          23 |    0 |   22 |    1
+  rooby            21 |    0 |   17 |    4
+  CogSpore - VarSi   20 |   11 |    8 |    1
+  gemAlert_v5      20 |    0 |   15 |    5
+  Necrosia         20 |    0 |   18 |    2
+  Conviction       19 |   13 |    5 |    1
+  Clippy - The Multi Byte Hydra   15 |    0 |   15 |    0
+  Pestilence       14 |    0 |   13 |    1
+  Penalty          13 |    1 |   10 |    2
+
+## no other own cell: 313 games, Bane won 288 (92.0%), lost 25
+losses by winner: CogSpore - VarSi 10, Colossus 8, CogSpore 5, CogBloomXT 2
+rival present: games | rival won | Bane won | someone else won
+  Sho              45 |    0 |   41 |    4
+  Hunter           43 |    0 |   42 |    1
+  shrimp           37 |    0 |   33 |    4
+  ClaudeHunter     35 |    0 |   35 |    0
+  AtomCrasher      34 |    0 |   33 |    1
+  Medic            33 |    0 |   30 |    3
+  Bulwark          33 |    0 |   33 |    0
+  zergling         31 |    0 |   30 |    1
+  NomNom2          31 |    0 |   29 |    2
+  gemAlert_v4      30 |    0 |   27 |    3
+  BigBadWolf       30 |    0 |   29 |    1
+  CogSpore         29 |    5 |   23 |    1
+  Colossus         28 |    8 |   19 |    1
+  Random           28 |    0 |   27 |    1
+  squirtle         27 |    0 |   26 |    1
+  Brawler          27 |    0 |   26 |    1
+  Walker           26 |    0 |   25 |    1
+  Noob++           26 |    0 |   25 |    1
+  Smarter Hunter   25 |    0 |   22 |    3
+  Artemis          25 |    0 |   23 |    2
+  Aegis            25 |    0 |   23 |    2
+  CogBloomXT       25 |    2 |   21 |    2
+  slow_frog        25 |    0 |   24 |    1
+  gemAlert_v6      24 |    0 |   24 |    0
+  Brawler v2       23 |    0 |   20 |    3
+  AtomPush         23 |    0 |   22 |    1
+  medivac          23 |    0 |   21 |    2
+  choochoo         22 |    0 |   20 |    2
+  Phaedra_Rune     22 |    0 |   22 |    0
+  Bouncer          20 |    0 |   19 |    1
+  CogSpore - VarSi   18 |   10 |    8 |    0
+  Necrosia         18 |    0 |   17 |    1
+  rooby            17 |    0 |   16 |    1
+  gemAlert_v5      16 |    0 |   14 |    2
+  Clippy - The Multi Byte Hydra   12 |    0 |   12 |    0
+
+## with another own cell: 46 games, Bane won 28 (60.9%), lost 18
+losses by winner: Conviction 13, Colossus 3, Penalty 1, CogSpore - VarSi 1
+rival present: games | rival won | Bane won | someone else won
+  Conviction       19 |   13 |    5 |    1
+  Pestilence       14 |    0 |   13 |    1
+  Penalty          13 |    1 |   10 |    2
+  Colossus          6 |    3 |    2 |    1
+  squirtle          6 |    0 |    5 |    1
+  BigBadWolf        5 |    0 |    3 |    2
+  ClaudeHunter      5 |    0 |    3 |    2
+  CogSpore - VarSi    2 |    1 |    0 |    1
+
+## after 131125 (pull9 match pages, picked sample, not consecutive): 7 Bane games
+  131188 winner Conviction         | Artemis, Bane, CogSpore-Siect-F, Conviction
+  131198 winner CogSpore-Siect-F   | CogSpore-Siect-F, Bane, CogBloomXT, Bulwark
+  131245 winner CogSpore-Siect-F   | CogSpore-Siect-F, Brawler v2, Bane, ClaudeHunter
+  131265 winner CogSpore - VarSi   | CogSpore - VarSi, Hunter, Bane, gemAlert_v5
+  131276 winner CogSpore - VarSi   | shrimp, Bulwark, CogSpore - VarSi, Bane
+  131312 winner Bane               | Noob++, CogSpore - VarSi, Bane, shrimp
+  131332 winner CogSpore-Siect-F   | Colossus, CogSpore-Siect-F, Sho, Bane

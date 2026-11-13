@@ -6,6 +6,14 @@
 (2) Refill into a square freed by an enemy kill: the colony whose cell died puts a new child into the square on the
     next tick ('refill'); is that child bitten on its first live tick by the killer, how much energy do the killer's
     bites take from it over its life, and does it die within 5 ticks?
+(3) Measure 5 (review order, 2026-11-12): for each refill child, what the killer did on the refill tick (t0, the
+    square it bit is empty at the start) and on the child's first live tick (t1): eat-child, eat-same (the target it
+    bit on t0), eat-new (another target), stunned, split, move, feed, none, unknown, dead.  Rows r5_t1_<act>,
+    r5_t0_<act>, r5_pair_<t0>_<t1>, all by killer colony and window (a t < 60, b < 100, c < 300, d later).
+    Detail row (review): r5x|<t0>|<t1>|<enemy edge neighbours of the killer at the start of t0: 0/1/2+>|<window>|
+    <refilling colony name>; on t1 'stunned' is split into stunned-child (the refill child bit the killer first)
+    and stunned-other.
+Split parents: energy-matched (parents.py); before 2026-11-12 the first own neighbour was guessed.
 Usage: python blind.py <replay dir> <names.json> <out.csv> [id ...]
 """
 import collections
@@ -16,7 +24,17 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
+
+
+RUN = parents.Running()
+
+
+def win5(t):
+    return 'a' if t < 60 else 'b' if t < 100 else 'c' if t < 300 else 'd'
 
 
 def run(path):
@@ -35,6 +53,7 @@ def run(path):
     pend_refill = {}                 # tick -> list of (square, killer id, killer colony, dead colony)
     refills = {}                     # child id -> [killer id, killer colony, tick born, bites by killer, took]
     dead_all = set()
+    r5 = {}                          # measure 5: refill child -> [killer, killer colony, tick born, killer act on t0]
 
     def nbrs(s):
         x, y = s % W, s // W
@@ -54,6 +73,7 @@ def run(path):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             snap = grid
             # test (1) candidates at tick start
             cand = {}
@@ -73,15 +93,18 @@ def run(path):
             grid = snap[:]
             what, births, dead = {}, [], set()
             last_biter = {}
+            stunner = {}
             new_bites = {}
             for _ in range(nev):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     if a not in what:
                         what[a] = 'eat' if k == 4 else 'feed'
                     if k == 4 and b not in what:
                         what[b] = 'stunned'
+                        stunner[b] = a
                     if k == 4 and colOf[a] != colOf[b]:
                         last_biter[b] = a
                         new_bites[a] = (sqOf[b], b)
@@ -99,15 +122,19 @@ def run(path):
                         if s == y * W + x:
                             if c == dc:
                                 refills[cid] = [kil, kc, t, 0, e, 0]
+                                nb = sum(1 for q in nbrs(sqOf[kil]) if snap[q] and colOf[snap[q] - 1] != kc) if kil in sqOf else -1
+                                r5[cid] = [kil, kc, t, None, '2+' if nb >= 2 else str(nb), dc]
                                 out[(kc, 'refill_seen')] += 1
                                 out[(c, 'refilled')] += 1
                             elif c == kc:
                                 out[(kc, 'took_own_kill')] += 1
-                    for q in nbrs(y * W + x):
-                        g = snap[q]
-                        if g and colOf[g - 1] == c and (g - 1) not in what:
-                            what[g - 1] = 'split'
-                            break
+                    cnd = [g - 1 for g in (snap[q] for q in nbrs(y * W + x)) if g and colOf[g - 1] == c and (g - 1) not in what]
+                    par, tag = RUN.parent(cnd, e)
+                    if par is not None:
+                        what[par] = 'split'
+                    elif tag == 'unknown':
+                        for g in cnd:
+                            what[g] = 'unknown'
                 elif k == 2:
                     cid, x, y = MOVE.unpack_from(raw, p + 1); p += 9
                     s0 = sqOf[cid]
@@ -132,6 +159,38 @@ def run(path):
                     why = cand[(a, 'why')]
                     out[(colOf[a], 'blind_empty_' + why + '_n')] += 1
                     out[(colOf[a], 'blind_empty_' + why + '_' + act)] += 1
+            for cid in list(r5):                       # measure 5: the killer's action on t0 and t1
+                kil, kc, tb, a0, nb0, dc = r5[cid]
+
+                def act_of(child_alive):
+                    if kil in dead_all or (kil in dead and kil not in what):
+                        return 'dead'
+                    w_ = what.get(kil, 'none')
+                    if w_ != 'eat':
+                        return w_
+                    tg = new_bites.get(kil, (None, None))[1]
+                    if tg is None:
+                        return 'eat-friend'
+                    if tg == cid:
+                        return 'eat-child'
+                    prev = bit_sq.get(kil)
+                    if prev is not None and prev[1] == t - 1 and bit_tg.get(kil) == tg:
+                        return 'eat-same'
+                    return 'eat-new'
+                if t == tb:
+                    r5[cid][3] = act_of(True)
+                elif t == tb + 1:
+                    a1 = 'child-dead' if cid in dead_all else act_of(True)
+                    w_ = win5(t)
+                    out[(kc, 'r5_t0_%s_%s' % (a0, w_))] += 1
+                    out[(kc, 'r5_t1_%s_%s' % (a1, w_))] += 1
+                    out[(kc, 'r5_pair_%s_%s_%s' % (a0, a1, w_))] += 1
+                    if a1 == 'stunned':
+                        a1 = 'stunned-child' if stunner.get(kil) == cid else 'stunned-other'
+                    out[(kc, 'r5x|%s|%s|%s|%s|@%d' % (a0, a1, nb0, w_, dc))] += 1
+                    del r5[cid]
+                else:
+                    del r5[cid]
             for a, (s, b) in new_bites.items():
                 bit_sq[a] = (s, t)
                 bit_tg[a] = b
@@ -181,6 +240,9 @@ if __name__ == '__main__':
         out = run(os.path.join(rdir, f))
         for (c, k), n in out.items():
             name = nm[c] if c < len(nm) else 'colony %d' % c
+            if '|@' in k:
+                head, _, dc = k.rpartition('|@')
+                k = head + '|' + (nm[int(dc)] if int(dc) < len(nm) else 'colony ' + dc)
             rows.append(dict(replay=rid, colony=c, name=name, measure=k, n=n))
         print(rid, 'done', flush=True)
     with open(outp, 'w', newline='', encoding='utf-8') as fh:

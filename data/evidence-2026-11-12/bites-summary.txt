@@ -4,97 +4,97 @@
 # windows: a t<60, b 60-100, c 100-300, d 300+ (chains are pooled over the game in window all)
 
 Bane v2.2 (39 games) mean chain 5.8
-  a contact   14715 stun  31.4% bites    9741 friendly  0.0 kills   2238 | kill->next take 20.7 eat 11.7 none 39.1 stunned 17.9 split  5.9 move  4.7 | freed-> own 34.3 other 31.2 nobody 34.5 | low2 20.8 low4 42.8
-  b contact   81353 stun  24.4% bites   60141 friendly  0.0 kills   9171 | kill->next take 37.4 eat 16.0 none 27.8 stunned 11.9 split  3.9 move  3.0 | freed-> own 51.8 other 27.6 nobody 20.6 | low2  9.1 low4 22.3
-  c contact  565257 stun  22.7% bites  433731 friendly  0.0 kills  20470 | kill->next take 51.6 eat 17.8 none 18.0 stunned  8.5 split  2.8 move  1.3 | freed-> own 66.2 other 20.5 nobody 13.3 | low2  1.3 low4  7.6
-  d contact 4825826 stun  34.3% bites 3167525 friendly  0.0 kills  17655 | kill->next take 48.7 eat 23.4 none 16.0 stunned 10.9 split  0.9 move  0.0 | freed-> own 61.6 other 33.9 nobody  4.5 | low2  0.9 low4  8.4
+  a contact   14715 stun  31.4% bites    9741 friendly  0.0 kills   2238 | kill->next take 21.8 eat 12.2 none 38.6 stunned 17.9 split  4.7 move  4.7 | freed-> own 34.3 other 31.2 nobody 34.5 | low2 20.8 low4 42.8
+  b contact   81353 stun  24.4% bites   60141 friendly  0.0 kills   9171 | kill->next take 38.8 eat 16.7 none 26.6 stunned 11.9 split  3.0 move  3.0 | freed-> own 51.8 other 27.6 nobody 20.6 | low2  9.1 low4 22.3
+  c contact  565257 stun  22.7% bites  433731 friendly  0.0 kills  20470 | kill->next take 52.4 eat 18.6 none 16.6 stunned  8.5 split  2.7 move  1.3 | freed-> own 66.2 other 20.5 nobody 13.3 | low2  1.3 low4  7.6
+  d contact 4825826 stun  34.3% bites 3167525 friendly  0.0 kills  17655 | kill->next take 49.0 eat 23.9 none 15.4 stunned 10.9 split  0.9 move  0.0 | freed-> own 61.6 other 33.9 nobody  4.5 | low2  0.9 low4  8.4
 
 Colossus (24 games) mean chain 2.9
-  a contact   11362 stun  39.4% bites    6600 friendly  0.0 kills   1446 | kill->next take 35.3 eat 19.1 none 25.1 stunned  4.4 split 13.0 move  3.1 | freed-> own 56.7 other 13.4 nobody 29.9 | low2 14.1 low4 35.5
-  b contact   63473 stun  52.9% bites   29171 friendly  0.0 kills   3469 | kill->next take 35.8 eat 27.4 none 26.2 stunned  3.1 split  7.3 move  0.2 | freed-> own 56.0 other 30.1 nobody 13.9 | low2  8.2 low4 22.6
-  c contact  403106 stun  60.6% bites  157600 friendly  0.0 kills   7721 | kill->next take 32.2 eat 37.6 none 26.7 stunned  0.9 split  2.7 move  0.0 | freed-> own 46.3 other 46.2 nobody  7.5 | low2  1.8 low4  9.4
-  d contact 4504094 stun  66.9% bites 1489786 friendly  0.0 kills  21507 | kill->next take 11.6 eat 32.5 none 54.6 stunned  0.8 split  0.5 move  0.0 | freed-> own 14.4 other 84.6 nobody  1.1 | low2  0.4 low4  5.9
+  a contact   11362 stun  39.4% bites    6600 friendly  0.0 kills   1446 | kill->next take 40.4 eat 19.1 none 18.4 stunned  4.4 split 14.6 move  3.1 | freed-> own 56.7 other 13.4 nobody 29.9 | low2 14.1 low4 35.5
+  b contact   63473 stun  52.9% bites   29171 friendly  0.0 kills   3469 | kill->next take 38.4 eat 27.4 none 22.9 stunned  3.1 split  8.0 move  0.2 | freed-> own 56.0 other 30.1 nobody 13.9 | low2  8.2 low4 22.6
+  c contact  403106 stun  60.6% bites  157600 friendly  0.0 kills   7721 | kill->next take 33.1 eat 37.6 none 26.2 stunned  0.9 split  2.3 move  0.0 | freed-> own 46.3 other 46.2 nobody  7.5 | low2  1.8 low4  9.4
+  d contact 4504094 stun  66.9% bites 1489786 friendly  0.0 kills  21507 | kill->next take 11.6 eat 32.5 none 54.7 stunned  0.8 split  0.3 move  0.0 | freed-> own 14.4 other 84.6 nobody  1.1 | low2  0.4 low4  5.9
 
 Penalty (19 games) mean chain 4.7
-  a contact    9804 stun  43.9% bites    4832 friendly  0.9 kills    433 | kill->next take 44.2 eat  3.6 none 41.2 stunned  9.2 split  1.5 move  0.3 | freed-> own 74.7 other 12.3 nobody 13.0 | low2 24.3 low4 52.2
-  b contact   48324 stun  28.1% bites   32074 friendly  1.0 kills   1487 | kill->next take 32.3 eat  4.6 none 50.8 stunned 11.9 split  0.3 move  0.1 | freed-> own 59.7 other 19.4 nobody 20.9 | low2  9.1 low4 23.0
-  c contact  301272 stun  20.6% bites  230814 friendly  0.4 kills   3676 | kill->next take 30.0 eat  5.1 none 50.5 stunned 14.0 split  0.5 move  0.0 | freed-> own 53.8 other 25.0 nobody 21.1 | low2  0.5 low4  1.4
-  d contact 3891360 stun  21.7% bites 2986500 friendly  0.0 kills   4074 | kill->next take 25.3 eat  3.6 none 50.8 stunned 20.2 split  0.2 move  0.0 | freed-> own 44.6 other 38.1 nobody 17.3 | low2  0.0 low4  0.0
+  a contact    9804 stun  44.0% bites    4832 friendly  0.9 kills    433 | kill->next take 42.7 eat  6.1 none 41.7 stunned  9.2 split  0.0 move  0.3 | freed-> own 74.7 other 12.3 nobody 13.0 | low2 24.3 low4 52.2
+  b contact   48324 stun  28.4% bites   32074 friendly  1.0 kills   1487 | kill->next take 26.9 eat  8.0 none 50.1 stunned 14.8 split  0.1 move  0.1 | freed-> own 59.7 other 19.4 nobody 20.9 | low2  9.1 low4 23.0
+  c contact  301272 stun  20.7% bites  230814 friendly  0.4 kills   3676 | kill->next take 24.7 eat  7.9 none 49.6 stunned 17.7 split  0.1 move  0.0 | freed-> own 53.8 other 25.0 nobody 21.1 | low2  0.5 low4  1.4
+  d contact 3891360 stun  21.7% bites 2986500 friendly  0.0 kills   4074 | kill->next take 19.0 eat  5.7 none 50.1 stunned 25.2 split  0.1 move  0.0 | freed-> own 44.6 other 38.1 nobody 17.3 | low2  0.0 low4  0.0
 
 CogSpore - VarSi (17 games) mean chain 2.7
-  a contact    9473 stun  39.8% bites    5493 friendly  0.0 kills   1250 | kill->next take 24.3 eat 17.4 none 27.3 stunned  9.6 split 12.4 move  8.9 | freed-> own 39.7 other 26.7 nobody 33.6 | low2 26.4 low4 58.1
-  b contact   44834 stun  40.4% bites   25900 friendly  0.0 kills   3857 | kill->next take 30.3 eat 24.9 none 32.5 stunned  5.2 split  5.4 move  1.7 | freed-> own 45.7 other 38.5 nobody 15.7 | low2 13.6 low4 31.1
-  c contact  261711 stun  54.0% bites  118955 friendly  0.0 kills   6532 | kill->next take 30.7 eat 28.5 none 30.8 stunned  2.5 split  3.3 move  0.3 | freed-> own 46.5 other 41.0 nobody 12.5 | low2  1.2 low4  4.4
-  d contact 3381915 stun  65.8% bites 1152362 friendly  0.0 kills  16411 | kill->next take 11.8 eat 45.0 none 36.9 stunned  2.5 split  0.5 move  0.0 | freed-> own 17.5 other 77.4 nobody  5.1 | low2  0.4 low4  2.6
+  a contact    9473 stun  39.8% bites    5493 friendly  0.0 kills   1250 | kill->next take 26.1 eat 17.4 none 25.5 stunned  9.6 split 12.4 move  8.9 | freed-> own 39.7 other 26.7 nobody 33.6 | low2 26.4 low4 58.1
+  b contact   44834 stun  40.4% bites   25900 friendly  0.0 kills   3857 | kill->next take 31.5 eat 24.9 none 31.0 stunned  5.2 split  5.5 move  1.7 | freed-> own 45.7 other 38.5 nobody 15.7 | low2 13.6 low4 31.1
+  c contact  261711 stun  54.0% bites  118955 friendly  0.0 kills   6532 | kill->next take 30.6 eat 28.5 none 29.6 stunned  2.5 split  4.0 move  0.3 | freed-> own 46.5 other 41.0 nobody 12.5 | low2  1.2 low4  4.4
+  d contact 3381915 stun  65.8% bites 1152362 friendly  0.0 kills  16411 | kill->next take 11.7 eat 45.0 none 36.7 stunned  2.5 split  0.7 move  0.0 | freed-> own 17.5 other 77.4 nobody  5.1 | low2  0.4 low4  2.6
 
 medivac (15 games) mean chain 3.0
-  a contact    7650 stun  43.0% bites    4173 friendly  0.0 kills    817 | kill->next take 33.5 eat 20.9 none 27.3 stunned  5.1 split 10.5 move  2.8 | freed-> own 51.7 other 19.9 nobody 28.3 | low2 13.4 low4 33.8
-  b contact   42438 stun  49.3% bites   21005 friendly  0.0 kills   2505 | kill->next take 34.1 eat 26.4 none 31.3 stunned  3.4 split  4.6 move  0.1 | freed-> own 53.7 other 35.7 nobody 10.7 | low2  8.4 low4 21.4
-  c contact  258312 stun  50.9% bites  125528 friendly  0.0 kills   5840 | kill->next take 20.4 eat 39.6 none 36.5 stunned  1.5 split  1.9 move  0.1 | freed-> own 32.7 other 60.7 nobody  6.6 | low2  3.7 low4  9.3
-  d contact 2616932 stun  47.6% bites 1366422 friendly  0.0 kills  20206 | kill->next take  4.8 eat 43.9 none 49.8 stunned  1.1 split  0.4 move  0.0 | freed-> own  9.2 other 90.5 nobody  0.3 | low2  0.8 low4  2.8
+  a contact    7650 stun  43.0% bites    4173 friendly  0.0 kills    817 | kill->next take 35.2 eat 20.9 none 23.0 stunned  5.1 split 13.0 move  2.8 | freed-> own 51.7 other 19.9 nobody 28.3 | low2 13.4 low4 33.8
+  b contact   42438 stun  49.3% bites   21005 friendly  0.0 kills   2505 | kill->next take 36.3 eat 26.4 none 28.3 stunned  3.4 split  5.4 move  0.1 | freed-> own 53.7 other 35.7 nobody 10.7 | low2  8.4 low4 21.4
+  c contact  258312 stun  50.9% bites  125528 friendly  0.0 kills   5840 | kill->next take 20.9 eat 39.6 none 36.2 stunned  1.5 split  1.7 move  0.1 | freed-> own 32.7 other 60.7 nobody  6.6 | low2  3.7 low4  9.3
+  d contact 2616932 stun  47.6% bites 1366422 friendly  0.0 kills  20206 | kill->next take  4.9 eat 43.9 none 49.8 stunned  1.1 split  0.4 move  0.0 | freed-> own  9.2 other 90.5 nobody  0.3 | low2  0.8 low4  2.8
 
 Hunter (11 games) mean chain 3.3
-  a contact     610 stun  54.9% bites     269 friendly  0.0 kills     71 | kill->next take 13.6 eat  6.1 none 65.2 stunned  3.0 split 12.1 move  0.0 | freed-> own 19.7 other 13.6 nobody 66.7 | low2 30.0 low4 63.7
-  b contact    6287 stun  63.6% bites    2235 friendly  0.0 kills    392 | kill->next take 18.3 eat 10.5 none 55.2 stunned  9.2 split  6.8 move  0.0 | freed-> own 22.5 other 26.2 nobody 51.3 | low2 29.4 low4 60.0
-  c contact   31559 stun  57.5% bites   13167 friendly  0.0 kills   1582 | kill->next take 14.6 eat 25.2 none 51.3 stunned  3.7 split  5.1 move  0.0 | freed-> own 20.3 other 28.0 nobody 51.7 | low2 26.9 low4 53.8
-  d contact   34698 stun  50.0% bites   17164 friendly  0.0 kills    827 | kill->next take 16.2 eat 24.5 none 51.3 stunned  1.9 split  6.0 move  0.0 | freed-> own 24.0 other 12.4 nobody 63.6 | low2 12.3 low4 25.5
+  a contact     610 stun  54.9% bites     269 friendly  0.0 kills     71 | kill->next take 18.2 eat  6.1 none 62.1 stunned  3.0 split 10.6 move  0.0 | freed-> own 19.7 other 13.6 nobody 66.7 | low2 30.0 low4 63.7
+  b contact    6287 stun  63.6% bites    2235 friendly  0.0 kills    392 | kill->next take 19.1 eat 10.5 none 54.7 stunned  9.2 split  6.5 move  0.0 | freed-> own 22.5 other 26.2 nobody 51.3 | low2 29.4 low4 60.0
+  c contact   31559 stun  57.5% bites   13167 friendly  0.0 kills   1582 | kill->next take 15.3 eat 25.2 none 50.7 stunned  3.7 split  5.0 move  0.0 | freed-> own 20.3 other 28.0 nobody 51.7 | low2 26.9 low4 53.8
+  d contact   34698 stun  50.0% bites   17164 friendly  0.0 kills    827 | kill->next take 16.3 eat 24.5 none 52.5 stunned  1.9 split  4.7 move  0.0 | freed-> own 24.0 other 12.4 nobody 63.6 | low2 12.3 low4 25.5
 
 shrimp (10 games) mean chain 2.1
-  a contact    1362 stun  59.0% bites     545 friendly  0.0 kills     88 | kill->next take 12.0 eat  4.0 none 61.3 stunned 12.0 split 10.7 move  0.0 | freed-> own 13.3 other 45.3 nobody 41.3 | low2 27.0 low4 57.1
-  b contact    5667 stun  68.8% bites    1711 friendly  0.0 kills    287 | kill->next take  9.6 eat 12.8 none 52.1 stunned 17.0 split  8.5 move  0.0 | freed-> own 15.2 other 35.8 nobody 48.9 | low2 28.9 low4 59.2
-  c contact   10888 stun  75.4% bites    2642 friendly  0.0 kills    171 | kill->next take  7.5 eat 14.5 none 55.5 stunned 20.8 split  1.7 move  0.0 | freed-> own 11.0 other 41.6 nobody 47.4 | low2 28.4 low4 57.4
-
-CogBloomXT (8 games) mean chain 3.4
-  a contact    1771 stun  45.8% bites     908 friendly  0.0 kills    213 | kill->next take 22.1 eat 18.9 none 31.6 stunned  6.3 split 20.5 move  0.5 | freed-> own 32.1 other 26.3 nobody 41.6 | low2 31.7 low4 63.8
-  b contact   16543 stun  42.4% bites    9262 friendly  0.0 kills   1517 | kill->next take 22.6 eat 32.5 none 34.0 stunned  5.1 split  5.9 move  0.0 | freed-> own 31.9 other 52.2 nobody 16.0 | low2 16.8 low4 35.0
-  c contact  132849 stun  48.0% bites   68471 friendly  0.0 kills   3701 | kill->next take 23.7 eat 32.5 none 28.3 stunned  3.9 split  3.4 move  0.0 | freed-> own 35.9 other 48.6 nobody 15.5 | low2  2.9 low4  8.1
-  d contact 1245872 stun  42.1% bites  718770 friendly  0.0 kills   8898 | kill->next take 11.9 eat 52.2 none 32.2 stunned  2.5 split  0.5 move  0.0 | freed-> own 17.2 other 80.4 nobody  2.4 | low2  1.2 low4  3.3
-
-Bane v2 (8 games) mean chain 2.6
-  a contact    2440 stun  38.0% bites    1472 friendly  0.0 kills    269 | kill->next take 24.4 eat 32.3 none 25.2 stunned  9.1 split  8.7 move  0.4 | freed-> own 33.9 other 28.7 nobody 37.4 | low2 10.8 low4 26.3
-  b contact   13060 stun  48.2% bites    6698 friendly  0.0 kills    668 | kill->next take 39.2 eat 27.2 none 24.3 stunned  3.5 split  5.8 move  0.0 | freed-> own 48.2 other 20.9 nobody 30.9 | low2  8.5 low4 22.6
-  c contact  107223 stun  51.8% bites   51251 friendly  0.0 kills   2713 | kill->next take 41.3 eat 30.0 none 23.4 stunned  0.4 split  4.9 move  0.0 | freed-> own 57.9 other 18.0 nobody 24.1 | low2  2.6 low4 14.6
-  d contact 1259960 stun  57.8% bites  531773 friendly  0.0 kills   1746 | kill->next take 37.5 eat 56.1 none  4.5 stunned  1.1 split  0.8 move  0.0 | freed-> own 55.7 other 41.9 nobody  2.5 | low2  1.0 low4  9.8
-
-AtomCrasher (8 games) mean chain 3.5
-  a contact    1547 stun  57.0% bites     639 friendly  0.0 kills     76 | kill->next take 32.4 eat  5.9 none 36.8 stunned 16.2 split  8.8 move  0.0 | freed-> own 51.5 other 17.6 nobody 30.9 | low2 12.6 low4 41.1
-  b contact   11071 stun  58.7% bites    4449 friendly  0.0 kills    520 | kill->next take 26.9 eat 24.0 none 31.2 stunned 13.4 split  4.5 move  0.0 | freed-> own 41.3 other 44.8 nobody 14.0 | low2  9.2 low4 34.1
-  c contact   87853 stun  65.6% bites   30105 friendly  0.0 kills    963 | kill->next take 20.5 eat  9.6 none 49.2 stunned  8.8 split 11.9 move  0.0 | freed-> own 40.8 other 51.8 nobody  7.4 | low2  4.0 low4 20.4
-  d contact  622290 stun  65.2% bites  215657 friendly  0.0 kills   4030 | kill->next take  1.7 eat 10.9 none 66.7 stunned 20.6 split  0.1 move  0.0 | freed-> own  3.4 other 96.6 nobody  0.1 | low2  5.2 low4 16.6
-
-Sho (8 games) mean chain 0.0
-  a contact    1487 stun  77.9% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.6 low4 81.7
-  b contact    3119 stun  84.8% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 41.8 low4 82.7
-  c contact    1910 stun  93.8% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 40.8 low4 81.0
+  a contact    1362 stun  59.0% bites     545 friendly  0.0 kills     88 | kill->next take 12.0 eat  4.0 none 64.0 stunned 12.0 split  8.0 move  0.0 | freed-> own 13.3 other 45.3 nobody 41.3 | low2 27.0 low4 57.1
+  b contact    5667 stun  68.8% bites    1711 friendly  0.0 kills    287 | kill->next take 11.3 eat 12.8 none 51.1 stunned 17.0 split  7.8 move  0.0 | freed-> own 15.2 other 35.8 nobody 48.9 | low2 28.9 low4 59.2
+  c contact   10888 stun  75.4% bites    2642 friendly  0.0 kills    171 | kill->next take  8.1 eat 14.5 none 54.9 stunned 20.8 split  1.7 move  0.0 | freed-> own 11.0 other 41.6 nobody 47.4 | low2 28.4 low4 57.4
 
 BigBadWolf (8 games) mean chain 3.7
-  a contact    1008 stun  60.8% bites     377 friendly  0.0 kills    126 | kill->next take 11.1 eat 14.5 none 47.0 stunned  8.5 split  5.1 move  0.0 | freed-> own 12.8 other 32.5 nobody 54.7 | low2 11.8 low4 29.1
-  b contact    5575 stun  42.8% bites    3092 friendly  0.0 kills    574 | kill->next take  9.8 eat 28.5 none 43.1 stunned  8.3 split  3.2 move  0.0 | freed-> own 13.5 other 50.9 nobody 35.6 | low2  8.5 low4 18.8
-  c contact   44425 stun  44.3% bites   24284 friendly  0.0 kills   1824 | kill->next take  7.5 eat 38.6 none 49.3 stunned  1.2 split  0.8 move  0.0 | freed-> own 10.1 other 70.9 nobody 19.0 | low2  4.3 low4  9.5
-  d contact  153905 stun  34.0% bites  100560 friendly  0.0 kills   3871 | kill->next take  2.0 eat 37.7 none 59.2 stunned  0.4 split  0.6 move  0.0 | freed-> own  3.2 other 90.2 nobody  6.6 | low2  1.9 low4  5.3
+  a contact    1008 stun  60.8% bites     377 friendly  0.0 kills    126 | kill->next take 10.3 eat 14.5 none 44.4 stunned  8.5 split  8.5 move  0.0 | freed-> own 12.8 other 32.5 nobody 54.7 | low2 11.8 low4 29.1
+  b contact    5575 stun  42.8% bites    3092 friendly  0.0 kills    574 | kill->next take 10.3 eat 28.5 none 42.0 stunned  8.3 split  3.5 move  0.0 | freed-> own 13.5 other 50.9 nobody 35.6 | low2  8.5 low4 18.8
+  c contact   44425 stun  44.3% bites   24284 friendly  0.0 kills   1824 | kill->next take  6.8 eat 38.6 none 49.6 stunned  1.2 split  1.1 move  0.0 | freed-> own 10.1 other 70.9 nobody 19.0 | low2  4.3 low4  9.5
+  d contact  153905 stun  34.0% bites  100560 friendly  0.0 kills   3871 | kill->next take  2.0 eat 37.7 none 59.3 stunned  0.4 split  0.6 move  0.0 | freed-> own  3.2 other 90.2 nobody  6.6 | low2  1.9 low4  5.3
+
+CogBloomXT (8 games) mean chain 3.4
+  a contact    1771 stun  45.8% bites     908 friendly  0.0 kills    213 | kill->next take 25.3 eat 18.9 none 30.5 stunned  6.3 split 17.9 move  0.5 | freed-> own 32.1 other 26.3 nobody 41.6 | low2 31.7 low4 63.8
+  b contact   16543 stun  42.4% bites    9262 friendly  0.0 kills   1517 | kill->next take 23.5 eat 32.5 none 32.9 stunned  5.1 split  5.7 move  0.0 | freed-> own 31.9 other 52.2 nobody 16.0 | low2 16.8 low4 35.0
+  c contact  132849 stun  48.0% bites   68471 friendly  0.0 kills   3701 | kill->next take 22.8 eat 32.5 none 26.5 stunned  3.9 split  5.2 move  0.0 | freed-> own 35.9 other 48.6 nobody 15.5 | low2  2.9 low4  8.1
+  d contact 1245872 stun  42.1% bites  718770 friendly  0.0 kills   8898 | kill->next take 11.9 eat 52.2 none 32.0 stunned  2.5 split  0.6 move  0.0 | freed-> own 17.2 other 80.4 nobody  2.4 | low2  1.2 low4  3.3
+
+AtomCrasher (8 games) mean chain 3.5
+  a contact    1547 stun  57.0% bites     639 friendly  0.0 kills     76 | kill->next take 38.2 eat  5.9 none 30.9 stunned 16.2 split  8.8 move  0.0 | freed-> own 51.5 other 17.6 nobody 30.9 | low2 12.6 low4 41.1
+  b contact   11071 stun  58.7% bites    4449 friendly  0.0 kills    520 | kill->next take 27.9 eat 24.0 none 29.1 stunned 13.4 split  5.6 move  0.0 | freed-> own 41.3 other 44.8 nobody 14.0 | low2  9.2 low4 34.1
+  c contact   87853 stun  65.6% bites   30105 friendly  0.0 kills    963 | kill->next take 25.1 eat  9.6 none 46.1 stunned  8.8 split  9.2 move  0.0 | freed-> own 40.8 other 51.8 nobody  7.4 | low2  4.0 low4 20.4
+  d contact  622290 stun  65.2% bites  215657 friendly  0.0 kills   4030 | kill->next take  1.7 eat 10.9 none 66.6 stunned 20.6 split  0.2 move  0.0 | freed-> own  3.4 other 96.6 nobody  0.1 | low2  5.2 low4 16.6
+
+Sho (8 games) mean chain 0.0
+  a contact    1487 stun  78.3% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.6 low4 81.7
+  b contact    3119 stun  85.8% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 41.8 low4 82.7
+  c contact    1910 stun  94.3% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 40.8 low4 81.0
+
+Bane v2 (8 games) mean chain 2.6
+  a contact    2440 stun  38.0% bites    1472 friendly  0.0 kills    269 | kill->next take 24.0 eat 32.3 none 26.0 stunned  9.1 split  8.3 move  0.4 | freed-> own 33.9 other 28.7 nobody 37.4 | low2 10.8 low4 26.3
+  b contact   13060 stun  48.2% bites    6698 friendly  0.0 kills    668 | kill->next take 38.2 eat 27.2 none 22.7 stunned  3.5 split  8.1 move  0.0 | freed-> own 48.2 other 20.9 nobody 30.9 | low2  8.5 low4 22.6
+  c contact  107223 stun  51.8% bites   51251 friendly  0.0 kills   2713 | kill->next take 39.4 eat 30.0 none 20.9 stunned  0.4 split  9.2 move  0.0 | freed-> own 57.9 other 18.0 nobody 24.1 | low2  2.6 low4 14.6
+  d contact 1259960 stun  57.8% bites  531773 friendly  0.0 kills   1746 | kill->next take 37.5 eat 56.1 none  3.9 stunned  1.1 split  1.3 move  0.0 | freed-> own 55.7 other 41.9 nobody  2.5 | low2  1.0 low4  9.8
 
 ClaudeHunter (7 games) mean chain 2.6
-  a contact    1674 stun  39.8% bites     968 friendly  0.0 kills    224 | kill->next take 43.9 eat 15.1 none 32.1 stunned  1.9 split  7.1 move  0.0 | freed-> own 60.4 other 17.0 nobody 22.6 | low2 17.2 low4 39.0
-  b contact   11536 stun  43.2% bites    6426 friendly  0.0 kills    798 | kill->next take 42.7 eat 21.5 none 29.9 stunned  2.7 split  3.2 move  0.0 | freed-> own 57.9 other 23.8 nobody 18.2 | low2 11.9 low4 26.8
-  c contact   87809 stun  42.2% bites   50228 friendly  0.0 kills   2525 | kill->next take 30.3 eat 45.9 none 21.7 stunned  0.4 split  1.6 move  0.0 | freed-> own 43.5 other 49.3 nobody  7.2 | low2  5.4 low4 12.7
+  a contact    1674 stun  39.8% bites     968 friendly  0.0 kills    224 | kill->next take 41.0 eat 15.1 none 22.6 stunned  1.9 split 18.9 move  0.0 | freed-> own 60.4 other 17.0 nobody 22.6 | low2 17.2 low4 39.0
+  b contact   11536 stun  43.2% bites    6426 friendly  0.0 kills    798 | kill->next take 38.6 eat 21.5 none 22.4 stunned  2.7 split 14.6 move  0.0 | freed-> own 57.9 other 23.8 nobody 18.2 | low2 11.9 low4 26.8
+  c contact   87809 stun  42.2% bites   50228 friendly  0.0 kills   2525 | kill->next take 27.2 eat 45.9 none 20.9 stunned  0.4 split  5.5 move  0.0 | freed-> own 43.5 other 49.3 nobody  7.2 | low2  5.4 low4 12.7
   d contact  721448 stun  43.2% bites  406309 friendly  0.0 kills  10281 | kill->next take  4.4 eat 72.2 none 23.1 stunned  0.0 split  0.2 move  0.0 | freed-> own  8.1 other 91.4 nobody  0.4 | low2  0.7 low4  3.6
 
-NomNom2 (7 games) mean chain 12.3
-  a contact    1696 stun  61.7% bites     636 friendly  0.0 kills    143 | kill->next take 31.4 eat 23.4 none 26.3 stunned  2.2 split 16.8 move  0.0 | freed-> own 43.1 other 20.4 nobody 36.5 | low2 15.9 low4 52.5
-  b contact    7655 stun  68.7% bites    2316 friendly  0.0 kills    352 | kill->next take 44.3 eat 24.4 none 17.9 stunned  4.0 split  9.4 move  0.0 | freed-> own 65.1 other 10.5 nobody 24.4 | low2 14.8 low4 59.2
-  c contact   58189 stun  84.5% bites    8945 friendly  0.0 kills    196 | kill->next take 51.5 eat 28.5 none  9.5 stunned  3.0 split  7.5 move  0.0 | freed-> own 73.5 other 13.0 nobody 13.5 | low2  8.3 low4 43.7
-  d contact  459430 stun  83.8% bites   74486 friendly  0.0 kills    113 | kill->next take 44.2 eat 39.8 none 13.3 stunned  2.7 split  0.0 move  0.0 | freed-> own 46.0 other 54.0 nobody  0.0 | low2  7.9 low4 44.7
-
-gemAlert_v5 (7 games) mean chain 5.8
-  a contact    1400 stun  64.9% bites     482 friendly  0.0 kills     45 | kill->next take 19.0 eat  9.5 none 42.9 stunned 14.3 split 14.3 move  0.0 | freed-> own 23.8 other 26.2 nobody 50.0 | low2 21.9 low4 45.9
-  b contact    7299 stun  72.5% bites    1976 friendly  0.0 kills    211 | kill->next take 23.8 eat  5.3 none 49.0 stunned 11.2 split 10.7 move  0.0 | freed-> own 29.6 other 54.9 nobody 15.5 | low2 13.6 low4 27.3
-  c contact   38306 stun  78.8% bites    8097 friendly  0.0 kills    411 | kill->next take 22.3 eat  3.4 none 68.3 stunned  4.4 split  1.7 move  0.0 | freed-> own 23.5 other 71.7 nobody  4.8 | low2  6.5 low4 13.0
-  d contact   47038 stun  78.5% bites   10023 friendly  0.0 kills    627 | kill->next take 15.1 eat 27.9 none 55.7 stunned  0.2 split  1.1 move  0.0 | freed-> own 17.2 other 74.7 nobody  8.1 | low2  6.6 low4 13.1
-
 Medic (7 games) mean chain 0.0
-  a contact     978 stun  71.8% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 41.5 low4 82.2
-  b contact    2878 stun  77.7% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.6 low4 78.4
-  c contact    3259 stun  78.7% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 37.8 low4 75.0
+  a contact     978 stun  72.5% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 41.5 low4 82.2
+  b contact    2878 stun  78.2% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.6 low4 78.4
+  c contact    3259 stun  79.4% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 37.8 low4 75.0
+
+Brawler v2 (7 games) mean chain 4.9
+  a contact    1200 stun  41.4% bites     671 friendly  0.0 kills    143 | kill->next take 41.4 eat 14.3 none 21.1 stunned  3.0 split 20.3 move  0.0 | freed-> own 56.4 other 11.3 nobody 32.3 | low2 37.2 low4 70.9
+  b contact    6382 stun  53.7% bites    2854 friendly  0.0 kills    391 | kill->next take 39.7 eat 29.7 none 19.2 stunned  3.7 split  7.6 move  0.0 | freed-> own 59.2 other 24.7 nobody 16.1 | low2 30.6 low4 57.0
+  c contact   29390 stun  59.4% bites   11882 friendly  0.0 kills    280 | kill->next take 57.6 eat 19.4 none 11.0 stunned  6.0 split  6.0 move  0.0 | freed-> own 67.8 other 24.0 nobody  8.1 | low2 23.6 low4 42.2
+  d contact   64200 stun  31.5% bites   43992 friendly  0.0 kills    636 | kill->next take 90.4 eat  2.0 none  0.9 stunned  0.0 split  6.6 move  0.0 | freed-> own 90.6 other  8.7 nobody  0.8 | low2  8.1 low4 17.5
+
+zergling (7 games) mean chain 2.1
+  a contact    2435 stun  48.7% bites    1219 friendly  0.0 kills    294 | kill->next take  8.8 eat 19.5 none 26.1 stunned  6.2 split 10.3 move 28.7 | freed-> own 30.1 other 18.4 nobody 51.5 | low2 34.7 low4 65.1
+  b contact   14122 stun  61.2% bites    5274 friendly 10.0 kills    893 | kill->next take 15.8 eat 22.9 none 27.4 stunned  7.2 split  6.5 move 15.7 | freed-> own 38.3 other 29.2 nobody 32.4 | low2 24.2 low4 48.5
+  c contact   48305 stun  69.5% bites   10604 friendly 143.5 kills   1585 | kill->next take 30.1 eat 22.8 none 24.3 stunned  7.7 split  3.6 move  3.9 | freed-> own 41.9 other 32.3 nobody 25.8 | low2 16.1 low4 31.3
+  d contact    8303 stun  50.9% bites    3105 friendly  7.2 kills    688 | kill->next take 32.1 eat 28.0 none 24.1 stunned 10.4 split  5.3 move  0.0 | freed-> own 44.7 other 27.9 nobody 27.4 | low2 14.5 low4 29.5
 
 Bulwark (7 games) mean chain 3.2
   a contact     133 stun  63.2% bites      17 friendly  0.0 kills      6 | kill->next take  0.0 eat  0.0 none 100.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody 100.0 | low2 16.2 low4 26.3
@@ -102,86 +102,86 @@ Bulwark (7 games) mean chain 3.2
   c contact    4728 stun  36.5% bites    2823 friendly  0.0 kills    266 | kill->next take  0.0 eat  0.0 none 98.9 stunned  1.1 split  0.0 move  0.0 | freed-> own  0.0 other 46.5 nobody 53.5 | low2  2.4 low4  5.6
   d contact    3442 stun  42.7% bites    1868 friendly  0.0 kills     50 | kill->next take  0.0 eat  0.0 none 100.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other 82.4 nobody 17.6 | low2  2.2 low4  5.2
 
-Brawler v2 (7 games) mean chain 4.9
-  a contact    1200 stun  41.4% bites     671 friendly  0.0 kills    143 | kill->next take 36.8 eat 14.3 none 31.6 stunned  3.0 split 14.3 move  0.0 | freed-> own 56.4 other 11.3 nobody 32.3 | low2 37.2 low4 70.9
-  b contact    6382 stun  53.7% bites    2854 friendly  0.0 kills    391 | kill->next take 33.9 eat 29.7 none 25.3 stunned  3.7 split  7.4 move  0.0 | freed-> own 59.2 other 24.7 nobody 16.1 | low2 30.6 low4 57.0
-  c contact   29390 stun  59.4% bites   11882 friendly  0.0 kills    280 | kill->next take 55.1 eat 19.4 none 15.5 stunned  6.0 split  3.9 move  0.0 | freed-> own 67.8 other 24.0 nobody  8.1 | low2 23.6 low4 42.2
-  d contact   64200 stun  31.5% bites   43992 friendly  0.0 kills    636 | kill->next take 90.4 eat  2.0 none  7.1 stunned  0.0 split  0.5 move  0.0 | freed-> own 90.6 other  8.7 nobody  0.8 | low2  8.1 low4 17.5
+NomNom2 (7 games) mean chain 12.3
+  a contact    1696 stun  61.7% bites     636 friendly  0.0 kills    143 | kill->next take 34.3 eat 23.4 none 20.4 stunned  2.2 split 19.7 move  0.0 | freed-> own 43.1 other 20.4 nobody 36.5 | low2 15.9 low4 52.5
+  b contact    7655 stun  68.7% bites    2316 friendly  0.0 kills    352 | kill->next take 48.3 eat 24.4 none 15.1 stunned  4.0 split  8.2 move  0.0 | freed-> own 65.1 other 10.5 nobody 24.4 | low2 14.8 low4 59.2
+  c contact   58189 stun  84.5% bites    8945 friendly  0.0 kills    196 | kill->next take 51.5 eat 28.5 none 10.0 stunned  3.0 split  7.0 move  0.0 | freed-> own 73.5 other 13.0 nobody 13.5 | low2  8.3 low4 43.7
+  d contact  459430 stun  83.8% bites   74486 friendly  0.0 kills    113 | kill->next take 44.2 eat 39.8 none 11.5 stunned  2.7 split  1.8 move  0.0 | freed-> own 46.0 other 54.0 nobody  0.0 | low2  7.9 low4 44.7
 
-zergling (7 games) mean chain 2.1
-  a contact    2435 stun  48.7% bites    1219 friendly  0.0 kills    294 | kill->next take  8.8 eat 19.5 none 26.5 stunned  6.2 split 11.4 move 27.2 | freed-> own 30.1 other 18.4 nobody 51.5 | low2 34.7 low4 65.1
-  b contact   14122 stun  61.2% bites    5274 friendly 10.0 kills    893 | kill->next take 15.2 eat 22.9 none 29.6 stunned  7.2 split  5.9 move 14.8 | freed-> own 38.3 other 29.2 nobody 32.4 | low2 24.2 low4 48.5
-  c contact   48305 stun  69.5% bites   10604 friendly 143.5 kills   1585 | kill->next take 29.1 eat 22.8 none 24.9 stunned  7.7 split  4.1 move  3.9 | freed-> own 41.9 other 32.3 nobody 25.8 | low2 16.1 low4 31.3
-  d contact    8303 stun  50.9% bites    3105 friendly  7.2 kills    688 | kill->next take 32.6 eat 28.0 none 24.2 stunned 10.4 split  4.7 move  0.0 | freed-> own 44.7 other 27.9 nobody 27.4 | low2 14.5 low4 29.5
+gemAlert_v5 (7 games) mean chain 5.8
+  a contact    1400 stun  64.9% bites     482 friendly  0.0 kills     45 | kill->next take  4.8 eat  9.5 none 50.0 stunned 14.3 split 21.4 move  0.0 | freed-> own 23.8 other 26.2 nobody 50.0 | low2 21.9 low4 45.9
+  b contact    7299 stun  72.5% bites    1976 friendly  0.0 kills    211 | kill->next take 25.7 eat  5.3 none 46.6 stunned 11.2 split 11.2 move  0.0 | freed-> own 29.6 other 54.9 nobody 15.5 | low2 13.6 low4 27.3
+  c contact   38306 stun  78.8% bites    8097 friendly  0.0 kills    411 | kill->next take 22.3 eat  3.4 none 68.5 stunned  4.4 split  1.5 move  0.0 | freed-> own 23.5 other 71.7 nobody  4.8 | low2  6.5 low4 13.0
+  d contact   47038 stun  78.5% bites   10023 friendly  0.0 kills    627 | kill->next take 15.4 eat 27.9 none 55.4 stunned  0.2 split  1.1 move  0.0 | freed-> own 17.2 other 74.7 nobody  8.1 | low2  6.6 low4 13.1
+
+Artemis (6 games) mean chain 2.7
+  a contact     996 stun  54.5% bites     439 friendly  0.0 kills    115 | kill->next take 22.0 eat  5.5 none 47.7 stunned  6.4 split 13.8 move  0.0 | freed-> own 24.8 other 10.1 nobody 65.1 | low2 21.1 low4 46.9
+  b contact    4822 stun  74.4% bites    1210 friendly  0.0 kills    141 | kill->next take 17.6 eat 16.9 none 23.9 stunned  9.9 split  6.3 move  0.0 | freed-> own 19.7 other 38.0 nobody 42.3 | low2 12.9 low4 28.2
+  c contact   13668 stun  83.2% bites    2287 friendly  0.0 kills     29 | kill->next take 10.0 eat  6.7 none  3.3 stunned 20.0 split  0.0 move  0.0 | freed-> own 16.7 other 63.3 nobody 20.0 | low2  8.6 low4 19.2
+  d contact    2193 stun  84.4% bites     341 friendly  0.0 kills      1 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody 100.0 | low2  8.1 low4 18.0
+
+squirtle (6 games) mean chain 1.7
+  a contact     531 stun  68.5% bites     166 friendly  0.0 kills     26 | kill->next take 16.0 eat 24.0 none 36.0 stunned  4.0 split 20.0 move  0.0 | freed-> own 20.0 other  8.0 nobody 72.0 | low2 29.0 low4 60.4
+  b contact    3767 stun  80.6% bites     722 friendly  0.0 kills     43 | kill->next take  6.8 eat  6.8 none 68.2 stunned  9.1 split  9.1 move  0.0 | freed-> own 11.4 other 18.2 nobody 70.5 | low2 30.9 low4 62.1
+  c contact    2305 stun  88.0% bites     272 friendly  0.0 kills     15 | kill->next take 14.3 eat 14.3 none 21.4 stunned 50.0 split  0.0 move  0.0 | freed-> own 14.3 other 14.3 nobody 71.4 | low2 31.9 low4 63.3
 
 choochoo (6 games) mean chain 0.0
   a contact      13 stun 100.0% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 15.4 low4 30.8
   b contact      12 stun 100.0% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 25.0 low4 50.0
   c contact       3 stun 100.0% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 20.0 low4 40.0
 
-squirtle (6 games) mean chain 1.7
-  a contact     531 stun  68.5% bites     166 friendly  0.0 kills     26 | kill->next take  8.0 eat 24.0 none 56.0 stunned  4.0 split  8.0 move  0.0 | freed-> own 20.0 other  8.0 nobody 72.0 | low2 29.0 low4 60.4
-  b contact    3767 stun  80.6% bites     722 friendly  0.0 kills     43 | kill->next take  6.8 eat  6.8 none 68.2 stunned  9.1 split  9.1 move  0.0 | freed-> own 11.4 other 18.2 nobody 70.5 | low2 30.9 low4 62.1
-  c contact    2305 stun  88.0% bites     272 friendly  0.0 kills     15 | kill->next take 14.3 eat 14.3 none 21.4 stunned 50.0 split  0.0 move  0.0 | freed-> own 14.3 other 14.3 nobody 71.4 | low2 31.9 low4 63.3
-
-Artemis (6 games) mean chain 2.7
-  a contact     996 stun  54.5% bites     439 friendly  0.0 kills    115 | kill->next take 22.0 eat  5.5 none 51.4 stunned  6.4 split 10.1 move  0.0 | freed-> own 24.8 other 10.1 nobody 65.1 | low2 21.1 low4 46.9
-  b contact    4822 stun  74.4% bites    1210 friendly  0.0 kills    141 | kill->next take 18.3 eat 16.9 none 24.6 stunned  9.9 split  5.6 move  0.0 | freed-> own 19.7 other 38.0 nobody 42.3 | low2 12.9 low4 28.2
-  c contact   13668 stun  83.2% bites    2287 friendly  0.0 kills     29 | kill->next take 10.0 eat  6.7 none  3.3 stunned 20.0 split  0.0 move  0.0 | freed-> own 16.7 other 63.3 nobody 20.0 | low2  8.6 low4 19.2
-  d contact    2193 stun  84.4% bites     341 friendly  0.0 kills      1 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody 100.0 | low2  8.1 low4 18.0
-
-Bane v2.1 (5 games) mean chain 6.2
-  a contact    2205 stun  20.5% bites    1693 friendly  0.0 kills    407 | kill->next take 22.2 eat 12.5 none 37.7 stunned 19.2 split  8.4 move  0.0 | freed-> own 29.8 other 27.4 nobody 42.8 | low2  5.8 low4 21.4
-  b contact   11603 stun  11.5% bites   10002 friendly  0.0 kills   1630 | kill->next take 35.0 eat 16.2 none 28.7 stunned 13.8 split  6.2 move  0.0 | freed-> own 48.2 other 26.9 nobody 24.9 | low2  3.4 low4 12.7
-  c contact   79928 stun  13.9% bites   68325 friendly  0.0 kills   3368 | kill->next take 42.7 eat 22.7 none 18.1 stunned 13.4 split  3.0 move  0.0 | freed-> own 55.2 other 27.3 nobody 17.5 | low2  0.2 low4  0.9
-  d contact  719189 stun  21.2% bites  565339 friendly  0.0 kills   7919 | kill->next take 42.4 eat 31.6 none 11.4 stunned 13.6 split  1.0 move  0.0 | freed-> own 56.1 other 38.8 nobody  5.1 | low2  0.1 low4  0.3
-
-Conviction (5 games) mean chain 6.1
-  a contact    2399 stun  35.3% bites    1479 friendly  0.7 kills    225 | kill->next take 13.4 eat  8.9 none 54.0 stunned 19.3 split  3.0 move  1.5 | freed-> own 20.3 other 50.5 nobody 29.2 | low2 19.0 low4 38.2
-  b contact   11059 stun  24.1% bites    8047 friendly  0.5 kills    721 | kill->next take 21.9 eat  8.3 none 43.8 stunned 23.7 split  1.3 move  1.0 | freed-> own 28.2 other 52.2 nobody 19.5 | low2  6.2 low4 15.8
-  c contact   69124 stun  16.6% bites   56892 friendly  0.1 kills   1190 | kill->next take 15.5 eat  4.2 none 54.2 stunned 25.4 split  0.5 move  0.2 | freed-> own 23.5 other 64.3 nobody 12.2 | low2  0.4 low4  1.1
-  d contact  839632 stun  16.3% bites  699509 friendly  0.0 kills   8391 | kill->next take  3.1 eat  0.5 none 64.5 stunned 31.8 split  0.0 move  0.0 | freed-> own  4.9 other 94.0 nobody  1.1 | low2  0.0 low4  0.0
-
-Brawler (5 games) mean chain 3.2
-  a contact     968 stun  38.3% bites     570 friendly  0.0 kills    121 | kill->next take 35.7 eat 17.0 none 29.5 stunned  6.2 split 11.6 move  0.0 | freed-> own 47.3 other 29.5 nobody 23.2 | low2 18.5 low4 42.1
-  b contact    6550 stun  45.2% bites    3477 friendly  0.0 kills    586 | kill->next take 29.4 eat 27.2 none 31.0 stunned  6.9 split  5.5 move  0.0 | freed-> own 40.4 other 42.9 nobody 16.7 | low2 18.3 low4 42.0
-  c contact   36778 stun  50.3% bites   17985 friendly  0.0 kills   1211 | kill->next take 26.3 eat 19.8 none 41.7 stunned  9.2 split  3.0 move  0.0 | freed-> own 37.7 other 50.6 nobody 11.7 | low2 15.9 low4 33.6
-  d contact   10712 stun  44.9% bites    5899 friendly  0.0 kills    100 | kill->next take  0.0 eat  2.1 none 12.5 stunned 83.3 split  2.1 move  0.0 | freed-> own  0.0 other 90.6 nobody  9.4 | low2  9.6 low4 19.9
+gemAlert_v4 (5 games) mean chain 2.9
+  a contact     354 stun  32.2% bites     227 friendly  0.0 kills     72 | kill->next take 27.3 eat 24.2 none 36.4 stunned  3.0 split  9.1 move  0.0 | freed-> own 42.4 other 27.3 nobody 30.3 | low2 24.5 low4 53.7
+  b contact    3701 stun  69.2% bites    1090 friendly  0.0 kills    233 | kill->next take 28.3 eat 24.3 none 30.4 stunned  7.4 split  9.6 move  0.0 | freed-> own 48.3 other 18.7 nobody 33.0 | low2 23.7 low4 48.3
+  c contact   38868 stun  85.1% bites    5733 friendly  0.0 kills    168 | kill->next take 24.1 eat 12.0 none 36.1 stunned 22.3 split  5.4 move  0.0 | freed-> own 32.5 other 53.6 nobody 13.9 | low2  8.0 low4 16.0
+  d contact   55550 stun  82.7% bites    9577 friendly  0.0 kills     23 | kill->next take 39.1 eat 13.0 none 17.4 stunned 30.4 split  0.0 move  0.0 | freed-> own 47.8 other 47.8 nobody  4.3 | low2  6.3 low4 12.6
 
 Smarter Hunter (5 games) mean chain 3.2
   a contact     484 stun  44.0% bites     254 friendly  0.0 kills     57 | kill->next take 33.3 eat 10.4 none 37.5 stunned  6.2 split 12.5 move  0.0 | freed-> own 43.8 other 10.4 nobody 45.8 | low2 25.2 low4 58.4
-  b contact    5833 stun  62.3% bites    2117 friendly  0.0 kills    355 | kill->next take 36.8 eat 22.1 none 30.7 stunned  3.7 split  6.6 move  0.0 | freed-> own 50.6 other 27.9 nobody 21.6 | low2 18.9 low4 39.1
-  c contact   47685 stun  71.3% bites   13439 friendly  0.0 kills    763 | kill->next take 36.7 eat 41.5 none 18.2 stunned  1.6 split  1.9 move  0.0 | freed-> own 50.3 other 45.8 nobody  3.9 | low2  7.6 low4 15.4
-  d contact   55569 stun  75.2% bites   13643 friendly  0.0 kills    369 | kill->next take 16.2 eat 61.1 none 18.9 stunned  1.9 split  1.9 move  0.0 | freed-> own 27.3 other 69.2 nobody  3.5 | low2  6.9 low4 14.1
+  b contact    5833 stun  62.3% bites    2117 friendly  0.0 kills    355 | kill->next take 39.1 eat 22.1 none 28.4 stunned  3.7 split  6.6 move  0.0 | freed-> own 50.6 other 27.9 nobody 21.6 | low2 18.9 low4 39.1
+  c contact   47685 stun  71.3% bites   13439 friendly  0.0 kills    763 | kill->next take 37.0 eat 41.5 none 17.7 stunned  1.6 split  2.2 move  0.0 | freed-> own 50.3 other 45.8 nobody  3.9 | low2  7.6 low4 15.4
+  d contact   55569 stun  75.2% bites   13643 friendly  0.0 kills    369 | kill->next take 15.9 eat 61.1 none 19.7 stunned  1.9 split  1.4 move  0.0 | freed-> own 27.3 other 69.2 nobody  3.5 | low2  6.9 low4 14.1
 
-gemAlert_v4 (5 games) mean chain 2.9
-  a contact     354 stun  32.2% bites     227 friendly  0.0 kills     72 | kill->next take 27.3 eat 24.2 none 37.9 stunned  3.0 split  7.6 move  0.0 | freed-> own 42.4 other 27.3 nobody 30.3 | low2 24.5 low4 53.7
-  b contact    3701 stun  69.2% bites    1090 friendly  0.0 kills    233 | kill->next take 25.7 eat 24.3 none 33.5 stunned  7.4 split  9.1 move  0.0 | freed-> own 48.3 other 18.7 nobody 33.0 | low2 23.7 low4 48.3
-  c contact   38868 stun  85.1% bites    5733 friendly  0.0 kills    168 | kill->next take 23.5 eat 12.0 none 39.2 stunned 22.3 split  3.0 move  0.0 | freed-> own 32.5 other 53.6 nobody 13.9 | low2  8.0 low4 16.0
-  d contact   55550 stun  82.7% bites    9577 friendly  0.0 kills     23 | kill->next take 39.1 eat 13.0 none 17.4 stunned 30.4 split  0.0 move  0.0 | freed-> own 47.8 other 47.8 nobody  4.3 | low2  6.3 low4 12.6
+Brawler (5 games) mean chain 3.2
+  a contact     968 stun  38.3% bites     570 friendly  0.0 kills    121 | kill->next take 33.0 eat 17.0 none 26.8 stunned  6.2 split 16.1 move  0.0 | freed-> own 47.3 other 29.5 nobody 23.2 | low2 18.5 low4 42.1
+  b contact    6550 stun  45.2% bites    3477 friendly  0.0 kills    586 | kill->next take 28.3 eat 27.2 none 28.1 stunned  6.9 split  9.4 move  0.0 | freed-> own 40.4 other 42.9 nobody 16.7 | low2 18.3 low4 42.0
+  c contact   36778 stun  50.3% bites   17985 friendly  0.0 kills   1211 | kill->next take 24.4 eat 19.8 none 41.4 stunned  9.2 split  5.2 move  0.0 | freed-> own 37.7 other 50.6 nobody 11.7 | low2 15.9 low4 33.6
+  d contact   10712 stun  44.9% bites    5899 friendly  0.0 kills    100 | kill->next take  0.0 eat  2.1 none 12.5 stunned 83.3 split  2.1 move  0.0 | freed-> own  0.0 other 90.6 nobody  9.4 | low2  9.6 low4 19.9
 
 CogSpore-Siect-F (5 games) mean chain 9.6
-  a contact    2768 stun  14.5% bites    2239 friendly  0.0 kills    713 | kill->next take 25.9 eat 13.1 none 33.1 stunned 10.2 split 12.2 move  5.4 | freed-> own 40.3 other 29.3 nobody 30.4 | low2 14.6 low4 42.7
-  b contact   14701 stun   9.2% bites   12910 friendly  0.0 kills   2433 | kill->next take 26.1 eat 18.9 none 38.9 stunned  9.0 split  6.6 move  0.5 | freed-> own 38.6 other 47.3 nobody 14.2 | low2  7.3 low4 26.6
-  c contact   92967 stun   8.5% bites   84210 friendly  0.0 kills   5146 | kill->next take 32.9 eat 23.1 none 34.0 stunned  8.5 split  1.6 move  0.0 | freed-> own 45.5 other 45.1 nobody  9.4 | low2  0.3 low4  1.5
-  d contact  898228 stun  11.7% bites  792398 friendly  0.0 kills  16295 | kill->next take  6.3 eat 15.1 none 72.5 stunned  5.8 split  0.3 move  0.0 | freed-> own  9.1 other 90.4 nobody  0.5 | low2  0.0 low4  0.0
+  a contact    2768 stun  14.5% bites    2239 friendly  0.0 kills    713 | kill->next take 28.5 eat 13.1 none 31.2 stunned 10.2 split 11.4 move  5.4 | freed-> own 40.3 other 29.3 nobody 30.4 | low2 14.6 low4 42.7
+  b contact   14701 stun   9.2% bites   12910 friendly  0.0 kills   2433 | kill->next take 28.7 eat 18.9 none 37.0 stunned  9.0 split  5.8 move  0.5 | freed-> own 38.6 other 47.3 nobody 14.2 | low2  7.3 low4 26.6
+  c contact   92967 stun   8.5% bites   84210 friendly  0.0 kills   5146 | kill->next take 35.0 eat 23.1 none 32.6 stunned  8.5 split  0.8 move  0.0 | freed-> own 45.5 other 45.1 nobody  9.4 | low2  0.3 low4  1.5
+  d contact  898228 stun  11.7% bites  792398 friendly  0.0 kills  16295 | kill->next take  6.3 eat 15.1 none 72.5 stunned  5.8 split  0.2 move  0.0 | freed-> own  9.1 other 90.4 nobody  0.5 | low2  0.0 low4  0.0
 
-CogBloomXT v4 (4 games) mean chain 4.6
-  a contact     885 stun  25.9% bites     616 friendly  0.0 kills    130 | kill->next take 27.9 eat 20.7 none 27.9 stunned  4.5 split 18.9 move  0.0 | freed-> own 48.6 other 27.0 nobody 24.3 | low2 26.7 low4 55.9
-  b contact    7783 stun  25.1% bites    5649 friendly  0.0 kills    891 | kill->next take 27.6 eat 28.2 none 31.9 stunned  3.7 split  8.6 move  0.0 | freed-> own 44.7 other 40.5 nobody 14.8 | low2 16.0 low4 33.3
-  c contact   64952 stun  28.2% bites   46317 friendly  0.0 kills   1972 | kill->next take 21.6 eat 27.3 none 40.2 stunned  3.3 split  3.5 move  0.0 | freed-> own 31.5 other 58.0 nobody 10.5 | low2  2.3 low4  5.6
-  d contact  646003 stun  28.2% bites  461333 friendly  0.0 kills  16582 | kill->next take  5.8 eat 37.7 none 54.3 stunned  0.7 split  0.2 move  0.0 | freed-> own 10.0 other 89.1 nobody  0.8 | low2  0.9 low4  2.3
+Conviction (5 games) mean chain 6.1
+  a contact    2399 stun  35.3% bites    1479 friendly  0.7 kills    225 | kill->next take 13.9 eat  9.9 none 54.0 stunned 19.3 split  1.5 move  1.5 | freed-> own 20.3 other 50.5 nobody 29.2 | low2 19.0 low4 38.2
+  b contact   11059 stun  24.1% bites    8047 friendly  0.5 kills    721 | kill->next take 20.8 eat  9.0 none 44.9 stunned 23.7 split  0.6 move  1.0 | freed-> own 28.2 other 52.2 nobody 19.5 | low2  6.2 low4 15.8
+  c contact   69124 stun  16.7% bites   56892 friendly  0.1 kills   1190 | kill->next take 14.6 eat  4.7 none 54.4 stunned 25.5 split  0.5 move  0.2 | freed-> own 23.5 other 64.3 nobody 12.2 | low2  0.4 low4  1.1
+  d contact  839632 stun  16.3% bites  699509 friendly  0.0 kills   8391 | kill->next take  3.1 eat  0.6 none 64.5 stunned 31.8 split  0.0 move  0.0 | freed-> own  4.9 other 94.0 nobody  1.1 | low2  0.0 low4  0.0
+
+Bane v2.1 (5 games) mean chain 6.2
+  a contact    2205 stun  20.5% bites    1693 friendly  0.0 kills    407 | kill->next take 24.9 eat 12.5 none 37.1 stunned 19.2 split  6.2 move  0.0 | freed-> own 29.8 other 27.4 nobody 42.8 | low2  5.8 low4 21.4
+  b contact   11603 stun  11.5% bites   10002 friendly  0.0 kills   1630 | kill->next take 37.2 eat 17.6 none 27.0 stunned 13.8 split  4.4 move  0.0 | freed-> own 48.2 other 26.9 nobody 24.9 | low2  3.4 low4 12.7
+  c contact   79928 stun  13.9% bites   68325 friendly  0.0 kills   3368 | kill->next take 43.0 eat 23.8 none 16.7 stunned 13.4 split  3.1 move  0.0 | freed-> own 55.2 other 27.3 nobody 17.5 | low2  0.2 low4  0.9
+  d contact  719189 stun  21.2% bites  565339 friendly  0.0 kills   7919 | kill->next take 42.6 eat 31.9 none 11.1 stunned 13.6 split  0.9 move  0.0 | freed-> own 56.1 other 38.8 nobody  5.1 | low2  0.1 low4  0.3
+
+Necrosia (4 games) mean chain 2.2
+  a contact     116 stun  74.1% bites      30 friendly  0.0 kills      7 | kill->next take  0.0 eat  0.0 none 80.0 stunned  0.0 split  0.0 move 20.0 | freed-> own  0.0 other 20.0 nobody 80.0 | low2 17.6 low4 36.8
+  b contact    1275 stun  52.2% bites     598 friendly  0.0 kills    101 | kill->next take 11.8 eat 21.5 none 25.8 stunned 10.8 split 17.2 move  7.5 | freed-> own 16.1 other 21.5 nobody 62.4 | low2 11.6 low4 26.7
+  c contact   18295 stun  43.4% bites   10092 friendly  0.0 kills   1039 | kill->next take 35.0 eat 31.6 none 12.9 stunned  1.7 split  8.5 move  3.3 | freed-> own 54.6 other  7.8 nobody 37.5 | low2  4.3 low4  9.1
+  d contact  184715 stun  50.4% bites   91293 friendly  0.0 kills   1851 | kill->next take 28.7 eat 22.4 none 14.8 stunned 10.1 split  5.8 move  0.4 | freed-> own 37.2 other 18.5 nobody 44.3 | low2  0.5 low4  1.1
 
 CogSpore (4 games) mean chain 2.7
-  a contact    2131 stun  32.9% bites    1368 friendly  0.0 kills    341 | kill->next take 30.9 eat 21.7 none 29.3 stunned  8.6 split  3.9 move  5.6 | freed-> own 45.7 other 29.9 nobody 24.3 | low2 27.4 low4 59.7
-  b contact   10505 stun  32.0% bites    6905 friendly  0.0 kills   1197 | kill->next take 26.6 eat 24.1 none 40.8 stunned  4.5 split  3.9 move  0.1 | freed-> own 38.9 other 48.9 nobody 12.2 | low2 12.8 low4 27.3
-  c contact   59388 stun  39.7% bites   35314 friendly  0.0 kills   2246 | kill->next take 17.3 eat 38.9 none 37.8 stunned  1.1 split  1.5 move  0.0 | freed-> own 27.3 other 66.7 nobody  6.0 | low2  0.9 low4  3.1
-  d contact  675524 stun  44.2% bites  375197 friendly  0.0 kills  13641 | kill->next take  4.1 eat 49.1 none 43.6 stunned  1.0 split  0.2 move  0.0 | freed-> own  5.9 other 92.4 nobody  1.7 | low2  0.3 low4  1.0
+  a contact    2131 stun  32.9% bites    1368 friendly  0.0 kills    341 | kill->next take 31.9 eat 21.7 none 24.3 stunned  8.6 split  7.9 move  5.6 | freed-> own 45.7 other 29.9 nobody 24.3 | low2 27.4 low4 59.7
+  b contact   10505 stun  32.0% bites    6905 friendly  0.0 kills   1197 | kill->next take 28.6 eat 24.1 none 38.9 stunned  4.5 split  3.7 move  0.1 | freed-> own 38.9 other 48.9 nobody 12.2 | low2 12.8 low4 27.3
+  c contact   59388 stun  39.7% bites   35314 friendly  0.0 kills   2246 | kill->next take 17.0 eat 38.9 none 37.1 stunned  1.1 split  2.2 move  0.0 | freed-> own 27.3 other 66.7 nobody  6.0 | low2  0.9 low4  3.1
+  d contact  675524 stun  44.2% bites  375197 friendly  0.0 kills  13641 | kill->next take  4.0 eat 49.1 none 43.5 stunned  1.0 split  0.4 move  0.0 | freed-> own  5.9 other 92.4 nobody  1.7 | low2  0.3 low4  1.0
 
 Phaedra_Rune (4 games) mean chain 3.6
-  a contact     345 stun  80.3% bites      67 friendly  0.0 kills      5 | kill->next take 20.0 eat  0.0 none 60.0 stunned 20.0 split  0.0 move  0.0 | freed-> own 40.0 other  0.0 nobody 60.0 | low2 27.6 low4 59.3
-  b contact    2195 stun  76.3% bites     501 friendly  0.0 kills     81 | kill->next take 34.2 eat 21.5 none 27.8 stunned  6.3 split 10.1 move  0.0 | freed-> own 40.5 other 15.2 nobody 44.3 | low2 17.4 low4 38.3
-  c contact   25318 stun  74.3% bites    6485 friendly  0.0 kills    144 | kill->next take 25.5 eat 15.9 none 48.3 stunned  6.9 split  3.4 move  0.0 | freed-> own 34.5 other 55.2 nobody 10.3 | low2  8.1 low4 18.1
+  a contact     345 stun  80.3% bites      67 friendly  0.0 kills      5 | kill->next take 40.0 eat  0.0 none 40.0 stunned 20.0 split  0.0 move  0.0 | freed-> own 40.0 other  0.0 nobody 60.0 | low2 27.6 low4 59.3
+  b contact    2195 stun  76.3% bites     501 friendly  0.0 kills     81 | kill->next take 35.4 eat 21.5 none 26.6 stunned  6.3 split 10.1 move  0.0 | freed-> own 40.5 other 15.2 nobody 44.3 | low2 17.4 low4 38.3
+  c contact   25318 stun  74.3% bites    6485 friendly  0.0 kills    144 | kill->next take 28.3 eat 15.9 none 46.2 stunned  6.9 split  2.8 move  0.0 | freed-> own 34.5 other 55.2 nobody 10.3 | low2  8.1 low4 18.1
   d contact   30119 stun  70.2% bites    8971 friendly  0.0 kills     29 | kill->next take 30.0 eat 33.3 none 30.0 stunned  6.7 split  0.0 move  0.0 | freed-> own 36.7 other 63.3 nobody  0.0 | low2  6.6 low4 14.7
 
 Random (4 games) mean chain 1.0
@@ -189,49 +189,49 @@ Random (4 games) mean chain 1.0
   b contact    1079 stun  83.2% bites      13 friendly 11730.8 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 30.0 low4 60.3
   c contact    3420 stun  84.3% bites      32 friendly 7165.6 kills      1 | kill->next take  0.0 eat  0.0 none 100.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody 100.0 | low2 25.9 low4 48.9
 
-Necrosia (4 games) mean chain 2.2
-  a contact     116 stun  74.1% bites      30 friendly  0.0 kills      7 | kill->next take  0.0 eat  0.0 none 80.0 stunned  0.0 split  0.0 move 20.0 | freed-> own  0.0 other 20.0 nobody 80.0 | low2 17.6 low4 36.8
-  b contact    1275 stun  52.2% bites     598 friendly  0.0 kills    101 | kill->next take 11.8 eat 21.5 none 25.8 stunned 10.8 split 17.2 move  7.5 | freed-> own 16.1 other 21.5 nobody 62.4 | low2 11.6 low4 26.7
-  c contact   18295 stun  43.4% bites   10092 friendly  0.0 kills   1039 | kill->next take 35.2 eat 31.6 none 14.7 stunned  1.7 split  7.4 move  3.1 | freed-> own 54.6 other  7.8 nobody 37.5 | low2  4.3 low4  9.1
-  d contact  184715 stun  50.4% bites   91293 friendly  0.0 kills   1851 | kill->next take 27.5 eat 22.4 none 17.3 stunned 10.1 split  5.0 move  0.4 | freed-> own 37.2 other 18.5 nobody 44.3 | low2  0.5 low4  1.1
+CogBloomXT v4 (4 games) mean chain 4.6
+  a contact     885 stun  25.9% bites     616 friendly  0.0 kills    130 | kill->next take 30.6 eat 20.7 none 27.0 stunned  4.5 split 17.1 move  0.0 | freed-> own 48.6 other 27.0 nobody 24.3 | low2 26.7 low4 55.9
+  b contact    7783 stun  25.1% bites    5649 friendly  0.0 kills    891 | kill->next take 29.0 eat 28.2 none 30.9 stunned  3.7 split  7.9 move  0.0 | freed-> own 44.7 other 40.5 nobody 14.8 | low2 16.0 low4 33.3
+  c contact   64952 stun  28.2% bites   46317 friendly  0.0 kills   1972 | kill->next take 21.6 eat 27.3 none 39.5 stunned  3.3 split  3.8 move  0.0 | freed-> own 31.5 other 58.0 nobody 10.5 | low2  2.3 low4  5.6
+  d contact  646003 stun  28.2% bites  461333 friendly  0.0 kills  16582 | kill->next take  5.8 eat 37.7 none 54.3 stunned  0.7 split  0.3 move  0.0 | freed-> own 10.0 other 89.1 nobody  0.8 | low2  0.9 low4  2.3
 
 Walker (3 games) mean chain 0.0
   a contact     254 stun  78.3% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 42.1 low4 88.4
-  b contact    1801 stun  82.9% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.1 low4 78.9
-  c contact    2140 stun  90.7% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.5 low4 78.5
+  b contact    1801 stun  83.4% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.1 low4 78.9
+  c contact    2140 stun  91.4% bites       0 friendly  0.0 kills      0 | kill->next take  0.0 eat  0.0 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own  0.0 other  0.0 nobody  0.0 | low2 39.5 low4 78.5
 
-Bane v1 (3 games) mean chain 2.6
-  a contact     397 stun  37.8% bites     242 friendly  0.0 kills     52 | kill->next take 36.7 eat  2.0 none 46.9 stunned  4.1 split 10.2 move  0.0 | freed-> own 44.9 other 18.4 nobody 36.7 | low2 11.7 low4 26.9
-  b contact    3523 stun  50.0% bites    1743 friendly  0.0 kills    109 | kill->next take 36.4 eat 28.0 none 23.4 stunned  4.7 split  7.5 move  0.0 | freed-> own 53.3 other 23.4 nobody 23.4 | low2  8.8 low4 23.9
-  c contact   33284 stun  51.3% bites   16184 friendly  0.0 kills    179 | kill->next take 53.0 eat 24.9 none  8.8 stunned 10.5 split  2.8 move  0.0 | freed-> own 69.6 other 17.1 nobody 13.3 | low2  1.8 low4  7.4
-  d contact  425429 stun  56.7% bites  184110 friendly  0.0 kills    435 | kill->next take 19.6 eat 43.8 none  1.4 stunned 33.6 split  1.6 move  0.0 | freed-> own 29.3 other 62.2 nobody  8.5 | low2  2.5 low4  9.6
+gemAlert_v6 (3 games) mean chain 4.7
+  a contact      63 stun  57.1% bites      26 friendly  0.0 kills      4 | kill->next take 25.0 eat  0.0 none 75.0 stunned  0.0 split  0.0 move  0.0 | freed-> own 75.0 other  0.0 nobody 25.0 | low2 29.7 low4 64.9
+  b contact    2128 stun  81.8% bites     383 friendly  0.0 kills     32 | kill->next take 34.5 eat 10.3 none 27.6 stunned 10.3 split 17.2 move  0.0 | freed-> own 48.3 other 10.3 nobody 41.4 | low2 21.8 low4 44.0
+  c contact   23863 stun  88.9% bites    2619 friendly  0.0 kills     38 | kill->next take 42.5 eat 12.5 none 25.0 stunned 15.0 split  5.0 move  0.0 | freed-> own 47.5 other 27.5 nobody 25.0 | low2  8.1 low4 16.2
+  d contact   20166 stun  93.6% bites    1265 friendly  0.0 kills     14 | kill->next take 42.9 eat 42.9 none 14.3 stunned  0.0 split  0.0 move  0.0 | freed-> own 71.4 other 14.3 nobody 14.3 | low2  5.4 low4 10.7
 
-Schism (3 games) mean chain 2.9
-  a contact     286 stun  82.5% bites      49 friendly  0.0 kills     10 | kill->next take 20.0 eat  0.0 none 50.0 stunned  0.0 split 30.0 move  0.0 | freed-> own 80.0 other  0.0 nobody 20.0 | low2 37.1 low4 70.5
-  b contact    4086 stun  52.8% bites    1903 friendly  0.0 kills    131 | kill->next take 43.3 eat 33.9 none 11.0 stunned  5.5 split  6.3 move  0.0 | freed-> own 66.9 other 25.2 nobody  7.9 | low2 15.6 low4 40.6
-  c contact   41107 stun  54.8% bites   18577 friendly  0.0 kills    115 | kill->next take 39.5 eat 43.0 none  6.1 stunned  7.0 split  4.4 move  0.0 | freed-> own 59.6 other 36.8 nobody  3.5 | low2  2.2 low4 15.7
-  d contact  546384 stun  48.1% bites  283413 friendly  0.0 kills    314 | kill->next take 46.8 eat 41.1 none  3.5 stunned  8.3 split  0.3 move  0.0 | freed-> own 99.0 other  1.0 nobody  0.0 | low2  0.3 low4  4.2
-
-Bouncer (3 games) mean chain 5.8
-  a contact     656 stun  29.3% bites     446 friendly  0.0 kills    107 | kill->next take 14.6 eat 17.5 none 60.2 stunned  1.9 split  5.8 move  0.0 | freed-> own 18.4 other 68.0 nobody 13.6 | low2 17.2 low4 39.1
-  b contact    3772 stun  40.1% bites    2218 friendly  0.0 kills    279 | kill->next take 17.3 eat 23.5 none 52.3 stunned  3.6 split  3.2 move  0.0 | freed-> own 26.4 other 63.9 nobody  9.7 | low2 17.9 low4 40.5
-  c contact   21608 stun  34.2% bites   14034 friendly  0.0 kills    745 | kill->next take  6.4 eat 20.2 none 55.9 stunned 16.6 split  0.9 move  0.0 | freed-> own  9.3 other 88.4 nobody  2.3 | low2 13.6 low4 28.8
-  d contact    8599 stun  12.2% bites    7445 friendly  0.0 kills    196 | kill->next take  0.0 eat  6.3 none 33.2 stunned 58.9 split  1.6 move  0.0 | freed-> own  0.0 other 100.0 nobody  0.0 | low2  3.4 low4  8.3
+AtomPush (3 games) mean chain 2.2
+  a contact     948 stun  49.5% bites     457 friendly  0.0 kills     85 | kill->next take 42.7 eat  4.9 none 35.4 stunned 12.2 split  4.9 move  0.0 | freed-> own 57.3 other  6.1 nobody 36.6 | low2 12.8 low4 37.7
+  b contact    3967 stun  69.4% bites    1179 friendly  0.0 kills     85 | kill->next take 34.1 eat 16.5 none 16.5 stunned 23.5 split  9.4 move  0.0 | freed-> own 58.8 other 16.5 nobody 24.7 | low2  9.6 low4 33.5
+  c contact   34968 stun  73.0% bites    9407 friendly  0.0 kills    202 | kill->next take 49.5 eat 20.6 none 13.2 stunned  8.3 split  8.3 move  0.0 | freed-> own 64.7 other 13.2 nobody 22.1 | low2  5.1 low4 27.4
+  d contact  382863 stun  72.7% bites  104383 friendly  0.0 kills     34 | kill->next take 64.7 eat 20.6 none  2.9 stunned  5.9 split  5.9 move  0.0 | freed-> own 73.5 other  2.9 nobody 23.5 | low2  1.7 low4 18.0
 
 rooby (3 games) mean chain 10.3
   a contact     470 stun  66.4% bites     153 friendly  0.0 kills     34 | kill->next take 29.0 eat  9.7 none 35.5 stunned 16.1 split  9.7 move  0.0 | freed-> own 29.0 other 19.4 nobody 51.6 | low2 14.1 low4 55.7
-  b contact    3029 stun  52.3% bites    1391 friendly  0.0 kills    197 | kill->next take 29.6 eat 17.5 none 33.9 stunned 13.8 split  5.3 move  0.0 | freed-> own 49.2 other 30.7 nobody 20.1 | low2 11.8 low4 43.9
-  c contact   25655 stun  57.2% bites   10891 friendly  0.0 kills    348 | kill->next take 14.1 eat 24.1 none 44.3 stunned 15.8 split  1.7 move  0.0 | freed-> own 30.2 other 62.6 nobody  7.2 | low2  5.1 low4 39.4
-  d contact   87503 stun  32.9% bites   58659 friendly  0.0 kills    199 | kill->next take  0.5 eat  6.1 none 53.8 stunned 38.6 split  1.0 move  0.0 | freed-> own  1.0 other 98.5 nobody  0.5 | low2  2.5 low4 17.7
+  b contact    3029 stun  52.3% bites    1391 friendly  0.0 kills    197 | kill->next take 33.3 eat 17.5 none 30.2 stunned 13.8 split  5.3 move  0.0 | freed-> own 49.2 other 30.7 nobody 20.1 | low2 11.8 low4 43.9
+  c contact   25655 stun  57.2% bites   10891 friendly  0.0 kills    348 | kill->next take 13.8 eat 24.1 none 44.5 stunned 15.8 split  1.7 move  0.0 | freed-> own 30.2 other 62.6 nobody  7.2 | low2  5.1 low4 39.4
+  d contact   87503 stun  32.9% bites   58659 friendly  0.0 kills    199 | kill->next take  0.5 eat  6.1 none 54.3 stunned 38.6 split  0.5 move  0.0 | freed-> own  1.0 other 98.5 nobody  0.5 | low2  2.5 low4 17.7
 
-gemAlert_v6 (3 games) mean chain 4.7
-  a contact      63 stun  57.1% bites      26 friendly  0.0 kills      4 | kill->next take  0.0 eat  0.0 none 100.0 stunned  0.0 split  0.0 move  0.0 | freed-> own 75.0 other  0.0 nobody 25.0 | low2 29.7 low4 64.9
-  b contact    2128 stun  81.8% bites     383 friendly  0.0 kills     32 | kill->next take 37.9 eat 10.3 none 27.6 stunned 10.3 split 13.8 move  0.0 | freed-> own 48.3 other 10.3 nobody 41.4 | low2 21.8 low4 44.0
-  c contact   23863 stun  88.9% bites    2619 friendly  0.0 kills     38 | kill->next take 42.5 eat 12.5 none 27.5 stunned 15.0 split  2.5 move  0.0 | freed-> own 47.5 other 27.5 nobody 25.0 | low2  8.1 low4 16.2
-  d contact   20166 stun  93.6% bites    1265 friendly  0.0 kills     14 | kill->next take 57.1 eat 42.9 none  0.0 stunned  0.0 split  0.0 move  0.0 | freed-> own 71.4 other 14.3 nobody 14.3 | low2  5.4 low4 10.7
+Bouncer (3 games) mean chain 5.8
+  a contact     656 stun  29.3% bites     446 friendly  0.0 kills    107 | kill->next take 14.6 eat 17.5 none 58.3 stunned  1.9 split  7.8 move  0.0 | freed-> own 18.4 other 68.0 nobody 13.6 | low2 17.2 low4 39.1
+  b contact    3772 stun  40.1% bites    2218 friendly  0.0 kills    279 | kill->next take 19.5 eat 23.5 none 49.8 stunned  3.6 split  3.6 move  0.0 | freed-> own 26.4 other 63.9 nobody  9.7 | low2 17.9 low4 40.5
+  c contact   21608 stun  34.2% bites   14034 friendly  0.0 kills    745 | kill->next take  6.6 eat 20.2 none 55.1 stunned 16.6 split  1.5 move  0.0 | freed-> own  9.3 other 88.4 nobody  2.3 | low2 13.6 low4 28.8
+  d contact    8599 stun  12.2% bites    7445 friendly  0.0 kills    196 | kill->next take  0.0 eat  6.3 none 33.7 stunned 58.9 split  1.1 move  0.0 | freed-> own  0.0 other 100.0 nobody  0.0 | low2  3.4 low4  8.3
 
-AtomPush (3 games) mean chain 2.2
-  a contact     948 stun  49.5% bites     457 friendly  0.0 kills     85 | kill->next take 40.2 eat  4.9 none 41.5 stunned 12.2 split  1.2 move  0.0 | freed-> own 57.3 other  6.1 nobody 36.6 | low2 12.8 low4 37.7
-  b contact    3967 stun  69.4% bites    1179 friendly  0.0 kills     85 | kill->next take 31.8 eat 16.5 none 25.9 stunned 23.5 split  2.4 move  0.0 | freed-> own 58.8 other 16.5 nobody 24.7 | low2  9.6 low4 33.5
-  c contact   34968 stun  73.0% bites    9407 friendly  0.0 kills    202 | kill->next take 45.6 eat 20.6 none 19.1 stunned  8.3 split  6.4 move  0.0 | freed-> own 64.7 other 13.2 nobody 22.1 | low2  5.1 low4 27.4
-  d contact  382863 stun  72.7% bites  104383 friendly  0.0 kills     34 | kill->next take 61.8 eat 20.6 none  5.9 stunned  5.9 split  5.9 move  0.0 | freed-> own 73.5 other  2.9 nobody 23.5 | low2  1.7 low4 18.0
+Bane v1 (3 games) mean chain 2.6
+  a contact     397 stun  37.8% bites     242 friendly  0.0 kills     52 | kill->next take 34.7 eat  2.0 none 53.1 stunned  4.1 split  6.1 move  0.0 | freed-> own 44.9 other 18.4 nobody 36.7 | low2 11.7 low4 26.9
+  b contact    3523 stun  50.0% bites    1743 friendly  0.0 kills    109 | kill->next take 32.7 eat 28.0 none 25.2 stunned  4.7 split  9.3 move  0.0 | freed-> own 53.3 other 23.4 nobody 23.4 | low2  8.8 low4 23.9
+  c contact   33284 stun  51.3% bites   16184 friendly  0.0 kills    179 | kill->next take 52.5 eat 24.9 none  9.4 stunned 10.5 split  2.8 move  0.0 | freed-> own 69.6 other 17.1 nobody 13.3 | low2  1.8 low4  7.4
+  d contact  425429 stun  56.7% bites  184110 friendly  0.0 kills    435 | kill->next take 19.8 eat 43.8 none  1.8 stunned 33.6 split  0.9 move  0.0 | freed-> own 29.3 other 62.2 nobody  8.5 | low2  2.5 low4  9.6
+
+Schism (3 games) mean chain 2.9
+  a contact     286 stun  82.5% bites      49 friendly  0.0 kills     10 | kill->next take 70.0 eat  0.0 none 20.0 stunned  0.0 split 10.0 move  0.0 | freed-> own 80.0 other  0.0 nobody 20.0 | low2 37.1 low4 70.5
+  b contact    4086 stun  52.8% bites    1903 friendly  0.0 kills    131 | kill->next take 46.5 eat 33.9 none  7.1 stunned  5.5 split  7.1 move  0.0 | freed-> own 66.9 other 25.2 nobody  7.9 | low2 15.6 low4 40.6
+  c contact   41107 stun  54.8% bites   18577 friendly  0.0 kills    115 | kill->next take 41.2 eat 43.0 none  3.5 stunned  7.0 split  5.3 move  0.0 | freed-> own 59.6 other 36.8 nobody  3.5 | low2  2.2 low4 15.7
+  d contact  546384 stun  48.1% bites  283413 friendly  0.0 kills    314 | kill->next take 47.1 eat 41.1 none  3.5 stunned  8.3 split  0.0 move  0.0 | freed-> own 99.0 other  1.0 nobody  0.0 | low2  0.3 low4  4.2

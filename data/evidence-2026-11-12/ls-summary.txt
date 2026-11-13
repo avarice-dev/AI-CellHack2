@@ -1,242 +1,242 @@
 # Contested empty squares per cell (pooled over games). won/lost/open = % of square-ticks where the cell had a neighbour.
 # lost-state = our best-placed neighbour on squares the cell lost (% of lost). fills: child/mover energy, alive10, held10.
-Bane v2.2            g39  a  sq  11958 won  9.7 lost 17.1 | lost-state: none 5-11 28 eat 28 none <5 24 bitten 11 split 7 move 2 none e>=12 1
+Bane v2.2            g39  a  sq  11958 won  9.7 lost 17.1 | lost-state: none 5-11 30 eat 28 none <5 26 bitten 11 split 4 move 2 none e>=12 0
                             fills: move 1-2 n317 a20 h43; move 3-4 n63 a65 h76; split 1-2 n339 a29 h69; split 3-4 n171 a76 h92; split 5-6 n228 a76 h86; split 7-9 n23 a78 h91
-Bane v2.2            g39  b  sq  15605 won 13.3 lost 20.7 | lost-state: eat 38 none 5-11 27 none <5 19 bitten 8 split 6 none e>=12 1 move 1
+Bane v2.2            g39  b  sq  15605 won 13.3 lost 20.7 | lost-state: eat 38 none 5-11 28 none <5 20 bitten 8 split 3 none e>=12 1 move 1
                             fills: move 1-2 n313 a22 h48; move 3-4 n77 a71 h86; split 1-2 n381 a27 h75; split 10+ n29 a100 h100; split 3-4 n302 a82 h95; split 5-6 n803 a88 h95; split 7-9 n153 a93 h98
-Bane v2.2            g39  c  sq  15251 won 19.5 lost 14.9 | lost-state: eat 66 none 5-11 13 split 7 none <5 5 none e>=12 5 bitten 3 move 0
+Bane v2.2            g39  c  sq  15251 won 19.5 lost 14.9 | lost-state: eat 66 none 5-11 14 split 7 none <5 6 none e>=12 4 bitten 3 move 0 unknown 0
                             fills: move 1-2 n85 a21 h45; move 3-4 n28 a89 h93; split 1-2 n138 a36 h76; split 10+ n546 a99 h99; split 3-4 n154 a92 h97; split 5-6 n1309 a96 h99; split 7-9 n685 a98 h99
-Colossus             g24  a  sq   6197 won 25.8 lost  9.8 | lost-state: none <5 37 eat 33 split 12 bitten 9 none 5-11 7 move 1 none e>=12 0
+Colossus             g24  a  sq   6197 won 25.8 lost  9.8 | lost-state: none <5 39 eat 32 split 10 bitten 9 none 5-11 7 move 1 none e>=12 1 unknown 0
                             fills: move 1-2 n37 a32 h19; split 1-2 n637 a61 h78; split 3-4 n820 a76 h91; split 5-6 n55 a67 h89
-Colossus             g24  b  sq   6656 won 30.4 lost 13.9 | lost-state: eat 35 none <5 28 none 5-11 14 split 12 bitten 9 none e>=12 2 move 0
+Colossus             g24  b  sq   6656 won 30.4 lost 13.9 | lost-state: eat 36 none <5 31 none 5-11 13 split 9 bitten 9 none e>=12 2 unknown 0 move 0
                             fills: split 1-2 n768 a54 h67; split 10+ n32 a91 h94; split 3-4 n1094 a73 h86; split 5-6 n77 a82 h86; split 7-9 n42 a76 h83
-Colossus             g24  c  sq   3665 won 28.0 lost 27.2 | lost-state: eat 53 none 5-11 15 split 12 none <5 7 bitten 7 none e>=12 6
+Colossus             g24  c  sq   3665 won 28.0 lost 27.2 | lost-state: eat 53 none 5-11 15 split 10 none <5 8 bitten 7 none e>=12 7
                             fills: split 1-2 n172 a44 h61; split 10+ n258 a97 h99; split 3-4 n471 a39 h65; split 5-6 n55 a85 h98; split 7-9 n69 a96 h96
-Penalty              g19  a  sq   6097 won  7.9 lost 23.0 | lost-state: none <5 33 none 5-11 25 bitten 18 eat 17 split 5 move 2 none e>=12 0
+Penalty              g19  a  sq   6097 won  7.9 lost 23.0 | lost-state: none <5 35 none 5-11 26 bitten 18 eat 17 split 2 move 2 none e>=12 0
                             fills: move 1-2 n175 a15 h26; move 3-4 n33 a39 h48; split 1-2 n159 a23 h52; split 3-4 n56 a70 h82; split 5-6 n46 a70 h91
-Penalty              g19  b  sq   5537 won 11.5 lost 28.2 | lost-state: none <5 30 none 5-11 23 eat 23 bitten 17 split 5 none e>=12 1 move 1
+Penalty              g19  b  sq   5537 won 11.5 lost 28.2 | lost-state: none <5 32 none 5-11 24 eat 23 bitten 17 split 2 none e>=12 1 move 1
                             fills: move 1-2 n110 a7 h13; move 3-4 n20 a40 h55; split 1-2 n148 a8 h39; split 10+ n115 a100 h100; split 3-4 n56 a70 h89; split 5-6 n116 a66 h91; split 7-9 n66 a86 h97
-Penalty              g19  c  sq   5629 won 28.6 lost 11.5 | lost-state: eat 43 none e>=12 19 none <5 12 bitten 12 none 5-11 11 split 2 move 0
+Penalty              g19  c  sq   5629 won 28.6 lost 11.5 | lost-state: eat 43 none e>=12 20 none <5 12 none 5-11 12 bitten 12 split 1 move 0
                             fills: move 1-2 n25 a4 h4; split 1-2 n28 a21 h36; split 10+ n1145 a96 h100; split 3-4 n53 a83 h92; split 5-6 n193 a95 h99; split 7-9 n157 a99 h99
-CogSpore - VarSi     g17  a  sq   7590 won 13.1 lost 13.7 | lost-state: none <5 42 eat 20 bitten 12 none 5-11 12 split 9 move 4 none e>=12 0
+CogSpore - VarSi     g17  a  sq   7590 won 13.1 lost 13.7 | lost-state: none <5 45 eat 21 bitten 12 none 5-11 11 split 6 move 4 none e>=12 0
                             fills: split 1-2 n881 a35 h62; split 3-4 n99 a54 h74
-CogSpore - VarSi     g17  b  sq   6665 won 19.4 lost 15.7 | lost-state: eat 33 none <5 27 none 5-11 16 split 11 bitten 9 none e>=12 2 move 1
+CogSpore - VarSi     g17  b  sq   6665 won 19.4 lost 15.7 | lost-state: eat 33 none <5 29 none 5-11 16 split 10 bitten 9 none e>=12 2 move 1 unknown 0
                             fills: split 1-2 n1046 a39 h73; split 3-4 n165 a72 h87; split 5-6 n47 a87 h94; split 7-9 n28 a89 h100
-CogSpore - VarSi     g17  c  sq   5895 won 17.8 lost 21.8 | lost-state: eat 68 none e>=12 9 feed 8 split 7 none 5-11 3 bitten 3 none <5 2 move 0
+CogSpore - VarSi     g17  c  sq   5895 won 17.8 lost 21.8 | lost-state: eat 68 split 9 feed 8 none e>=12 7 none 5-11 3 bitten 3 none <5 2 move 0
                             fills: split 1-2 n261 a41 h81; split 10+ n249 a98 h100; split 3-4 n218 a94 h97; split 5-6 n168 a96 h100; split 7-9 n153 a98 h97
-medivac              g15  a  sq   3918 won 25.2 lost 10.2 | lost-state: eat 38 none <5 30 split 12 none 5-11 10 bitten 9 none e>=12 1 move 1
+medivac              g15  a  sq   3918 won 25.2 lost 10.2 | lost-state: eat 39 none <5 32 none 5-11 9 bitten 9 split 9 none e>=12 2 move 1
                             fills: split 1-2 n297 a48 h72; split 3-4 n563 a72 h89; split 5-6 n69 a87 h93
-medivac              g15  b  sq   4449 won 31.0 lost 13.3 | lost-state: eat 38 none <5 24 none 5-11 18 split 10 bitten 7 none e>=12 3 move 1
+medivac              g15  b  sq   4449 won 31.0 lost 13.3 | lost-state: eat 37 none <5 27 none 5-11 17 split 8 bitten 7 none e>=12 3 move 1 unknown 0
                             fills: split 1-2 n344 a35 h52; split 10+ n33 a94 h97; split 3-4 n845 a75 h87; split 5-6 n110 a82 h87; split 7-9 n42 a86 h90
-medivac              g15  c  sq   5686 won 41.1 lost 17.3 | lost-state: eat 34 none 5-11 32 none <5 13 bitten 8 split 8 none e>=12 5
+medivac              g15  c  sq   5686 won 41.1 lost 17.3 | lost-state: eat 34 none 5-11 30 none <5 14 bitten 8 split 8 none e>=12 6
                             fills: split 1-2 n485 a10 h37; split 10+ n130 a97 h98; split 3-4 n1522 a34 h58; split 5-6 n148 a54 h78; split 7-9 n50 a94 h94
-Hunter               g11  a  sq    688 won 14.1 lost 11.9 | lost-state: none 5-11 43 none <5 24 split 16 bitten 9 eat 7 none e>=12 1
+Hunter               g11  a  sq    688 won 14.1 lost 11.9 | lost-state: none 5-11 43 none <5 27 split 13 bitten 9 eat 7 none e>=12 1
                             fills: split 3-4 n92 a18 h45
 Hunter               g11  b  sq   2685 won 16.7 lost 17.5 | lost-state: none 5-11 45 eat 19 none <5 14 bitten 10 split 9 none e>=12 3
                             fills: split 3-4 n409 a22 h31; split 5-6 n22 a73 h73
-Hunter               g11  c  sq  11594 won 21.7 lost 11.1 | lost-state: none 5-11 35 eat 32 split 11 bitten 9 none e>=12 8 none <5 5
+Hunter               g11  c  sq  11594 won 21.7 lost 11.1 | lost-state: none 5-11 34 eat 32 split 11 bitten 9 none e>=12 8 none <5 5
                             fills: split 10+ n439 a67 h77; split 3-4 n1447 a34 h45; split 5-6 n352 a70 h78; split 7-9 n278 a78 h85
-shrimp               g10  a  sq    965 won 12.5 lost 11.8 | lost-state: none 5-11 41 none <5 22 eat 12 bitten 11 split 11 none e>=12 2
+shrimp               g10  a  sq    965 won 12.5 lost 11.8 | lost-state: none 5-11 42 none <5 24 eat 12 bitten 11 split 9 none e>=12 2
                             fills: split 3-4 n119 a15 h39
-shrimp               g10  b  sq   2037 won 15.5 lost 18.4 | lost-state: none 5-11 46 eat 17 none <5 15 bitten 11 split 10 none e>=12 1
+shrimp               g10  b  sq   2037 won 15.5 lost 18.4 | lost-state: none 5-11 46 eat 17 none <5 16 bitten 11 split 10 none e>=12 1
                             fills: split 3-4 n303 a12 h30
-shrimp               g10  c  sq   1608 won 15.8 lost 26.8 | lost-state: none 5-11 45 eat 24 bitten 12 split 10 none <5 6 none e>=12 3
+shrimp               g10  c  sq   1608 won 15.8 lost 26.8 | lost-state: none 5-11 46 eat 24 bitten 12 split 10 none <5 6 none e>=12 2
                             fills: split 3-4 n230 a6 h16
-CogBloomXT           g8   a  sq   1163 won 21.6 lost 11.8 | lost-state: none <5 52 eat 16 split 14 none 5-11 10 bitten 7 none e>=12 1 move 1
-                            fills: split 1-2 n234 a36 h69
-CogBloomXT           g8   b  sq   2200 won 25.8 lost 17.4 | lost-state: eat 39 none <5 34 split 11 none 5-11 10 bitten 4 none e>=12 2
-                            fills: split 1-2 n502 a30 h64; split 3-4 n48 a38 h73
-CogBloomXT           g8   c  sq   2840 won 14.9 lost 33.4 | lost-state: eat 50 none e>=12 15 none 5-11 11 feed 9 split 7 bitten 4 none <5 3
-                            fills: split 1-2 n110 a27 h53; split 10+ n163 a96 h98; split 3-4 n39 a77 h77; split 5-6 n71 a75 h82; split 7-9 n40 a88 h88
-Sho                  g8   a  sq   1414 won 16.3 lost 15.9 | lost-state: none 5-11 35 none <5 24 bitten 22 move 11 split 9
-                            fills: move 3-4 n92 a3 h7; move 5-6 n38 a5 h5; split 3-4 n85 a1 h11
-Sho                  g8   b  sq   1450 won 18.4 lost 22.6 | lost-state: none 5-11 38 bitten 24 none <5 23 split 8 move 7
-                            fills: move 3-4 n90 a0 h1; move 5-6 n35 a3 h3; split 3-4 n132 a0 h1
-Sho                  g8   c  sq    416 won 23.1 lost 25.2 | lost-state: none 5-11 58 bitten 19 none <5 12 move 6 split 5
-                            fills: split 3-4 n72 a0 h0
-Bane v2              g8   a  sq   1623 won  6.8 lost 20.7 | lost-state: none 5-11 50 eat 22 bitten 14 none <5 8 split 5 none e>=12 1
-                            fills: split 5-6 n86 a55 h66; split 7-9 n22 a45 h59
-Bane v2              g8   b  sq   2522 won  9.6 lost 20.9 | lost-state: none 5-11 47 eat 31 bitten 9 split 5 none <5 5 none e>=12 4
-                            fills: split 5-6 n175 a57 h70; split 7-9 n67 a69 h85
-Bane v2              g8   c  sq   1786 won 27.7 lost 23.9 | lost-state: eat 58 none 5-11 22 split 9 none e>=12 8 bitten 2 none <5 1
-                            fills: split 10+ n22 a82 h91; split 5-6 n271 a80 h95; split 7-9 n201 a83 h96
-AtomCrasher          g8   a  sq    810 won 16.8 lost  7.8 | lost-state: none 5-11 46 eat 27 none <5 19 split 5 bitten 3
-                            fills: split 3-4 n128 a55 h88
-AtomCrasher          g8   b  sq   1371 won 19.6 lost 11.4 | lost-state: none 5-11 36 eat 31 none <5 14 split 12 bitten 7
-                            fills: split 3-4 n229 a47 h81; split 5-6 n33 a67 h82
-AtomCrasher          g8   c  sq    826 won 36.1 lost 19.2 | lost-state: none 5-11 27 eat 27 split 22 bitten 19 none <5 4 none e>=12 1
-                            fills: split 3-4 n148 a21 h44; split 5-6 n127 a22 h41
-BigBadWolf           g8   a  sq    762 won  7.1 lost 17.6 | lost-state: none 5-11 38 none <5 17 eat 12 none e>=12 11 feed 10 bitten 8 split 3
+BigBadWolf           g8   a  sq    762 won  7.1 lost 17.6 | lost-state: none 5-11 39 none <5 17 eat 12 none e>=12 11 feed 10 bitten 8 split 2
                             fills: split 5-6 n40 a58 h58
-BigBadWolf           g8   b  sq   1551 won  9.0 lost 20.4 | lost-state: eat 33 none 5-11 20 feed 15 none e>=12 15 none <5 9 split 4 bitten 4
+BigBadWolf           g8   b  sq   1551 won  9.0 lost 20.4 | lost-state: eat 33 none 5-11 21 feed 15 none e>=12 15 none <5 9 split 4 bitten 4
                             fills: split 10+ n37 a81 h84; split 5-6 n68 a59 h62; split 7-9 n35 a74 h77
-BigBadWolf           g8   c  sq   2608 won 16.0 lost 25.0 | lost-state: eat 59 none e>=12 24 none 5-11 4 feed 4 none <5 4 bitten 3 split 3
+BigBadWolf           g8   c  sq   2608 won 16.0 lost 25.0 | lost-state: eat 59 none e>=12 23 none 5-11 4 feed 4 none <5 4 split 3 bitten 3
                             fills: split 10+ n324 a84 h90; split 5-6 n49 a57 h65; split 7-9 n44 a57 h64
-ClaudeHunter         g7   a  sq    658 won 26.4 lost 15.5 | lost-state: none <5 52 eat 29 none 5-11 8 split 8 bitten 2 none e>=12 1
+CogBloomXT           g8   a  sq   1163 won 21.6 lost 11.8 | lost-state: none <5 55 eat 17 split 10 none 5-11 10 bitten 7 move 1 none e>=12 1
+                            fills: split 1-2 n234 a36 h69
+CogBloomXT           g8   b  sq   2200 won 25.8 lost 17.4 | lost-state: eat 38 none <5 35 split 11 none 5-11 10 bitten 4 none e>=12 2
+                            fills: split 1-2 n502 a30 h64; split 3-4 n48 a38 h73
+CogBloomXT           g8   c  sq   2840 won 14.9 lost 33.4 | lost-state: eat 49 none e>=12 14 none 5-11 11 feed 9 split 9 bitten 4 none <5 4
+                            fills: split 1-2 n110 a27 h53; split 10+ n163 a96 h98; split 3-4 n39 a77 h77; split 5-6 n71 a75 h82; split 7-9 n40 a88 h88
+AtomCrasher          g8   a  sq    810 won 16.8 lost  7.8 | lost-state: none 5-11 40 eat 27 none <5 21 split 10 bitten 3
+                            fills: split 3-4 n128 a55 h88
+AtomCrasher          g8   b  sq   1371 won 19.6 lost 11.4 | lost-state: none 5-11 36 eat 34 none <5 14 split 9 bitten 7
+                            fills: split 3-4 n229 a47 h81; split 5-6 n33 a67 h82
+AtomCrasher          g8   c  sq    826 won 36.1 lost 19.2 | lost-state: none 5-11 28 eat 28 split 20 bitten 19 none <5 4 none e>=12 1
+                            fills: split 3-4 n148 a21 h44; split 5-6 n127 a22 h41
+Sho                  g8   a  sq   1414 won 16.3 lost 15.9 | lost-state: none 5-11 32 none <5 25 bitten 22 move 11 split 10
+                            fills: move 3-4 n92 a3 h7; move 5-6 n38 a5 h5; split 3-4 n85 a1 h11
+Sho                  g8   b  sq   1450 won 18.4 lost 22.6 | lost-state: none 5-11 37 bitten 24 none <5 24 split 7 move 7
+                            fills: move 3-4 n90 a0 h1; move 5-6 n35 a3 h3; split 3-4 n132 a0 h1
+Sho                  g8   c  sq    416 won 23.1 lost 25.2 | lost-state: none 5-11 57 bitten 19 none <5 12 split 6 move 6
+                            fills: split 3-4 n72 a0 h0
+Bane v2              g8   a  sq   1623 won  6.8 lost 20.7 | lost-state: none 5-11 50 eat 23 bitten 14 none <5 8 split 5 none e>=12 1
+                            fills: split 5-6 n86 a55 h66; split 7-9 n22 a45 h59
+Bane v2              g8   b  sq   2522 won  9.6 lost 20.9 | lost-state: none 5-11 48 eat 31 bitten 9 none <5 5 split 4 none e>=12 3
+                            fills: split 5-6 n175 a57 h70; split 7-9 n67 a69 h85
+Bane v2              g8   c  sq   1786 won 27.7 lost 23.9 | lost-state: eat 52 none 5-11 23 split 17 none e>=12 4 bitten 2 none <5 1
+                            fills: split 10+ n22 a82 h91; split 5-6 n271 a80 h95; split 7-9 n201 a83 h96
+ClaudeHunter         g7   a  sq    658 won 26.4 lost 15.5 | lost-state: none <5 54 eat 30 split 11 none 5-11 3 bitten 2
                             fills: split 1-2 n81 a59 h83; split 3-4 n83 a60 h80
-ClaudeHunter         g7   b  sq   1292 won 32.1 lost 15.6 | lost-state: none <5 39 eat 34 none 5-11 14 split 6 bitten 4 none e>=12 3
+ClaudeHunter         g7   b  sq   1292 won 32.1 lost 15.6 | lost-state: none <5 40 eat 32 split 12 none 5-11 10 bitten 4 none e>=12 1
                             fills: split 1-2 n143 a69 h79; split 3-4 n247 a68 h77
-ClaudeHunter         g7   c  sq   1940 won 26.8 lost 34.9 | lost-state: eat 40 none <5 23 none 5-11 23 bitten 6 split 5 none e>=12 3
+ClaudeHunter         g7   c  sq   1940 won 26.8 lost 34.9 | lost-state: eat 39 none <5 24 none 5-11 21 split 8 bitten 6 none e>=12 2
                             fills: split 1-2 n151 a29 h36; split 10+ n38 a89 h95; split 3-4 n259 a21 h29; split 5-6 n41 a51 h61; split 7-9 n30 a77 h80
-NomNom2              g7   a  sq    703 won 23.9 lost  9.8 | lost-state: none <5 35 eat 35 bitten 14 split 7 none 5-11 7 none e>=12 1
-                            fills: split 3-4 n166 a60 h87
-NomNom2              g7   b  sq    854 won 28.5 lost 12.2 | lost-state: none <5 38 eat 29 none 5-11 14 split 14 bitten 5
-                            fills: split 3-4 n228 a58 h82
-NomNom2              g7   c  sq    407 won 53.3 lost 14.0 | lost-state: none <5 25 bitten 23 split 19 none 5-11 16 eat 16 none e>=12 2
-                            fills: split 3-4 n153 a10 h56; split 5-6 n57 a7 h51
-gemAlert_v5          g7   a  sq    797 won 15.2 lost 12.0 | lost-state: none 5-11 29 none <5 23 bitten 20 split 15 eat 14
-                            fills: split 3-4 n117 a15 h55
-gemAlert_v5          g7   b  sq    888 won 14.8 lost 17.6 | lost-state: none 5-11 26 none <5 22 eat 21 bitten 16 split 13 none e>=12 1
-                            fills: split 3-4 n125 a14 h34
-gemAlert_v5          g7   c  sq    539 won 14.5 lost 32.1 | lost-state: eat 36 bitten 25 none 5-11 15 none e>=12 9 none <5 9 split 5
-                            fills: split 3-4 n70 a10 h23
-Brawler v2           g7   a  sq    673 won 25.7 lost  8.9 | lost-state: none <5 52 eat 20 split 17 bitten 7 none 5-11 5
-                            fills: split 1-2 n154 a45 h69
-Brawler v2           g7   b  sq    954 won 32.1 lost 17.2 | lost-state: none <5 45 eat 27 split 15 none 5-11 9 bitten 4
-                            fills: split 1-2 n250 a21 h34; split 3-4 n36 a69 h86
-Brawler v2           g7   c  sq   1630 won 42.8 lost 24.6 | lost-state: none <5 36 eat 26 split 24 none 5-11 7 bitten 7
-                            fills: split 1-2 n677 a4 h11
-Medic                g7   a  sq    599 won 14.2 lost 13.9 | lost-state: none 5-11 51 none <5 22 bitten 17 split 11
+Medic                g7   a  sq    599 won 14.2 lost 13.9 | lost-state: none 5-11 52 none <5 23 bitten 17 split 8
                             fills: split 3-4 n85 a5 h24
-Medic                g7   b  sq    899 won 13.5 lost 20.2 | lost-state: none 5-11 53 bitten 20 none <5 17 split 10
+Medic                g7   b  sq    899 won 13.5 lost 20.2 | lost-state: none 5-11 53 bitten 20 none <5 17 split 9 unknown 1
                             fills: split 3-4 n121 a3 h15
-Medic                g7   c  sq    306 won 19.0 lost 29.7 | lost-state: none 5-11 62 bitten 15 split 13 none <5 10
+Medic                g7   c  sq    306 won 19.0 lost 29.7 | lost-state: none 5-11 59 bitten 15 split 15 none <5 10
                             fills: split 3-4 n58 a0 h3
+Brawler v2           g7   a  sq    673 won 25.7 lost  8.9 | lost-state: none <5 60 eat 20 split 8 bitten 7 none 5-11 5
+                            fills: split 1-2 n154 a45 h69
+Brawler v2           g7   b  sq    954 won 32.1 lost 17.2 | lost-state: none <5 49 eat 28 split 11 none 5-11 9 bitten 4
+                            fills: split 1-2 n250 a21 h34; split 3-4 n36 a69 h86
+Brawler v2           g7   c  sq   1630 won 42.8 lost 24.6 | lost-state: none <5 40 eat 29 split 17 none 5-11 7 bitten 7
+                            fills: split 1-2 n677 a4 h11
+zergling             g7   a  sq   2593 won 18.7 lost 11.7 | lost-state: eat 24 none <5 24 bitten 20 move 13 split 8 none 5-11 7 feed 3 none e>=12 1
+                            fills: move 1-2 n182 a17 h23; move 3-4 n40 a12 h25; split 1-2 n143 a22 h31; split 3-4 n43 a19 h30
+zergling             g7   b  sq   5481 won 15.0 lost 22.0 | lost-state: eat 24 feed 23 none <5 20 none 5-11 12 bitten 10 split 4 move 4 none e>=12 2
+                            fills: move 1-2 n201 a20 h28; move 3-4 n58 a19 h28; split 1-2 n319 a23 h33; split 3-4 n153 a31 h43; split 5-6 n31 a52 h55
+zergling             g7   c  sq  20067 won  1.7 lost 24.7 | lost-state: none e>=12 24 none 5-11 23 bitten 16 none <5 15 eat 13 feed 9 split 1 move 0
+                            fills: split 1-2 n48 a48 h54; split 10+ n111 a95 h96; split 3-4 n51 a55 h65; split 5-6 n27 a70 h74; split 7-9 n68 a88 h90
 Bulwark              g7   a  sq    108 won  1.9 lost 14.8 | lost-state: none e>=12 38 none 5-11 19 bitten 19 none <5 12 feed 12
                             fills: 
 Bulwark              g7   b  sq    399 won  0.0 lost 41.9 | lost-state: none e>=12 86 none 5-11 7 feed 3 bitten 2 eat 2
                             fills: 
-Bulwark              g7   c  sq    636 won  0.0 lost 30.0 | lost-state: none e>=12 87 feed 9 bitten 2 eat 2 none 5-11 1
+Bulwark              g7   c  sq    636 won  0.0 lost 30.0 | lost-state: none e>=12 87 feed 9 eat 2 bitten 2 none 5-11 1
                             fills: 
-zergling             g7   a  sq   2593 won 18.7 lost 11.7 | lost-state: eat 24 none <5 21 bitten 20 move 13 split 11 none 5-11 8 feed 3 none e>=12 1
-                            fills: move 1-2 n182 a17 h23; move 3-4 n40 a12 h25; split 1-2 n143 a22 h31; split 3-4 n43 a19 h30
-zergling             g7   b  sq   5481 won 15.0 lost 22.0 | lost-state: eat 24 feed 23 none <5 19 none 5-11 13 bitten 10 split 5 move 4 none e>=12 2
-                            fills: move 1-2 n201 a20 h28; move 3-4 n58 a19 h28; split 1-2 n319 a23 h33; split 3-4 n153 a31 h43; split 5-6 n31 a52 h55
-zergling             g7   c  sq  20067 won  1.7 lost 24.7 | lost-state: none e>=12 24 none 5-11 23 bitten 16 none <5 15 eat 12 feed 9 split 1 move 0
-                            fills: split 1-2 n48 a48 h54; split 10+ n111 a95 h96; split 3-4 n51 a55 h65; split 5-6 n27 a70 h74; split 7-9 n68 a88 h90
-squirtle             g6   a  sq    518 won 12.4 lost 11.6 | lost-state: none 5-11 40 none <5 23 eat 18 bitten 10 split 7 none e>=12 2
-                            fills: split 3-4 n60 a12 h37
-squirtle             g6   b  sq   1228 won 14.9 lost 19.2 | lost-state: none 5-11 43 eat 16 none <5 14 bitten 14 split 13
-                            fills: split 3-4 n181 a6 h17
-squirtle             g6   c  sq    299 won 12.0 lost 36.1 | lost-state: none 5-11 39 eat 34 bitten 18 split 5 none <5 4 none e>=12 1
-                            fills: split 3-4 n35 a0 h9
-Artemis              g6   a  sq    827 won 17.4 lost 12.3 | lost-state: none 5-11 36 none <5 24 eat 17 split 8 none e>=12 7 bitten 6 feed 3
+NomNom2              g7   a  sq    703 won 23.9 lost  9.8 | lost-state: none <5 35 eat 35 bitten 14 none 5-11 9 split 7
+                            fills: split 3-4 n166 a60 h87
+NomNom2              g7   b  sq    854 won 28.5 lost 12.2 | lost-state: none <5 41 eat 29 none 5-11 16 split 9 bitten 5
+                            fills: split 3-4 n228 a58 h82
+NomNom2              g7   c  sq    407 won 53.3 lost 14.0 | lost-state: none <5 26 bitten 23 none 5-11 19 eat 16 split 14 none e>=12 2
+                            fills: split 3-4 n153 a10 h56; split 5-6 n57 a7 h51
+gemAlert_v5          g7   a  sq    797 won 15.2 lost 12.0 | lost-state: none 5-11 32 none <5 23 bitten 20 eat 14 split 11
+                            fills: split 3-4 n117 a15 h55
+gemAlert_v5          g7   b  sq    888 won 14.8 lost 17.6 | lost-state: none 5-11 29 none <5 24 eat 21 bitten 16 split 10
+                            fills: split 3-4 n125 a14 h34
+gemAlert_v5          g7   c  sq    539 won 14.5 lost 32.1 | lost-state: eat 36 bitten 25 none 5-11 16 none e>=12 10 none <5 9 split 3
+                            fills: split 3-4 n70 a10 h23
+Artemis              g6   a  sq    827 won 17.4 lost 12.3 | lost-state: none 5-11 36 none <5 25 eat 17 split 7 none e>=12 6 bitten 6 feed 4
                             fills: split 3-4 n107 a28 h54; split 5-6 n25 a32 h52
-Artemis              g6   b  sq    888 won 19.3 lost 15.5 | lost-state: none 5-11 28 eat 20 none e>=12 14 feed 13 bitten 13 none <5 7 split 4
+Artemis              g6   b  sq    888 won 19.3 lost 15.5 | lost-state: none 5-11 28 eat 21 none e>=12 14 bitten 13 feed 13 none <5 7 split 4
                             fills: split 3-4 n95 a12 h39; split 5-6 n27 a19 h26; split 7-9 n48 a21 h42
-Artemis              g6   c  sq    783 won 20.2 lost 27.2 | lost-state: feed 34 none e>=12 25 eat 24 bitten 8 none 5-11 7 split 1 none <5 1
+Artemis              g6   c  sq    783 won 20.2 lost 27.2 | lost-state: feed 34 none e>=12 25 eat 24 bitten 8 none 5-11 7 split 2 none <5 1
                             fills: split 7-9 n117 a5 h30
+squirtle             g6   a  sq    518 won 12.4 lost 11.6 | lost-state: none 5-11 40 none <5 23 eat 18 bitten 10 split 8
+                            fills: split 3-4 n60 a12 h37
+squirtle             g6   b  sq   1228 won 14.9 lost 19.2 | lost-state: none 5-11 44 eat 17 none <5 16 bitten 14 split 10
+                            fills: split 3-4 n181 a6 h17
+squirtle             g6   c  sq    299 won 12.0 lost 36.1 | lost-state: none 5-11 41 eat 34 bitten 18 none <5 4 split 3 none e>=12 1
+                            fills: split 3-4 n35 a0 h9
+gemAlert_v4          g5   a  sq    229 won 21.4 lost  8.7 | lost-state: split 35 eat 35 none 5-11 20 none <5 10
+                            fills: split 3-4 n49 a61 h88
+gemAlert_v4          g5   b  sq    787 won 21.9 lost 17.7 | lost-state: none 5-11 27 none <5 25 eat 22 split 13 bitten 11 none e>=12 1 unknown 1
+                            fills: split 3-4 n153 a25 h40
+gemAlert_v4          g5   c  sq    378 won 21.2 lost 23.5 | lost-state: bitten 31 eat 26 none 5-11 19 none <5 17 split 4 none e>=12 2
+                            fills: split 3-4 n78 a29 h46
+Smarter Hunter       g5   a  sq    506 won 20.4 lost  7.1 | lost-state: none 5-11 42 none <5 31 bitten 11 eat 11 split 6
+                            fills: split 3-4 n103 a50 h82
+Smarter Hunter       g5   b  sq   1045 won 19.1 lost 15.7 | lost-state: none 5-11 30 eat 28 none <5 27 bitten 8 split 7
+                            fills: split 3-4 n195 a38 h54
+Smarter Hunter       g5   c  sq   1150 won 25.7 lost 19.6 | lost-state: eat 47 bitten 20 none 5-11 16 none <5 8 split 7 none e>=12 2
+                            fills: split 3-4 n264 a8 h25
+Brawler              g5   a  sq    404 won 19.1 lost 12.6 | lost-state: none <5 37 eat 22 none 5-11 20 split 16 bitten 6
+                            fills: split 3-4 n75 a69 h79
+Brawler              g5   b  sq   1284 won 21.8 lost 14.6 | lost-state: none 5-11 31 none <5 26 eat 19 split 14 bitten 9 none e>=12 1
+                            fills: split 3-4 n275 a33 h52
+Brawler              g5   c  sq   1983 won 37.5 lost 27.9 | lost-state: none 5-11 39 eat 24 split 20 none <5 8 bitten 7 none e>=12 3
+                            fills: split 10+ n30 a93 h97; split 3-4 n700 a6 h16
 choochoo             g5   a  sq     11 won 27.3 lost  9.1 | lost-state: move 100
                             fills: 
 choochoo             g5   b  sq      9 won  0.0 lost 11.1 | lost-state: bitten 100
                             fills: 
 choochoo             g5   c  sq      2 won 50.0 lost  0.0 | lost-state: 
                             fills: 
-Brawler              g5   a  sq    404 won 19.1 lost 12.6 | lost-state: none <5 33 none 5-11 24 eat 24 split 14 bitten 6
-                            fills: split 3-4 n75 a69 h79
-Brawler              g5   b  sq   1284 won 21.8 lost 14.6 | lost-state: none 5-11 31 none <5 24 eat 19 split 16 bitten 9 none e>=12 1
-                            fills: split 3-4 n275 a33 h52
-Brawler              g5   c  sq   1983 won 37.5 lost 27.9 | lost-state: none 5-11 36 eat 24 split 22 none <5 8 bitten 7 none e>=12 3
-                            fills: split 10+ n30 a93 h97; split 3-4 n700 a6 h16
-Bane v2.1            g5   a  sq   1882 won  7.7 lost 18.7 | lost-state: none 5-11 43 eat 33 none <5 9 split 7 bitten 6 none e>=12 3
-                            fills: split 5-6 n99 a81 h91; split 7-9 n45 a100 h100
-Bane v2.1            g5   b  sq   2165 won 15.8 lost 19.0 | lost-state: eat 49 none 5-11 29 split 9 bitten 6 none e>=12 5 none <5 3
-                            fills: split 5-6 n247 a89 h94; split 7-9 n88 a97 h99
-Bane v2.1            g5   c  sq   2302 won 20.3 lost 30.5 | lost-state: eat 82 split 7 none 5-11 6 none e>=12 5 bitten 1
-                            fills: split 10+ n161 a99 h100; split 5-6 n178 a92 h97; split 7-9 n128 a98 h99
-Conviction           g5   a  sq   1671 won 10.7 lost 13.9 | lost-state: none 5-11 33 eat 24 none <5 21 bitten 13 split 5 move 3 none e>=12 1
-                            fills: move 1-2 n57 a18 h33; split 1-2 n53 a11 h53; split 5-6 n29 a86 h97
-Conviction           g5   b  sq   1376 won 12.9 lost 21.3 | lost-state: none 5-11 31 eat 31 none <5 18 bitten 12 split 5 none e>=12 1 move 1
-                            fills: move 1-2 n29 a7 h21; split 1-2 n34 a18 h44; split 5-6 n47 a83 h94; split 7-9 n22 a86 h95
-Conviction           g5   c  sq    511 won 38.9 lost 17.2 | lost-state: eat 45 none e>=12 32 none <5 7 none 5-11 6 split 6 bitten 5
-                            fills: split 10+ n181 a100 h100
-Smarter Hunter       g5   a  sq    506 won 20.4 lost  7.1 | lost-state: none 5-11 44 none <5 28 eat 11 bitten 11 split 6
-                            fills: split 3-4 n103 a50 h82
-Smarter Hunter       g5   b  sq   1045 won 19.1 lost 15.7 | lost-state: none 5-11 28 eat 26 none <5 23 split 15 bitten 8
-                            fills: split 3-4 n195 a38 h54
-Smarter Hunter       g5   c  sq   1150 won 25.7 lost 19.6 | lost-state: eat 44 bitten 20 none 5-11 14 split 13 none <5 7 none e>=12 2
-                            fills: split 3-4 n264 a8 h25
-gemAlert_v4          g5   a  sq    229 won 21.4 lost  8.7 | lost-state: split 35 eat 35 none 5-11 20 none <5 10
-                            fills: split 3-4 n49 a61 h88
-gemAlert_v4          g5   b  sq    787 won 21.9 lost 17.7 | lost-state: none 5-11 27 none <5 24 eat 22 split 15 bitten 11 none e>=12 1
-                            fills: split 3-4 n153 a25 h40
-gemAlert_v4          g5   c  sq    378 won 21.2 lost 23.5 | lost-state: bitten 31 eat 25 none <5 17 none 5-11 16 split 9 none e>=12 2
-                            fills: split 3-4 n78 a29 h46
-CogSpore-Siect-F     g5   a  sq   2406 won 13.6 lost 15.7 | lost-state: none <5 41 eat 28 none 5-11 10 split 10 bitten 7 move 4 none e>=12 0
+CogSpore-Siect-F     g5   a  sq   2406 won 13.6 lost 15.7 | lost-state: none <5 43 eat 28 none 5-11 10 split 7 bitten 7 move 4 none e>=12 0
                             fills: split 1-2 n274 a77 h92; split 3-4 n48 a77 h85
-CogSpore-Siect-F     g5   b  sq   2128 won 22.3 lost 18.0 | lost-state: eat 45 none <5 29 split 13 none 5-11 8 bitten 4 none e>=12 1
+CogSpore-Siect-F     g5   b  sq   2128 won 22.3 lost 18.0 | lost-state: eat 48 none <5 30 split 8 none 5-11 8 bitten 4 none e>=12 3
                             fills: split 1-2 n345 a76 h92; split 3-4 n86 a79 h92; split 5-6 n28 a93 h93
-CogSpore-Siect-F     g5   c  sq   3697 won  8.5 lost 10.5 | lost-state: eat 69 split 18 none e>=12 6 none <5 3 none 5-11 2 feed 1 bitten 1
+CogSpore-Siect-F     g5   c  sq   3697 won  8.5 lost 10.5 | lost-state: eat 68 split 19 none e>=12 7 none <5 3 none 5-11 1 feed 1 bitten 1
                             fills: split 1-2 n27 a85 h96; split 10+ n76 a100 h100; split 3-4 n58 a90 h98; split 5-6 n97 a100 h100; split 7-9 n57 a100 h100
-CogBloomXT v4        g4   a  sq    686 won 15.7 lost 13.0 | lost-state: none <5 45 eat 20 none 5-11 17 split 10 bitten 8
-                            fills: split 1-2 n97 a52 h85
-CogBloomXT v4        g4   b  sq   1310 won 23.5 lost 15.9 | lost-state: eat 37 none <5 28 split 15 none 5-11 13 bitten 4 none e>=12 2
-                            fills: split 1-2 n226 a35 h75; split 3-4 n58 a76 h91
-CogBloomXT v4        g4   c  sq   1594 won 18.8 lost 18.4 | lost-state: eat 53 feed 13 none 5-11 9 bitten 9 split 6 none <5 5 none e>=12 5
-                            fills: split 1-2 n77 a42 h82; split 10+ n50 a100 h100; split 3-4 n89 a91 h96; split 5-6 n45 a96 h98; split 7-9 n37 a97 h100
-CogSpore             g4   a  sq   1599 won 11.4 lost 17.4 | lost-state: none <5 33 eat 26 bitten 13 none 5-11 11 split 10 move 5 none e>=12 1
+Conviction           g5   a  sq   1671 won 10.7 lost 13.9 | lost-state: none 5-11 34 eat 24 none <5 22 bitten 13 split 3 move 3 none e>=12 1
+                            fills: move 1-2 n57 a18 h33; split 1-2 n53 a11 h53; split 5-6 n29 a86 h97
+Conviction           g5   b  sq   1376 won 12.9 lost 21.3 | lost-state: none 5-11 33 eat 31 none <5 20 bitten 12 split 1 none e>=12 1 move 1
+                            fills: move 1-2 n29 a7 h21; split 1-2 n34 a18 h44; split 5-6 n47 a83 h94; split 7-9 n22 a86 h95
+Conviction           g5   c  sq    511 won 38.9 lost 17.2 | lost-state: eat 45 none e>=12 33 none 5-11 9 none <5 8 bitten 5
+                            fills: split 10+ n181 a100 h100
+Bane v2.1            g5   a  sq   1882 won  7.7 lost 18.7 | lost-state: none 5-11 43 eat 33 none <5 9 bitten 6 split 5 none e>=12 3
+                            fills: split 5-6 n99 a81 h91; split 7-9 n45 a100 h100
+Bane v2.1            g5   b  sq   2165 won 15.8 lost 19.0 | lost-state: eat 52 none 5-11 30 bitten 6 none e>=12 6 split 4 none <5 3
+                            fills: split 5-6 n247 a89 h94; split 7-9 n88 a97 h99
+Bane v2.1            g5   c  sq   2302 won 20.3 lost 30.5 | lost-state: eat 82 none 5-11 6 split 6 none e>=12 5 bitten 1
+                            fills: split 10+ n161 a99 h100; split 5-6 n178 a92 h97; split 7-9 n128 a98 h99
+Necrosia             g4   a  sq    161 won 10.6 lost 18.0 | lost-state: bitten 48 none 5-11 24 move 24 split 3
+                            fills: 
+Necrosia             g4   b  sq    984 won 11.7 lost 15.9 | lost-state: none 5-11 37 bitten 28 eat 22 move 8 none e>=12 3 split 3
+                            fills: move 10+ n30 a47 h43; move 7-9 n30 a30 h30
+Necrosia             g4   c  sq   5421 won 14.0 lost 14.4 | lost-state: eat 42 feed 29 none e>=12 15 bitten 6 split 4 none 5-11 3 move 1
+                            fills: move 10+ n65 a83 h83; move 7-9 n70 a84 h84; split 10+ n176 a95 h98; split 5-6 n129 a91 h90; split 7-9 n293 a82 h86
+CogSpore             g4   a  sq   1599 won 11.4 lost 17.4 | lost-state: none <5 35 eat 27 bitten 13 none 5-11 11 split 9 move 5 none e>=12 1
                             fills: split 1-2 n160 a30 h66
-CogSpore             g4   b  sq   1122 won 20.7 lost 22.7 | lost-state: eat 39 none <5 27 split 11 none 5-11 11 bitten 10 none e>=12 2
+CogSpore             g4   b  sq   1122 won 20.7 lost 22.7 | lost-state: eat 39 none <5 29 none 5-11 10 bitten 10 split 9 none e>=12 3
                             fills: split 1-2 n181 a41 h75; split 3-4 n30 a70 h90
-CogSpore             g4   c  sq    870 won 12.6 lost 40.6 | lost-state: eat 80 none e>=12 5 feed 5 split 4 none 5-11 4 bitten 1 none <5 1
+CogSpore             g4   c  sq    870 won 12.6 lost 40.6 | lost-state: eat 78 split 7 feed 5 none 5-11 4 none e>=12 4 bitten 1 none <5 1
                             fills: split 10+ n64 a100 h100
 Phaedra_Rune         g4   a  sq    186 won 22.0 lost  7.0 | lost-state: none 5-11 69 eat 15 bitten 15
                             fills: split 3-4 n32 a3 h41
-Phaedra_Rune         g4   b  sq    586 won 18.8 lost 11.6 | lost-state: none 5-11 41 eat 25 bitten 16 split 13 none <5 4
+Phaedra_Rune         g4   b  sq    586 won 18.8 lost 11.6 | lost-state: none 5-11 46 eat 25 bitten 16 split 9 none <5 4
                             fills: split 3-4 n85 a34 h68; split 5-6 n25 a20 h72
-Phaedra_Rune         g4   c  sq    483 won 16.6 lost 16.4 | lost-state: eat 35 none 5-11 30 bitten 25 split 5 none <5 4
+Phaedra_Rune         g4   c  sq    483 won 16.6 lost 16.4 | lost-state: eat 35 none 5-11 32 bitten 25 none <5 4 split 4
                             fills: split 3-4 n63 a19 h48
-Random               g4   a  sq    332 won  9.0 lost 10.8 | lost-state: none 5-11 31 bitten 31 none <5 19 move 6 feed 6 none e>=12 3 split 3 eat 3
+Random               g4   a  sq    332 won  9.0 lost 10.8 | lost-state: bitten 31 none 5-11 28 none <5 19 move 6 split 6 feed 6 none e>=12 3 eat 3
                             fills: 
-Random               g4   b  sq    623 won  8.8 lost 19.3 | lost-state: none 5-11 31 bitten 28 feed 12 none <5 11 eat 8 none e>=12 4 split 4 move 2
+Random               g4   b  sq    623 won  8.8 lost 19.3 | lost-state: none 5-11 31 bitten 28 feed 12 none <5 12 eat 9 none e>=12 4 split 2 move 2
                             fills: split 3-4 n26 a0 h4
-Random               g4   c  sq    978 won 10.0 lost 21.2 | lost-state: none 5-11 27 bitten 25 eat 13 none e>=12 12 none <5 10 feed 9 move 3 split 2
+Random               g4   c  sq    978 won 10.0 lost 21.2 | lost-state: none 5-11 26 bitten 25 eat 13 none e>=12 12 none <5 10 feed 9 split 3 move 3
                             fills: move 10+ n28 a14 h21; split 3-4 n30 a0 h13
-Necrosia             g4   a  sq    161 won 10.6 lost 18.0 | lost-state: bitten 48 move 24 none 5-11 24 split 3
-                            fills: 
-Necrosia             g4   b  sq    984 won 11.7 lost 15.9 | lost-state: none 5-11 37 bitten 28 eat 22 move 8 split 3 none e>=12 3
-                            fills: move 10+ n30 a47 h43; move 7-9 n30 a30 h30
-Necrosia             g4   c  sq   5421 won 14.0 lost 14.4 | lost-state: eat 42 feed 29 none e>=12 15 bitten 6 split 5 none 5-11 2 move 1
-                            fills: move 10+ n65 a83 h83; move 7-9 n70 a84 h84; split 10+ n176 a95 h98; split 5-6 n129 a91 h90; split 7-9 n293 a82 h86
-Walker               g3   a  sq    234 won 20.1 lost 16.7 | lost-state: none <5 44 bitten 28 none 5-11 13 move 13 split 3
+CogBloomXT v4        g4   a  sq    686 won 15.7 lost 13.0 | lost-state: none <5 49 eat 20 none 5-11 16 bitten 8 split 7
+                            fills: split 1-2 n97 a52 h85
+CogBloomXT v4        g4   b  sq   1310 won 23.5 lost 15.9 | lost-state: eat 37 none <5 32 none 5-11 13 split 12 bitten 4 none e>=12 2
+                            fills: split 1-2 n226 a35 h75; split 3-4 n58 a76 h91
+CogBloomXT v4        g4   c  sq   1594 won 18.8 lost 18.4 | lost-state: eat 52 feed 13 none 5-11 9 bitten 9 split 7 none e>=12 6 none <5 5
+                            fills: split 1-2 n77 a42 h82; split 10+ n50 a100 h100; split 3-4 n89 a91 h96; split 5-6 n45 a96 h98; split 7-9 n37 a97 h100
+Walker               g3   a  sq    234 won 20.1 lost 16.7 | lost-state: none <5 44 bitten 28 move 13 split 8 none 5-11 8
                             fills: move 3-4 n21 a0 h5
-Walker               g3   b  sq    544 won 20.2 lost 27.6 | lost-state: none 5-11 50 none <5 23 bitten 15 move 7 split 5
+Walker               g3   b  sq    544 won 20.2 lost 27.6 | lost-state: none 5-11 49 none <5 24 bitten 15 move 7 split 5
                             fills: move 3-4 n34 a3 h6; split 3-4 n54 a0 h2
-Walker               g3   c  sq    295 won 25.1 lost 29.8 | lost-state: none 5-11 57 bitten 14 none <5 14 move 10 split 6
+Walker               g3   c  sq    295 won 25.1 lost 29.8 | lost-state: none 5-11 57 bitten 14 none <5 14 move 11 split 5
                             fills: split 3-4 n52 a0 h0
-Bane v1              g3   a  sq    226 won 13.3 lost 18.1 | lost-state: none 5-11 49 eat 22 split 12 none <5 12 none e>=12 5
-                            fills: split 5-6 n22 a50 h82
-Bane v1              g3   b  sq    324 won 13.6 lost 26.5 | lost-state: none 5-11 45 eat 29 none e>=12 8 split 7 none <5 7 bitten 3
-                            fills: split 5-6 n28 a25 h75
-Bane v1              g3   c  sq    470 won 32.8 lost 20.0 | lost-state: eat 51 bitten 23 none 5-11 16 split 4 none e>=12 3 none <5 2
-                            fills: split 5-6 n57 a23 h77; split 7-9 n94 a19 h83
-Schism               g3   a  sq    136 won 23.5 lost 12.5 | lost-state: none <5 41 split 24 eat 18 bitten 18
-                            fills: split 1-2 n29 a21 h38
-Schism               g3   b  sq    520 won 25.0 lost 16.7 | lost-state: none <5 40 eat 38 bitten 10 split 9 none 5-11 2
-                            fills: split 1-2 n113 a20 h71
-Schism               g3   c  sq    101 won 30.7 lost 29.7 | lost-state: eat 70 none <5 17 split 10 bitten 3
-                            fills: split 1-2 n22 a18 h64
-Bouncer              g3   a  sq    259 won 17.8 lost 18.1 | lost-state: none <5 36 none 5-11 30 eat 21 split 11 bitten 2
-                            fills: split 3-4 n46 a37 h57
-Bouncer              g3   b  sq    410 won 25.4 lost 15.9 | lost-state: eat 35 none 5-11 26 none <5 22 split 14 bitten 2 none e>=12 2
-                            fills: split 3-4 n97 a48 h69
-Bouncer              g3   c  sq    618 won 41.4 lost 17.5 | lost-state: eat 47 none 5-11 31 split 9 none <5 6 bitten 6
-                            fills: split 3-4 n242 a5 h18
-rooby                g3   a  sq    227 won 14.5 lost 13.2 | lost-state: none 5-11 50 eat 20 none <5 17 split 10 bitten 3
-                            fills: split 3-4 n32 a34 h59
-rooby                g3   b  sq    564 won 14.4 lost 16.0 | lost-state: none 5-11 39 eat 23 split 14 none <5 13 bitten 9 none e>=12 1
-                            fills: split 3-4 n73 a36 h60
-rooby                g3   c  sq    400 won 24.0 lost 20.5 | lost-state: eat 49 none 5-11 23 none <5 10 bitten 10 split 6 none e>=12 2
-                            fills: split 3-4 n86 a21 h55
-gemAlert_v6          g3   a  sq     79 won 11.4 lost  6.3 | lost-state: none 5-11 100
+gemAlert_v6          g3   a  sq     79 won 11.4 lost  6.3 | lost-state: split 60 none 5-11 40
                             fills: 
-gemAlert_v6          g3   b  sq    502 won 16.9 lost 19.3 | lost-state: none <5 36 none 5-11 22 eat 20 bitten 12 split 10
+gemAlert_v6          g3   b  sq    502 won 16.9 lost 19.3 | lost-state: none <5 39 none 5-11 22 eat 20 bitten 12 split 7
                             fills: split 3-4 n84 a6 h38
-gemAlert_v6          g3   c  sq    404 won 22.8 lost 23.8 | lost-state: none 5-11 29 eat 27 bitten 24 none <5 18 split 2
+gemAlert_v6          g3   c  sq    404 won 22.8 lost 23.8 | lost-state: none 5-11 27 eat 27 bitten 24 none <5 18 split 4
                             fills: split 3-4 n89 a7 h29
-AtomPush             g3   a  sq    388 won 20.6 lost 10.6 | lost-state: none 5-11 61 none <5 34 bitten 2 eat 2
+AtomPush             g3   a  sq    388 won 20.6 lost 10.6 | lost-state: none 5-11 59 none <5 34 split 5 bitten 2
                             fills: split 3-4 n72 a81 h96
-AtomPush             g3   b  sq    283 won 20.8 lost 18.0 | lost-state: none 5-11 29 none <5 25 eat 25 bitten 16 split 4
+AtomPush             g3   b  sq    283 won 20.8 lost 18.0 | lost-state: none 5-11 31 none <5 25 eat 25 bitten 16 split 2
                             fills: split 3-4 n49 a71 h86
 AtomPush             g3   c  sq    386 won 27.2 lost 10.1 | lost-state: none 5-11 41 eat 26 none <5 23 split 5 bitten 5
                             fills: split 3-4 n67 a67 h84; split 5-6 n26 a69 h73
+rooby                g3   a  sq    227 won 14.5 lost 13.2 | lost-state: none 5-11 50 eat 20 none <5 17 split 10 bitten 3
+                            fills: split 3-4 n32 a34 h59
+rooby                g3   b  sq    564 won 14.4 lost 16.0 | lost-state: none 5-11 40 eat 23 none <5 14 split 12 bitten 9 none e>=12 1
+                            fills: split 3-4 n73 a36 h60
+rooby                g3   c  sq    400 won 24.0 lost 20.5 | lost-state: eat 50 none 5-11 24 none <5 10 bitten 10 split 4 none e>=12 2
+                            fills: split 3-4 n86 a21 h55
+Bouncer              g3   a  sq    259 won 17.8 lost 18.1 | lost-state: none <5 38 none 5-11 26 eat 23 split 11 bitten 2
+                            fills: split 3-4 n46 a37 h57
+Bouncer              g3   b  sq    410 won 25.4 lost 15.9 | lost-state: eat 35 none 5-11 28 none <5 25 split 9 none e>=12 2 bitten 2
+                            fills: split 3-4 n97 a48 h69
+Bouncer              g3   c  sq    618 won 41.4 lost 17.5 | lost-state: eat 51 none 5-11 31 bitten 6 none <5 6 split 6
+                            fills: split 3-4 n242 a5 h18
+Bane v1              g3   a  sq    226 won 13.3 lost 18.1 | lost-state: none 5-11 51 eat 22 none <5 17 split 5 unknown 2 none e>=12 2
+                            fills: split 5-6 n22 a50 h82
+Bane v1              g3   b  sq    324 won 13.6 lost 26.5 | lost-state: none 5-11 47 eat 29 split 8 none <5 7 none e>=12 6 bitten 3
+                            fills: split 5-6 n28 a25 h75
+Bane v1              g3   c  sq    470 won 32.8 lost 20.0 | lost-state: eat 50 bitten 23 none 5-11 17 none e>=12 4 split 3 none <5 2
+                            fills: split 5-6 n57 a23 h77; split 7-9 n94 a19 h83
+Schism               g3   a  sq    136 won 23.5 lost 12.5 | lost-state: none <5 59 eat 18 bitten 18 split 6
+                            fills: split 1-2 n29 a21 h38
+Schism               g3   b  sq    520 won 25.0 lost 16.7 | lost-state: none <5 46 eat 37 bitten 10 split 7
+                            fills: split 1-2 n113 a20 h71
+Schism               g3   c  sq    101 won 30.7 lost 29.7 | lost-state: eat 70 none <5 23 split 3 bitten 3
+                            fills: split 1-2 n22 a18 h64

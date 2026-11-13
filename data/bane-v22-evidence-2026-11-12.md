@@ -140,8 +140,10 @@ Own cells stunned per contact cell-tick: Bane v2.2 34 / 28 / 28 / 39%; VarSi 40 
 67; medivac 43 / 49 / 51 / 48; Siect-F 14.5 / 9 / 8.5 / 12; Penalty 44 / 28 / 21 / 22; Conviction 35 / 24 / 17 / 16.
 Mean bite chain on one target: Bane 5.8, Siect-F 9.6, Conviction 6.1, Penalty 4.7, VarSi 2.7, Colossus 2.9.
 
-After a kill, the killer's next tick (Bane, by window): take the freed square 21 / 39 / 53 / 48%, no event 41 / 27 /
-19 / 20%, stunned 17 / 12 / 8 / 10%. The freed square went to Bane on the next tick 35 / 52 / 67 / 59%.
+After a kill, the killer's next tick (Bane, by window; corrected 2026-11-12 with energy-matched split parents, was
+take 21 / 39 / 53 / 48, none 41 / 27 / 19 / 20): take the freed square 21.8 / 38.8 / 52.4 / 49.0%, no event 38.6 / 26.6 /
+16.6 / 15.4%, stunned 17.9 / 11.9 / 8.5 / 10.9%. The freed square went to Bane on the next tick 34.3 / 51.8 / 66.2 /
+61.6%.
 Siect-F vs Bane, 131245: Siect-F bit 190,004 times in 7,279 chains (26 ticks each); after a kill it had no event 71%
 of the time and Bane refilled the freed square 79% of the time; Bane's front cells were stunned on 99% of their
 contact cell-ticks.
@@ -158,6 +160,8 @@ refill rule feeds the rival: roughly 40,000 energy in that game.
 Friendly bites: Bane 0; Penalty 0.4-1.0 per 100 enemy bites; Conviction 0.1-0.7.
 
 ## 8. Front: land (ls-summary.txt)
+
+> **SUPERSEDED 2026-11-12.** The numbers in this section came from guessed split parents (first friendly neighbour without an event; 20-30% of splits sat at < 5 energy). The corrected data uses energy-matched parents (scripts/parents.py): ls-summary.txt and lost-squares.csv (regenerated), m1-gate-summary.txt (gate split by rule). Keep the text below only as history.
 
 Contested empty squares, share of square-ticks won / lost (t<60 | t60-100 | t100+):
 
@@ -222,6 +226,8 @@ game): VarSi 12, 841, 49, 433, 75; Bane 4, 0, 73, 242, 250.
   (took_third Spearman with share +0.76).
 
 ## 9b. Action budget (budget-summary.txt; windows a t0-30, b 30-60, c 60-100, d 100-200, e 200+)
+
+> **SUPERSEDED 2026-11-12.** The numbers in this section came from guessed split parents (first friendly neighbour without an event; 20-30% of splits sat at < 5 energy). The corrected data uses energy-matched parents (scripts/parents.py): budget.csv / budget-summary.txt (regenerated), m2-varsi-budget.txt (Bane vs VarSi by situation). Keep the text below only as history.
 
 Share of all cell-ticks (split / move / feed / eat / stunned / no event):
 
@@ -432,7 +438,7 @@ the game after them; "lost" side counts only won lock races where the enemy was 
   16-bit store: **first bite 12, every other path unchanged** (slow path still starts at 10, stored bite 4). Its race
   flips are at most the v2.3a column above (an 11-instruction enemy bite is now a tie, not a win).
 
-## 16. Blind-queue sizing on our real bite chains (queue.csv, queue-summary.txt; scripts/queue.py, queue_sum.py)
+## 16. Blind-queue sizing on our real bite chains (queue.csv, queue-summary.txt; scripts/queue_chains.py, queue_sum.py)
 
 Chain start = one of our cells (v2.1 / v2.2 games) eats an enemy T that it did not eat on the tick before (831,049
 chains). Recorded: T's energy at the start of that tick (e0, what our cell sees), our other cells next to T (nf), and

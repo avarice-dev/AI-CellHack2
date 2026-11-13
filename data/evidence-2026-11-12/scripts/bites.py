@@ -17,11 +17,17 @@ import os
 import struct
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))   # append: keep the stdlib ahead of scratch modules
+import parents  # noqa: E402
+
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))
 
 
 def win(t):
     return 'a' if t < 60 else 'b' if t < 100 else 'c' if t < 300 else 'd'
+
+
+RUN = parents.Running()
 
 
 def run(path):
@@ -57,6 +63,7 @@ def run(path):
         elif rt == 1:
             t = U32.unpack_from(raw, p)[0]; p += 4 + 8
             nev = U32.unpack_from(raw, p)[0]; p += 4
+            RUN.tick(enOf)
             w = win(t)
             snap = grid
             contact = set()
@@ -76,6 +83,7 @@ def run(path):
                 k = raw[p]
                 if k in (4, 5):
                     a, b = U32x2.unpack_from(raw, p + 1); p += 10
+                    RUN.event(k, a, b)
                     if a not in what:
                         what[a] = 'eat' if k == 4 else 'feed'
                     if k == 4:
@@ -108,13 +116,13 @@ def run(path):
                     colOf[cid] = c; sqOf[cid] = y * W + x; grid[y * W + x] = cid + 1; enOf[cid] = e
                     births.append(cid)
                     born_at[y * W + x] = c
-                    parent = None
-                    for q in nbrs(y * W + x):
-                        g = snap[q]
-                        if g and colOf[g - 1] == c and (g - 1) not in what:
-                            what[g - 1] = 'split'
-                            parent = g - 1
-                            break
+                    cand = [g - 1 for g in (snap[q] for q in nbrs(y * W + x)) if g and colOf[g - 1] == c and (g - 1) not in what]
+                    parent, tag = RUN.parent(cand, e)          # shared matcher (parents.py)
+                    if parent is not None:
+                        what[parent] = 'split'
+                    elif tag == 'unknown':
+                        for g in cand:
+                            what[g] = 'unknown'
                     if parent is not None:
                         what[('sq', parent)] = y * W + x
                 elif k == 2:

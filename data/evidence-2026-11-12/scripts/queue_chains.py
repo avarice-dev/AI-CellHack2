@@ -4,7 +4,7 @@ Chain start = our cell eats an enemy T it did not eat on the previous tick.  Rec
 feeders, capped 3), and the horizon H = number of later ticks T is still alive on the same square at tick start
 (capped 12), with how it ended (died / gone = moved or cap).  A queue armed at the chain start with k blind bites hits
 min(k, H) times and bites an empty or refilled square max(0, k - H) times (first-order: T's real survival).
-Usage: python queue.py <replay dir> <names.json> <out.csv> [id ...]
+Usage: python queue_chains.py <replay dir> <names.json> <out.csv> [id ...]
 """
 import collections
 import csv
