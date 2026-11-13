@@ -19,7 +19,8 @@ Fields per new pair (CSV columns):
   edir      result enemy: X's bite direction from X's side (UD / LR)
   rs1, rs2  enemy entered: the v2.3 part A rule (rest tail only: prev = hold / rest<5 / none-other) would have stored
             the entered square at the start of t - 1: rs1 = refill pattern as in Bane (FREED_BY: beyond only LEFT /
-            RIGHT, view 10 / 14), rs2 = with straight beyond UP / DOWN added (view 2 / 22).  0/1, '-' otherwise
+            RIGHT, view 10 / 14), rs2 = the brief's precedence: refill pattern first, else DOWN if view 22 is an
+            enemy, else UP if view 2 is an enemy (rule_store).  0/1, '-' otherwise
   flip      first-order flip if A's bite cost 4 (s15): result enemy and plan first: 5-15 -> 1, =4 -> 0.5, else 0
   d5, d10   A dead within 5 / 10 ticks of t (0/1)
 Split parents: energy-matched (parents.py).  Windows: a t < 30, b < 60, c < 100, d later.
@@ -40,7 +41,6 @@ from race import choose, cls, era  # noqa: E402
 DIRS = ((0, -1), (1, 0), (0, 1), (-1, 0))          # UP RIGHT DOWN LEFT
 PRIO = (2, 1, 0, 3)                                 # gate split order DOWN, RIGHT, UP, LEFT
 FREED = {0: ((-1, -1), (1, -1)), 1: ((1, -1), (2, 0), (1, 1)), 2: ((-1, 1), (1, 1)), 3: ((-1, -1), (-2, 0), (-1, 1))}
-FREED2 = {0: ((-1, -1), (1, -1), (0, -2)), 1: FREED[1], 2: ((-1, 1), (1, 1), (0, 2)), 3: FREED[3]}
 RUN = parents.Running()
 
 
@@ -82,12 +82,23 @@ def run(path, bane):
         g = at(snap, x, y)
         return g > 0 and colOf[g - 1] != c
 
-    def rule_store(snap, s, c, table):
-        """Part A: the square the rest tail would store (first refill-pattern empty edge in gate order), or None."""
+    def rule_store(snap, s, c, vertical):
+        """Part A rest tail, the one precedence (brief section 2; also the oracle of the table-driven test):
+        1. a refill pattern (FREED_BY, as gate 1's thr_tbl = 12): gate 1's first choice (first refill-pattern empty
+           edge in gate order DOWN, RIGHT, UP, LEFT);
+        2. else (vertical only) view idx 22 holds an enemy and DOWN is empty: DOWN;
+        3. else (vertical only) view idx 2 holds an enemy and UP is empty: UP;
+        4. else None (the stored bite is left unchanged)."""
         cx, cy = s % W, s // W
         for k in PRIO:
-            if at(snap, cx + DIRS[k][0], cy + DIRS[k][1]) == 0 and                     any(enemy(snap, cx + a, cy + b, c) for a, b in table[k]):
+            if at(snap, cx + DIRS[k][0], cy + DIRS[k][1]) == 0 and \
+                    any(enemy(snap, cx + a, cy + b, c) for a, b in FREED[k]):
                 return (cy + DIRS[k][1]) * W + cx + DIRS[k][0]
+        if vertical:
+            if at(snap, cx, cy + 1) == 0 and enemy(snap, cx, cy + 2, c):
+                return (cy + 1) * W + cx
+            if at(snap, cx, cy - 1) == 0 and enemy(snap, cx, cy - 2, c):
+                return (cy - 1) * W + cx
         return None
 
     def gate_choice(snap, s, c):
@@ -272,8 +283,8 @@ def run(path, bane):
                 pstate[A] = st
                 pgate[A] = gate_choice(snap, s, bane)[0]
                 if st in ('hold', 'rest<5', 'none-other'):
-                    prs1[A] = rule_store(snap, s, bane, FREED)
-                    prs2[A] = rule_store(snap, s, bane, FREED2)
+                    prs1[A] = rule_store(snap, s, bane, False)
+                    prs2[A] = rule_store(snap, s, bane, True)
             # stored bites (race.py): last bite direction, copied to a child
             eats = set()
             for kind, a, b in evs:

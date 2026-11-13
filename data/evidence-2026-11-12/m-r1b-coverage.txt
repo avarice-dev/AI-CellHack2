@@ -1,18 +1,17 @@
-Coverage of the v2.3 part A rule on enemy entries beside a resting Bane v2.2 cell (no other enemy on an edge).
-rs1 = refill pattern as in Bane (beyond only L/R); rs2 = with straight beyond U/D (view 2/22) added.
-group    prev        n | covered rs1 % rs2 % | enemy first: all % | among rs1-covered % | flips if covered were 4: rs1 / rs2 (% of n)
-Siect-F  hold          724 |  93.0  93.0 |  92.8 |  95.4 |   1.5 /   1.5
-Siect-F  none-other     73 |  23.3  67.1 |  86.3 |  88.2 |   0.0 /   0.0
-Siect-F  rest<5        129 |  50.4  65.1 |  70.5 |  76.9 |   3.1 /   5.4
-Yen      hold         1185 |  78.6  78.9 |  46.7 |  45.9 |  13.8 /  14.0
-Yen      none-other    213 |  48.4  87.8 |  48.4 |  38.8 |   3.8 /  12.9
-Yen      rest<5        632 |  57.4  74.7 |  66.6 |  64.5 |  16.9 /  21.9
-all      hold         3469 |  78.6  78.7 |  47.4 |  49.8 |   9.4 /   9.4
-all      none-other   3447 |  75.9  94.7 |  22.5 |  22.9 |   1.9 /   3.2
-all      rest<5       1600 |  57.2  71.8 |  64.8 |  63.4 |  17.3 /  21.8
-feeder   hold          256 |  74.2  74.2 |  32.0 |  33.2 |  11.7 /  11.3
-feeder   none-other   2003 |  81.2  98.8 |  19.9 |  23.7 |   0.0 /   0.1
-feeder   rest<5        186 |  55.9  68.8 |  62.4 |  67.3 |  20.4 /  24.2
-other    hold         1304 |  71.5  71.5 |  25.9 |  24.2 |   9.4 /   9.3
-other    none-other   1158 |  75.1  90.7 |  18.0 |  18.4 |   4.9 /   6.8
-other    rest<5        653 |  58.8  71.2 |  62.5 |  59.1 |  19.6 /  24.1
+Scratch (brief v2.3 section 2b): coverage of the part A rest-tail rule on enemy entries beside a Bane v2.2 cell that
+rested on the previous tick, with no other enemy on an edge (first_contact.csv columns rs1 / rs2).
+rs1 = refill pattern only (thr_tbl = 12); rs2 = the brief's precedence (refill pattern, else DOWN for view 22, else UP
+for view 2).  Rows: hold and rest under 5 only.  'none-other' (no event, open, e >= 5, not a 5-11 hold) is left out:
+it mixes holders at 12-15 with cells whose split or move failed, which never ran the rest tail.
+
+group    prev         n | covered rs1 / rs2 % | enemy first: all / among rs2-covered % | first-order flips rs1 / rs2 (% of n)
+all      hold      3469 |  78.6 /  78.6 |  47.4 /  49.8 |   9.4 /   9.4
+all      rest<5    1600 |  57.2 /  71.9 |  64.8 /  66.3 |  17.3 /  21.7
+Yen      hold      1185 |  78.6 /  78.6 |  46.7 /  45.9 |  13.8 /  13.8
+Yen      rest<5     632 |  57.4 /  74.2 |  66.6 /  70.1 |  16.9 /  21.8
+Siect-F  hold       724 |  93.0 /  93.0 |  92.8 /  95.4 |   1.5 /   1.5
+Siect-F  rest<5     129 |  50.4 /  66.7 |  70.5 /  80.2 |   3.1 /   5.4
+feeder   hold       256 |  74.2 /  74.6 |  32.0 /  33.0 |  11.7 /  11.7
+feeder   rest<5     186 |  55.9 /  69.4 |  62.4 /  63.6 |  20.4 /  24.2
+other    hold      1304 |  71.5 /  71.5 |  25.9 /  24.2 |   9.4 /   9.4
+other    rest<5     653 |  58.8 /  71.4 |  62.5 /  60.7 |  19.6 /  24.0

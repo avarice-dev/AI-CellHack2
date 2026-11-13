@@ -141,8 +141,8 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130482,CogSpore - VarSi,b,enemy-split,?,1,0,-,-,-,first,neither,-,-,-,-,-,1,1,1
 130482,CogSpore - VarSi,b,our-split,-,1,-,rule4,none,ahead,first,enemy,5-15,UD,1,-,-,1,1,1
 130482,CogSpore - VarSi,b,enemy-split,?,1,0,-,-,-,lock,neither,-,-,-,-,-,0,0,1
-130482,CogSpore - VarSi,b,enemy-split,hold,1,1,-,-,-,first,neither,-,-,-,1,0,0,1,1
-130482,CogSpore - VarSi,b,enemy-split,hold,1,0,-,-,-,first,enemy,other,UD,0,0,1,0,1,1
+130482,CogSpore - VarSi,b,enemy-split,hold,1,1,-,-,-,first,neither,-,-,-,1,1,0,1,1
+130482,CogSpore - VarSi,b,enemy-split,hold,1,0,-,-,-,first,enemy,other,UD,0,0,0,0,1,1
 130482,CogSpore - VarSi,b,our-split,-,1,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,1,1
 130482,CogSpore - VarSi,b,our-split,-,1,-,gate,valid,side,lock,neither,-,-,-,-,-,0,1,1
 130482,CogSpore - VarSi,b,enemy-split,acted,1,1,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
@@ -844,7 +844,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130711,Colossus,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,5-15,LR,1,0,0,1,1,2
 130711,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,UD,1,1,1,1,1,1
 130711,Colossus,c,enemy-split,stunned,1,1,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
-130711,squirtle,c,enemy-split,none-other,0,0,-,-,-,first,enemy,5-15,UD,1,0,1,0,0,1
+130711,squirtle,c,enemy-split,none-other,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,0,0,1
 130711,Colossus,c,enemy-split,hold,0,1,-,-,-,first,neither,-,-,-,1,1,0,0,1
 130711,Colossus,c,enemy-split,stunned,1,0,-,-,-,first,enemy,5-15,UD,1,-,-,1,1,1
 130711,Colossus,c,enemy-move,rest<5,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,0,0,2
@@ -1072,7 +1072,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130818,Medic,b,enemy-split,none-other,0,1,-,-,-,first,we,-,-,-,0,1,0,0,1
 130818,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,first,enemy,=4,UD,0.5,1,1,1,1,1
 130818,CogSpore - VarSi,c,enemy-split,acted,0,1,-,-,-,first,enemy,=4,UD,0.5,-,-,0,0,3
-130818,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,0,0,0,1
+130818,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,12
 130818,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,we,-,-,-,0,0,0,0,3
 130818,Medic,c,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,7
 130818,CogSpore - VarSi,c,enemy-move,?,1,0,-,-,-,first,enemy,5-15,LR,1,-,-,0,0,1
@@ -1091,7 +1091,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130818,CogSpore - VarSi,c,our-split,-,0,-,rule4,none,ahead,first,we,-,-,-,-,-,1,1,1
 130818,CogSpore - VarSi,c,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,UD,0,-,-,0,1,1
 130818,Medic,c,enemy-split,acted,0,0,-,-,-,first,we,-,-,-,-,-,0,0,3
-130818,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,11
 130818,Medic,c,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,2
 130818,Medic,c,enemy-split,acted,0,1,-,-,-,first,neither,-,-,-,-,-,0,0,1
 130818,CogSpore - VarSi,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,0,0,3
@@ -1265,7 +1264,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130818,CogSpore - VarSi,d,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,4
 130818,CogSpore - VarSi,d,enemy-split,hold,0,1,-,-,-,first,we,-,-,-,1,1,0,0,2
 130818,CogSpore - VarSi,d,enemy-split,hold,0,1,-,-,-,lock,enemy,=4,UD,0,1,1,0,0,3
-130818,CogSpore - VarSi,d,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,LR,1,1,0,1,1,1
+130818,CogSpore - VarSi,d,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,1,1,1
 130818,CogSpore - VarSi,d,enemy-split,stunned,1,1,-,-,-,first,enemy,5-15,UD,1,-,-,1,1,2
 130818,CogSpore - VarSi,d,enemy-split,hold,1,0,-,-,-,first,neither,-,-,-,0,0,1,1,3
 130818,CogSpore - VarSi,d,enemy-split,hold,1,1,-,-,-,first,enemy,=4,UD,0.5,1,1,1,1,2
@@ -1613,7 +1612,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130915,CogSpore - VarSi,d,enemy-move,acted,0,0,-,-,-,first,enemy,=4,UD,0.5,-,-,1,1,1
 130915,CogSpore - VarSi,d,enemy-split,hold,1,0,-,-,-,first,neither,-,-,-,0,0,0,0,1
 130915,CogSpore - VarSi,d,enemy-split,hold,1,0,-,-,-,first,we,-,-,-,0,0,0,0,1
-130915,CogSpore - VarSi,d,enemy-split,rest<5,0,0,-,-,-,first,enemy,5-15,UD,1,0,1,0,0,1
+130915,CogSpore - VarSi,d,enemy-split,rest<5,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,0,0,1
 130915,CogSpore - VarSi,d,our-split,-,1,-,rule4,valid,ahead,lock,enemy,=4,UD,0,-,-,0,0,1
 130915,CogSpore - VarSi,d,our-split,-,0,-,gate,valid,side,lock,enemy,=4,UD,0,-,-,1,1,1
 130915,CogSpore - VarSi,d,enemy-split,none-other,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
@@ -1630,8 +1629,8 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 130915,CogSpore - VarSi,d,enemy-split,stunned,1,1,-,-,-,first,neither,-,-,-,-,-,1,1,1
 130915,CogSpore - VarSi,d,enemy-split,stunned,1,0,-,-,-,lock,neither,-,-,-,-,-,0,0,1
 130915,CogSpore - VarSi,d,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,3
-130915,CogSpore - VarSi,d,enemy-split,rest<5,1,1,-,-,-,lock,neither,-,-,-,1,0,0,1,1
-130915,CogSpore - VarSi,d,enemy-split,rest<5,1,0,-,-,-,lock,we,-,-,-,0,1,0,1,1
+130915,CogSpore - VarSi,d,enemy-split,rest<5,1,1,-,-,-,lock,neither,-,-,-,1,1,0,1,1
+130915,CogSpore - VarSi,d,enemy-split,rest<5,1,0,-,-,-,lock,we,-,-,-,0,0,0,1,1
 130915,CogSpore - VarSi,d,our-split,-,1,-,gate,none,side,first,neither,-,-,-,-,-,0,0,2
 130915,CogSpore - VarSi,d,our-split,-,1,-,gate,none,ahead,first,enemy,=4,UD,0.5,-,-,0,0,2
 130915,CogSpore - VarSi,d,enemy-split,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,1,1
@@ -3308,7 +3307,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131039,CogBloomXT,c,enemy-split,hold,1,1,-,-,-,lock,we,-,-,-,1,1,0,0,3
 131039,CogBloomXT,c,enemy-split,hold,1,0,-,-,-,lock,neither,-,-,-,0,0,0,0,3
 131039,CogBloomXT,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,1
-131039,CogBloomXT,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,=4,UD,0.5,0,1,0,0,1
+131039,CogBloomXT,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,=4,UD,0.5,0,0,0,0,1
 131039,CogBloomXT,c,enemy-split,rest<5,1,0,-,-,-,first,neither,-,-,-,0,0,0,0,1
 131039,CogBloomXT,c,enemy-split,hold,0,1,-,-,-,first,enemy,<4,UD,0,1,1,0,0,1
 131039,CogBloomXT,c,enemy-split,?,0,0,-,-,-,first,we,-,-,-,-,-,0,0,2
@@ -4896,7 +4895,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131072,rooby,b,enemy-split,hold,1,0,-,-,-,first,enemy,5-15,UD,1,0,0,1,1,1
 131072,rooby,b,enemy-split,hold,1,1,-,-,-,first,enemy,5-15,LR,1,1,1,1,1,1
 131072,zergling,b,enemy-move,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,0,1
-131072,zergling,b,enemy-move,rest<5,1,0,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
+131072,zergling,b,enemy-move,rest<5,1,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,1
 131072,zergling,b,enemy-split,rest<5,1,0,-,-,-,first,enemy,other,LR,0,0,0,1,1,1
 131072,zergling,b,our-split,-,0,-,rule4,valid,side,lock,enemy,other,LR,0,-,-,1,1,1
 131072,zergling,b,enemy-move,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,1
@@ -5131,7 +5130,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131072,rooby,c,our-split,-,0,-,rule4,none,side,first,enemy,5-15,UD,1,-,-,0,0,2
 131072,zergling,c,our-split,-,0,-,rule4,none,ahead,first,we,-,-,-,-,-,0,0,1
 131072,zergling,c,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,1,1
-131072,Sho,c,enemy-move,rest<5,0,1,-,-,-,lock,we,-,-,-,1,0,0,0,1
+131072,Sho,c,enemy-move,rest<5,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1
 131072,zergling,c,enemy-split,acted,1,0,-,-,-,lock,neither,-,-,-,-,-,0,1,1
 131072,zergling,c,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,UD,0,-,-,0,1,1
 131072,zergling,c,enemy-split,stunned,1,0,-,-,-,lock,enemy,5-15,LR,0,-,-,1,1,1
@@ -5149,7 +5148,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131072,zergling,c,our-split,-,0,-,rule4,stale,ahead,first,enemy,other,LR,0,-,-,0,0,1
 131072,rooby,c,our-split,-,0,-,rule4,none,ahead,first,enemy,other,LR,0,-,-,0,0,1
 131072,Sho,c,enemy-move,?,0,0,-,-,-,lock,we,-,-,-,-,-,0,0,2
-131072,Sho,c,enemy-move,hold,0,1,-,-,-,first,we,-,-,-,1,0,0,0,1
+131072,Sho,c,enemy-move,hold,0,1,-,-,-,first,we,-,-,-,1,1,0,0,3
 131072,Sho,c,enemy-move,rest<5,0,1,-,-,-,first,we,-,-,-,0,1,0,0,1
 131072,Sho,c,enemy-move,acted,0,0,-,-,-,first,we,-,-,-,-,-,0,0,3
 131072,zergling,c,our-split,-,0,-,gate,stale,ahead,first,enemy,5-15,LR,1,-,-,0,0,1
@@ -5198,7 +5197,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131072,zergling,c,enemy-split,rest<5,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1
 131072,Sho,c,enemy-move,?,0,0,-,-,-,first,we,-,-,-,-,-,0,0,1
 131072,zergling,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,0,0,2
-131072,Sho,c,enemy-move,hold,0,1,-,-,-,first,we,-,-,-,1,1,0,0,2
 131072,Sho,c,enemy-move,acted,0,1,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131072,rooby,c,our-split,-,1,-,gate,valid,side,lock,enemy,5-15,LR,0,-,-,0,0,1
 131072,Sho,c,enemy-split,?,0,0,-,-,-,lock,we,-,-,-,-,-,0,0,1
@@ -5346,7 +5344,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,zergling,b,enemy-split,hold,0,0,-,-,-,first,enemy,other,LR,0,0,0,0,0,2
 131082,zergling,b,enemy-split,acted,0,0,-,-,-,first,we,-,-,-,-,-,0,0,2
 131082,zergling,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,0,1
-131082,zergling,b,enemy-move,hold,0,0,-,-,-,lock,we,-,-,-,0,1,0,1,1
+131082,zergling,b,enemy-move,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,1,1
 131082,zergling,b,enemy-split,acted,1,1,-,-,-,first,enemy,other,UD,0,-,-,0,1,1
 131082,zergling,b,enemy-split,acted,1,0,-,-,-,first,enemy,other,LR,0,-,-,0,1,1
 131082,zergling,b,enemy-move,stunned,1,1,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
@@ -5362,7 +5360,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,zergling,b,our-move,-,0,-,-,-,-,first,we,-,-,-,-,-,0,0,1
 131082,zergling,b,enemy-split,acted,0,0,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131082,zergling,b,enemy-split,acted,1,1,-,-,-,lock,neither,-,-,-,-,-,0,0,1
-131082,Medic,b,enemy-split,rest<5,0,0,-,-,-,first,we,-,-,-,0,1,0,0,1
+131082,Medic,b,enemy-split,rest<5,0,0,-,-,-,first,we,-,-,-,0,0,0,0,1
 131082,zergling,b,our-split,-,1,-,gate,valid,ahead,lock,enemy,other,UD,0,-,-,0,0,1
 131082,zergling,b,our-split,-,1,-,gate,valid,side,lock,we,-,-,-,-,-,0,0,2
 131082,zergling,b,enemy-split,?,0,0,-,-,-,first,we,-,-,-,-,-,0,0,1
@@ -5646,7 +5644,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,NomNom2,c,our-move,-,0,-,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131082,zergling,c,enemy-move,acted,0,1,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131082,zergling,c,enemy-move,?,0,0,-,-,-,first,enemy,5-15,UD,1,-,-,0,0,1
-131082,zergling,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,0,0,1
+131082,zergling,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,0,0,2
 131082,NomNom2,c,enemy-split,?,1,0,-,-,-,lock,neither,-,-,-,-,-,0,0,1
 131082,NomNom2,c,our-split,-,1,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,2
 131082,zergling,d,our-split,-,0,-,rule4,stale,ahead,first,enemy,5-15,LR,1,-,-,1,1,1
@@ -5661,7 +5659,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,zergling,c,our-split,-,1,-,rule4,valid,ahead,lock,neither,-,-,-,-,-,0,0,1
 131082,NomNom2,c,enemy-split,?,1,0,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131082,zergling,d,enemy-move,?,0,0,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
-131082,zergling,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,LR,1,1,0,0,0,1
 131082,zergling,c,enemy-move,rest<5,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,0,0,1
 131082,zergling,c,enemy-move,acted,0,1,-,-,-,first,enemy,5-15,UD,1,-,-,0,0,1
 131082,zergling,c,enemy-split,rest<5,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
@@ -5671,7 +5668,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,zergling,c,our-split,-,1,-,gate,valid,ahead,lock,enemy,other,LR,0,-,-,0,0,1
 131082,zergling,c,our-split,-,1,-,gate,valid,side,lock,enemy,other,UD,0,-,-,0,0,1
 131082,NomNom2,c,our-split,-,1,-,gate,valid,side,lock,neither,-,-,-,-,-,0,0,1
-131082,NomNom2,d,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1068
+131082,NomNom2,d,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1069
 131082,zergling,d,enemy-split,acted,0,1,-,-,-,first,enemy,5-15,LR,1,-,-,0,0,3
 131082,zergling,d,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
 131082,zergling,d,our-split,-,0,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,211
@@ -5759,14 +5756,13 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131082,NomNom2,d,enemy-split,rest<5,1,0,-,-,-,lock,enemy,5-15,LR,0,0,0,0,0,1
 131082,NomNom2,d,enemy-split,rest<5,1,1,-,-,-,lock,we,-,-,-,1,1,0,0,1
 131082,zergling,d,enemy-split,stunned,1,0,-,-,-,first,neither,-,-,-,-,-,0,0,1
-131082,NomNom2,d,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,0,0,0,1
 131082,NomNom2,d,enemy-split,acted,1,0,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,1
 131082,NomNom2,d,our-move,-,1,-,-,-,-,lock,we,-,-,-,-,-,0,0,1
 131082,NomNom2,d,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,UD,0,-,-,0,0,1
 131082,NomNom2,d,enemy-split,none-other,0,1,-,-,-,lock,enemy,5-15,UD,0,1,1,0,0,58
 131082,NomNom2,d,enemy-split,acted,0,0,-,-,-,lock,we,-,-,-,-,-,0,0,16
 131082,NomNom2,d,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,2
-131082,zergling,d,enemy-split,rest<5,0,1,-,-,-,lock,we,-,-,-,1,0,0,0,1
+131082,zergling,d,enemy-split,rest<5,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1
 131082,NomNom2,d,enemy-split,none-other,1,0,-,-,-,lock,neither,-,-,-,0,0,0,0,15
 131082,NomNom2,d,enemy-split,none-other,1,1,-,-,-,lock,we,-,-,-,1,1,0,0,15
 131082,NomNom2,d,our-split,-,1,-,gate,valid,side,lock,enemy,5-15,UD,0,-,-,0,0,1
@@ -5915,7 +5911,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131092,Brawler v2,b,enemy-split,?,1,0,-,-,-,lock,neither,-,-,-,-,-,0,0,2
 131092,Brawler v2,b,our-split,-,1,-,gate,valid,side,lock,neither,-,-,-,-,-,0,0,7
 131092,Brawler v2,b,our-split,-,1,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,8
-131092,Artemis,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
+131092,Artemis,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,1
 131092,Artemis,c,our-move,-,0,-,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
 131092,Brawler v2,c,enemy-split,stunned,1,1,-,-,-,first,neither,-,-,-,-,-,1,1,4
 131092,Artemis,c,enemy-split,?,1,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
@@ -6110,7 +6106,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131092,Brawler v2,c,enemy-split,?,1,0,-,-,-,lock,enemy,5-15,UD,0,-,-,0,0,5
 131092,Brawler v2,c,our-split,-,1,-,gate,none,side,first,neither,-,-,-,-,-,1,1,1
 131092,Brawler v2,c,our-split,-,1,-,gate,none,ahead,first,enemy,=4,UD,0.5,-,-,1,1,3
-131092,Artemis,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,5-15,UD,1,0,1,1,1,1
+131092,Artemis,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,1,1,1
 131092,Artemis,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,UD,1,1,1,0,0,2
 131092,Artemis,c,enemy-split,acted,0,0,-,-,-,first,we,-,-,-,-,-,0,0,2
 131092,Artemis,c,enemy-split,acted,0,1,-,-,-,first,enemy,5-15,UD,1,-,-,0,0,9
@@ -6687,7 +6683,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131102,CogSpore - VarSi,c,our-split,-,0,-,gate,valid,side,lock,we,-,-,-,-,-,0,0,1
 131102,squirtle,c,enemy-split,acted,1,1,-,-,-,lock,neither,-,-,-,-,-,0,0,10
 131102,squirtle,c,enemy-split,stunned,1,1,-,-,-,first,enemy,5-15,UD,1,-,-,0,0,1
-131102,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,UD,1,0,1,0,0,1
+131102,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,0,0,1
 131102,CogSpore - VarSi,c,our-split,-,1,-,gate,valid,ahead,lock,enemy,5-15,LR,0,-,-,0,0,2
 131102,CogSpore - VarSi,c,our-split,-,1,-,gate,none,side,first,neither,-,-,-,-,-,0,0,1
 131102,CogSpore - VarSi,c,our-split,-,0,-,rule4,none,ahead,first,enemy,=4,UD,0.5,-,-,0,0,4
@@ -6709,7 +6705,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131102,CogSpore - VarSi,c,enemy-split,none-other,0,1,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
 131102,CogSpore - VarSi,c,enemy-split,acted,0,1,-,-,-,first,enemy,5-15,UD,1,-,-,0,0,2
 131102,CogSpore - VarSi,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,2
-131102,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,=4,UD,0.5,0,1,0,0,1
+131102,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,=4,UD,0.5,0,0,0,0,1
 131102,CogSpore - VarSi,c,our-split,-,1,-,gate,valid,ahead,lock,enemy,=4,UD,0,-,-,0,0,4
 131102,squirtle,c,our-split,-,0,-,rule4,none,ahead,first,we,-,-,-,-,-,0,0,2
 131102,CogSpore - VarSi,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,=4,UD,0.5,0,1,0,0,3
@@ -6934,7 +6930,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131102,gemAlert_v6,d,enemy-split,none-other,0,0,-,-,-,lock,enemy,5-15,LR,0,0,0,0,0,1
 131102,gemAlert_v6,d,enemy-split,rest<5,0,0,-,-,-,lock,enemy,5-15,LR,0,0,0,0,0,1
 131102,gemAlert_v6,d,enemy-split,?,1,0,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,3
-131102,CogSpore - VarSi,d,enemy-split,rest<5,0,0,-,-,-,first,we,-,-,-,0,1,1,1,1
+131102,CogSpore - VarSi,d,enemy-split,rest<5,0,0,-,-,-,first,we,-,-,-,0,0,1,1,1
 131102,CogSpore - VarSi,d,enemy-split,acted,1,0,-,-,-,lock,enemy,5-15,UD,0,-,-,1,1,1
 131102,CogSpore - VarSi,d,enemy-split,stunned,1,1,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
 131102,gemAlert_v6,d,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,3
@@ -7371,7 +7367,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131125,Colossus,c,enemy-split,stunned,1,1,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
 131125,Colossus,c,enemy-split,acted,1,1,-,-,-,lock,enemy,other,UD,0,-,-,1,1,1
 131125,gemAlert_v4,c,enemy-split,acted,0,0,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
-131125,gemAlert_v4,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,1
+131125,gemAlert_v4,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,2
 131125,Colossus,b,enemy-split,acted,1,0,-,-,-,first,enemy,other,UD,0,-,-,0,0,1
 131125,Colossus,b,enemy-split,acted,1,0,-,-,-,first,neither,-,-,-,-,-,0,0,1
 131125,Colossus,b,enemy-split,rest<5,1,0,-,-,-,first,enemy,other,LR,0,0,0,0,0,2
@@ -7390,7 +7386,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131125,Colossus,b,our-split,-,0,-,rule4,none,ahead,first,enemy,other,UD,0,-,-,0,0,1
 131125,gemAlert_v4,b,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
 131125,gemAlert_v4,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,0,1
-131125,gemAlert_v4,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,0,0,0,1
 131125,Colossus,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,1
 131125,Colossus,b,our-split,-,1,-,gate,valid,side,lock,neither,-,-,-,-,-,0,0,3
 131125,Colossus,b,our-split,-,1,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,2
@@ -7446,14 +7441,13 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131125,Colossus,c,enemy-split,acted,1,1,-,-,-,lock,enemy,other,LR,0,-,-,0,0,2
 131125,gemAlert_v4,c,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,3
 131125,gemAlert_v4,c,enemy-split,hold,0,0,-,-,-,first,enemy,other,LR,0,0,0,0,0,1
-131125,gemAlert_v4,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,1
+131125,gemAlert_v4,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,2
 131125,Colossus,c,our-split,-,0,-,rule4,none,side,first,neither,-,-,-,-,-,0,0,1
 131125,gemAlert_v4,c,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,LR,1,0,0,0,1,1
 131125,gemAlert_v4,c,enemy-split,stunned,1,1,-,-,-,first,enemy,other,UD,0,-,-,0,1,1
 131125,gemAlert_v4,c,enemy-split,stunned,1,0,-,-,-,lock,enemy,5-15,LR,0,-,-,1,1,1
 131125,gemAlert_v4,c,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,UD,0,-,-,1,1,1
 131125,gemAlert_v4,c,enemy-split,acted,0,0,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
-131125,gemAlert_v4,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,other,LR,0,1,0,0,0,1
 131125,gemAlert_v4,c,enemy-split,hold,1,1,-,-,-,lock,neither,-,-,-,1,1,0,0,1
 131125,gemAlert_v4,c,enemy-split,hold,1,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
 131125,gemAlert_v4,c,enemy-split,acted,1,1,-,-,-,lock,neither,-,-,-,-,-,0,0,14
@@ -7663,7 +7657,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131188,Conviction,b,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,6
 131188,CogSpore-Siect-F,b,our-split,-,0,-,rule4,none,side,first,we,-,-,-,-,-,1,1,1
 131188,CogSpore-Siect-F,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,LR,0,1,1,1,1,2
-131188,CogSpore-Siect-F,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,UD,0,1,0,1,1,1
+131188,CogSpore-Siect-F,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,UD,0,1,1,1,1,1
 131188,CogSpore-Siect-F,b,our-split,-,1,-,gate,none,side,first,neither,-,-,-,-,-,1,1,2
 131188,CogSpore-Siect-F,b,our-split,-,1,-,gate,none,ahead,first,enemy,<4,LR,0,-,-,1,1,2
 131188,Conviction,b,enemy-move,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,0,0,1
@@ -8513,8 +8507,8 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131245,CogSpore-Siect-F,b,enemy-split,acted,0,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
 131245,CogSpore-Siect-F,c,enemy-split,stunned,1,1,-,-,-,lock,neither,-,-,-,-,-,1,1,3
 131245,CogSpore-Siect-F,c,enemy-split,stunned,1,1,-,-,-,first,neither,-,-,-,-,-,1,1,31
-131245,CogSpore-Siect-F,c,enemy-split,rest<5,1,1,-,-,-,first,enemy,other,LR,0,1,0,1,1,1
-131245,CogSpore-Siect-F,c,enemy-split,rest<5,1,0,-,-,-,first,enemy,<4,UD,0,0,1,1,1,1
+131245,CogSpore-Siect-F,c,enemy-split,rest<5,1,1,-,-,-,first,enemy,other,LR,0,1,1,1,1,1
+131245,CogSpore-Siect-F,c,enemy-split,rest<5,1,0,-,-,-,first,enemy,<4,UD,0,0,0,1,1,1
 131245,CogSpore-Siect-F,b,our-split,-,0,-,rule4,none,side,first,we,-,-,-,-,-,0,1,1
 131245,CogSpore-Siect-F,b,enemy-split,none-other,0,1,-,-,-,first,enemy,<4,UD,0,0,1,1,1,1
 131245,CogSpore-Siect-F,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,<4,LR,0,0,0,1,1,1
@@ -9283,7 +9277,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,b,enemy-split,hold,1,1,-,-,-,first,enemy,5-15,LR,1,1,1,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,stunned,1,1,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-move,acted,0,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,9
-131276,CogSpore - VarSi,a,enemy-split,hold,0,0,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
+131276,CogSpore - VarSi,a,enemy-split,hold,0,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,acted,1,0,-,-,-,first,enemy,=4,UD,0.5,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,acted,1,1,-,-,-,first,enemy,other,LR,0,-,-,1,1,2
 131276,CogSpore - VarSi,b,enemy-move,acted,1,0,-,-,-,first,enemy,<4,UD,0,-,-,1,1,1
@@ -9298,7 +9292,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,b,enemy-move,acted,1,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,acted,1,0,-,-,-,first,neither,-,-,-,-,-,1,1,2
 131276,CogSpore - VarSi,a,enemy-split,acted,1,1,-,-,-,lock,enemy,other,LR,0,-,-,0,0,1
-131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
+131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,4
 131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,1,1,3
 131276,CogSpore - VarSi,b,our-split,-,1,-,gate,stale,side,first,enemy,other,UD,0,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,?,1,0,-,-,-,first,neither,-,-,-,-,-,1,1,1
@@ -9341,7 +9335,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,b,enemy-split,acted,0,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,2
 131276,CogSpore - VarSi,b,enemy-split,acted,0,0,-,-,-,first,enemy,other,UD,0,-,-,0,0,1
 131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,5
-131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,3
 131276,CogSpore - VarSi,b,enemy-move,?,0,0,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,15
 131276,CogSpore - VarSi,b,enemy-split,rest<5,1,0,-,-,-,first,enemy,other,UD,0,0,0,0,0,1
@@ -9373,7 +9366,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,b,enemy-split,stunned,1,0,-,-,-,lock,enemy,other,UD,0,-,-,1,1,1
 131276,CogSpore - VarSi,b,enemy-split,stunned,1,1,-,-,-,lock,enemy,other,LR,0,-,-,1,1,2
 131276,CogSpore - VarSi,b,our-move,-,0,-,-,-,-,first,enemy,other,LR,0,-,-,1,1,3
-131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,2
+131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,LR,0,1,1,0,0,3
 131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,lock,enemy,other,LR,0,0,0,0,0,1
 131276,CogSpore - VarSi,b,our-split,-,1,-,rule4,valid,ahead,lock,we,-,-,-,-,-,0,0,1
 131276,CogSpore - VarSi,b,our-split,-,0,-,rule4,none,ahead,first,enemy,other,UD,0,-,-,0,0,1
@@ -9494,7 +9487,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,b,enemy-split,stunned,1,1,-,-,-,lock,neither,-,-,-,-,-,0,1,1
 131276,CogSpore - VarSi,b,enemy-split,stunned,1,0,-,-,-,lock,neither,-,-,-,-,-,0,1,1
 131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,0,1
-131276,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,LR,0,1,0,0,0,1
 131276,shrimp,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,LR,0,0,0,0,0,1
 131276,CogSpore - VarSi,b,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,1,1
 131276,CogSpore - VarSi,c,enemy-split,acted,1,0,-,-,-,lock,enemy,=4,UD,0,-,-,1,1,1
@@ -9555,7 +9547,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,c,enemy-move,acted,1,0,-,-,-,first,neither,-,-,-,-,-,1,1,2
 131276,CogSpore - VarSi,c,enemy-move,?,0,0,-,-,-,first,enemy,=4,UD,0.5,-,-,1,1,2
 131276,shrimp,b,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,UD,1,1,1,0,0,1
-131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,UD,1,0,1,0,0,1
+131276,CogSpore - VarSi,b,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,UD,1,0,0,0,0,1
 131276,CogSpore - VarSi,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,UD,1,1,1,1,1,3
 131276,CogSpore - VarSi,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,1,1,1
 131276,CogSpore - VarSi,c,enemy-split,stunned,1,0,-,-,-,lock,enemy,5-15,LR,0,-,-,1,1,5
@@ -9577,7 +9569,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,c,enemy-split,rest<5,1,1,-,-,-,first,enemy,5-15,LR,1,1,1,1,1,1
 131276,CogSpore - VarSi,c,enemy-split,?,0,0,-,-,-,first,enemy,5-15,UD,1,-,-,1,1,1
 131276,CogSpore - VarSi,c,enemy-split,acted,0,1,-,-,-,first,enemy,=4,UD,0.5,-,-,0,0,3
-131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,=4,UD,0.5,0,0,0,0,3
+131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,=4,UD,0.5,0,0,0,0,4
 131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,4
 131276,shrimp,c,enemy-split,acted,1,1,-,-,-,lock,enemy,other,LR,0,-,-,0,0,1
 131276,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,first,we,-,-,-,1,1,0,0,6
@@ -9629,7 +9621,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,we,-,-,-,0,0,0,0,2
 131276,CogSpore - VarSi,c,enemy-split,acted,0,1,-,-,-,first,we,-,-,-,-,-,0,0,6
 131276,CogSpore - VarSi,c,enemy-split,stunned,1,1,-,-,-,first,enemy,=4,UD,0.5,-,-,0,0,1
-131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,=4,UD,0.5,0,1,0,0,1
 131276,CogSpore - VarSi,c,enemy-split,hold,0,1,-,-,-,lock,enemy,5-15,UD,0,1,1,0,0,1
 131276,CogSpore - VarSi,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,0,0,4
 131276,CogSpore - VarSi,c,enemy-split,acted,1,0,-,-,-,lock,neither,-,-,-,-,-,1,1,1
@@ -9655,7 +9646,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,enemy,5-15,LR,1,0,0,0,0,3
 131276,CogSpore - VarSi,c,enemy-split,hold,0,0,-,-,-,first,we,-,-,-,0,0,0,1,1
 131276,CogSpore - VarSi,c,our-split,-,1,-,gate,valid,ahead,lock,enemy,=4,UD,0,-,-,0,0,9
-131276,CogSpore - VarSi,c,enemy-split,hold,1,1,-,-,-,lock,enemy,5-15,UD,0,1,0,0,1,1
+131276,CogSpore - VarSi,c,enemy-split,hold,1,1,-,-,-,lock,enemy,5-15,UD,0,1,1,0,1,1
 131276,CogSpore - VarSi,c,enemy-split,hold,1,0,-,-,-,lock,we,-,-,-,0,0,0,1,2
 131276,CogSpore - VarSi,c,enemy-split,stunned,1,0,-,-,-,lock,enemy,other,LR,0,-,-,1,1,1
 131276,CogSpore - VarSi,c,enemy-split,hold,1,1,-,-,-,first,enemy,=4,UD,0.5,1,1,1,1,3
@@ -9961,7 +9952,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131312,CogSpore - VarSi,b,enemy-split,rest<5,0,1,-,-,-,first,enemy,=4,UD,0.5,1,1,1,1,2
 131312,shrimp,a,enemy-split,acted,1,1,-,-,-,lock,enemy,other,UD,0,-,-,0,0,1
 131312,CogSpore - VarSi,b,our-move,-,0,-,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
-131312,CogSpore - VarSi,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,UD,0,0,1,1,1,1
+131312,CogSpore - VarSi,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,UD,0,0,0,1,1,1
 131312,CogSpore - VarSi,b,enemy-split,stunned,1,1,-,-,-,first,neither,-,-,-,-,-,1,1,1
 131312,shrimp,b,our-move,-,1,-,-,-,-,first,neither,-,-,-,-,-,1,1,1
 131312,shrimp,b,enemy-split,acted,1,0,-,-,-,first,enemy,other,LR,0,-,-,1,1,1
@@ -10545,7 +10536,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,Sho,b,our-move,-,0,-,-,-,-,first,we,-,-,-,-,-,0,0,2
 131332,Sho,b,our-split,-,0,-,rule4,stale,ahead,first,we,-,-,-,-,-,0,0,2
 131332,Colossus,b,our-move,-,0,-,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
-131332,Sho,b,enemy-split,none-other,0,0,-,-,-,lock,we,-,-,-,0,1,0,0,1
+131332,Sho,b,enemy-split,none-other,0,0,-,-,-,lock,we,-,-,-,0,0,0,0,1
 131332,Sho,b,enemy-move,rest<5,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,2
 131332,Sho,b,our-split,-,0,-,rule4,valid,ahead,lock,we,-,-,-,-,-,0,0,4
 131332,Sho,b,enemy-split,?,0,0,-,-,-,first,we,-,-,-,-,-,0,0,1
@@ -10600,7 +10591,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,CogSpore-Siect-F,c,our-split,-,0,-,rule4,none,ahead,first,enemy,5-15,UD,1,-,-,1,1,2
 131332,CogSpore-Siect-F,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,UD,0,-,-,1,1,2
 131332,CogSpore-Siect-F,c,enemy-split,hold,0,1,-,-,-,first,enemy,<4,UD,0,1,1,1,1,15
-131332,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,0,1,1,1
+131332,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,1,1,2
 131332,Sho,c,enemy-split,stunned,1,1,-,-,-,lock,neither,-,-,-,-,-,1,1,1
 131332,CogSpore-Siect-F,c,enemy-split,acted,1,0,-,-,-,lock,enemy,5-15,UD,0,-,-,1,1,1
 131332,Colossus,c,enemy-split,acted,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,1,1,2
@@ -10615,7 +10606,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,UD,1,0,1,1,1,1
 131332,CogSpore-Siect-F,c,enemy-split,hold,1,1,-,-,-,first,neither,-,-,-,1,1,1,1,1
 131332,CogSpore-Siect-F,c,enemy-split,hold,1,0,-,-,-,first,enemy,5-15,LR,1,0,0,1,1,1
-131332,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,1,1,1
 131332,CogSpore-Siect-F,c,our-split,-,0,-,gate,stale,side,first,enemy,5-15,LR,1,-,-,1,1,1
 131332,CogSpore-Siect-F,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,<4,LR,0,0,0,1,1,1
 131332,Colossus,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,other,UD,0,-,-,1,1,1
@@ -10649,7 +10639,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,CogSpore-Siect-F,c,enemy-split,acted,0,0,-,-,-,first,enemy,other,UD,0,-,-,1,1,1
 131332,Colossus,c,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,LR,0,0,0,0,0,2
 131332,Sho,c,enemy-move,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,2
-131332,Sho,c,enemy-split,none-other,0,1,-,-,-,first,we,-,-,-,1,0,0,0,1
+131332,Sho,c,enemy-split,none-other,0,1,-,-,-,first,we,-,-,-,1,1,0,0,3
 131332,Sho,c,enemy-split,hold,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,3
 131332,Colossus,c,enemy-split,acted,1,1,-,-,-,lock,neither,-,-,-,-,-,0,0,12
 131332,Sho,c,enemy-split,hold,0,0,-,-,-,first,we,-,-,-,0,0,0,0,1
@@ -10672,8 +10662,8 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,Sho,c,our-split,-,1,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,5
 131332,Colossus,c,enemy-split,?,0,0,-,-,-,first,we,-,-,-,-,-,0,0,2
 131332,CogSpore-Siect-F,c,our-split,-,0,-,gate,valid,ahead,lock,enemy,<4,LR,0,-,-,1,1,2
-131332,CogSpore-Siect-F,c,enemy-split,rest<5,1,0,-,-,-,first,enemy,<4,UD,0,0,1,1,1,1
-131332,Colossus,c,enemy-split,rest<5,1,1,-,-,-,first,neither,-,-,-,1,0,1,1,1
+131332,CogSpore-Siect-F,c,enemy-split,rest<5,1,0,-,-,-,first,enemy,<4,UD,0,0,0,1,1,1
+131332,Colossus,c,enemy-split,rest<5,1,1,-,-,-,first,neither,-,-,-,1,1,1,1,1
 131332,CogSpore-Siect-F,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,5-15,UD,1,0,1,1,1,1
 131332,CogSpore-Siect-F,c,our-move,-,1,-,-,-,-,first,enemy,<4,UD,0,-,-,1,1,2
 131332,CogSpore-Siect-F,c,enemy-split,none-other,0,1,-,-,-,first,we,-,-,-,0,1,0,0,3
@@ -10692,7 +10682,6 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,CogSpore-Siect-F,c,our-split,-,1,-,gate,stale,ahead,first,neither,-,-,-,-,-,1,1,1
 131332,CogSpore-Siect-F,c,our-move,-,0,-,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,2
 131332,CogSpore-Siect-F,c,enemy-split,?,0,0,-,-,-,first,enemy,<4,UD,0,-,-,1,1,4
-131332,Sho,c,enemy-split,none-other,0,1,-,-,-,first,we,-,-,-,1,1,0,0,2
 131332,Colossus,c,enemy-split,rest<5,0,1,-,-,-,first,we,-,-,-,1,1,0,0,3
 131332,Colossus,c,our-split,-,0,-,gate,valid,ahead,lock,we,-,-,-,-,-,0,0,17
 131332,Sho,c,our-split,-,1,-,gate,valid,side,lock,neither,-,-,-,-,-,0,0,5
@@ -10799,14 +10788,13 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 131332,Colossus,c,enemy-split,?,1,0,-,-,-,first,neither,-,-,-,-,-,0,0,1
 131332,CogSpore-Siect-F,c,our-split,-,0,-,rule4,valid,ahead,lock,we,-,-,-,-,-,0,0,1
 131332,CogSpore-Siect-F,c,our-split,-,0,-,gate,stale,ahead,first,enemy,<4,UD,0,-,-,1,1,1
-131332,CogSpore-Siect-F,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,UD,0,1,1,1,1,2
+131332,CogSpore-Siect-F,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,UD,0,1,1,1,1,3
 131332,Colossus,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,5-15,LR,0,-,-,0,0,1
 131332,Colossus,c,enemy-split,none-other,0,1,-,-,-,lock,enemy,5-15,LR,0,1,1,0,0,2
 131332,Sho,c,our-split,-,0,-,gate,stale,side,first,we,-,-,-,-,-,0,0,1
 131332,Colossus,c,our-split,-,0,-,rule4,stale,ahead,first,enemy,5-15,UD,1,-,-,0,0,1
 131332,CogSpore-Siect-F,c,enemy-split,rest<5,1,1,-,-,-,first,enemy,5-15,UD,1,1,1,1,1,3
 131332,CogSpore-Siect-F,c,enemy-split,rest<5,1,0,-,-,-,first,neither,-,-,-,0,0,1,1,2
-131332,CogSpore-Siect-F,c,enemy-split,rest<5,0,1,-,-,-,first,enemy,<4,UD,0,1,0,1,1,1
 131332,Colossus,c,enemy-split,none-other,0,0,-,-,-,first,enemy,5-15,LR,1,0,0,0,0,1
 131332,CogSpore-Siect-F,c,enemy-split,acted,1,0,-,-,-,lock,neither,-,-,-,-,-,0,0,1
 131332,Sho,c,enemy-split,none-other,0,1,-,-,-,lock,we,-,-,-,1,1,0,0,1
@@ -11308,7 +11296,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 129255,medivac,b,enemy-split,rest<5,0,0,-,-,-,first,enemy,other,UD,0,0,1,0,0,1
 129255,medivac,b,our-split,-,0,-,rule4,valid,side,lock,we,-,-,-,-,-,0,0,1
 129255,medivac,b,enemy-split,hold,0,1,-,-,-,first,enemy,other,UD,0,1,1,0,1,1
-129255,medivac,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,UD,1,1,0,1,1,1
+129255,medivac,c,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,UD,1,1,1,1,1,1
 129255,medivac,c,enemy-split,stunned,1,0,-,-,-,lock,enemy,other,LR,0,-,-,1,1,1
 129255,medivac,c,enemy-split,stunned,1,1,-,-,-,lock,enemy,other,UD,0,-,-,1,1,1
 129255,medivac,c,enemy-split,acted,1,1,-,-,-,lock,enemy,other,LR,0,-,-,0,0,2
@@ -11820,7 +11808,7 @@ replay,rival,window,entered,prev,other,gatech,nbrule,nblock,nbplace,plan,result,
 129308,CogSpore - VarSi,c,enemy-split,acted,0,0,-,-,-,first,enemy,5-15,LR,1,-,-,1,1,1
 129308,CogSpore - VarSi,b,enemy-split,hold,0,1,-,-,-,first,enemy,5-15,LR,1,1,1,0,0,1
 129308,CogSpore - VarSi,b,our-move,-,0,-,-,-,-,first,enemy,5-15,LR,1,-,-,0,0,1
-129308,Conviction,b,enemy-move,hold,0,0,-,-,-,first,we,-,-,-,0,1,0,0,1
+129308,Conviction,b,enemy-move,hold,0,0,-,-,-,first,we,-,-,-,0,0,0,0,1
 129308,Conviction,b,enemy-move,none-other,0,1,-,-,-,first,we,-,-,-,0,1,0,0,1
 129308,Conviction,b,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,0,1,1
 129308,Conviction,b,enemy-split,hold,0,0,-,-,-,lock,we,-,-,-,0,0,1,1,1
