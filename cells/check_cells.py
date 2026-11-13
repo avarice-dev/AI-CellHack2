@@ -585,6 +585,8 @@ def diff_bane2(blob, ref='bane2'):
                                     mref[0], mref[1] = mspec[0], mspec[1]
                                     if queue:
                                         mref[8:16] = struct.pack('<Q', QS[n % len(QS)])
+                                    elif ref == 'bane3':                # v2.3a: [2] action, [3] square
+                                        mref[3], mref[2] = LOCKS[n % len(LOCKS)]
                                     else:
                                         mref[2], mref[3] = LOCKS[n % len(LOCKS)]
                                     px = pos[0] if mspec[2] else pos[0] + 5
@@ -763,6 +765,34 @@ def main():
             if have_uc:
                 diff_bane2(blob)
                 diff_schism(blob, cells_ref.bane2)                    # Schism's boxed paths (Bane's)
+        elif name == 'bane3':
+            import gen_bane3
+            import gen_sprint
+            import cells_ref
+            check_scourge(blob, syms, lst)
+            if any(syms[k] % 16 for k in ('kZero', 'kNearLo', 'kNearHi')):
+                fail('bane3 kZero / kNearLo / kNearHi are not 16-byte aligned')
+            if open(p).read() != gen_bane3.generate():
+                fail('bane3.asm differs from gen_bane3.generate()')
+
+            def gate1(path):
+                txt = open(path).read()
+                a = txt.index('slow:')
+                return txt[txt.index('\n', a):txt.index('\tjz\t\tboxed')]
+            if gate1(p) != gate1(os.path.join(HERE, 'bane.asm')):
+                fail('bane3: gate-1 source differs from bane.asm')
+            nw = gen_sprint.N_MASKS
+            o = syms['lock2_tbl'] - CODE_BASE
+            if syms['lock2_tbl_end'] - syms['lock2_tbl'] != 2 * nw:
+                fail('bane3 lock2_tbl is not %d words' % nw)
+            want = gen_bane3.lock2_table()
+            if list(struct.unpack('<%dH' % nw, blob[o:o + 2 * nw])) != [want.get(m, 0) for m in range(nw)]:
+                fail('bane3 lock2_tbl words differ from gen_bane3.lock2_table()')
+            if blob[syms['dir_idx'] - CODE_BASE:syms['dir_idx'] - CODE_BASE + 4] != bytes(gen_bane3.B2.DIR_IDX):
+                fail('bane3 dir_idx bytes differ from gen_bane2.DIR_IDX')
+            if have_uc:
+                diff_bane2(blob, 'bane3')
+                diff_schism(blob, cells_ref.bane3)                    # Schism's boxed paths (Bane's)
         elif name == 'conviction':
             import gen_conviction
             import cells_ref

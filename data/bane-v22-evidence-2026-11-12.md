@@ -426,6 +426,11 @@ the game after them; "lost" side counts only won lock races where the enemy was 
   vs 21/23); overall 86% vs 92%.
 - v2.3a (first bite 11, all other non-lock paths -1, no behaviour change) gains at most 0-2.3% of early races and ~0
   later; it costs nothing measurable.
+- **Correction 2026-11-12 (built):** the 11 / -1 layout needs `cmove` (keeps al = 0 on a stored-bite miss), which is
+  not on the site allow-list (only cmova / cmovae are seen running). The built v2.3a (cells/gen_bane3.py) uses only
+  allowed instructions: stored-bite bytes swapped ([2] action, [3] square), one 16-bit load from lock2_tbl and one
+  16-bit store: **first bite 12, every other path unchanged** (slow path still starts at 10, stored bite 4). Its race
+  flips are at most the v2.3a column above (an 11-instruction enemy bite is now a tie, not a win).
 
 ## 16. Blind-queue sizing on our real bite chains (queue.csv, queue-summary.txt; scripts/queue.py, queue_sum.py)
 
