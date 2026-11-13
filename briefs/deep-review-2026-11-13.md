@@ -47,9 +47,13 @@ squares (m1, rule4 columns): dropped. Finding 2: the hold and the gate are one b
 ### Step 1. Stored bite written in advance (A)
 
 - **Where.** Every path that ends in a rest with an empty neighbour: the prey hold, the settled rest below 5 energy,
-  the blocked walker below 5. At `rest:` in `cells/bane2.asm`, `al` still holds gate 1's split choice.
-- **What.** If the stored square is empty, keep it (a killer keeps its bite on the square it emptied). Otherwise store
-  a bite on gate 1's first-choice square. 74% of enemy entries beside a holder go into that square (m-r1 2b).
+  the blocked walker below 5. Not the boxed or feed paths, which also reach `rest:`.
+- **What.** When gate 1 sees a refill pattern (an empty neighbour with an enemy beside or beyond it), store a bite on
+  gate 1's first-choice square. With no refill pattern, write nothing, so a killer keeps its bite on the square it
+  emptied. 74% of enemy entries beside a holder go into the first-choice square (m-r1 2b).
+- **Two traps (corrected 2026-11-13).** Do not test the stored square for "empty": CELL_EMPTY is 0 and so is "no
+  stored bite", and an inherited bite can point at any empty square, which would block the write for good. Take the
+  square from the gate table, not from `al`: at `rest:` `al` is 0 on the boxed path and a feed action on the feed path.
 - **Cost.** None on any racing path: stored bite 4, first bite 12, refill 16, split 16, walker move 39 do not change.
   A rest races nothing. Confidence 95% (source reading).
 - **Gain.** About 45 such contacts per game (holder or thin rester, no other enemy). First-order flips: 13.4% of
@@ -57,7 +61,10 @@ squares (m1, rule4 columns): dropped. Finding 2: the hold and the gate are one b
   suggests up to twice that (inferred). Works against every rival whose bite costs 4 or more. Confidence it helps: 85%.
 - **Tests** (each shown failing first on v2.3a):
   - unit, scripted enemy: an enemy enters the first-choice square of a holder; Bane's bite is logged at 4 instructions.
-  - unit: a killer keeps its stored bite on the emptied square.
+  - unit: a killer whose emptied square is the only refill square keeps its stored bite there.
+  - unit: a cell with no stored bite (byte 0) and a refill pattern stores one; a cell whose inherited bite points at
+    an empty square that is not a refill square stores one too.
+  - unit: boxed and feed paths store nothing.
   - integration, solo: runs from the 11 sampled squares are identical to v2.3a at every tick (cells and energy).
   - `check_cells`: path counts as listed above.
 
@@ -123,4 +130,5 @@ The evidence for that child: thin children with a valid stored bite are dead wit
 
 1. Build A now and bundle B into the same upload (recommended), or upload A first and B later (two rating restarts).
 2. Run the Siect-F refill-delay measure now.
-3. Can Sandbox games run against chosen ladder cells? If yes, compare v2.2 and v2.3 there before the upload.
+3. Sandbox games against ladder cells: settled, no (the standing rule against games with rivals). v2.3 is judged by
+   the replay measures after the upload.
