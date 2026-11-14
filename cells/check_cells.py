@@ -1019,13 +1019,13 @@ def misfortune_path_table(blob):
     return '\n'.join(['| path | asm | reference B1 | |', '|---|---|---|---|'] + rows)
 
 
-DEPRAVITY_K = ('kEnemy', 'kRefill', 'kZero', 'kTwoLo', 'kTwoHi', 'kNearLo', 'kNearHi', 'kOne')
+DEPRAVITY_K = MISFORTUNE_K + ('kOne',)
 
 
 def check_depravity(path, blob, syms, lst):
     """Depravity (spec shared/cellhack2/PLAN.md): generated source, aligned SSE constants, table bytes (pat1_tbl with the
     k = 0 stun-save row, k16_tbl te 0..255, pop8_tbl, arm_tbl), one FF 24 C5 jump, bite_tbl actions, constants
-    (HOLD_MIN 8, T_FEED 200), 0x67 on every esi-indexed operand and no rsi-indexed memory operand."""
+    (HOLD_MIN 8), Misfortune v2's cap B (cap_hit padding, kRing* / cap_tbl / c2e / c2z / ring / e6 / en_* bytes), 0x67 on every esi-indexed operand and no rsi-indexed memory operand."""
     import gen_depravity as D
     import gen_misfortune as M
     import gen_misfortune2 as G2
@@ -1035,10 +1035,16 @@ def check_depravity(path, blob, syms, lst):
         if syms[k] % 16:
             fail('depravity %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
     src = open(path).read()
-    for need in ('cmp\t\tesi, %d\n\tjae\t\thold_split' % D.HOLD_MIN,
-                 'cmp\t\tdword [rdi + VIEW_TICK], %d\n\tjae\t\tboxed_std' % D.T_FEED):
-        if need not in src:
-            fail('depravity: missing %r (HOLD_MIN / T_FEED)' % need)
+    need = 'cmp\t\tesi, %d\n\tjae\t\thold_split' % D.HOLD_MIN
+    if need not in src:
+        fail('depravity: missing %r (HOLD_MIN)' % need)
+    for bad in ('boxed_std', 'VIEW_TICK], 200', 'from T_FEED'):
+        if bad in src:
+            fail('depravity: %r present (no T_FEED gate allowed: standard boxed block from tick 0)' % bad)
+    if src.count('times 31 xor\t\tr11d, r11d') != 1 or syms['cap_hit'] > syms['boxed']:
+        fail('depravity: cap B cap_hit padding (80-instruction pull) missing or misplaced')
+    if 'cap B rule (branch-free)' not in src.split('\nboxed:\n', 1)[1][:200]:
+        fail('depravity: boxed: does not start with the cap B test')
 
     def tb(name, n):
         o = syms[name] - CODE_BASE
@@ -1047,7 +1053,13 @@ def check_depravity(path, blob, syms, lst):
             'pat1_tbl': b''.join(D.pattern_row(d, k) for d in range(4) for k in range(M.K_MAX + 1)),
             'k16_tbl': bytes(M.k_of(te) * 16 for te in range(256)),
             'pop8_tbl': bytes(bin(i).count('1') for i in range(256)),
-            'arm_tbl': b''.join(struct.pack('<Q', syms['arm_' + n.lower()]) for n in G2.ARM_STUBS)}
+            'arm_tbl': b''.join(struct.pack('<Q', syms['arm_' + n.lower()]) for n in G2.ARM_STUBS),
+            'c2e_tbl': b''.join(struct.pack('<H', 0x8000 if c == 2 else 0) for c in range(256)),
+            'c2z_tbl': b''.join(struct.pack('<H', 0x8000 if c == 0 else 0) for c in range(256)),
+            'ring_e': bytes(M.ring_e(m) for m in range(1024)), 'ring_z': bytes(M.ring_z(m) for m in range(1024)),
+            'e6_tbl': bytes(M.e6_value(e) for e in range(256)), 'cap_tbl': bytes(M.cap_action(i) for i in range(256))}
+    for d, n in enumerate(('en_up', 'en_right', 'en_down', 'en_left')):
+        want[n] = bytes(M.en_value(d, e) for e in range(256))
     for tname, w in want.items():
         if tb(tname, len(w)) != w:
             fail('depravity %s bytes differ from the generator' % tname)
@@ -1057,8 +1069,8 @@ def check_depravity(path, blob, syms, lst):
             fail('depravity k = 0 row of direction %d is not bytes 0, 2, 4 only: %s' % (d, row.hex()))
     ents = struct.unpack('<4Q', tb('arm_tbl', 32))
     stubs = [syms['arm_' + n.lower()] for n in G2.ARM_STUBS]
-    if list(ents) != stubs or len(set(stubs)) != 4 or not all(syms['arm'] < e < syms['boxed'] for e in ents):
-        fail('depravity arm_tbl entries are not the 4 distinct stubs between arm: and boxed:')
+    if list(ents) != stubs or len(set(stubs)) != 4 or not all(syms['arm'] < e < syms['cap_hit'] for e in ents):
+        fail('depravity arm_tbl entries are not the 4 distinct stubs between arm: and cap_hit:')
     jm = []
     for line in open(lst):
         parts = line.rstrip('\n').split(None, 3)
@@ -1088,8 +1100,8 @@ def check_depravity(path, blob, syms, lst):
             rsi_mem += 1
             fail('depravity: rsi-indexed memory operand: %r' % line.strip())
     print('  esi-indexed memory operands: %d, all with 0x67; rsi-indexed: %d; one FF 24 C5 jump; k16_tbl te 0..255; '
-          'k = 0 rows = bytes 0, 2, 4; HOLD_MIN %d, T_FEED %d; aligned SSE constants: %s'
-          % (esi_lines, rsi_mem, D.HOLD_MIN, D.T_FEED, ', '.join(DEPRAVITY_K)))
+          'k = 0 rows = bytes 0, 2, 4; HOLD_MIN %d; cap B tables + cap_hit padding present, no T_FEED; aligned SSE constants: %s'
+          % (esi_lines, rsi_mem, D.HOLD_MIN, ', '.join(DEPRAVITY_K)))
 
 
 def _dep_open_view(rng):
@@ -1107,7 +1119,7 @@ def diff_depravity(blob, n_per=400, seed=20261114, out=None):
     """Depravity vs sim/cells_ref.make_depravity(): energies 0..50 x random 64-byte memory x view kinds (bite, boxed,
     open, any, dir-open), chains on the memory an arming left, an arm sweep (4 directions x te 0..255 x energies) with
     the k = 0 stun-save chain, a hold sweep (enemy on a diagonal, e 4..16, ticks around 2980), a boxed sweep (ticks
-    around T_FEED = 200 x e 0..50) and a dir-open sweep.  Compares action, instruction count and memory bytes 0..63
+    ticks 0..2980 x e 0..50, cap B) and a dir-open sweep.  Compares action, instruction count and memory bytes 0..63
     (slot 50 == 0 after every arm); registers and xmm zero at entry."""
     import random
     import collections
@@ -1194,7 +1206,7 @@ def diff_depravity(blob, n_per=400, seed=20261114, out=None):
                     mem = bytearray(64)
                     mem[1] = steps
                     one(cells, ens, tick, (30, 31), energy, mem, 'hold sweep')
-    for energy in range(0, 51):                             # boxed sweep around T_FEED
+    for energy in range(0, 51):                             # boxed sweep (cap B, every tick the same)
         for tick in (0, 5, 199, 200, 201, 2980):
             for _ in range(6):
                 cells, ens, _t, pos = _mis_view(rng, 'boxed', energy)
