@@ -55,6 +55,10 @@ MODELS = {
     'AtomPush': ('ratompush[split_after=2,assist_min=6,feed_margin=4]', 'model'),     # R4 L6, fat economy
     'AtomCrasher': ('ratompush[split_after=2,assist_min=8,feed_margin=4]', 'model'),  # R4 L6, fat, feeds less
     'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=56,pad_bites_from=2]', 'model'),  # U4 R6, no feeding
+    # L2 rivals of the 2026-11-13 review (data/bane-v22-evidence-2026-11-12.md s12, replays of pulls 7-9):
+    'CogSpore-Siect-F': ('rsiectf[]', 'model'),   # Siect-F: bite <= 3 any direction, no feed
+    'CogSpore - VarSi': ('rvarsi[]', 'model'),    # VarSi: U/D 4, L/R 5-15, cap idle
+    'Colossus': ('rcolossus[]', 'model'),         # Colossus: bite 5, heavy feeding
     'Noob': ('hunter', 'rough'), 'squirtle': ('hunter', 'rough'), 'gemAlert_v3': ('hunter', 'rough'),
     'gemAlert_v4': ('hunter', 'rough'), 'Bulwark': ('hunter', 'rough'),
     'zergling': ('walker', 'rough'), 'choochoo': ('walker', 'rough'),

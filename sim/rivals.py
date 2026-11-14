@@ -47,6 +47,8 @@ Grow / feed tail (R-Lock5, R-Blind3):
     .rest: mov al, ACT_REST / ret                                                ; 2
 """
 
+import re
+
 from engine import ACT_REST, ACT_SPLIT, ACT_EAT, ACT_FEED, CELL_ENEMY, CELL_EMPTY, CELL_FRIEND
 from cells_ref import _sprint_bite
 
@@ -134,7 +136,7 @@ def parse_order(order):
     return tuple((NB[d], d) for d in ds)
 
 
-def _make_front(front, order, prearm):
+def _make_front(front, order, prearm, bite_costs=None):
     """front(c, mem) -> (action, n, alt) for a bite, or (None, n, alt) with the slow path's start count.
 
     'static' (measured on the ladder, data/ladder-data-2026-11-08.md section 4), Hunter-style:
@@ -152,6 +154,20 @@ def _make_front(front, order, prearm):
                     return ACT_EAT + d, n, alt
             return None, 8, 8
         return static_front
+    if front == 'costs':
+        # L2 rival models (Siect-F, VarSi, Colossus): measured bite cost per direction, e.g. 'U4D4L8R8' (checked in
+        # that order; the first enemy edge wins).  Cost n is a taken-jump count of n, alt n - 1.  A miss costs 8 / 8.
+        pairs = [(_DIR_CODE[m[0]], int(m[1:])) for m in re.findall(r'[UDLR]\d+', bite_costs or '')]
+        if sorted(d for d, _ in pairs) != [0, 1, 2, 3]:
+            raise ValueError("bite_costs like 'U4D4L9R9': each of U, D, L, R once, then its cost")
+        checks = tuple((NB[d], d, n, n - 1) for d, n in pairs)
+
+        def costs_front(c, mem):
+            for i, d, n, alt in checks:
+                if c[i] == CELL_ENEMY:
+                    return ACT_EAT + d, n, alt
+            return None, 8, 8
+        return costs_front
     if front == 'flat3':
         # hypothetical (R-Blind3): any adjacent enemy is bitten at 3 / 3, whatever its direction; no memory.
         # Several enemies: Sprint's priority.  A miss costs 8 / 8 like the static front.
@@ -300,7 +316,7 @@ def _padded(pol, pad, order='ULRD', bites_from=4):
 # ---- rival families ----------------------------------------------------------------------------------
 def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', split_min=5, feed_min=6,
                   feed_margin=2, feed_target_max=48, pump_min=16, pump_target_max=48, hold='view',
-                  target='richest', pad=0, split_after=None, pad_bites_from=4):
+                  target='richest', pad=0, split_after=None, pad_bites_from=4, bite_costs=None):
     """Brawler-like (Striker): static front U, L, R, D (4/6/8/10, measured), split at 5.
 
     feed='poorest': heavy feeding, cells with e >= feed_min feed the poorest friend neighbour when the
@@ -346,7 +362,7 @@ def make_rbrawler(order='ULRD', front='static', prearm=True, feed='poorest', spl
                 return ACT_REST, n + 2, alt + 2
             return _pump_tail(view, c, e, n, alt, pump_min, pump_target_max, hold, target)
         return _padded(rpump_sa, pad, order, pad_bites_from)
-    fr = _make_front(front, order, prearm)
+    fr = _make_front(front, order, prearm, bite_costs)
     if feed == 'poorest':
         def rbrawler(view, mem):
             c = view.cells
@@ -480,6 +496,36 @@ def make_rblindlock3(split_min=5, feed_min=6, feed_margin=2, feed_target_max=48)
     return rblindlock3
 
 
+def make_rsiectf(**kw):
+    """L2 rival Siect-F (ladder 'CogSpore-Siect-F'): bites in <= 3 in every direction (flat3 front, measured
+    data/bane-v22-evidence-2026-11-12.md s12), splits at 5, no feeding (fpe 0.2-1.2 in the replays, 0% early feed)."""
+    kw.setdefault('front', 'flat3')
+    kw.setdefault('feed_min', 99)
+    return make_rbrawler(**kw)
+
+
+def make_rvarsi(**kw):
+    """L2 rival VarSi ('CogSpore - VarSi'): UP / DOWN bites in exactly 4, LEFT / RIGHT in 5-15 (9 here), splits at
+    5, no early feeding, interior cells idle at the cap and only pump from >= 46 (cap idle 67-84%)."""
+    kw.setdefault('front', 'costs')
+    kw.setdefault('bite_costs', 'U4D4L9R9')
+    kw.setdefault('feed', 'pump')
+    kw.setdefault('hold', 'none')
+    kw.setdefault('pump_min', 46)
+    kw.setdefault('pump_target_max', 50)
+    return make_rbrawler(**kw)
+
+
+def make_rcolossus(**kw):
+    """L2 rival Colossus: bites in exactly 5 in every direction, splits at 5, heavy poorest-friend feeding from
+    low energy (feeds on about half of all cell-ticks from t30, bites refills in 94%)."""
+    kw.setdefault('front', 'costs')
+    kw.setdefault('bite_costs', 'U5D5L5R5')
+    kw.setdefault('feed_min', 3)
+    kw.setdefault('feed_margin', 1)
+    return make_rbrawler(**kw)
+
+
 # name -> factory(**params) -> policy.  Tuned variants via policies.get('rpump[pump_min=12]').
 FACTORIES = {
     'rbrawler': make_rbrawler,      # measured front U,L,R,D + poorest-friend feeding
@@ -489,6 +535,9 @@ FACTORIES = {
     'rfatgrab': make_rfatgrab,      # hypothetical: lock front + FatGrab economy
     'rblind3': make_rblind3,        # hypothetical: bites at 3 in every direction
     'rblindlock3': make_rblindlock3,  # hypothetical: blind lock (first bite 9, then 3, never exits)
+    'rsiectf': make_rsiectf,        # L2 calibrated: Siect-F (bite <= 3, no feed)
+    'rvarsi': make_rvarsi,          # L2 calibrated: VarSi (U/D 4, L/R 9, cap idle)
+    'rcolossus': make_rcolossus,    # L2 calibrated: Colossus (bite 5, heavy feed)
 }
 
 rbrawler = make_rbrawler()
