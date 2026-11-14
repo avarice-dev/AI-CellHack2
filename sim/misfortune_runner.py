@@ -97,7 +97,12 @@ class Meter(object):
         self.eng = None
 
         def wrapped(view, mem):
+            st = mem[2] if getattr(self.sub, 'refill', None) else 0
             r = self.sub(view, mem)
+            if st and r[1] != 2:                   # checked refill: a stored dir met a slow path
+                self.c['refill_stored'] += 1
+                if r[1] == C.DEPRAVITY_FIRE_N and r[0] & 0xF0 == E.ACT_SPLIT:
+                    self.c['refill_fired'] += 1
             cl = view.cells
             con = any(cl[E.VIEW_DIR[d]] == E.CELL_ENEMY for d in range(4))
             n, a = r[1], r[0]

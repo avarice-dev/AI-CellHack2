@@ -800,21 +800,15 @@ def misfortune_pattern(e0, d, te, exact, cap):
     return {b: v for b, v in out.items() if b < 64}
 
 
-DEPRAVITY_MIN = 12                           # armed refill: own energy e0 >= 12 (below it a split's half can land on its slots)
-DEPRAVITY_SPLITS = (-1, 1, 2)                # slots e0 + x armed SPLIT + d; EAT + d at e0 - 2 and e0 - 4; 0 elsewhere
-DEPRAVITY_EATS = (-4, -2)
-
-
-def depravity_pattern(e0, d):
-    """{memory byte: value} of the armed-refill row (target at <= 2 energy, e0 >= 12): the 16-byte store at bytes
-    9 + e0 .. 24 + e0 (slots e0 - 4 .. e0 + 11), then slot 50 (byte 63) = 0.  Bytes > 63 dropped."""
-    out = {MISFORTUNE_SLOT0 + s: 0 for s in range(e0 - MISFORTUNE_LOW, e0 + MISFORTUNE_HIGH + 2)}
-    for x in DEPRAVITY_EATS:
-        out[MISFORTUNE_SLOT0 + e0 + x] = ACT_EAT + d
-    for x in DEPRAVITY_SPLITS:
-        out[MISFORTUNE_SLOT0 + e0 + x] = ACT_SPLIT + d
-    out[MISFORTUNE_SLOT0 + 50] = 0
-    return {b: v for b, v in out.items() if b < 64}
+DEPRAVITY_MIN = 12                           # checked refill: own energy >= 12 (the parent stays strong)
+DEPRAVITY_BYTE = 2                           # byte 2 = SPLIT + d of the last bite (0 = none); free in Misfortune
+DEPRAVITY_FIRE_N = 13                        # prefix 4 + or, jz, movzx, cmp, jnz, cmp, jb, mov, ret
+# Asm count of the checked refill (assumed layout: byte 2 = action SPLIT + d, byte 3 = view index of that square,
+# written as one word by `mov ax, [tbl + rcx*2]` / `mov [mem+2], ax` = +2 on the biting path):
+#   after the prefix (entry 2 + prefix 2): or al, [mem+2] / jz normal (none: +2, jz taken) / movzx edx, [mem+3] /
+#   cmp byte [view + rdx], 0 / jnz clear (square taken) / cmp esi, 12 / jb clear / mov byte [mem+2], 0 / ret (fires: 13
+#   in all, no taken jump).  clear: mov byte [mem+2], 0 / xor eax, eax, then the normal path (square taken: +7;
+#   e < 12: +9).  The check reads the snapshot, so a SPLIT never goes into an occupied square.
 
 
 def misfortune_cap_rule(view, cap):
@@ -842,11 +836,13 @@ def misfortune_cap_rule(view, cap):
     return None, tested, taken
 
 
-def make_misfortune(cap='B', exact=1, refill=False, **kw):
+def make_misfortune(cap='B', exact=1, refill=None, **kw):
     if cap not in ('A', 'B', 'N'):
         raise ValueError("cap must be 'A', 'B' or 'N'")
     if exact not in (0, 1):
         raise ValueError('exact must be 0 or 1')
+    if refill not in (None, 'checked'):
+        raise ValueError("refill must be None or 'checked'")
     core = make_bane2(**kw).core
     bite_n = MISFORTUNE_BITE_N[(exact, cap)]
 
@@ -857,21 +853,29 @@ def make_misfortune(cap='B', exact=1, refill=False, **kw):
             return a, 2, 1                         # or al, [slot] / jnz EXIT (taken)
         misfortune_prefix(mem)
         c = view.cells
+        ex_n = ex_t = 0                            # checked-refill extras on the paths that do not fire
+        if refill:
+            st = mem[DEPRAVITY_BYTE]
+            if not st:
+                ex_n, ex_t = 2, 1                  # or al, [mem+2] / jz normal (taken)
+            else:
+                mem[DEPRAVITY_BYTE] = 0            # fired or cleared; a child copies the cleared byte
+                if c[VIEW_DIR[st & 3]] == CELL_EMPTY and e >= DEPRAVITY_MIN:
+                    return st, DEPRAVITY_FIRE_N, DEPRAVITY_FIRE_N
+                ex_n, ex_t = (7, 1) if c[VIEW_DIR[st & 3]] != CELL_EMPTY else (9, 1)
         act, n, t = core(view, mem)
         if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
             d = act & 3
             mem[MISFORTUNE_E0] = e
             te = view.energies[VIEW_DIR[d]] & 63
             pat = misfortune_pattern(e, d, te, exact, cap)
-            extra = 0
-            if refill and exact and (te + 1) // 2 - 1 <= 0:
-                extra = 2                          # cmp esi, DEPRAVITY_MIN / jb skip (assumed; the row is a table row)
-                if e >= DEPRAVITY_MIN:
-                    pat = depravity_pattern(e, d)
             for k, v in pat.items():
                 mem[k] = v
-            return act, bite_n + extra, bite_n + extra - 1         # jnz arm taken
-        n, t = n + MISFORTUNE_PREFIX_N, t + MISFORTUNE_PREFIX_N
+            if refill:
+                mem[DEPRAVITY_BYTE] = ACT_SPLIT + d
+                return act, bite_n + ex_n + 2, bite_n + ex_n + 2 - 1 - ex_t   # 2 more for the word store
+            return act, bite_n, bite_n - 1         # jnz arm taken
+        n, t = n + MISFORTUNE_PREFIX_N + ex_n, t + MISFORTUNE_PREFIX_N + ex_n - ex_t
         if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
             return act, n, t
         rule, tested, taken = misfortune_cap_rule(view, cap)
@@ -884,11 +888,11 @@ def make_misfortune(cap='B', exact=1, refill=False, **kw):
 
 
 def make_depravity(**kw):
-    """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the armed refill (planned, no asm yet)."""
+    """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the CHECKED refill (planned, no asm yet)."""
     kw.setdefault('hold', 'split')
     kw.setdefault('hold_min', 10)
-    p = make_misfortune(cap='B', exact=1, refill=True, **kw)
-    p.refill = True
+    p = make_misfortune(cap='B', exact=1, refill='checked', **kw)
+    p.refill = 'checked'
     return p
 
 
