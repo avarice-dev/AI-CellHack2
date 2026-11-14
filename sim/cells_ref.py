@@ -512,8 +512,19 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
                 return split, n + 4, n + 2
             mem[1] = 0
             return split, n + 6, n + 5
+        if near and hold == 'off' and hold_min <= SPRINT_SPLIT_MIN:
+            # asm (gen_misfortune2, hold = 'off' from 5): threat: cmp esi, 5 / jae resume (+2); resume = the dispersal logic
+            # at `mov ecx, [VIEW_X]` (a walker is NOT stopped).  e < 5: mov steps, 0 / mov al, ACT_REST / ret (the dead
+            # cmp / jb / late-split tests are not in the asm)
+            n += 2
+            if e >= hold_min:
+                near = False
+                t += 2                             # jnz threat, jae resume (both taken)
+            else:
+                mem[1] = 0
+                return ACT_REST, n + 3, n + 3 - (t + 1)
         if near and hold == 'off' and e >= hold_min:
-            near = False                           # probe: no hold, the dispersal logic runs
+            near = False                           # probe (hold_min > 5, no asm): no hold, the dispersal logic runs
         if near and hold == 'split':
             n += 2                                 # asm: the cmp esi, hold_min / jae (not taken) in front of every hold path
         if near:                                   # v2.2: the hold needs an enemy in the 3x3
@@ -781,6 +792,7 @@ MISFORTUNE_FEED_MIN = SCHISM_FEED_MIN
 MISFORTUNE_PREFIX_N = 4                      # entry 2 + prefix 2
 MISFORTUNE_BITE_N = {(0, 'A'): 19, (0, 'B'): 16, (0, 'N'): 16, (1, 'A'): 22, (1, 'B'): 19, (1, 'N'): 19}
 MISFORTUNE_PULL_N = 80
+MISFORTUNE_FEED_PAD = 6                      # asm: times 6 xor r11d, r11d on feed_up/right/down/left and the fallback ret
 MISFORTUNE_RING = _RING
 
 
@@ -843,11 +855,10 @@ def misfortune_cap_rule(view, cap):
     return None, tested, taken
 
 
-# Armed-children extra instructions (ESTIMATES until the asm exists; order = proven-near? -> e & 3 == 1 -> scan -> store):
-ARMCHILD_FLAG_N = 2        # test of the near-enemy flag the path already holds (Gate 1's window mask / the threat path's 5x5 test): test + jz
-ARMCHILD_MOD4_N = 3        # e & 3 == 1 without clobbering esi: lea edx, [rsi - 1] / test dl, 3 / jnz skip
-ARMCHILD_SCAN_N = 8        # which of the child's three squares holds an enemy (reuses the loaded windows / compares), bite priority
-ARMCHILD_STORE_N = 10      # byte 8 = child energy + the exact-0 pattern row store
+# Armed-children block `child` of the asm (gen_misfortune2): instructions from its label to the exit (counts in make_misfortune).
+ARMCHILD_N_MOD = 3         # e & 3 != 1: lea, test, jnz EXIT (taken)
+ARMCHILD_N_NONE = 10       # e & 3 == 1, no enemy beside the child: + 7 (window scan, bite_tbl, test, jz EXIT taken)
+ARMCHILD_N_ARM = 16        # an enemy beside the child: arm (shr, mov [8], shl, movdqu, movdqu store, ret)
 _CHILD_OFF = (-5, 1, 5, -1)  # view index step to the neighbour UP, RIGHT, DOWN, LEFT of a square
 
 
@@ -906,38 +917,49 @@ def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, armed_children
             # armed child: the engine gives the child e // 2 and the parent the rest, and copies the memory after this call.
             # e = 1 mod 4: child c = (e - 1) // 2 is even, the parent after the split (c + 1) and the parent after a FAILED
             # split (target taken at execution: it keeps e = 2c + 1) are both odd.  The child's slots sit on even energies
-            # (c - 4 .. c + 10, step 2), so the parent (energy changes -2 bitten, +2 fed) never reads one, and its next call
-            # is a slow path whose prefix zeroes the window at byte 8 = c.  The child's own copy stays armed.
-            # (e = 3 mod 4 would put the slots on odd energies: a failed split could then read one, so those stay unarmed.)
+            # (c - 4 .. c + 10, step 2), so the parent never reads one at its next call, whose prefix zeroes the window at
+            # byte 8 = c.  The child's own copy stays armed.  (e = 3 mod 4 would put the slots on odd energies.)
+            # asm (gen_misfortune2, block `child`): gate 1 reaches it by `jae child` (already in n); the emit paths fall into it
+            # in place of their `ret` (-1).  lea edx, [rsi + 3] / test dl, 3 / jnz EXIT (e & 3 != 1): 3.  Else
+            # movzx edx, [cbase_tbl + al] / movdqu xmm0 (the child's 4 neighbours, window s - 5) / pcmpeqb / pmovmskb /
+            # movzx edx, [bite_tbl + rcx] / test / jz EXIT (no enemy beside the child): 10.  Else shr esi, 1 / mov [8], sil /
+            # shl edx, 4 / movdqu xmm1, [cpat_tbl] / movdqu [esi + 9 + MEM], xmm1 / ret: 16.  Slot 50 (byte 63) is not
+            # written (cap B keeps it 0, and the child's slots end at byte 49).
             s_ = VIEW_DIR[act & 3]
             near = {d for d in range(4) if 0 <= s_ + _CHILD_OFF[d] < 25 and c[s_ + _CHILD_OFF[d]] == CELL_ENEMY}
-            # cheap tests first: an enemy the path already proved near costs 0, otherwise the path's own near flag costs 2
             empty = [d for d in SPRINT_SPLIT_PRIO if c[VIEW_DIR[d]] == CELL_EMPTY]
             freed = [d for d in empty if any(c[i] == CELL_ENEMY for i in SCOURGE_FREED_BY[d])]
             gate1 = e >= (min(refill_min, threat_min) if freed else threat_min)
-            proven = bool(freed) if gate1 else (hold == 'split' and e >= hold_min
-                                                and any(c[i] == CELL_ENEMY for i in BANE2_NEAR))
-            add = 0 if proven else ARMCHILD_FLAG_N
-            armed = False
-            if proven or any(c[i] == CELL_ENEMY for i in range(25) if i != 12):
-                add += ARMCHILD_MOD4_N
-                if e & 3 == 1:
-                    add += ARMCHILD_SCAN_N
-                    if near:
-                        child = e // 2
-                        for k_, v_ in misfortune_pattern(child, _sprint_bite(near), 0, 0, cap).items():
-                            mem[k_] = v_
-                        mem[MISFORTUNE_E0] = child
-                        add += ARMCHILD_STORE_N
-                        armed = True
+            armed, taken_c = False, 1
+            allodd = armed_children == 'allodd'           # variant (no asm yet): arm on every odd e, k by energy
+            if (e & 1 == 0) if allodd else (e & 3 != 1):
+                cn = ARMCHILD_N_MOD - allodd
+            elif not near:
+                cn = ARMCHILD_N_NONE - allodd
+            else:
+                cn = ARMCHILD_N_ARM + allodd
+                child = e // 2
+                if allodd and e & 3 == 3 and e < 23:
+                    kk = (e - 3) // 4                      # c + 2k <= e - 2: a failed split (parent keeps e) stays above the slots
+                    pat = misfortune_pattern(child, _sprint_bite(near), 2 * kk + 1, 1, cap)
+                else:
+                    pat = misfortune_pattern(child, _sprint_bite(near), 0, 0, cap)
+                for k_, v_ in pat.items():
+                    if k_ != MISFORTUNE_SLOT0 + 50:
+                        mem[k_] = v_
+                mem[MISFORTUNE_E0] = child
+                armed, taken_c = True, 0
             misfortune.last = (bool(near), armed)
-            n, t = n + add, t + add
+            base_n, base_t = (n, t) if gate1 else (n - 1, t)
+            n, t = base_n + cn, base_t + cn - taken_c
         if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
             return act, n, t
         rule, tested, taken = misfortune_cap_rule(view, cap)
         if rule is not None:
             pull = MISFORTUNE_PULL_N + (ex_n - 2 if refill else 0)    # asm pad is fixed: 80 when ex_n = 2
             return rule, pull, pull - taken - 1
+        if armed_children and act & 0xF0 == ACT_FEED:   # Schism's boxed feed (feed_X / fallback): padded, runs after every armed-child split
+            return act, n + tested + MISFORTUNE_FEED_PAD, t + tested - taken + MISFORTUNE_FEED_PAD
         return act, n + tested, t + tested - taken
     misfortune.core = core
     misfortune.cap, misfortune.exact = cap, exact
@@ -951,6 +973,11 @@ def make_misfortune2(**kw):
     p = make_misfortune(cap='B', exact=1, refill='checked', **kw)
     p.refill = 'checked'
     return p
+
+
+def make_misfortune2_ac1(**kw):
+    """AC1 = cells/misfortune2.asm: the checked refill + hold 'off' from 5 + armed children (asm-true counts)."""
+    return make_misfortune2(armed_children=True, hold='off', hold_min=SPRINT_SPLIT_MIN, **kw)
 
 
 misfortune = make_misfortune()

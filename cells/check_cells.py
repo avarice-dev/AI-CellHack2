@@ -713,6 +713,8 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
     for d, n in enumerate(('en_up', 'en_right', 'en_down', 'en_left')):
         want[n] = bytes(M.en_value(d, e) for e in range(256))
     if G2:
+        want['cbase_tbl'] = bytes(G2.VIEW_CELLS + i - 5 for i in G2.B2.DIR_IDX)
+        want['cpat_tbl'] = b''.join(M.pattern_row(d, M.K_MAX) for d in range(4))
         want['row4_tbl'] = b''.join(struct.pack('<I', G2.row4_value(i)) for i in range(1024))
     else:
         want['row_tbl'] = bytes(M.row_index(i >> 2, i & 3) for i in range(1024))
@@ -797,12 +799,13 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
     import collections
     import cells_ref
     v2 = name == 'misfortune2'
-    pol = cells_ref.make_misfortune2() if v2 else cells_ref.make_misfortune(cap='B', exact=1)
+    pol = cells_ref.make_misfortune2_ac1() if v2 else cells_ref.make_misfortune(cap='B', exact=1)
     r = Runner(blob)
     rng = random.Random(seed)
     n = mism = 0
     paths = collections.Counter()
     maxn = collections.Counter()
+    chain = []                                              # (memory after an armed-child split, parent energy before it)
 
     def one(cells, ens, tick, pos, energy, mem, label):
         nonlocal n, mism
@@ -828,6 +831,12 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
           kind = ('armed' if want[1] == 2 else 'arm' if want[1] == 19 and want[0] >> 4 == 3 and mem[13 + energy] == 0
                 and any(cells[i] == 2 for i in (7, 13, 17, 11)) else
                 'cap rule' if want[1] == 80 else label)
+        if v2 and want[0] & 0xF0 == 0x20 and not mem[13 + energy] and got == want:
+            last = getattr(pol, 'last', None)           # (enemy beside the child, armed) of this split call
+            if last is not None:
+                kind = 'split+child arm' if last[1] else 'split, e&3 != 1' if energy & 3 != 1 else 'split, child unarmed'
+                if last[1]:
+                    chain.append((bytes(gmem), energy))
         paths[(kind, want[1])] += 1
         maxn[kind] = max(maxn[kind], want[1])
         return gmem, want
@@ -845,6 +854,12 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
                 e1 = max(0, min(50, energy + rng.randint(-4, 11)))
                 c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), e1)
                 one(c2, en2, t2, p2, e1, bytearray(gmem), 'chain')
+            while chain:                                    # armed-child follow-ups: the child (c - 4 .. c + 11) and the parent (c + 1)
+                cm, pe = chain.pop()
+                c = pe // 2
+                for e1 in {max(0, min(50, c + rng.randint(-4, 11))), c - 4 if c > 4 else 0, c, c + 2, c + 10, c + 1, pe - c, max(0, c - 1)}:
+                    c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), e1)
+                    one(c2, en2, t2, p2, e1, bytearray(cm), 'child chain')
     if v2:                                                  # refill sweep: stored dir x square occupant x energy x enemy
         for d in range(4):
             for occ in (0, 1, 2, 3):
@@ -864,6 +879,47 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
                         mem[8] = rng.randint(0, 50)
                         mem[2], mem[3] = G2_STATE(d)
                         one(cells, ens, rng.choice((0, 500, 2980)), (30, 31), energy, mem, 'refill')
+    if v2:                                                  # armed-child sweep: split direction x energy x enemies beside the child
+        child_sq = {0: (2, 8, 6), 1: (8, 14, 18), 2: (18, 22, 16), 3: (6, 10, 16)}      # the child's 3 outer neighbours (UP, RIGHT, DOWN, LEFT of s)
+        for d in range(4):
+            for energy in range(5, 51):
+                for sub in range(8):
+                    for variant in range(3):
+                        cells, ens = [0] * 25, [0] * 25
+                        cells[12] = 1
+                        for i in (7, 13, 17, 11):
+                            if i != (7, 13, 17, 11)[d] and variant == 1:
+                                cells[i] = rng.choice((0, 1, 3))
+                        for j, sq in enumerate(child_sq[d]):
+                            if sub >> j & 1:
+                                cells[sq] = 2
+                            elif variant == 2:
+                                cells[sq] = rng.choice((0, 1, 3))
+                        if variant == 2:
+                            for sq in rng.sample(range(25), 3):
+                                if sq != 12 and sq != (7, 13, 17, 11)[d] and sq not in child_sq[d]:
+                                    cells[sq] = rng.choice((0, 1, 2, 3))
+                        # the split must be into direction d: make the other neighbours non-empty unless variant 0
+                        if variant != 0:
+                            for dd, i in enumerate((7, 13, 17, 11)):
+                                if dd != d and cells[i] == 0 and rng.random() < 0.7:
+                                    cells[i] = 1
+                        cells[(7, 13, 17, 11)[d]] = 0
+                        for i in range(25):
+                            if cells[i] in (1, 2):
+                                ens[i] = rng.randint(1, 50)
+                        ens[12] = energy
+                        mem = _mis_mem(rng, energy, (30, 31))
+                        _mis2_state(rng, mem)
+                        if rng.random() < 0.7:
+                            mem[2] = 0
+                        gmem, want = one(cells, ens, rng.choice((0, 5, 500, 2980)), (30, 31), energy, mem, 'child sweep')
+                while chain:
+                    cm, pe = chain.pop()
+                    c = pe // 2
+                    for e1 in (c - 4 if c > 4 else 0, c - 2 if c > 2 else 0, c, c + 2, c + 10, c + 1, pe - c, c + 3):
+                        c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), min(e1, 50))
+                        one(c2, en2, t2, p2, min(e1, 50), bytearray(cm), 'child chain')
     # boxed sweep: every empty / friend / enemy pattern of the 8 edge squares x edge energies (walls: energy 0)
     ring = (2, 6, 8, 10, 14, 16, 18, 22)
     edge_pats = (((1, 48), (1, 47), (1, 46), (1, 50)), ((1, 47), (1, 47), (1, 47), (1, 47)),

@@ -32,6 +32,7 @@ import experiments as X  # noqa: E402
 
 OPPONENTS = ('bane22', 'conviction', 'penalty')
 CHECK_TICKS = (100, 300, 600, 1000, 2000, 3000)
+RAISE_PARENT_FIRED = True                  # the screen driver sets False: count it, do not abort the batch
 WINDOWS = ((0, 100, '<100'), (100, 300, '100-300'), (300, 1000, '300-1000'), (1000, 10 ** 9, '1000+'))
 HIGH_E = 47
 CAP_E = E.ENERGY_MAX
@@ -99,12 +100,14 @@ class Meter(object):
         self.refill_flags, self.rb, self.rb_done = {}, {}, set()              # checked-refill children: square -> True, cell id -> first tick   # armed children bookkeeping
         self.fr_now, self.fr_runs, self.fr_done = set(), {}, []        # consecutive armed friendly bites per cell
         self.eng = None
+        self.pfc_events = []
 
         def wrapped(view, mem):
             st = mem[2] if getattr(self.sub, 'refill', None) else 0
             r = self.sub(view, mem)
             if self.parent_next.pop((view.x, view.y), None) == view.tick and r[1] == 2:
                 self.c['parent_fired_child_slot'] += 1      # must stay 0: an armed bite at a parent's first call after a split
+                self.pfc_events.append((view.tick, view.x, view.y, view.energy, r[0]))
             last = getattr(self.sub, 'last', None)
             if last is not None and r[0] & 0xF0 == E.ACT_SPLIT:
                 dx, dy = ((0, -1), (1, 0), (0, 1), (-1, 0))[r[0] & 3]
@@ -331,7 +334,8 @@ class Meter(object):
         out['freed'] = dict(f, kills=len(kills))
         out['noop_runs'] = self.noop_done + list(self.noop_runs.values())
         out['friend_runs'] = self.fr_done + list(self.fr_runs.values())
-        if self.c['parent_fired_child_slot']:
+        out['pfc_events'] = self.pfc_events
+        if self.c['parent_fired_child_slot'] and RAISE_PARENT_FIRED:
             raise RuntimeError('armed children: a parent fired a child slot %d times' % self.c['parent_fired_child_slot'])
         for k in ('armed_splits', 'armed_split_noop'):
             out.setdefault(k, 0)

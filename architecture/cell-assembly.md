@@ -237,6 +237,16 @@ Misfortune (`cells/gen_misfortune.py`, cap B, exact 1) is Bane v2.2 with a blind
 
 The checker compares the asm with the reference on energies 0 to 50, random memory and random views, and on every empty / friend / enemy pattern of the 8 squares around the edge friends.
 
+## Misfortune v2 additions
+
+Misfortune v2 (`cells/gen_misfortune2.py`, `cells/misfortune2.asm`) is Misfortune v1 plus two changes. The reference is `make_misfortune2()` in `sim/cells_ref.py`, which is `make_misfortune(cap='B', exact=1, hold='split', hold_min=10, refill='checked')`. The v1 files stay as they are.
+
+- **Checked refill.** Each bite stores one word at memory byte 2: SPLIT plus the direction, and the view offset of the bitten square. The word comes from the same table lookup as the pattern row (`row4_tbl`, one dword per target energy and direction), so the biting path pays one extra instruction. On every slow path, right after the prefix, the cell reads byte 2. If it is set, the square in the view is empty and the cell has 12 or more energy, it splits into that square at once (13 instructions). Byte 2 is cleared first on every path, so a child starts clean. When the stored square is taken or the cell is too weak, a copy of the bite scan runs next, so a bite does not pay a clear store.
+- **Split hold.** An enemy on a diagonal square used to hold a cell of 5 or more energy. From 10 energy the cell now splits at once (`threat:` tests `esi` against 10). Below 10 the old hold applies and costs 2 more instructions.
+- **Counts.** Armed bite 2, first bite 22, bite after a stored direction 26 (square taken) or 28 (energy below 12), other slow paths 2 more than v1, a clear without a bite 8 or 10 more, cap rule 80 when nothing is stored.
+
+The checker (`--only misfortune2`) uses the same method as for v1 and adds a sweep over every stored direction, square occupant and energy.
+
 ## Open items
 
 - Schism was on the ladder until 2026-11-11: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.

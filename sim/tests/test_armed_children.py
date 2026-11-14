@@ -125,14 +125,28 @@ class ArmedChildrenTest(unittest.TestCase):
             self.assertEqual(a, b)
 
     def test_extra_instruction_counts(self):
-        # open space, gate 1 not freed (e = 17, no enemy anywhere): only the flag test (+2), on any e mod 4
-        for e in (17, 19):
+        # gate-1 splits (e >= 16): the asm block `child` costs 3 (e & 3 != 1), 10 (e & 3 == 1, no enemy beside the
+        # child) or 16 (arms), on top of the plain split
+        for e, extra in ((19, cells_ref.ARMCHILD_N_MOD), (17, cells_ref.ARMCHILD_N_NONE)):
             v = split_view(e, UP)
-            self.assertEqual(AC()(v, mem())[1] - PLAIN()(v, mem())[1], cells_ref.ARMCHILD_FLAG_N)
-        # freed gate-1 split (enemy proven near): no flag test; e = 1 mod 4 pays mod4 + scan + store, 3 mod 4 only mod4
-        for e, extra in ((17, 3 + 8 + 10), (19, 3)):
+            self.assertEqual(AC()(v, mem())[1] - PLAIN()(v, mem())[1], extra, e)
+        for e, extra in ((17, cells_ref.ARMCHILD_N_ARM), (19, cells_ref.ARMCHILD_N_MOD)):
             v = split_view(e, UP, enemies=(RIGHT,))
             self.assertEqual(AC()(v, mem())[1] - PLAIN()(v, mem())[1], extra, e)
+
+    def test_ac1_factory_and_hold_off_counts(self):
+        # AC1 = make_misfortune2_ac1 (the asm cells/misfortune2.asm).  hold 'off' from 5: an enemy on a diagonal square costs
+        # +2 (cmp esi, 5 / jae resume) and no longer holds at e >= 5; at e < 5 the asm rests after 26 instructions (+ 6 of prefix and refill check)
+        ac1, base = cells_ref.make_misfortune2_ac1(), cells_ref.make_misfortune2(hold='off', hold_min=5)
+        for e in (3, 4, 8, 12):
+            v = View(e, (EM, FR, FR, FR), far=(6,))
+            a, b = ac1(v, mem()), cells_ref.make_misfortune2(hold='on')(v, mem())
+            if e < 5:
+                self.assertEqual(a[:2], (1, 26 + 4 + 2), e)   # + prefix 4 + checked-refill check 2
+            else:
+                self.assertNotEqual(a[0], 1, e)
+                # e = 12: gate 1 (refill, enemy at 6 frees UP): jae child, + block; e = 8: the emit path, its ret becomes the block
+                self.assertEqual(a[1], base(v, mem())[1] + (cells_ref.ARMCHILD_N_MOD if e >= 12 else cells_ref.ARMCHILD_N_MOD - 1), e)
 
 
 if __name__ == '__main__':

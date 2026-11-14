@@ -22,3 +22,4 @@ cells/build/
 /.tracking-git/
 .venv*/
 data/*/site/
+cells/sandbox/
