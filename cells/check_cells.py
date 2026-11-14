@@ -693,9 +693,10 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
     and every memory operand indexed by esi encoded with the 0x67 address-size prefix (no rsi-indexed load/store)."""
     import gen_misfortune as M
     G2 = None
-    if name == 'misfortune2':
+    armtbl = name == 'misfortune2_armtbl'          # variant, not shipped: arm via jmp [arm_tbl + rax*8] to 4 stubs
+    if name in ('misfortune2', 'misfortune2_armtbl'):
         import gen_misfortune2 as G2
-    if open(path).read() != (G2 or M).generate():
+    if open(path).read() != (G2.generate(armtbl=True) if armtbl else (G2 or M).generate()):
         fail('%s.asm differs from gen_%s.generate()' % (name, name))
     for k in MISFORTUNE_K:
         if syms[k] % 16:
@@ -716,11 +717,16 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
         want['cbase_tbl'] = bytes(G2.VIEW_CELLS + i - 5 for i in G2.B2.DIR_IDX)
         want['cpat_tbl'] = b''.join(M.pattern_row(d, M.K_MAX) for d in range(4))
         want['row4_tbl'] = b''.join(struct.pack('<I', G2.row4_value(i)) for i in range(1024))
+    elif armtbl:
+        want['k16_tbl'] = bytes(M.k_of(te) * 16 for te in range(256))
+        want['arm_tbl'] = b''.join(struct.pack('<Q', syms['arm_' + n.lower()]) for n in G2.ARM_STUBS)
     else:
         want['row_tbl'] = bytes(M.row_index(i >> 2, i & 3) for i in range(1024))
     for tname, w in want.items():
         if tb(tname, len(w)) != w:
             fail('%s %s bytes differ from the generator' % (name, tname))
+    if armtbl:
+        check_arm_tbl(blob, syms, lst, G2, M)
     esi_lines = rsi_mem = 0
     for line in open(lst):
         parts = line.rstrip('\n').split(None, 3)
@@ -742,7 +748,33 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
           % (esi_lines, rsi_mem))
     print('  slot 0 = CELLMEM_BASE + %d; pat1_tbl 0x%x (%d rows), row(4)_tbl 0x%x, cap_tbl 0x%x'
           % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1),
-             syms['row4_tbl' if (G2 and hasattr(G2, 'row4_value')) else 'row_tbl'], syms['cap_tbl']))
+             syms['row4_tbl' if (G2 and hasattr(G2, 'row4_value')) else 'k16_tbl' if armtbl else 'row_tbl'], syms['cap_tbl']))
+
+
+def check_arm_tbl(blob, syms, lst, G2, M):
+    """arm_tbl variant: the arm jump is `jmp [arm_tbl + rax*8]` = FF 24 C5 (exactly one), every table entry is the
+    address of a distinct stub label between arm: and cap_hit:, and every bite_tbl action is 0 or ACT_EAT + 0..3
+    (so rax*8 never leaves the 4-entry table)."""
+    ents = struct.unpack('<4Q', blob[syms['arm_tbl'] - CODE_BASE:syms['arm_tbl'] - CODE_BASE + 32])
+    stubs = [syms['arm_' + n.lower()] for n in G2.ARM_STUBS]
+    if list(ents) != stubs or len(set(stubs)) != 4:
+        fail('arm_tbl entries %s are not the 4 distinct stub labels %s' % ([hex(e) for e in ents], [hex(x) for x in stubs]))
+    for e in ents:
+        if not syms['arm'] < e < syms['cap_hit']:
+            fail('arm_tbl entry 0x%x is outside the arm: .. cap_hit: stubs' % e)
+    jm = []
+    for line in open(lst):
+        parts = line.rstrip('\n').split(None, 3)
+        if len(parts) == 4 and parts[3].split(';', 1)[0].split()[:1] == ['jmp'] and 'arm_tbl' in parts[3]:
+            jm.append(parts)
+    if len(jm) != 1 or 'FF24C5' not in jm[0][2].upper():
+        fail('arm: indirect jump is not exactly one FF 24 C5 (jmp [arm_tbl + rax*8]): %r' % jm)
+    bt = blob[syms['bite_tbl'] - CODE_BASE:syms['bite_tbl_end'] - CODE_BASE]
+    bad = sorted({b for b in bt if b != 0 and not 0x30 <= b <= 0x33})
+    if bad:
+        fail('bite_tbl has actions outside 0 / ACT_EAT..+3: %s' % bad[:10])
+    print('  arm_tbl: 4 entries -> stubs %s; one FF 24 C5 jump; bite_tbl %d entries all 0 or 0x30..0x33; k16_tbl 256 entries'
+          % (', '.join(hex(x) for x in stubs), len(bt)))
 
 
 def _mis_view(rng, kind, energy):
@@ -799,7 +831,9 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
     import random
     import collections
     import cells_ref
-    pol = cells_ref.make_misfortune2_split10() if name == 'misfortune2' else cells_ref.make_misfortune(cap='B', exact=1)
+    pol = (cells_ref.make_misfortune2_split10() if name in ('misfortune2', 'misfortune2_armtbl')
+           else cells_ref.make_misfortune(cap='B', exact=1))
+    arm_count = 17 if name == 'misfortune2_armtbl' else 19      # first-bite (arm) path: 19 instructions, 17 in the arm_tbl variant
     v2 = bool(getattr(pol, 'refill', None))                 # checked-refill variant only (not shipped); split10 and v1: False
     r = Runner(blob)
     rng = random.Random(seed)
@@ -820,11 +854,12 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
                      reset_all=True)
         gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
         n += 1
-        if got != want or gmem != bytes(mref):
+        exp = (want[0], arm_count) if want[1] == 19 and want[0] >> 4 == 3 else want    # the arm path (an eat is armed or 2)
+        if got != exp or gmem != bytes(mref):
             mism += 1
             if mism <= 10:
                 fail(name + ' diff %s e=%d cells=%s ens=%s tick=%d mem=%s: asm %s %s ref %s %s'
-                     % (label, energy, cells, ens, tick, bytes(mem).hex(), got, gmem.hex(), want, bytes(mref).hex()))
+                     % (label, energy, cells, ens, tick, bytes(mem).hex(), got, gmem.hex(), exp, bytes(mref).hex()))
         if v2:
             kind = ('armed' if want[1] == 2 else 'fire' if want[1] == 13 and mem[2] else 'arm' if arms else
                     'cap rule' if want[1] >= 80 and want[0] >= 0x30 else label)
@@ -921,6 +956,18 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
                     for e1 in (c - 4 if c > 4 else 0, c - 2 if c > 2 else 0, c, c + 2, c + 10, c + 1, pe - c, c + 3):
                         c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), min(e1, 50))
                         one(c2, en2, t2, p2, min(e1, 50), bytearray(cm), 'child chain')
+    if name == 'misfortune2_armtbl':                        # arm sweep: every direction x te 0..255 x e0 (the stubs' only inputs)
+        for d in range(4):
+            for te in range(256):
+                for energy in (0, 7, 25, 50):
+                    cells, ens = [0] * 25, [0] * 25
+                    cells[12] = 1
+                    cells[(7, 13, 17, 11)[d]] = 2
+                    ens[(7, 13, 17, 11)[d]] = te
+                    ens[12] = energy
+                    mem = bytearray(rng.getrandbits(8) for _ in range(64))
+                    mem[13 + energy] = 0
+                    one(cells, ens, 500, (30, 31), energy, mem, 'arm sweep')
     # boxed sweep: every empty / friend / enemy pattern of the 8 edge squares x edge energies (walls: energy 0)
     ring = (2, 6, 8, 10, 14, 16, 18, 22)
     edge_pats = (((1, 48), (1, 47), (1, 46), (1, 50)), ((1, 47), (1, 47), (1, 47), (1, 47)),
@@ -1161,12 +1208,12 @@ def main():
             check_contagion(blob, syms, lst, vex)
             if have_uc:
                 diff_contagion(blob, name)
-        elif name == 'misfortune2':
-            check_misfortune(p, blob, syms, lst, 'misfortune2')
+        elif name in ('misfortune2', 'misfortune2_armtbl'):
+            check_misfortune(p, blob, syms, lst, name)
             if have_uc:
-                odir = os.path.join(ROOT, 'sim', 'out', 'misfortune2', 'asm')    # git-ignored
+                odir = os.path.join(ROOT, 'sim', 'out', name, 'asm')    # git-ignored
                 os.makedirs(odir, exist_ok=True)
-                diff_misfortune(blob, out=os.path.join(odir, 'unicorn-diff.txt'), name='misfortune2')
+                diff_misfortune(blob, out=os.path.join(odir, 'unicorn-diff.txt'), name=name)
         elif name == 'misfortune':
             check_misfortune(p, blob, syms, lst)
             if have_uc:
