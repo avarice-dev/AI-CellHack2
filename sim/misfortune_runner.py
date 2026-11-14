@@ -93,6 +93,7 @@ class Meter(object):
         self.episodes = {}                          # cell id -> length so far
         self.ep_done = []                           # (length, cause)
         self.checks = {}
+        self.noop_now, self.noop_runs, self.noop_done = set(), {}, []   # armed-split no-op runs per square
         self.eng = None
 
         def wrapped(view, mem):
@@ -101,6 +102,11 @@ class Meter(object):
             con = any(cl[E.VIEW_DIR[d]] == E.CELL_ENEMY for d in range(4))
             n, a = r[1], r[0]
             self.calls_now[(view.x, view.y)] = n
+            if n == 2 and a & 0xF0 == E.ACT_SPLIT:        # armed SPLIT (Depravity): no-op when the square is taken
+                self.c['armed_splits'] += 1
+                if view.cells[E.VIEW_DIR[a & 3]] != E.CELL_EMPTY:
+                    self.c['armed_split_noop'] += 1
+                    self.noop_now.add((view.x, view.y))
             if con:
                 self.contact += 1
                 w = window_of(view.tick)
@@ -212,6 +218,12 @@ class Meter(object):
             else:
                 cause = 'other' if (i < len(alive) and alive[i]) else 'died'
             self.ep_done.append((self.episodes.pop(i), cause))
+        for k in list(self.noop_runs):
+            if k not in self.noop_now:
+                self.noop_done.append(self.noop_runs.pop(k))
+        for k in self.noop_now:
+            self.noop_runs[k] = self.noop_runs.get(k, 0) + 1
+        self.noop_now = set()
         self.stuck_now = set()
         self.ev_prev, self.ev_now = self.ev_now, collections.defaultdict(set)
         self.calls_now = {}
@@ -248,7 +260,13 @@ class Meter(object):
                 f['enemy_t5'] += 1
             else:
                 f['empty_t5'] += 1
+        for r in kills:
+            if r[4] >= 0 and r[4] != seat and r[5] <= 1:
+                f['enemy_t1'] += 1
         out['freed'] = dict(f, kills=len(kills))
+        out['noop_runs'] = self.noop_done + list(self.noop_runs.values())
+        for k in ('armed_splits', 'armed_split_noop'):
+            out.setdefault(k, 0)
         return out
 
 

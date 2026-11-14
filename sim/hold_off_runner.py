@@ -15,6 +15,8 @@ VARIANTS = {
 
 
 def policy(name):
+    if name == 'depravity':
+        return C.make_depravity()
     return C.make_misfortune(cap='B', exact=1, **VARIANTS[name])
 
 

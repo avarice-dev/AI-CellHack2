@@ -800,6 +800,23 @@ def misfortune_pattern(e0, d, te, exact, cap):
     return {b: v for b, v in out.items() if b < 64}
 
 
+DEPRAVITY_MIN = 12                           # armed refill: own energy e0 >= 12 (below it a split's half can land on its slots)
+DEPRAVITY_SPLITS = (-1, 1, 2)                # slots e0 + x armed SPLIT + d; EAT + d at e0 - 2 and e0 - 4; 0 elsewhere
+DEPRAVITY_EATS = (-4, -2)
+
+
+def depravity_pattern(e0, d):
+    """{memory byte: value} of the armed-refill row (target at <= 2 energy, e0 >= 12): the 16-byte store at bytes
+    9 + e0 .. 24 + e0 (slots e0 - 4 .. e0 + 11), then slot 50 (byte 63) = 0.  Bytes > 63 dropped."""
+    out = {MISFORTUNE_SLOT0 + s: 0 for s in range(e0 - MISFORTUNE_LOW, e0 + MISFORTUNE_HIGH + 2)}
+    for x in DEPRAVITY_EATS:
+        out[MISFORTUNE_SLOT0 + e0 + x] = ACT_EAT + d
+    for x in DEPRAVITY_SPLITS:
+        out[MISFORTUNE_SLOT0 + e0 + x] = ACT_SPLIT + d
+    out[MISFORTUNE_SLOT0 + 50] = 0
+    return {b: v for b, v in out.items() if b < 64}
+
+
 def misfortune_cap_rule(view, cap):
     """Boxed cap rules: (action or None, instructions of the tests run, taken jumps among them)."""
     if cap == 'N':
@@ -825,7 +842,7 @@ def misfortune_cap_rule(view, cap):
     return None, tested, taken
 
 
-def make_misfortune(cap='B', exact=1, **kw):
+def make_misfortune(cap='B', exact=1, refill=False, **kw):
     if cap not in ('A', 'B', 'N'):
         raise ValueError("cap must be 'A', 'B' or 'N'")
     if exact not in (0, 1):
@@ -844,9 +861,16 @@ def make_misfortune(cap='B', exact=1, **kw):
         if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
             d = act & 3
             mem[MISFORTUNE_E0] = e
-            for k, v in misfortune_pattern(e, d, view.energies[VIEW_DIR[d]] & 63, exact, cap).items():
+            te = view.energies[VIEW_DIR[d]] & 63
+            pat = misfortune_pattern(e, d, te, exact, cap)
+            extra = 0
+            if refill and exact and (te + 1) // 2 - 1 <= 0:
+                extra = 2                          # cmp esi, DEPRAVITY_MIN / jb skip (assumed; the row is a table row)
+                if e >= DEPRAVITY_MIN:
+                    pat = depravity_pattern(e, d)
+            for k, v in pat.items():
                 mem[k] = v
-            return act, bite_n, bite_n - 1         # jnz arm taken
+            return act, bite_n + extra, bite_n + extra - 1         # jnz arm taken
         n, t = n + MISFORTUNE_PREFIX_N, t + MISFORTUNE_PREFIX_N
         if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
             return act, n, t
@@ -857,6 +881,15 @@ def make_misfortune(cap='B', exact=1, **kw):
     misfortune.core = core
     misfortune.cap, misfortune.exact = cap, exact
     return misfortune
+
+
+def make_depravity(**kw):
+    """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the armed refill (planned, no asm yet)."""
+    kw.setdefault('hold', 'split')
+    kw.setdefault('hold_min', 10)
+    p = make_misfortune(cap='B', exact=1, refill=True, **kw)
+    p.refill = True
+    return p
 
 
 misfortune = make_misfortune()
@@ -890,4 +923,4 @@ FACTORIES = {'covetous': make_covetous, 'scourge': make_scourge, 'contagion': ma
              'woe': make_woe, 'conceit': make_conceit, 'endemic': make_endemic,
              'complacency': make_complacency, 'schism': make_schism, 'pestilence': make_pestilence,
              'bane': make_bane, 'bane2': make_bane2, 'bane3': make_bane3, 'bane4': make_bane4, 'conviction': make_conviction,
-             'penalty': make_penalty, 'misfortune': make_misfortune}
+             'penalty': make_penalty, 'misfortune': make_misfortune, 'depravity': make_depravity}
