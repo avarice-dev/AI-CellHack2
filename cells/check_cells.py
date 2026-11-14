@@ -1441,6 +1441,11 @@ def main():
                 odir = os.path.join(ROOT, 'sim', 'out', 'depravity', 'asm')     # git-ignored
                 os.makedirs(odir, exist_ok=True)
                 diff_depravity(blob, out=os.path.join(odir, 'unicorn-diff.txt'))
+        elif name == 'dogma':
+            import test_dogma
+            test_dogma.check_dogma(p, blob, syms, lst)
+            if have_uc:
+                test_dogma.diff_dogma(blob, syms)      # spec counts, MEM invariants, sweeps, ablation variants (see test_dogma.py)
         elif name == 'misfortune':
             check_misfortune(p, blob, syms, lst)
             if have_uc:
