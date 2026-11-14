@@ -712,7 +712,7 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
             'e6_tbl': bytes(M.e6_value(e) for e in range(256)), 'cap_tbl': bytes(M.cap_action(i) for i in range(256))}
     for d, n in enumerate(('en_up', 'en_right', 'en_down', 'en_left')):
         want[n] = bytes(M.en_value(d, e) for e in range(256))
-    if G2:
+    if G2 and hasattr(G2, 'row4_value'):
         want['cbase_tbl'] = bytes(G2.VIEW_CELLS + i - 5 for i in G2.B2.DIR_IDX)
         want['cpat_tbl'] = b''.join(M.pattern_row(d, M.K_MAX) for d in range(4))
         want['row4_tbl'] = b''.join(struct.pack('<I', G2.row4_value(i)) for i in range(1024))
@@ -741,7 +741,8 @@ def check_misfortune(path, blob, syms, lst, name='misfortune'):
     print('  esi-indexed memory operands: %d, all with the 0x67 prefix; rsi-indexed memory operands: %d'
           % (esi_lines, rsi_mem))
     print('  slot 0 = CELLMEM_BASE + %d; pat1_tbl 0x%x (%d rows), row(4)_tbl 0x%x, cap_tbl 0x%x'
-          % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1), syms['row4_tbl' if G2 else 'row_tbl'], syms['cap_tbl']))
+          % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1),
+             syms['row4_tbl' if (G2 and hasattr(G2, 'row4_value')) else 'row_tbl'], syms['cap_tbl']))
 
 
 def _mis_view(rng, kind, energy):
@@ -798,8 +799,8 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
     import random
     import collections
     import cells_ref
-    v2 = name == 'misfortune2'
-    pol = cells_ref.make_misfortune2_ac1() if v2 else cells_ref.make_misfortune(cap='B', exact=1)
+    v2 = False
+    pol = cells_ref.make_misfortune2_split10() if name == 'misfortune2' else cells_ref.make_misfortune(cap='B', exact=1)
     r = Runner(blob)
     rng = random.Random(seed)
     n = mism = 0

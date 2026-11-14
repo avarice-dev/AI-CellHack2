@@ -976,8 +976,13 @@ def make_misfortune2(**kw):
 
 
 def make_misfortune2_ac1(**kw):
-    """AC1 = cells/misfortune2.asm: the checked refill + hold 'off' from 5 + armed children (asm-true counts)."""
+    """AC1 = archived Misfortune v2 candidate: checked refill + hold 'off' from 5 + armed children (kept for tests)."""
     return make_misfortune2(armed_children=True, hold='off', hold_min=SPRINT_SPLIT_MIN, **kw)
+
+
+def make_misfortune2_split10(**kw):
+    """Misfortune v2 hotfix (cells/misfortune2.asm): v1 + hold='split' from 10 (keeps v1 19-bite and 15-refill)."""
+    return make_misfortune(cap='B', exact=1, hold='split', hold_min=10, **kw)
 
 
 misfortune = make_misfortune()
