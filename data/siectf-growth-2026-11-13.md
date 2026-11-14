@@ -34,3 +34,20 @@ Reading:
 - Siect-F refills its kills on the very next tick (tick + 1), the earliest the rules allow. It does this for 77-70% of its kills.
 - Against Misfortune, the tick + 1 race over Siect-F's dead cells is about even (182 vs 162), so the race is decided by turn order. Siect-F's refill costs about the same as our 15-instruction refill.
 - In 146477 Misfortune's final population (787) is about its own start area (674): it took no one else's ground. Siect-F's 3309 is about its area (1161) plus Aegis's and garlic's.
+
+## Misfortune vs Siect-F, all 6 shared games (start area; cells at t30 / t60 / t100 / t300 / t1000 / final)
+
+| match | result | Misfortune area | Misfortune | Siect-F area | Siect-F |
+|---|---|---|---|---|---|
+| 147688 | WIN | 1481 | 140 / 891 / 2258 / 2460 / 2582 / 2698 | 496 | 120 / 645 / 811 / 917 / 843 / 787 |
+| 147456 | WIN | 1296 | 156 / 967 / 1606 / 2068 / 2162 / 2526 | 831 | 116 / 1125 / 1643 / 1878 / 1932 / 1569 |
+| 147569 | loss | 765 | 161 / 711 / 1125 / 1287 / 1337 / 1338 | 777 | 116 / 960 / 1835 / 2466 / 2759 / 2758 |
+| 148012 | loss | 666 | 123 / 655 / 1103 / 1379 / 1557 / 1776 | 998 | 109 / 974 / 1937 / 2211 / 2535 / 2320 |
+| 146477 | loss | 674 | 152 / 513 / 744 / 787 / 787 / 787 | 1161 | 131 / 1125 / 2266 / 3072 / 3309 / 3309 |
+| 146773 | loss | 677 | (not decoded) | 1348 | |
+
+Reading:
+- Misfortune won both games where it started with more room (1.6x and 3x Siect-F's area). It lost all 4 where it had equal or less.
+- In the equal-start game (147569, 765 vs 777), Misfortune led at t30 (161 vs 116). Siect-F then grew 1.35x faster to t60 and 1.6x faster to t100.
+- So start area decides the lopsided games, but at an equal start Siect-F still out-grows us after first contact. That contact-growth gap is real.
+- In 147456 Siect-F fell from 1932 at t1000 to 1569 at the end: Misfortune pushed it back late.
