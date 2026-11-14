@@ -8,12 +8,12 @@
 //   (M / S / other / empty); front: M cells beside an S cell at tick start, share bitten before acting (and the
 //   same for S beside M), split <100 / 100-300 / 300+.
 
-async function siectfProbe(id) {
+async function siectfProbe(id, rival) {   // rival: optional name regexp, default Siect-F (e.g. 'VarSi')
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const page = await (await fetch('/matches/' + id)).text();
   const doc = new DOMParser().parseFromString(page, 'text/html');
   const rows = [...doc.querySelectorAll('table tr')].map(r => r.innerText.replace(/\s+/g, ' ').trim()).filter(t => t && !/^Colony/.test(t));
-  const M = rows.findIndex(t => /Misfortune/.test(t)), S = rows.findIndex(t => /Siect-F/.test(t));
+  const M = rows.findIndex(t => /Misfortune/.test(t)), S = rows.findIndex(t => (rival ? new RegExp(rival) : /Siect-F/).test(t));
   if (M < 0 || S < 0) return { id, error: 'Misfortune or Siect-F not in this match', rows };
   const place = i => rows[i].split(' ').find((w, k) => k > 1 && /^[1-4]$/.test(w));
   await sleep(16000);
