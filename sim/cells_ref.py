@@ -468,9 +468,13 @@ BANE2_LOCK_OFF = (15, 21, 25, 19)   # view index + 8 of the neighbour UP, RIGHT,
 BANE2_T_EARLY = 0             # 0 = off: only a cell's first child from a square walks k_long
 
 
-def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY, rest_tail=None, **kw):
+def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY, rest_tail=None,
+               hold='on', hold_min=SPRINT_SPLIT_MIN, **kw):
     """rest_tail (Bane v2.3, make_bane4): None = v2.2's `mov al, ACT_REST / ret` on the three rests that have an
-    empty neighbour; else rest_tail(view, mem) -> (instructions, taken jumps) of the tail, which may write mem."""
+    empty neighbour; else rest_tail(view, mem) -> (instructions, taken jumps) of the tail, which may write mem.
+    hold (sim probe, hold-off study 2026-11-13): 'on' = v2.2's prey hold (default).  With an enemy on a diagonal and
+    e >= hold_min: 'off' skips the hold (the walker / dispersal logic runs), 'split' splits at once into the freed
+    or first empty square.  Below hold_min the v2.2 hold applies."""
     parent = make_bane(**kw)
     refill_min = kw.get('refill_min', SCOURGE_REFILL_MIN)
     threat_min = kw.get('threat_min', SCOURGE_THREAT_MIN)
@@ -500,7 +504,12 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
             return act, n0, t0                     # gate 1: refill / split (11)
         split = ACT_SPLIT + (freed or empty)[0]
         n, t = 21, 0                               # 13, then movdqu x2, pcmpeqb x2, por, pmovmskb, test, jnz threat
-        if any(c[i] == CELL_ENEMY for i in BANE2_NEAR):        # v2.2: the hold needs an enemy in the 3x3
+        near = any(c[i] == CELL_ENEMY for i in BANE2_NEAR)
+        if near and hold == 'split' and e >= hold_min and view.tick < SPRINT_LATE_TICK:
+            return split, n + 3, n + 2             # probe: split into the freed / first empty square
+        if near and hold == 'off' and e >= hold_min:
+            near = False                           # probe: no hold, the dispersal logic runs
+        if near:                                   # v2.2: the hold needs an enemy in the 3x3
             mem[1] = 0                             # threat (taken): mov steps, cmp esi, jb rest
             n, t = n + 3, t + 1
             if e < SPRINT_SPLIT_MIN:
