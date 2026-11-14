@@ -14,9 +14,7 @@ VARIANTS = {
 }
 
 
-M2 = {'misfortune2': {}, 'm2v0': {}, 'm2v1': dict(hold='off', hold_min=5),
-      'm2v2': dict(hold='off', hold_min=5, threat_min=5),
-      'm2v3': dict(hold='off', hold_min=5, threat_min=5, refill_min=8, fire_min=8),
+M2 = {'misfortune2': {}, 'split10': {}, 'm2v0': {}, 'm2v1': dict(hold='off', hold_min=5),
       'ac0': dict(armed_children=True), 'ac1': dict(armed_children=True, hold='off', hold_min=5),
       'ac1_allodd': dict(armed_children='allodd', hold='off', hold_min=5),
       'ac2': dict(armed_children=True, hold='split', hold_min=5)}   # enemy-gated: a diagonal enemy + e >= 5 splits
@@ -24,7 +22,7 @@ M2 = {'misfortune2': {}, 'm2v0': {}, 'm2v1': dict(hold='off', hold_min=5),
 
 def policy(name):
     if name in M2:
-        return C.make_misfortune2(**M2[name])
+        return (C.make_misfortune2_m2v0 if name != 'misfortune2' and name != 'split10' else C.make_misfortune2_split10)(**M2[name])
     return C.make_misfortune(cap='B', exact=1, **VARIANTS[name])
 
 

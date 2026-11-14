@@ -105,7 +105,7 @@ class Meter(object):
         def wrapped(view, mem):
             st = mem[2] if getattr(self.sub, 'refill', None) else 0
             r = self.sub(view, mem)
-            if self.parent_next.pop((view.x, view.y), None) == view.tick and r[1] == 2:
+            if self.parent_next.pop((view.x, view.y), None) == view.tick and r[1] == self.armed_n:
                 self.c['parent_fired_child_slot'] += 1      # must stay 0: an armed bite at a parent's first call after a split
                 self.pfc_events.append((view.tick, view.x, view.y, view.energy, r[0]))
             last = getattr(self.sub, 'last', None)
@@ -125,7 +125,7 @@ class Meter(object):
             con = any(cl[E.VIEW_DIR[d]] == E.CELL_ENEMY for d in range(4))
             n, a = r[1], r[0]
             self.calls_now[(view.x, view.y)] = n
-            if not self.ctrl and n >= C.MISFORTUNE_PULL_N and not con and C.misfortune_cap_rule(view, 'B')[0] == a:
+            if not self.ctrl and n >= C.MISFORTUNE_PULL_N and not con and C.misfortune_cap_rule(view, getattr(self.sub, 'cap', 'B'))[0] == a:
                 self.pull_now.add((view.x, view.y))
             if n == 2 and a & 0xF0 == E.ACT_SPLIT:        # armed SPLIT (Misfortune v2): no-op when the square is taken
                 self.c['armed_splits'] += 1

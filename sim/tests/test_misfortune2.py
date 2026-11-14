@@ -16,7 +16,7 @@ import cells_ref
 from .test_bane2 import View, mem, UP, RIGHT, DOWN, LEFT, EM, FR, EN
 from .test_misfortune import armed_view, slots, SLOT0, SPLIT_K
 
-FAM = cells_ref.make_misfortune2
+FAM = cells_ref.make_misfortune2_m2v0
 BASE = lambda: cells_ref.make_misfortune(cap='B', exact=1, hold='split', hold_min=10)
 SPLIT = SPLIT_K
 
@@ -29,7 +29,7 @@ def refill_view(e, d, occupant=EM):
 
 class Misfortune2Test(unittest.TestCase):
     def test_registered(self):
-        self.assertIs(cells_ref.FACTORIES['misfortune2'], cells_ref.make_misfortune2)
+        self.assertIs(cells_ref.FACTORIES['misfortune2'], cells_ref.make_misfortune2_split10)
 
     def test_stored_dir_written_on_bite(self):
         for d in range(4):

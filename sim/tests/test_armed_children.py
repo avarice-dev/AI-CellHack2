@@ -1,9 +1,12 @@
-"""Tests of armed children (reference only, no asm yet): make_misfortune2(armed_children=True).
+"""Tests of armed children (reference only, no asm yet): make_misfortune2_m2v0(armed_children=True).
 
 Unit tests of sim/cells_ref (one module, no I/O); view and memory are faked.  Engine facts (sim/engine.py, ACT_SPLIT):
 the child gets e // 2, the parent keeps the rest, the child's memory is a copy of the parent's AFTER the call, the child
 takes no turn on its birth tick.  Armed only for e = 1 mod 4: the child (c = e // 2, even) takes the slots on even energies; the parent after the split
-(c + 1) and after a failed split (e) are odd and move by -2 / +2 only, so it never reads one.
+(c + 1) and after a failed split (e) are odd and move by -2 / +2 only, so it never reads one, PROVIDED the energy the split sees is the
+energy the call saw.  That fails when an earlier-turn neighbour's ACT_FEED lands before the ACT_SPLIT in the same tick (+2 first): the
+split then runs at e + 2, the child gets c + 1 (odd) and the parent c + 2 (EVEN, inside the armed slot range).  Not excluded by the
+tests below (they fix the energy at the call); sim/tests/test_engine_ext.py pins the engine order.  Reference-only (not shipped).
 """
 
 import unittest
@@ -14,8 +17,8 @@ from .test_misfortune import SPLIT_K
 
 EAT = 0x30
 OFF = (-5, 1, 5, -1)
-AC = lambda **kw: cells_ref.make_misfortune2(armed_children=True, **kw)
-PLAIN = lambda **kw: cells_ref.make_misfortune2(**kw)
+AC = lambda **kw: cells_ref.make_misfortune2_m2v0(armed_children=True, **kw)
+PLAIN = lambda **kw: cells_ref.make_misfortune2_m2v0(**kw)
 SLOT0 = 13
 
 
@@ -92,8 +95,8 @@ class ArmedChildrenTest(unittest.TestCase):
                     armed += 1
                     c, parent = e // 2, e - e // 2
                     self.assertEqual(parent, c + 1)
-                    # the parent's energy after any run of bites (-2) and feeds (+2), after the split (c + 1) or after a
-                    # failed split (it keeps e): all odd, never a slot
+                    # with no same-tick ACT_FEED landing before the split (see the docstring): the parent's energy after any run
+                    # of bites (-2) and feeds (+2), after the split (c + 1) or after a failed split (it keeps e), is odd, never a slot
                     self.assertEqual({parent % 2, e % 2}, {1})
                     for pe in range(1, 51, 2):
                         self.assertEqual(m[SLOT0 + pe], 0, (e, ds, de, pe))
@@ -137,10 +140,10 @@ class ArmedChildrenTest(unittest.TestCase):
     def test_ac1_factory_and_hold_off_counts(self):
         # AC1 = make_misfortune2_ac1 (the asm cells/misfortune2.asm).  hold 'off' from 5: an enemy on a diagonal square costs
         # +2 (cmp esi, 5 / jae resume) and no longer holds at e >= 5; at e < 5 the asm rests after 26 instructions (+ 6 of prefix and refill check)
-        ac1, base = cells_ref.make_misfortune2_ac1(), cells_ref.make_misfortune2(hold='off', hold_min=5)
+        ac1, base = cells_ref.make_misfortune2_ac1(), cells_ref.make_misfortune2_m2v0(hold='off', hold_min=5)
         for e in (3, 4, 8, 12):
             v = View(e, (EM, FR, FR, FR), far=(6,))
-            a, b = ac1(v, mem()), cells_ref.make_misfortune2(hold='on')(v, mem())
+            a, b = ac1(v, mem()), cells_ref.make_misfortune2_m2v0(hold='on')(v, mem())
             if e < 5:
                 self.assertEqual(a[:2], (1, 26 + 4 + 2), e)   # + prefix 4 + checked-refill check 2
             else:

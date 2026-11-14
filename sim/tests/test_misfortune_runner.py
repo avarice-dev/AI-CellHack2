@@ -119,11 +119,13 @@ class CounterTest(unittest.TestCase):
         self.assertEqual(r['eats_friend'], 2)
 
     def test_pull_counts_and_cap_loss(self):
-        """A boxed-path pull (count PULL_N) by a cell at 49 on a friend at 30: one pull, 1 energy lost to the cap;
-        it is not an unintended friendly bite.  A count-PULL_N feed is a lift."""
-        tbl = {(0, 1, 2): (EAT + RIGHT, PULL), (1, 1, 2): (FEED + RIGHT, PULL)}
+        """A boxed-path pull (count PULL_N) by a cell at 49 on a friend at 48 whose ring holds an enemy (the cap rule's
+        'hold' pass returns this bite): one pull, 1 energy lost to the cap; it is not an unintended friendly bite.  A
+        count-PULL_N feed by a cell at 49 on a friend at 47 with an empty ring and no enemy (the 'lift' pass) is a lift."""
+        tbl = {(0, 1, 2): (EAT + RIGHT, PULL), (1, 4, 1): (FEED + RIGHT, PULL)}
         eng, m, _ = setup(subject(tbl, (NOP, 1)), [script({}), script({})],
-                          cells=((1, 2, 0, 49), (2, 2, 0, 30), (6, 0, 2, 10)))
+                          cells=((1, 2, 0, 49), (2, 2, 0, 48), (3, 2, 1, 20), (4, 1, 0, 49), (5, 1, 0, 47),
+                                 (6, 4, 2, 10)))
         r = run(eng, m, 2)
         self.assertEqual((r['pulls'], r['pull_cap_loss'], r['lifts'], r['armed_friend']), (1, 1, 1, 0))
 

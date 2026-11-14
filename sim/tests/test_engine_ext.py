@@ -181,6 +181,20 @@ class SplitEnergyTest(unittest.TestCase):
         e.step()
         self.assertIsNone(e.split_energy)
 
+    def test_feed_lands_before_split_in_the_same_tick(self):
+        """An earlier-turn neighbour's ACT_FEED (count 1) lands before the parent's ACT_SPLIT (count 2) in one tick: the
+        parent splits at e + 2, so an odd 21 does NOT split as 21 (child 10, parent 11) but as 23 (child 11, parent 12:
+        even), and the engine's split_energy records 23."""
+        tbl = {(1, 2): (feed(RIGHT), 1), (2, 2): (split(UP), 2)}
+        e = board([script(tbl)], record_events=True)
+        e.add_cell(1, 2, 0, 20)
+        e.add_cell(2, 2, 0, 21)
+        e.step()
+        self.assertEqual(e.c_en[e.cell_at(2, 2)], 12)
+        self.assertEqual(e.c_en[e.cell_at(2, 1)], 11)
+        self.assertEqual(e.c_en[e.cell_at(1, 2)], 18)
+        self.assertEqual(e.split_energy[0], {23: 1})
+
 
 class BiteOrderTest(unittest.TestCase):
     def setup(self, record):

@@ -963,11 +963,12 @@ def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, armed_children
         return act, n + tested, t + tested - taken
     misfortune.core = core
     misfortune.cap, misfortune.exact = cap, exact
+    misfortune.refill = refill
     return misfortune
 
 
-def make_misfortune2(**kw):
-    """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the CHECKED refill (planned, no asm yet)."""
+def make_misfortune2_m2v0(**kw):
+    """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the CHECKED refill (planned, no asm; not shipped)."""
     kw.setdefault('hold', 'split')
     kw.setdefault('hold_min', 10)
     p = make_misfortune(cap='B', exact=1, refill='checked', **kw)
@@ -977,12 +978,15 @@ def make_misfortune2(**kw):
 
 def make_misfortune2_ac1(**kw):
     """AC1 = archived Misfortune v2 candidate: checked refill + hold 'off' from 5 + armed children (kept for tests)."""
-    return make_misfortune2(armed_children=True, hold='off', hold_min=SPRINT_SPLIT_MIN, **kw)
+    return make_misfortune2_m2v0(armed_children=True, hold='off', hold_min=SPRINT_SPLIT_MIN, **kw)
 
 
 def make_misfortune2_split10(**kw):
     """Misfortune v2 hotfix (cells/misfortune2.asm): v1 + hold='split' from 10 (keeps v1 19-bite and 15-refill)."""
     return make_misfortune(cap='B', exact=1, hold='split', hold_min=10, **kw)
+
+
+make_misfortune2 = make_misfortune2_split10      # the shipped cell (live cell 352); the checked-refill variant is make_misfortune2_m2v0
 
 
 misfortune = make_misfortune()

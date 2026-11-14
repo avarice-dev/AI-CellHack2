@@ -763,7 +763,7 @@ def _mis_view(rng, kind, energy):
     ens = [0] * 25
     for i, c in enumerate(cells):
         if c in (1, 2):
-            ens[i] = rng.choice((rng.randint(1, 50), rng.randint(44, 50), rng.randint(1, 12)))
+            ens[i] = rng.choice((rng.randint(1, 50), rng.randint(44, 50), rng.randint(1, 12), rng.randint(51, 255)))   # 51..255: out-of-bounds energies
     ens[12] = energy
     tick = rng.choice((0, 1, 5, 500, 2979, 2980, 2999))
     return cells, ens, tick, (rng.randint(0, 63), rng.randint(0, 63))
@@ -799,8 +799,8 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune')
     import random
     import collections
     import cells_ref
-    v2 = False
     pol = cells_ref.make_misfortune2_split10() if name == 'misfortune2' else cells_ref.make_misfortune(cap='B', exact=1)
+    v2 = bool(getattr(pol, 'refill', None))                 # checked-refill variant only (not shipped); split10 and v1: False
     r = Runner(blob)
     rng = random.Random(seed)
     n = mism = 0
