@@ -843,7 +843,18 @@ def misfortune_cap_rule(view, cap):
     return None, tested, taken
 
 
-def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, **kw):
+# Armed-children extra instructions (ESTIMATES until the asm exists; order = proven-near? -> e & 3 == 1 -> scan -> store):
+ARMCHILD_FLAG_N = 2        # test of the near-enemy flag the path already holds (Gate 1's window mask / the threat path's 5x5 test): test + jz
+ARMCHILD_MOD4_N = 3        # e & 3 == 1 without clobbering esi: lea edx, [rsi - 1] / test dl, 3 / jnz skip
+ARMCHILD_SCAN_N = 8        # which of the child's three squares holds an enemy (reuses the loaded windows / compares), bite priority
+ARMCHILD_STORE_N = 10      # byte 8 = child energy + the exact-0 pattern row store
+_CHILD_OFF = (-5, 1, 5, -1)  # view index step to the neighbour UP, RIGHT, DOWN, LEFT of a square
+
+
+def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, armed_children=False, **kw):
+    refill_min = kw.get('refill_min', SCOURGE_REFILL_MIN)
+    threat_min = kw.get('threat_min', SCOURGE_THREAT_MIN)
+    hold, hold_min = kw.get('hold', 'on'), kw.get('hold_min', SPRINT_SPLIT_MIN)
     if cap not in ('A', 'B', 'N'):
         raise ValueError("cap must be 'A', 'B' or 'N'")
     if exact not in (0, 1):
@@ -855,6 +866,8 @@ def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, **kw):
 
     def misfortune(view, mem):
         e = view.energy
+        if armed_children:
+            misfortune.last = None                 # (near enemy beside the child, armed) of a split call
         a = mem[MISFORTUNE_SLOT0 + e] if 0 <= e <= 50 else 0
         if a:
             return a, 2, 1                         # or al, [slot] / jnz EXIT (taken)
@@ -889,6 +902,36 @@ def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, **kw):
                 return act, add, add - 1 - ex_t
             return act, bite_n, bite_n - 1         # jnz arm taken
         n, t = n + MISFORTUNE_PREFIX_N + ex_n, t + MISFORTUNE_PREFIX_N + ex_n - ex_t
+        if armed_children and act & 0xF0 == ACT_SPLIT:
+            # armed child: the engine gives the child e // 2 and the parent the rest, and copies the memory after this call.
+            # e = 1 mod 4: child c = (e - 1) // 2 is even, the parent after the split (c + 1) and the parent after a FAILED
+            # split (target taken at execution: it keeps e = 2c + 1) are both odd.  The child's slots sit on even energies
+            # (c - 4 .. c + 10, step 2), so the parent (energy changes -2 bitten, +2 fed) never reads one, and its next call
+            # is a slow path whose prefix zeroes the window at byte 8 = c.  The child's own copy stays armed.
+            # (e = 3 mod 4 would put the slots on odd energies: a failed split could then read one, so those stay unarmed.)
+            s_ = VIEW_DIR[act & 3]
+            near = {d for d in range(4) if 0 <= s_ + _CHILD_OFF[d] < 25 and c[s_ + _CHILD_OFF[d]] == CELL_ENEMY}
+            # cheap tests first: an enemy the path already proved near costs 0, otherwise the path's own near flag costs 2
+            empty = [d for d in SPRINT_SPLIT_PRIO if c[VIEW_DIR[d]] == CELL_EMPTY]
+            freed = [d for d in empty if any(c[i] == CELL_ENEMY for i in SCOURGE_FREED_BY[d])]
+            gate1 = e >= (min(refill_min, threat_min) if freed else threat_min)
+            proven = bool(freed) if gate1 else (hold == 'split' and e >= hold_min
+                                                and any(c[i] == CELL_ENEMY for i in BANE2_NEAR))
+            add = 0 if proven else ARMCHILD_FLAG_N
+            armed = False
+            if proven or any(c[i] == CELL_ENEMY for i in range(25) if i != 12):
+                add += ARMCHILD_MOD4_N
+                if e & 3 == 1:
+                    add += ARMCHILD_SCAN_N
+                    if near:
+                        child = e // 2
+                        for k_, v_ in misfortune_pattern(child, _sprint_bite(near), 0, 0, cap).items():
+                            mem[k_] = v_
+                        mem[MISFORTUNE_E0] = child
+                        add += ARMCHILD_STORE_N
+                        armed = True
+            misfortune.last = (bool(near), armed)
+            n, t = n + add, t + add
         if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
             return act, n, t
         rule, tested, taken = misfortune_cap_rule(view, cap)

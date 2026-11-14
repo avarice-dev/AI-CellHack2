@@ -95,16 +95,29 @@ class Meter(object):
         self.ep_done = []                           # (length, cause)
         self.checks = {}
         self.noop_now, self.noop_runs, self.noop_done = set(), {}, []   # armed-split no-op runs per square
+        self.split_flags, self.parent_next, self.kids, self.n_known = {}, {}, {}, 0
+        self.refill_flags, self.rb, self.rb_done = {}, {}, set()              # checked-refill children: square -> True, cell id -> first tick   # armed children bookkeeping
         self.fr_now, self.fr_runs, self.fr_done = set(), {}, []        # consecutive armed friendly bites per cell
         self.eng = None
 
         def wrapped(view, mem):
             st = mem[2] if getattr(self.sub, 'refill', None) else 0
             r = self.sub(view, mem)
+            if self.parent_next.pop((view.x, view.y), None) == view.tick and r[1] == 2:
+                self.c['parent_fired_child_slot'] += 1      # must stay 0: an armed bite at a parent's first call after a split
+            last = getattr(self.sub, 'last', None)
+            if last is not None and r[0] & 0xF0 == E.ACT_SPLIT:
+                dx, dy = ((0, -1), (1, 0), (0, 1), (-1, 0))[r[0] & 3]
+                self.split_flags[(view.x + dx, view.y + dy)] = last
+                self.c['split_calls_near' if last[0] else 'split_calls_far'] += 1
+                if last[1]:
+                    self.parent_next[(view.x, view.y)] = view.tick + 1
             if st and r[1] != 2:                   # checked refill: a stored dir met a slow path
                 self.c['refill_stored'] += 1
                 if r[1] == C.MISFORTUNE2_FIRE_N and r[0] & 0xF0 == E.ACT_SPLIT:
                     self.c['refill_fired'] += 1
+                    dx, dy = ((0, -1), (1, 0), (0, 1), (-1, 0))[r[0] & 3]
+                    self.refill_flags[(view.x + dx, view.y + dy)] = True
             cl = view.cells
             con = any(cl[E.VIEW_DIR[d]] == E.CELL_ENEMY for d in range(4))
             n, a = r[1], r[0]
@@ -116,6 +129,10 @@ class Meter(object):
                 if view.cells[E.VIEW_DIR[a & 3]] != E.CELL_EMPTY:
                     self.c['armed_split_noop'] += 1
                     self.noop_now.add((view.x, view.y))
+            if 5 <= view.energy <= 15 and any(cl[E.VIEW_DIR[d]] == E.CELL_EMPTY for d in range(4))                     and any(cl[i] == E.CELL_ENEMY for i in range(25) if i != 12):
+                self.c['front_5_15'] += 1                  # cell with an empty neighbour and an enemy within 2
+                if a == E.ACT_REST:
+                    self.c['idle_5_15'] += 1
             if con:
                 self.contact += 1
                 w = window_of(view.tick)
@@ -188,6 +205,9 @@ class Meter(object):
         eng, seat = self.eng, self.seat
         col, en = eng.c_col, eng.c_en
         eat = a & 0xF0 == E.ACT_EAT
+        kid = self.kids.get(i)
+        if kid is not None and eat and g >= 0 and col[g] != seat and eng.c_born[i] == t:
+            self.c['kid_first_bite_' + ('a' if kid[1] else 'u')] += 1
         if col[i] == seat:
             n = self.calls_now.get(self._xy(i))
             if eat and n == self.armed_n:
@@ -197,6 +217,10 @@ class Meter(object):
                     self.stuck_now.add(i)
                 elif col[g] == seat:
                     self.c['armed_friend'] += 1
+                    if t < 120:
+                        self.c['armed_friend_t120'] += 1
+                    if g in self.rb:
+                        self.c['armed_friend_on_rch'] += 1
                     self.fr_now.add(i)
                     self.ev_now[i].add('friend_refill')
                 else:
@@ -219,6 +243,27 @@ class Meter(object):
     def after_tick(self):
         eng = self.eng
         t = eng.tick
+        for k in range(self.n_known, len(eng.c_pos)):          # children born this tick
+            if eng.c_col[k] == self.seat:
+                fl = self.split_flags.get(self._xy(k))
+                if fl is not None and fl[0]:                    # an enemy stands beside the child's square
+                    self.kids[k] = (eng.c_born[k], fl[1])
+                    self.c['kids_near_' + ('a' if fl[1] else 'u')] += 1
+        for k in range(self.n_known, len(eng.c_pos)):
+            if eng.c_col[k] == self.seat and self.refill_flags.get(self._xy(k)):
+                self.rb[k] = eng.c_born[k]
+                self.c['rch_n'] += 1
+        for k, b in list(self.rb.items()):
+            if b + 120 == t + 1 and k not in self.rb_done:
+                self.rb_done.add(k)
+                self.c['rch_alive120'] += int(bool(eng.c_alive[k]))
+        self.n_known = len(eng.c_pos)
+        self.split_flags = {}
+        self.refill_flags = {}
+        for k, (b, arm) in list(self.kids.items()):
+            if b + 10 == t + 1:                                  # ten ticks after its first call
+                self.c['kids_alive10_' + ('a' if arm else 'u')] += int(bool(eng.c_alive[k]))
+                del self.kids[k]
         alive = eng.c_alive
         for i in self.stuck_now:
             self.episodes[i] = self.episodes.get(i, 0) + 1
@@ -259,6 +304,7 @@ class Meter(object):
                   'other_friend_eats'):
             out.setdefault(k, 0)
         out['contact_ticks'] = self.contact
+        out['moves'] = eng.moves[seat]
         out['eats_enemy'], out['eats_friend'] = eng.eats_enemy[seat], eng.eats_friend[seat]
         out['paths'] = dict(self.paths)
         out['contact_energy'] = {'%s|%s' % k: v for k, v in self.contact_e.items()}
@@ -285,6 +331,8 @@ class Meter(object):
         out['freed'] = dict(f, kills=len(kills))
         out['noop_runs'] = self.noop_done + list(self.noop_runs.values())
         out['friend_runs'] = self.fr_done + list(self.fr_runs.values())
+        if self.c['parent_fired_child_slot']:
+            raise RuntimeError('armed children: a parent fired a child slot %d times' % self.c['parent_fired_child_slot'])
         for k in ('armed_splits', 'armed_split_noop'):
             out.setdefault(k, 0)
         return out
