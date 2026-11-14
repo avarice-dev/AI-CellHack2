@@ -14,9 +14,14 @@ VARIANTS = {
 }
 
 
+M2 = {'misfortune2': {}, 'm2v0': {}, 'm2v1': dict(hold='off', hold_min=5),
+      'm2v2': dict(hold='off', hold_min=5, threat_min=5),
+      'm2v3': dict(hold='off', hold_min=5, threat_min=5, refill_min=8, fire_min=8)}
+
+
 def policy(name):
-    if name == 'depravity':
-        return C.make_depravity()
+    if name in M2:
+        return C.make_misfortune2(**M2[name])
     return C.make_misfortune(cap='B', exact=1, **VARIANTS[name])
 
 
@@ -48,6 +53,7 @@ def main():
     ap.add_argument('--variants', default='base,off,split5,split8,split10')
     ap.add_argument('--seeds', default='1,2,3,4,5,6,7,8')
     ap.add_argument('--log', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out', 'hold-off.jsonl'))
+    ap.add_argument('--workers', type=int, default=4, help='parallel games (cap 4 of 6 cores, below-normal priority)')
     a = ap.parse_args()
     seeds = [int(x) for x in a.seeds.split(',')]
     done = set()
@@ -57,7 +63,7 @@ def main():
     jobs = [j for j in jobs if '%s|%d|%d' % (j['variant'], j['seed'], j['ticks']) not in done]
     print(len(jobs), 'games', flush=True)
     t0 = time.time()
-    with multiprocessing.get_context('spawn').Pool(6) as pool:
+    with multiprocessing.get_context('spawn').Pool(a.workers) as pool:
         for k, r in enumerate(pool.imap_unordered(play, jobs, chunksize=1), 1):
             with open(a.log, 'a') as f:
                 f.write(json.dumps(r, sort_keys=True) + '\n')

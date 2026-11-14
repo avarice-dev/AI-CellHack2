@@ -80,6 +80,7 @@ class Meter(object):
         self.armed_n = CTRL_STORED_N if ctrl else 2
         self.bite_n = 12 if ctrl else C.MISFORTUNE_BITE_N[(policy.exact, policy.cap)]
         self.calls_now = {}                  # (x, y) -> count of this tick's call
+        self.pull_now = set()               # (x, y) of this tick's cap-rule actions (pull / lift)
         self.paths = collections.Counter()   # 'label/count/contact' -> calls
         self.contact = 0
         self.contact_e = collections.Counter()      # (window, bucket) -> contact calls; bucket all / 47+ / 49 / 50
@@ -94,6 +95,7 @@ class Meter(object):
         self.ep_done = []                           # (length, cause)
         self.checks = {}
         self.noop_now, self.noop_runs, self.noop_done = set(), {}, []   # armed-split no-op runs per square
+        self.fr_now, self.fr_runs, self.fr_done = set(), {}, []        # consecutive armed friendly bites per cell
         self.eng = None
 
         def wrapped(view, mem):
@@ -101,13 +103,15 @@ class Meter(object):
             r = self.sub(view, mem)
             if st and r[1] != 2:                   # checked refill: a stored dir met a slow path
                 self.c['refill_stored'] += 1
-                if r[1] == C.DEPRAVITY_FIRE_N and r[0] & 0xF0 == E.ACT_SPLIT:
+                if r[1] == C.MISFORTUNE2_FIRE_N and r[0] & 0xF0 == E.ACT_SPLIT:
                     self.c['refill_fired'] += 1
             cl = view.cells
             con = any(cl[E.VIEW_DIR[d]] == E.CELL_ENEMY for d in range(4))
             n, a = r[1], r[0]
             self.calls_now[(view.x, view.y)] = n
-            if n == 2 and a & 0xF0 == E.ACT_SPLIT:        # armed SPLIT (Depravity): no-op when the square is taken
+            if not self.ctrl and n >= C.MISFORTUNE_PULL_N and not con and C.misfortune_cap_rule(view, 'B')[0] == a:
+                self.pull_now.add((view.x, view.y))
+            if n == 2 and a & 0xF0 == E.ACT_SPLIT:        # armed SPLIT (Misfortune v2): no-op when the square is taken
                 self.c['armed_splits'] += 1
                 if view.cells[E.VIEW_DIR[a & 3]] != E.CELL_EMPTY:
                     self.c['armed_split_noop'] += 1
@@ -121,17 +125,19 @@ class Meter(object):
                     self.contact_e[(w, '47+')] += 1
                 if e in (49, 50):
                     self.contact_e[(w, str(e))] += 1
-            self.paths['%s/%d/%d' % (self.label(a, n, con), n, int(con))] += 1
+            self.paths['%s/%d/%d' % (self.label(a, n, con, (view.x, view.y) in self.pull_now), n, int(con))] += 1
             return r
         self.policy = wrapped
 
-    def label(self, a, n, con):
+    def label(self, a, n, con, pulled=None):
+        if pulled is None:
+            pulled = n == C.MISFORTUNE_PULL_N
         k = a & 0xF0
         if n == self.armed_n and k == E.ACT_EAT:
             return 'stored' if self.ctrl else 'armed'
-        if con and n == self.bite_n and k == E.ACT_EAT:
+        if con and k == E.ACT_EAT and (n == self.bite_n or (getattr(self.sub, 'refill', None) and n in (22, 26, 28))):
             return 'scan' if self.ctrl else 'arming'
-        if not self.ctrl and n == C.MISFORTUNE_PULL_N:
+        if not self.ctrl and pulled:
             return 'pull' if k == E.ACT_EAT else 'lift'
         return KIND.get(a, {E.ACT_MOVE: 'move', E.ACT_SPLIT: 'split', E.ACT_EAT: 'eat', E.ACT_FEED: 'feed'}.get(k, '?'))
 
@@ -191,19 +197,20 @@ class Meter(object):
                     self.stuck_now.add(i)
                 elif col[g] == seat:
                     self.c['armed_friend'] += 1
+                    self.fr_now.add(i)
                     self.ev_now[i].add('friend_refill')
                 else:
                     self.c['armed_enemy'] += 1
                     self.ev_now[i].add('enemy_refill')
             elif eat and g >= 0 and col[g] == seat:
-                if not self.ctrl and n == C.MISFORTUNE_PULL_N:
+                if not self.ctrl and self._xy(i) in self.pull_now:
                     self.c['pulls'] += 1
                     self.c['pull_cap_loss'] += max(0, en[i] + min(E.EAT_TAKE, en[g]) - CAP_E)
                     self.ev_now[g].add('pull')
                 else:
                     self.c['other_friend_eats'] += 1
             elif not eat and g >= 0:
-                if not self.ctrl and n == C.MISFORTUNE_PULL_N:
+                if not self.ctrl and self._xy(i) in self.pull_now:
                     self.c['lifts'] += 1
                 self.ev_now[g].add('feed')
         elif eat and g >= 0 and col[g] == seat:
@@ -228,10 +235,17 @@ class Meter(object):
                 self.noop_done.append(self.noop_runs.pop(k))
         for k in self.noop_now:
             self.noop_runs[k] = self.noop_runs.get(k, 0) + 1
+        for k in list(self.fr_runs):
+            if k not in self.fr_now:
+                self.fr_done.append(self.fr_runs.pop(k))
+        for k in self.fr_now:
+            self.fr_runs[k] = self.fr_runs.get(k, 0) + 1
+        self.fr_now = set()
         self.noop_now = set()
         self.stuck_now = set()
         self.ev_prev, self.ev_now = self.ev_now, collections.defaultdict(set)
         self.calls_now = {}
+        self.pull_now = set()
         if t in CHECK_TICKS:
             self.checks[t] = (list(eng.pop), list(eng.energy))
 
@@ -270,6 +284,7 @@ class Meter(object):
                 f['enemy_t1'] += 1
         out['freed'] = dict(f, kills=len(kills))
         out['noop_runs'] = self.noop_done + list(self.noop_runs.values())
+        out['friend_runs'] = self.fr_done + list(self.fr_runs.values())
         for k in ('armed_splits', 'armed_split_noop'):
             out.setdefault(k, 0)
         return out

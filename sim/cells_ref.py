@@ -474,7 +474,7 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
     empty neighbour; else rest_tail(view, mem) -> (instructions, taken jumps) of the tail, which may write mem.
     hold (sim probe, hold-off study 2026-11-13): 'on' = v2.2's prey hold (default).  With an enemy on a diagonal and
     e >= hold_min: 'off' skips the hold (the walker / dispersal logic runs), 'split' splits at once into the freed
-    or first empty square.  Below hold_min the v2.2 hold applies."""
+    or first empty square.  Below hold_min the v2.2 hold applies, 2 instructions longer under 'split' (asm test)."""
     parent = make_bane(**kw)
     refill_min = kw.get('refill_min', SCOURGE_REFILL_MIN)
     threat_min = kw.get('threat_min', SCOURGE_THREAT_MIN)
@@ -505,10 +505,17 @@ def make_bane2(k_long=BANE2_K_LONG, k_short=BANE2_K_SHORT, t_early=BANE2_T_EARLY
         split = ACT_SPLIT + (freed or empty)[0]
         n, t = 21, 0                               # 13, then movdqu x2, pcmpeqb x2, por, pmovmskb, test, jnz threat
         near = any(c[i] == CELL_ENEMY for i in BANE2_NEAR)
-        if near and hold == 'split' and e >= hold_min and view.tick < SPRINT_LATE_TICK:
-            return split, n + 3, n + 2             # probe: split into the freed / first empty square
+        if near and hold == 'split' and e >= hold_min:
+            # asm (gen_misfortune2): threat: cmp esi, hold_min / jae (taken) / cmp tick, late / jb EXIT (taken) = +4;
+            # late: the jb falls through to mov steps, 0 / ret (+6, steps cleared as in the v2.2 late split)
+            if view.tick < SPRINT_LATE_TICK:
+                return split, n + 4, n + 2
+            mem[1] = 0
+            return split, n + 6, n + 5
         if near and hold == 'off' and e >= hold_min:
             near = False                           # probe: no hold, the dispersal logic runs
+        if near and hold == 'split':
+            n += 2                                 # asm: the cmp esi, hold_min / jae (not taken) in front of every hold path
         if near:                                   # v2.2: the hold needs an enemy in the 3x3
             mem[1] = 0                             # threat (taken): mov steps, cmp esi, jb rest
             n, t = n + 3, t + 1
@@ -800,9 +807,9 @@ def misfortune_pattern(e0, d, te, exact, cap):
     return {b: v for b, v in out.items() if b < 64}
 
 
-DEPRAVITY_MIN = 12                           # checked refill: own energy >= 12 (the parent stays strong)
-DEPRAVITY_BYTE = 2                           # byte 2 = SPLIT + d of the last bite (0 = none); free in Misfortune
-DEPRAVITY_FIRE_N = 13                        # prefix 4 + or, jz, movzx, cmp, jnz, cmp, jb, mov, ret
+MISFORTUNE2_MIN = 12                           # checked refill: own energy >= 12 (the parent stays strong)
+MISFORTUNE2_BYTE = 2                           # byte 2 = SPLIT + d of the last bite (0 = none); free in Misfortune
+MISFORTUNE2_FIRE_N = 13                        # prefix 4 + or, jz, movzx, cmp, jnz, cmp, jb, mov, ret
 # Asm count of the checked refill (assumed layout: byte 2 = action SPLIT + d, byte 3 = view index of that square,
 # written as one word by `mov ax, [tbl + rcx*2]` / `mov [mem+2], ax` = +2 on the biting path):
 #   after the prefix (entry 2 + prefix 2): or al, [mem+2] / jz normal (none: +2, jz taken) / movzx edx, [mem+3] /
@@ -836,7 +843,7 @@ def misfortune_cap_rule(view, cap):
     return None, tested, taken
 
 
-def make_misfortune(cap='B', exact=1, refill=None, **kw):
+def make_misfortune(cap='B', exact=1, refill=None, fire_min=None, **kw):
     if cap not in ('A', 'B', 'N'):
         raise ValueError("cap must be 'A', 'B' or 'N'")
     if exact not in (0, 1):
@@ -854,15 +861,19 @@ def make_misfortune(cap='B', exact=1, refill=None, **kw):
         misfortune_prefix(mem)
         c = view.cells
         ex_n = ex_t = 0                            # checked-refill extras on the paths that do not fire
+        ex_b = 0                                   # ... on the biting path (the clear is skipped there: the arm rewrites byte 2)
         if refill:
-            st = mem[DEPRAVITY_BYTE]
+            st = mem[MISFORTUNE2_BYTE]
             if not st:
-                ex_n, ex_t = 2, 1                  # or al, [mem+2] / jz normal (taken)
+                ex_n = ex_b = 2                    # or al, [mem+2] / jz normal (taken)
+                ex_t = 1
             else:
-                mem[DEPRAVITY_BYTE] = 0            # fired or cleared; a child copies the cleared byte
-                if c[VIEW_DIR[st & 3]] == CELL_EMPTY and e >= DEPRAVITY_MIN:
-                    return st, DEPRAVITY_FIRE_N, DEPRAVITY_FIRE_N
-                ex_n, ex_t = (7, 1) if c[VIEW_DIR[st & 3]] != CELL_EMPTY else (9, 1)
+                mem[MISFORTUNE2_BYTE] = 0            # fired or cleared; a child copies the cleared byte
+                if c[VIEW_DIR[st & 3]] == CELL_EMPTY and e >= (MISFORTUNE2_MIN if fire_min is None else fire_min):
+                    return st, MISFORTUNE2_FIRE_N, MISFORTUNE2_FIRE_N
+                taken = c[VIEW_DIR[st & 3]] != CELL_EMPTY
+                ex_b, ex_t = (7, 1) if taken else (9, 1)     # bite: or, jz, movzx, cmp, jnz [cmp, jb], xor, dup scan
+                ex_n = ex_b + 1                              # no bite: + mov [2], 0 and jmp slow after the dup scan
         act, n, t = core(view, mem)
         if any(c[VIEW_DIR[d]] == CELL_ENEMY for d in range(4)):
             d = act & 3
@@ -872,22 +883,25 @@ def make_misfortune(cap='B', exact=1, refill=None, **kw):
             for k, v in pat.items():
                 mem[k] = v
             if refill:
-                mem[DEPRAVITY_BYTE] = ACT_SPLIT + d
-                return act, bite_n + ex_n + 2, bite_n + ex_n + 2 - 1 - ex_t   # 2 more for the word store
+                mem[MISFORTUNE2_BYTE] = ACT_SPLIT + d
+                mem[MISFORTUNE2_BYTE + 1] = 32 + VIEW_DIR[d]   # view offset of the square (VIEW_CELLS = 32)
+                add = bite_n + ex_b + (1 if not st else 0)   # arm: the table dword + mov [2], dx + shr = +1
+                return act, add, add - 1 - ex_t
             return act, bite_n, bite_n - 1         # jnz arm taken
         n, t = n + MISFORTUNE_PREFIX_N + ex_n, t + MISFORTUNE_PREFIX_N + ex_n - ex_t
         if any(c[VIEW_DIR[d]] == CELL_EMPTY for d in range(4)):
             return act, n, t
         rule, tested, taken = misfortune_cap_rule(view, cap)
         if rule is not None:
-            return rule, MISFORTUNE_PULL_N, MISFORTUNE_PULL_N - taken - 1
+            pull = MISFORTUNE_PULL_N + (ex_n - 2 if refill else 0)    # asm pad is fixed: 80 when ex_n = 2
+            return rule, pull, pull - taken - 1
         return act, n + tested, t + tested - taken
     misfortune.core = core
     misfortune.cap, misfortune.exact = cap, exact
     return misfortune
 
 
-def make_depravity(**kw):
+def make_misfortune2(**kw):
     """Misfortune (cap B, exact 1) + hold='split' (hold_min 10) + the CHECKED refill (planned, no asm yet)."""
     kw.setdefault('hold', 'split')
     kw.setdefault('hold_min', 10)
@@ -927,4 +941,4 @@ FACTORIES = {'covetous': make_covetous, 'scourge': make_scourge, 'contagion': ma
              'woe': make_woe, 'conceit': make_conceit, 'endemic': make_endemic,
              'complacency': make_complacency, 'schism': make_schism, 'pestilence': make_pestilence,
              'bane': make_bane, 'bane2': make_bane2, 'bane3': make_bane3, 'bane4': make_bane4, 'conviction': make_conviction,
-             'penalty': make_penalty, 'misfortune': make_misfortune, 'depravity': make_depravity}
+             'penalty': make_penalty, 'misfortune': make_misfortune, 'misfortune2': make_misfortune2}

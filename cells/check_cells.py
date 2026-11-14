@@ -688,12 +688,15 @@ MISFORTUNE_K = ('kEnemy', 'kRefill', 'kZero', 'kTwoLo', 'kTwoHi', 'kNearLo', 'kN
                  'kRingE1', 'kRingE2', 'kRingZ1', 'kRingZ2')
 
 
-def check_misfortune(path, blob, syms, lst):
+def check_misfortune(path, blob, syms, lst, name='misfortune'):
     """Misfortune (cap B, exact 1): generated source, aligned SSE constants, table bytes equal to gen_misfortune,
     and every memory operand indexed by esi encoded with the 0x67 address-size prefix (no rsi-indexed load/store)."""
     import gen_misfortune as M
-    if open(path).read() != M.generate():
-        fail('misfortune.asm differs from gen_misfortune.generate()')
+    G2 = None
+    if name == 'misfortune2':
+        import gen_misfortune2 as G2
+    if open(path).read() != (G2 or M).generate():
+        fail('%s.asm differs from gen_%s.generate()' % (name, name))
     for k in MISFORTUNE_K:
         if syms[k] % 16:
             fail('misfortune %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
@@ -702,7 +705,6 @@ def check_misfortune(path, blob, syms, lst):
         o = syms[name] - CODE_BASE
         return blob[o:o + n]
     want = {'dir_tbl': bytes(M.ENERGY_OFF),
-            'row_tbl': bytes(M.row_index(i >> 2, i & 3) for i in range(1024)),
             'pat1_tbl': b''.join(M.pattern_row(d, k) for d in range(4) for k in range(M.K_MAX + 1)),
             'c2e_tbl': b''.join(struct.pack('<H', 0x8000 if c == 2 else 0) for c in range(256)),
             'c2z_tbl': b''.join(struct.pack('<H', 0x8000 if c == 0 else 0) for c in range(256)),
@@ -710,9 +712,13 @@ def check_misfortune(path, blob, syms, lst):
             'e6_tbl': bytes(M.e6_value(e) for e in range(256)), 'cap_tbl': bytes(M.cap_action(i) for i in range(256))}
     for d, n in enumerate(('en_up', 'en_right', 'en_down', 'en_left')):
         want[n] = bytes(M.en_value(d, e) for e in range(256))
-    for name, w in want.items():
-        if tb(name, len(w)) != w:
-            fail('misfortune %s bytes differ from gen_misfortune' % name)
+    if G2:
+        want['row4_tbl'] = b''.join(struct.pack('<I', G2.row4_value(i)) for i in range(1024))
+    else:
+        want['row_tbl'] = bytes(M.row_index(i >> 2, i & 3) for i in range(1024))
+    for tname, w in want.items():
+        if tb(tname, len(w)) != w:
+            fail('%s %s bytes differ from the generator' % (name, tname))
     esi_lines = rsi_mem = 0
     for line in open(lst):
         parts = line.rstrip('\n').split(None, 3)
@@ -726,14 +732,14 @@ def check_misfortune(path, blob, syms, lst):
         if re.search(r'\besi\b', ops):
             esi_lines += 1
             if not parts[2].upper().startswith('67'):
-                fail('misfortune: esi-indexed operand without the 0x67 prefix: %r' % line.strip())
+                fail('%s: esi-indexed operand without the 0x67 prefix: %r' % (name, line.strip()))
         if re.search(r'\brsi\b', ops) and not src.strip().lower().startswith('lea'):
             rsi_mem += 1
-            fail('misfortune: rsi-indexed memory operand: %r' % line.strip())
+            fail('%s: rsi-indexed memory operand: %r' % (name, line.strip()))
     print('  esi-indexed memory operands: %d, all with the 0x67 prefix; rsi-indexed memory operands: %d'
           % (esi_lines, rsi_mem))
-    print('  slot 0 = CELLMEM_BASE + %d; pat1_tbl 0x%x (%d rows), row_tbl 0x%x, cap_tbl 0x%x'
-          % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1), syms['row_tbl'], syms['cap_tbl']))
+    print('  slot 0 = CELLMEM_BASE + %d; pat1_tbl 0x%x (%d rows), row(4)_tbl 0x%x, cap_tbl 0x%x'
+          % (M.SLOT0, syms['pat1_tbl'], 4 * (M.K_MAX + 1), syms['row4_tbl' if G2 else 'row_tbl'], syms['cap_tbl']))
 
 
 def _mis_view(rng, kind, energy):
@@ -760,6 +766,17 @@ def _mis_view(rng, kind, energy):
     return cells, ens, tick, (rng.randint(0, 63), rng.randint(0, 63))
 
 
+def G2_STATE(d):
+    import gen_misfortune2 as G2
+    w = G2.state_word(d)
+    return w & 255, w >> 8
+
+
+def _mis2_state(rng, mem):
+    """Memory bytes 2, 3 as the cell writes them: 0, 0 or SPLIT + d with the view offset of that square."""
+    mem[2], mem[3] = (0, rng.getrandbits(8)) if rng.random() < 0.4 else G2_STATE(rng.randint(0, 3))
+
+
 def _mis_mem(rng, energy, pos):
     m = bytearray(rng.getrandbits(8) for _ in range(64))
     if rng.random() < 0.75:
@@ -771,7 +788,7 @@ def _mis_mem(rng, energy, pos):
     return m
 
 
-def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
+def diff_misfortune(blob, n_per=400, seed=20261113, out=None, name='misfortune'):
     """Misfortune vs sim/cells_ref.make_misfortune(cap='B', exact=1): energies 0..50 x random 64-byte memory x
     view kinds (bite, boxed, open, any), then a chain call after every arming at e0 - 4 .. e0 + 11 on the
     memory the arming left.  Compares action, instruction count and memory bytes 0..63 after the call; registers and
@@ -779,7 +796,8 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
     import random
     import collections
     import cells_ref
-    pol = cells_ref.make_misfortune(cap='B', exact=1)
+    v2 = name == 'misfortune2'
+    pol = cells_ref.make_misfortune2() if v2 else cells_ref.make_misfortune(cap='B', exact=1)
     r = Runner(blob)
     rng = random.Random(seed)
     n = mism = 0
@@ -793,6 +811,7 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
         v.x, v.y, v.w, v.h = pos[0], pos[1], 64, 64
         mref = bytearray(mem)
         want = pol(v, mref)[:2]
+        arms = bool(v2 and mref[2] and not mem[13 + energy] and any(cells[i] == 2 for i in (7, 13, 17, 11)))
         got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)), energy, mem=bytes(mem),
                      reset_all=True)
         gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
@@ -800,9 +819,13 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
         if got != want or gmem != bytes(mref):
             mism += 1
             if mism <= 10:
-                fail('misfortune diff %s e=%d cells=%s ens=%s tick=%d mem=%s: asm %s %s ref %s %s'
+                fail(name + ' diff %s e=%d cells=%s ens=%s tick=%d mem=%s: asm %s %s ref %s %s'
                      % (label, energy, cells, ens, tick, bytes(mem).hex(), got, gmem.hex(), want, bytes(mref).hex()))
-        kind = ('armed' if want[1] == 2 else 'arm' if want[1] == 19 and want[0] >> 4 == 3 and mem[13 + energy] == 0
+        if v2:
+            kind = ('armed' if want[1] == 2 else 'fire' if want[1] == 13 and mem[2] else 'arm' if arms else
+                    'cap rule' if want[1] >= 80 and want[0] >= 0x30 else label)
+        else:
+          kind = ('armed' if want[1] == 2 else 'arm' if want[1] == 19 and want[0] >> 4 == 3 and mem[13 + energy] == 0
                 and any(cells[i] == 2 for i in (7, 13, 17, 11)) else
                 'cap rule' if want[1] == 80 else label)
         paths[(kind, want[1])] += 1
@@ -814,11 +837,33 @@ def diff_misfortune(blob, n_per=400, seed=20261113, out=None):
             kind = ('bite', 'boxed', 'open', 'any')[j % 4]
             cells, ens, tick, pos = _mis_view(rng, kind, energy)
             mem = _mis_mem(rng, energy, pos)
+            if v2:
+                _mis2_state(rng, mem)
             gmem, want = one(cells, ens, tick, pos, energy, mem, kind)
-            if want[1] == 19 and mem[13 + energy] == 0:                  # armed: play the next tick on its memory
+            if (want[1] >= 19 and gmem[2] and mem[13 + energy] == 0 and gmem[8] == energy) if v2 else (
+                    want[1] == 19 and mem[13 + energy] == 0):            # armed: play the next tick on its memory
                 e1 = max(0, min(50, energy + rng.randint(-4, 11)))
                 c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), e1)
                 one(c2, en2, t2, p2, e1, bytearray(gmem), 'chain')
+    if v2:                                                  # refill sweep: stored dir x square occupant x energy x enemy
+        for d in range(4):
+            for occ in (0, 1, 2, 3):
+                for energy in range(0, 51):
+                    for extra in (None, 6, 8, 16, 18, 22, 2):
+                        cells, ens = [0] * 25, [0] * 25
+                        cells[12] = 1
+                        cells[(7, 13, 17, 11)[d]] = occ
+                        if extra is not None:
+                            cells[extra] = 2
+                        for i in range(25):
+                            if cells[i] in (1, 2):
+                                ens[i] = 20
+                        ens[12] = energy
+                        mem = bytearray(rng.getrandbits(8) for _ in range(64))
+                        mem[13 + energy] = 0
+                        mem[8] = rng.randint(0, 50)
+                        mem[2], mem[3] = G2_STATE(d)
+                        one(cells, ens, rng.choice((0, 500, 2980)), (30, 31), energy, mem, 'refill')
     # boxed sweep: every empty / friend / enemy pattern of the 8 edge squares x edge energies (walls: energy 0)
     ring = (2, 6, 8, 10, 14, 16, 18, 22)
     edge_pats = (((1, 48), (1, 47), (1, 46), (1, 50)), ((1, 47), (1, 47), (1, 47), (1, 47)),
@@ -1059,6 +1104,12 @@ def main():
             check_contagion(blob, syms, lst, vex)
             if have_uc:
                 diff_contagion(blob, name)
+        elif name == 'misfortune2':
+            check_misfortune(p, blob, syms, lst, 'misfortune2')
+            if have_uc:
+                odir = os.path.join(ROOT, 'sim', 'out', 'misfortune2', 'asm')    # git-ignored
+                os.makedirs(odir, exist_ok=True)
+                diff_misfortune(blob, out=os.path.join(odir, 'unicorn-diff.txt'), name='misfortune2')
         elif name == 'misfortune':
             check_misfortune(p, blob, syms, lst)
             if have_uc:
