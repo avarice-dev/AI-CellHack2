@@ -1019,6 +1019,215 @@ def misfortune_path_table(blob):
     return '\n'.join(['| path | asm | reference B1 | |', '|---|---|---|---|'] + rows)
 
 
+DEPRAVITY_K = ('kEnemy', 'kRefill', 'kZero', 'kTwoLo', 'kTwoHi', 'kNearLo', 'kNearHi', 'kOne')
+
+
+def check_depravity(path, blob, syms, lst):
+    """Depravity (spec shared/cellhack2/PLAN.md): generated source, aligned SSE constants, table bytes (pat1_tbl with the
+    k = 0 stun-save row, k16_tbl te 0..255, pop8_tbl, arm_tbl), one FF 24 C5 jump, bite_tbl actions, constants
+    (HOLD_MIN 8, T_FEED 200), 0x67 on every esi-indexed operand and no rsi-indexed memory operand."""
+    import gen_depravity as D
+    import gen_misfortune as M
+    import gen_misfortune2 as G2
+    if open(path).read() != D.generate():
+        fail('depravity.asm differs from gen_depravity.generate()')
+    for k in DEPRAVITY_K:
+        if syms[k] % 16:
+            fail('depravity %s at 0x%x is not 16-byte aligned' % (k, syms[k]))
+    src = open(path).read()
+    for need in ('cmp\t\tesi, %d\n\tjae\t\thold_split' % D.HOLD_MIN,
+                 'cmp\t\tdword [rdi + VIEW_TICK], %d\n\tjae\t\tboxed_std' % D.T_FEED):
+        if need not in src:
+            fail('depravity: missing %r (HOLD_MIN / T_FEED)' % need)
+
+    def tb(name, n):
+        o = syms[name] - CODE_BASE
+        return blob[o:o + n]
+    want = {'dir_tbl': bytes(M.ENERGY_OFF),
+            'pat1_tbl': b''.join(D.pattern_row(d, k) for d in range(4) for k in range(M.K_MAX + 1)),
+            'k16_tbl': bytes(M.k_of(te) * 16 for te in range(256)),
+            'pop8_tbl': bytes(bin(i).count('1') for i in range(256)),
+            'arm_tbl': b''.join(struct.pack('<Q', syms['arm_' + n.lower()]) for n in G2.ARM_STUBS)}
+    for tname, w in want.items():
+        if tb(tname, len(w)) != w:
+            fail('depravity %s bytes differ from the generator' % tname)
+    for d in range(4):                                      # k = 0: slots e0 - 4, e0 - 2, e0 only (bytes 0, 2, 4)
+        row = tb('pat1_tbl', 96 * 4)[d * 96:d * 96 + 16]
+        if row != bytes([0x30 + d, 0, 0x30 + d, 0, 0x30 + d] + [0] * 11):
+            fail('depravity k = 0 row of direction %d is not bytes 0, 2, 4 only: %s' % (d, row.hex()))
+    ents = struct.unpack('<4Q', tb('arm_tbl', 32))
+    stubs = [syms['arm_' + n.lower()] for n in G2.ARM_STUBS]
+    if list(ents) != stubs or len(set(stubs)) != 4 or not all(syms['arm'] < e < syms['boxed'] for e in ents):
+        fail('depravity arm_tbl entries are not the 4 distinct stubs between arm: and boxed:')
+    jm = []
+    for line in open(lst):
+        parts = line.rstrip('\n').split(None, 3)
+        if len(parts) == 4 and parts[3].split(';', 1)[0].split()[:1] == ['jmp'] and 'arm_tbl' in parts[3]:
+            jm.append(parts)
+    if len(jm) != 1 or 'FF24C5' not in jm[0][2].upper():
+        fail('depravity arm: indirect jump is not exactly one FF 24 C5: %r' % jm)
+    bt = blob[syms['bite_tbl'] - CODE_BASE:syms['bite_tbl_end'] - CODE_BASE]
+    bad = sorted({b for b in bt if b != 0 and not 0x30 <= b <= 0x33})
+    if bad:
+        fail('depravity bite_tbl has actions outside 0 / ACT_EAT..+3: %s' % bad[:10])
+    esi_lines = rsi_mem = 0
+    for line in open(lst):
+        parts = line.rstrip('\n').split(None, 3)
+        if len(parts) < 4:
+            continue
+        code = parts[3].split(';', 1)[0]
+        m = re.search(r'\[([^\]]*)\]', code)
+        if not m:
+            continue
+        ops = m.group(1).lower()
+        if re.search(r'\besi\b', ops):
+            esi_lines += 1
+            if not parts[2].upper().startswith('67'):
+                fail('depravity: esi-indexed operand without the 0x67 prefix: %r' % line.strip())
+        if re.search(r'\brsi\b', ops) and not code.strip().lower().startswith('lea'):
+            rsi_mem += 1
+            fail('depravity: rsi-indexed memory operand: %r' % line.strip())
+    print('  esi-indexed memory operands: %d, all with 0x67; rsi-indexed: %d; one FF 24 C5 jump; k16_tbl te 0..255; '
+          'k = 0 rows = bytes 0, 2, 4; HOLD_MIN %d, T_FEED %d; aligned SSE constants: %s'
+          % (esi_lines, rsi_mem, D.HOLD_MIN, D.T_FEED, ', '.join(DEPRAVITY_K)))
+
+
+def _dep_open_view(rng):
+    """No enemy anywhere in the 5x5, at least one empty neighbour, friends around: the settled dir-open path."""
+    while True:
+        cells = [rng.choice((0, 0, 1, 1, 1, 3)) for _ in range(25)]
+        cells[12] = 1
+        if any(cells[i] == 0 for i in (7, 13, 17, 11)):
+            break
+    ens = [rng.randint(1, 50) if c in (1, 2) else 0 for c in cells]
+    return cells, ens, rng.choice((0, 5, 500, 2979, 2980)), (rng.randint(0, 63), rng.randint(0, 63))
+
+
+def diff_depravity(blob, n_per=400, seed=20261114, out=None):
+    """Depravity vs sim/cells_ref.make_depravity(): energies 0..50 x random 64-byte memory x view kinds (bite, boxed,
+    open, any, dir-open), chains on the memory an arming left, an arm sweep (4 directions x te 0..255 x energies) with
+    the k = 0 stun-save chain, a hold sweep (enemy on a diagonal, e 4..16, ticks around 2980), a boxed sweep (ticks
+    around T_FEED = 200 x e 0..50) and a dir-open sweep.  Compares action, instruction count and memory bytes 0..63
+    (slot 50 == 0 after every arm); registers and xmm zero at entry."""
+    import random
+    import collections
+    import cells_ref
+    pol = cells_ref.make_depravity()
+    r = Runner(blob)
+    rng = random.Random(seed)
+    n = mism = 0
+    paths = collections.Counter()
+    maxn = collections.Counter()
+    minn = {}
+
+    def one(cells, ens, tick, pos, energy, mem, label):
+        nonlocal n, mism
+        v = V()
+        v.cells, v.energy, v.tick, v.energies = cells, energy, tick, ens
+        v.x, v.y, v.w, v.h = pos[0], pos[1], 64, 64
+        mref = bytearray(mem)
+        want = pol(v, mref)[:2]
+        got = r.call(view_bytes(tick, energy, cells, ens, (pos[0], pos[1], 64, 64)), energy, mem=bytes(mem),
+                     reset_all=True)
+        gmem = bytes(r.uc.mem_read(CELLMEM_BASE, 64))
+        n += 1
+        if got != want or gmem != bytes(mref) or (want[1] == 17 and gmem[63] != 0):
+            mism += 1
+            if mism <= 10:
+                fail('depravity diff %s e=%d cells=%s ens=%s tick=%d mem=%s: asm %s %s ref %s %s'
+                     % (label, energy, cells, ens, tick, bytes(mem).hex(), got, gmem.hex(), want, bytes(mref).hex()))
+        adj = any(cells[i] == 2 for i in (7, 13, 17, 11))
+        empty = any(cells[i] == 0 for i in (7, 13, 17, 11))
+        kind = ('armed' if want[1] == 2 else 'arm' if want[1] == 17 and want[0] >> 4 == 3 and adj else
+                'boxed' if not empty and not adj else 'gate1' if want[1] == 15 else
+                'dir-open' if want[0] >> 4 == 2 and want[1] > 29 else 'other')
+        paths[(kind, want[1])] += 1
+        maxn[kind] = max(maxn[kind], want[1])
+        minn[kind] = min(minn.get(kind, 9999), want[1])
+        return gmem, want
+
+    for energy in range(51):
+        for j in range(n_per):
+            kind = ('bite', 'boxed', 'open', 'any', 'dir-open')[j % 5]
+            if kind == 'dir-open':
+                cells, ens, tick, pos = _dep_open_view(rng)
+                ens[12] = energy
+            else:
+                cells, ens, tick, pos = _mis_view(rng, kind, energy)
+            mem = _mis_mem(rng, energy, pos)
+            mem[63] = rng.choice((0, 0, 0x31))
+            if kind == 'dir-open':
+                mem[0] = rng.getrandbits(8)
+            gmem, want = one(cells, ens, tick, pos, energy, mem, kind)
+            if want[1] == 17 and want[0] >> 4 == 3 and mem[13 + energy] == 0:
+                e1 = max(0, min(50, energy + rng.randint(-4, 11)))
+                c2, en2, t2, p2 = _mis_view(rng, rng.choice(('bite', 'boxed', 'open', 'any')), e1)
+                one(c2, en2, t2, p2, e1, bytearray(gmem), 'chain')
+    for d in range(4):                                      # arm sweep (every stub input), then the k = 0 chain
+        for te in range(256):
+            for energy in (0, 5, 7, 25, 46, 50):
+                cells, ens = [0] * 25, [0] * 25
+                cells[12] = 1
+                cells[(7, 13, 17, 11)[d]] = 2
+                ens[(7, 13, 17, 11)[d]] = te
+                ens[12] = energy
+                mem = bytearray(rng.getrandbits(8) for _ in range(64))
+                mem[13 + energy] = 0
+                gmem, want = one(cells, ens, 500, (30, 31), energy, mem, 'arm sweep')
+                if te & 63 <= 2 and want[1] == 17:          # k = 0: e0 - 4, e0 - 2, e0 armed; e0 + 2 .. e0 + 10 not
+                    for off in (-4, -2, 0, 2, 4, 10):
+                        e1 = energy + off
+                        if 0 <= e1 <= 50:
+                            armed = off <= 0 and gmem[13 + e1] != 0
+                            if armed != (off <= 0 and e1 >= 0 and off % 2 == 0) and (13 + e1) < 63:
+                                fail('depravity k = 0 slot off %d te %d e0 %d armed=%s' % (off, te, energy, armed))
+                            c2, en2, t2, p2 = _mis_view(rng, 'open', e1)
+                            one(c2, en2, t2, p2, e1, bytearray(gmem), 'k0 chain')
+    for energy in range(4, 17):                             # hold sweep: enemy on a diagonal, no enemy beside me
+        for tick in (0, 100, 2979, 2980, 2999):
+            for sq in (6, 8, 16, 18):
+                cells, ens = [0] * 25, [0] * 25
+                cells[12] = 1
+                cells[sq] = 2
+                ens[sq], ens[12] = 20, energy
+                for steps in (0, 3):
+                    mem = bytearray(64)
+                    mem[1] = steps
+                    one(cells, ens, tick, (30, 31), energy, mem, 'hold sweep')
+    for energy in range(0, 51):                             # boxed sweep around T_FEED
+        for tick in (0, 5, 199, 200, 201, 2980):
+            for _ in range(6):
+                cells, ens, _t, pos = _mis_view(rng, 'boxed', energy)
+                ens[12] = energy
+                for i in (7, 13, 17, 11):
+                    if cells[i] == 1:
+                        ens[i] = rng.choice((0, 5, 20, 40, 46, 47, 50))
+                mem = _mis_mem(rng, energy, pos)
+                one(cells, ens, tick, pos, energy, mem, 'boxed sweep')
+    for _ in range(4000):                                   # dir-open sweep: position equals / differs from [4..7], steps, bearing
+        energy = rng.randint(4, 16)
+        cells, ens, tick, pos = _dep_open_view(rng)
+        ens[12] = energy
+        mem = bytearray(rng.getrandbits(8) for _ in range(64))
+        mem[13 + energy] = 0
+        mem[0] = rng.getrandbits(8)
+        mem[1] = rng.choice((0, 0, 1, 3, 8))
+        if rng.random() < 0.5:
+            mem[4:8] = struct.pack('<HH', pos[0], pos[1])
+        one(cells, ens, tick, pos, energy, mem, 'dir-open sweep')
+    print('  depravity unicorn diff: %d cases, %d mismatches (action, count, memory 0..63, slot 50 == 0)' % (n, mism))
+    lines = ['  path (by the reference) / instruction count: cases']
+    for (k, c), m in sorted(paths.items()):
+        lines.append('    %-9s %3d: %d' % (k, c, m))
+    lines.append('  min count per path: ' + ', '.join('%s %d' % kv for kv in sorted(minn.items())))
+    lines.append('  max count per path: ' + ', '.join('%s %d' % kv for kv in sorted(maxn.items())))
+    print('\n'.join(lines[-2:]))
+    if out:
+        with open(out, 'w', newline='\n') as f:
+            f.write('cases %d mismatches %d\n%s\n' % (n, mism, '\n'.join(lines)))
+    return n, mism
+
+
 def main():
     files = sorted(os.path.join(HERE, f) for f in os.listdir(HERE) if f.endswith('.asm'))
     files += sorted(os.path.join(HERE, 'calib', f) for f in os.listdir(os.path.join(HERE, 'calib'))
@@ -1214,6 +1423,12 @@ def main():
                 odir = os.path.join(ROOT, 'sim', 'out', name, 'asm')    # git-ignored
                 os.makedirs(odir, exist_ok=True)
                 diff_misfortune(blob, out=os.path.join(odir, 'unicorn-diff.txt'), name=name)
+        elif name == 'depravity':
+            check_depravity(p, blob, syms, lst)
+            if have_uc:
+                odir = os.path.join(ROOT, 'sim', 'out', 'depravity', 'asm')     # git-ignored
+                os.makedirs(odir, exist_ok=True)
+                diff_depravity(blob, out=os.path.join(odir, 'unicorn-diff.txt'))
         elif name == 'misfortune':
             check_misfortune(p, blob, syms, lst)
             if have_uc:
