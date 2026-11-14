@@ -19,3 +19,18 @@ For comparison:
 - Misfortune SOLO, local engine, empty board (sim/out/misfortune-solo-curve-2026-11-13.txt), center start: 7, 33, 136, 420, 918, 1654, 2537 at t10..t70. Corner start: 8, 40, 143, 285, 500, 757.
 - Misfortune REAL, ladder 146477, area 674: 152 at t30, 513 at t60, 744 at t100. Siect-F in the same game, area 1161: 131, 1125, 2266.
 - AtomVirus in 147068, area 526: 2203 at t100, ahead of Siect-F's 1620.
+
+## Refill race (who takes a freed square, and after how many ticks)
+
+The tool is window.refill in the browser (same decoder as above, up to t1000; t3000 for 146477). Bins are 1 / 2 / 3 / 4-5 / 6+ ticks after the death. A square is empty from the tick after the death, because a corpse holds its square until Tidy.
+
+| match | squares Siect-F killed: refilled by Siect-F | by others | Siect-F cells killed: refilled by Siect-F | by others |
+|---|---|---|---|---|
+| 147122 | 1573 / 24 / 7 / 31 / 29 | 306 / 59 / 10 / 6 / 4 | 13 / 24 / 4 / 0 / 0 | 16 / 6 / 1 / 1 / 0 |
+| 147113 | 2221 / 11 / 8 / 2 / 5 | 903 / 167 / 43 / 19 / 3 | 7 / 6 / 0 / 0 / 0 | 14 / 6 / 0 / 2 / 1 |
+| 146477 (vs Misfortune, t3000) | 1014 / 13 / 4 / 9 / 2 | 725 / 41 / 7 / 1 / 2 | 182 / 37 / 4 / 3 / 5 | 162 / 17 / 4 / 4 / 2 |
+
+Reading:
+- Siect-F refills its kills on the very next tick (tick + 1), the earliest the rules allow. It does this for 77-70% of its kills.
+- Against Misfortune, the tick + 1 race over Siect-F's dead cells is about even (182 vs 162), so the race is decided by turn order. Siect-F's refill costs about the same as our 15-instruction refill.
+- In 146477 Misfortune's final population (787) is about its own start area (674): it took no one else's ground. Siect-F's 3309 is about its area (1161) plus Aegis's and garlic's.
