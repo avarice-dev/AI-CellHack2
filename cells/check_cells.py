@@ -60,7 +60,7 @@ CURRENT = ['']       # the cell being checked, for fail()
 # Their problems are reported as expected failures and do not fail the run.
 EXPECTED_FAIL = {'woe', 'conceit', 'endemic'}
 
-# Instructions a cell may use: all run on the site (data/site-observations-2026-11-08.md, "VEX" and "calib-f").
+# Instructions a cell may use: all run on the site (docs/evidence/site-observations-2026-11-08.md, "VEX" and "calib-f").
 # Not allowed there (fault): popcnt, SSSE3 (pshufb), SSE4.1 (ptest), SSE4.2 (crc32), BMI1/2, AVX2 ymm and the VEX
 # forms of SSSE3/SSE4.1 ops.  Add a mnemonic here only once it is known to run on the site.
 ALLOWED = {'db', 'dw', 'dd', 'dq', 'times', 'align',

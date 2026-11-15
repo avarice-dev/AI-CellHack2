@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-14  
 **Scope:** Strictly read-only synthesis of full cell lineage, decoded ladder replays, live site standings, x86-64 ABI v4 / Ruleset v9 boundaries, red-team elimination, and converged clean-sheet specification for overtaking `#1 CogSpore-Siect-F (1962)`.  
-**Primary Sources Verified:** `docs/cellhack.inc`, `cells/check_cells.py`, `sim/engine.py`, `cells/gen_scourge.py`, `cells/gen_schism.py`, `cells/gen_bane2.py`, `cells/gen_conviction.py`, `cells/gen_penalty.py`, `cells/gen_misfortune.py`, `cells/gen_misfortune2.py`, `cells/depravity.asm`, `data/site-checks.md`, `data/opening-search-2026-11-11.md`, `data/siectf-growth-2026-11-13.md`, `data/siectf-games.md`, `data/bane-v22-evidence-2026-11-12.md`, `briefs/deep-review-2026-11-13.md`, `data/evidence-2026-11-12/*`, and `issues.md`.
+**Primary Sources Verified:** `docs/cellhack.inc`, `cells/check_cells.py`, `sim/engine.py`, `cells/gen_scourge.py`, `cells/gen_schism.py`, `cells/gen_bane2.py`, `cells/gen_conviction.py`, `cells/gen_penalty.py`, `cells/gen_misfortune.py`, `cells/gen_misfortune2.py`, `cells/depravity.asm`, `data/site-checks.md`, `data/opening-search-2026-11-11.md`, `data/siectf-growth-2026-11-13.md`, `data/siectf-games.md`, `docs/evidence/bane-v22-evidence-2026-11-12.md`, `briefs/deep-review-2026-11-13.md`, `data/evidence-2026-11-12/*`, and `issues.md`.
 
 ---
 
@@ -72,7 +72,7 @@ Instruction counts below measure **all executed instructions** (including taken 
 > **Primary-Data Timeline Caveat:** All decoded `Siect-F` vs `Misfortune` replays in `data/siectf-growth-2026-11-13.md` and `data/siectf-games.md` (`146477`, `147456`, `147569`, `147688`, `148012`, `146773`) belong to **`Misfortune v1` (`cell 350`)**. Live `#2` **`Misfortune v3` (`cell 353`)**, shipped `2026-11-14 06:18 UTC`, adds `hold='split'` at `e >= 10` (`gen_misfortune2.py`) and has **no decoded replays in the repo**.
 
 ### A. Where 4-Colony Games Are Decided (`t30–t100` + Attrition)
-1. **Start-Square Stratification vs Execution (`Bane v2.2`, `m-solo-matrix.txt`, `bane-v22-evidence-2026-11-12.md:95-117`):**
+1. **Start-Square Stratification vs Execution (`Bane v2.2`, `m-solo-matrix.txt`, `docs/evidence/bane-v22-evidence-2026-11-12.md:95-117`):**
    - On `313` single-own-cell games (`288W/25L = 92.0%`), `VarSi` accounted for `10` losses, `Colossus` `8`, `CogSpore` `5`, `CogBloomXT` `2`, plus `0/4` vs `Siect-F`.
    - `bad` starts (`d < -250` solo `t60` delta) match solo board geometry (`-49%` at `t60` on corners/walls). `Colossus` losses share the exact same window-`b` split gap as wins (start-driven).
    - **`equal` starts (`-250..+250`):** `Bane v2.2` went **`0/5` vs `VarSi`**, falling `100–320` cells below solo expectation by `t60` and `100–1200` by `t100`.

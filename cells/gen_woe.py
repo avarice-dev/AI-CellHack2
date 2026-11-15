@@ -3,7 +3,7 @@
     python cells/gen_woe.py             # writes cells/woe.asm next to this file
 
 Woe makes exactly Scourge's decisions (cells/gen_scourge.py, designs.md rounds 4-5) with one instruction less on
-every path after the bite.  Site calibration (data/site-observations-2026-11-08.md, "VEX"): AVX-128 VEX forms
+every path after the bite.  Site calibration (docs/evidence/site-observations-2026-11-08.md, "VEX"): AVX-128 VEX forms
 of SSE2 ops run and their memory operand may be unaligned.  A VEX compare is non-destructive
 (`vpcmpeqb xmm0, xmm3, [mem]`), so:
   1. The bite loads the raw window of view idx 6..21 once into xmm3 (movdqu, unaligned is fine) and compares it

@@ -6,7 +6,7 @@ Files:
 
 - `cells/misfortune.asm`: the cell (generated; do not edit by hand).
 - `cells/gen_misfortune.py`: the generator. It builds on `gen_bane2.generate()`, as Conviction does.
-- `cells/check_cells.py`: new branch `misfortune` (`check_misfortune`, `misfortune_path_table`, `diff_misfortune`). `Runner.call` has a new option, `reset_all`. It zeroes rbp, r9 to r15 and xmm0 to xmm15 before the call, as the site does (probes calib-q and calib-r, `data/site-observations-2026-11-08.md`).
+- `cells/check_cells.py`: new branch `misfortune` (`check_misfortune`, `misfortune_path_table`, `diff_misfortune`). `Runner.call` has a new option, `reset_all`. It zeroes rbp, r9 to r15 and xmm0 to xmm15 before the call, as the site does (probes calib-q and calib-r, `docs/evidence/site-observations-2026-11-08.md`).
 - Outputs (git-ignored): `sim/out/misfortune/asm/check_cells.txt`, `unicorn-diff.txt`, `path-table.md`, `mutations.txt`.
 
 Reference: `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py` (commit 6de02f6). The asm has no cap A or cap N code.

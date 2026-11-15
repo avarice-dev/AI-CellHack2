@@ -1,5 +1,5 @@
 """Late front movement and freeze ticks per replay. python -I tools/pull2/late.py
-History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
+History: reproduces our pull 2 report (docs/evidence/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, glob, re
 nm = lambda s: re.sub(r'^\W+\s*', '', s).strip()
 rows = []

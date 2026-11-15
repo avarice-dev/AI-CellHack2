@@ -2,8 +2,8 @@
 
 The current plan is section 11. Earlier sections are history where a pointer says so.
 
-Planning only. Round 4 rests on both ladder data pulls (`data/ladder-data-2-2026-11-08.md` is the main source,
-991 matches and 36 decoded replays), the site calibrations (`data/site-observations-2026-11-08.md`), the reviewer's
+Planning only. Round 4 rests on both ladder data pulls (`docs/evidence/ladder-data-2-2026-11-08.md` is the main source,
+991 matches and 36 decoded replays), the site calibrations (`docs/evidence/site-observations-2026-11-08.md`), the reviewer's
 round 3 review (`reviews/r3-review.md`) and the lead's decisions on its G1-G20 (end of `reviews/decisions-r1.md`).
 History: `reviews/designs-r1..r3-snapshot.md`.
 
@@ -207,7 +207,7 @@ AtomPush's refill cost (stored replay event order).
 Rounds 1-4 and every cell above stay as they are; round 5 adds three VEX variants. Each one makes exactly its
 parent's decisions and differs only in instruction counts, so each ladder comparison measures speed alone.
 
-### 8.1 Instructions on the site (calibration cells in `cells/calib/`, data/site-observations-2026-11-08.md)
+### 8.1 Instructions on the site (calibration cells in `cells/calib/`, docs/evidence/site-observations-2026-11-08.md)
 | Works | Faults (invalid_insn every call) |
 |---|---|
 | SSE2 (movdqu, pcmpeqb, pmovmskb, por, pxor) | popcnt (f), SSSE3 pshufb (g), SSE4.1 ptest (h), SSE4.2 crc32 (m) |
@@ -303,7 +303,7 @@ not run on the site yet (a Sandbox game before any ladder use; no ladder change 
 
 ## 9. Round 6: Complacency = Scourge plus early free splitting (2026-11-08)
 ### 9.1 The bet
-Pull 3 (data/scourge-losses-2026-11-08.md): Scourge loses the land grab, not the late fights. Winners lead from about
+Pull 3 (docs/evidence/scourge-losses-2026-11-08.md): Scourge loses the land grab, not the late fights. Winners lead from about
 t21; at t200 Scourge has ~800 cells vs ~2400 for AtomPush/AtomCrasher; it reaches pop 128 / 512 at t36-44 / t81-175
 vs t28-33 / t56-82 for the winners. Suspected cause (10.2 later placed the deficit in the first ~35 ticks and in split geometry): the prey hold (5 <= e < 16 with an enemy anywhere in the 5x5:
 rest until t2980). Contagion's games (data/contagion-games-2026-11-08.md) point the same way: it wins the pre-contact
@@ -535,7 +535,7 @@ The name is reused: section 7's Bane (notch traps) was never built. Famine (11.3
   - Not the cause: turn order (after t75 we act before the top rivals in 73-90% of ticks); bite rate (Contagion 66% of front ticks, AtomPush 61%); target choice (about 50% poorest for every cell); front energy and feeding to the front (t200-600: Contagion 33.1 energy, 23.4 feeds per tick; AtomPush 29.7, 25.3); focus fire (we focus more); retaking freed squares (we retake 96-97% of our own, Atom 81-86%).
   - The gap is early growth. Real medians, population at t50 / t100 / t200: AtomPush 348 / 967 / 1528, AtomCrasher 292 / 865 / 1513, Contagion 279 / 745 / 1401, Complacency 239 / 664 / 1213. Atom is 25-30% ahead before contact. Fights then hold the border where it formed, which looks like "no push back".
   - Opening, t0-75 (`tools/replay/early_growth.py`): every colony splits at the same rate per cell (3.8-3.9% of cell-ticks) and at 5-6 energy (child 2-3). The gap opens by t10-20 (population at t20: AtomPush 57, Noob++ 56, Contagion 40, Complacency 42). The fast openers feed a lot: feeds per cell-tick AtomPush 36%, Noob+/Noob++ 68%, Aegis 62%; Contagion 22%, Complacency 20%. A feed costs the feeder its +1 rest, but it moves energy from cells that cannot split to cells that can, and earlier splits compound.
-  - 2026-11-10, replays 123880 + 123990 (`data/contact-study-2026-11-10.md`): the new cells (Yen's CogBloomXT, Ironbloom) bite as fast as F5 or faster in one direction, so our front cells are stunned about half of their ticks; that front is a stalemate. The games are lost in the t100-200 land grab (Ironbloom +640, Schism +140; Schism lost 118 cells there, Ironbloom 3) and in converting weak colonies' land. Our children born with an enemy in view are 2-3 energy (Complacency's never-hold rule) and die to one bite. **Bane v1 (built 2026-11-10) = Schism with the prey hold restored (Scourge's rule 3: with an enemy in the 5x5, split only from 16, child 8).** One constant; bite, refill, feeding unchanged. Expect: fewer deaths in contact, a little less raw growth. Judge on the ladder (gate: >= 300 games vs Schism's rating).
+  - 2026-11-10, replays 123880 + 123990 (`docs/evidence/contact-study-2026-11-10.md`): the new cells (Yen's CogBloomXT, Ironbloom) bite as fast as F5 or faster in one direction, so our front cells are stunned about half of their ticks; that front is a stalemate. The games are lost in the t100-200 land grab (Ironbloom +640, Schism +140; Schism lost 118 cells there, Ironbloom 3) and in converting weak colonies' land. Our children born with an enemy in view are 2-3 energy (Complacency's never-hold rule) and die to one bite. **Bane v1 (built 2026-11-10) = Schism with the prey hold restored (Scourge's rule 3: with an enemy in the 5x5, split only from 16, child 8).** One constant; bite, refill, feeding unchanged. Expect: fewer deaths in contact, a little less raw growth. Judge on the ladder (gate: >= 300 games vs Schism's rating).
   - SUPERSEDED (the Bane v2 that was built is the dispersal opening in the v2.0 bullet at the end of this section, not this scout plan). Same day, replay 124335 (Bane vs CogBloomXT alone on the board, lost 1331 to 2765, settled by t250): CogBloomXT's opening is **seeding by scouts**: the founder sends a 5-energy cell 15 squares along one axis and a 2-energy child 15 squares along the other, both toward the board centre; the new blobs scout again; splits always from 5, never feeds. 3-4 blobs by t30, ×6.8 growth in t30-60 against our ×3.3. This is Contagion's scout idea (2.4) without the conditions that disabled it. **Bane v2 = Bane + unconditional scouts** (memory: generation, bearing, steps; 15 steps; 2 from the founder, 1 from each first-generation blob along the other axis). Test first in `sim/growth.py` (solo growth, needs a move-capable policy), target CogBloomXT's curve: t50 462, t100 1486.
   - SUPERSEDED (Bane v2 changed the opening by dispersal and a stored bite, not by more feeding; see the bullets below). Direction: Schism's rule (boxed cells feed the edge from e >= 6) is the right idea, and Schism is the one cell of ours that beats Atom. Bane pushes it further in the opening: more and earlier feeding toward cells with an empty neighbour. Tune it with the solo growth study (`sim/growth.py`; no rival model, the simulator's trusted part), target AtomPush's real curve (t20 57, t50 334). Keep the contact play. Needs Schism's own replays first (a new data pull) to see how far Schism already closes the gap.
   - Bane v2.0 (git tag bane-v2.0; `cells/gen_bane2.py`, reference `make_bane2` in `sim/cells_ref.py`, tests `sim/tests/test_bane2.py`, checker branch `bane2`): Bane v1 plus a dispersal opening. A cell with an empty neighbour and no enemy near no longer splits in a fixed order. Its children walk away before they settle. The first child from a square goes forward 8 squares. Later children go to the next empty square clockwise and walk 2 squares. A walker stops when the next square is not empty or its steps run out. Memory: [0] bearing, [1] steps left, [4..7] the square the cell last split from. Why: every cell keeps empty neighbours, so cells rest and split and are not boxed in. Checker: 931,437 emulated cases, 0 mismatches. Solo engine check of the opening (existing engine, mean of 4 start squares): 137 cells at t30, 1063 at t60, 2942 at t100. Ladder: retired at 1645 after 157 games, 82% wins, average place 1.22, 1st. Cells at t30 / t60 / t100 / t200 (mean of 8 games against top cells): 132 / 796 / 1376 / 1580; medivac in the same pull 81 / 940 / 1860 / 2204. Bane v1 for comparison: about 1300 after 44 games, 10th; 102 / 350 / 576 at t30 / t60 / t100 (3 games). Head to head in pulled replays: medivac 0-3, CogBloomXT 0-2, Colossus 1-1.
@@ -548,7 +548,7 @@ Schism at >= 300 games, rating >= Complacency's final 1516. Fail: remove Schism;
 Result 2026-11-09: passed. Schism 1653 after 1321 games (1035 wins), 1st on the leaderboard; Contagion 1631, 2nd.
 
 ### 11.5 Steps
-Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `data/site-observations-2026-11-08.md`):
+Claude: build, tests, `check_cells`, Unicorn counts. Owner (results in `docs/evidence/site-observations-2026-11-08.md`):
 1. Done for Schism. The Sandbox has no seed control, and 128 cells is out of reach with 4 colonies on 16x16. Three games each against Scourge, Covetous, Contagion: Schism places 2, 1, 2; Complacency 2, 2, 3; 0 faults.
 2. Sandbox, Pestilence, one game. Record move refills, same-tick backfills, faults. Backfill hits under 50%: remove change 2.
    Done 2026-11-09 (cell 180, change 1 only): Sandbox 116745 vs Scourge/Covetous/Contagion: 2nd, pop 71 (Contagion 76), 0 faults, insns avg 53 max 88. Move refills not counted (needs the replay).

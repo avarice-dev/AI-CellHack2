@@ -1,5 +1,5 @@
 """Section 8 (matches chosen and why) and section 9 (file index) as markdown. python -I tools/pull2/sec8.py
-History: reproduces our pull 2 report (data/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
+History: reproduces our pull 2 report (docs/evidence/ladder-data-2-2026-11-08.md); reads only data/pull2 in the pull 2 formats."""
 import json, glob, re, os
 nm = lambda s: re.sub(r'^\W+\s*', '', s).strip()
 WHY = {}

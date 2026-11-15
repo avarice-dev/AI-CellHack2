@@ -181,7 +181,7 @@ checks (`validate.thresholds`) per set and a fingerprint table (front / interior
 split mode, real s4 vs sim). "E200 / E1000" in the checks is the colony mean energy of the table.
 
 ### Treadmill metrics (treadmill.py)
-Late-game targets from pull 3 (data/scourge-losses-2026-11-08.md), computed the same way for the real replays
+Late-game targets from pull 3 (docs/evidence/scourge-losses-2026-11-08.md), computed the same way for the real replays
 (data/<pull>/mining/races/*.csv.gz of every data pull; populations from summaries pop10 or mining pop) and the
 sim (`Engine(record_races=True)`, one row per death as in tools/replay/mine.py): per cell, the share of its refilled death squares it refilled itself, its
 deaths per tick in t < 500 / 500-1000 / >= 1000, the median pop change t500 -> end, the first tick at pop 128
@@ -197,7 +197,7 @@ Decide before Act), and 7 (newborns act from the next tick); 6b has no basis in 
 no passive gain). 1 (starts), 2 (rounding) and 3 (self type) are not in the docs.
 Parameters let you flip the ones marked (param).
 1. **Start squares** (param `start_mode`). Verified 2026-11-08 from replays: ladder starts are random
-   squares (e.g. 98753: (10,61) (23,30) (45,21) (13,41); more in `../data/ladder-data-2026-11-08.md` s5).
+   squares (e.g. 98753: (10,61) (23,30) (45,21) (13,41); more in `../docs/evidence/ladder-data-2026-11-08.md` s5).
    `random` (default in run.py and experiments.py) draws each start uniformly over the board, conditioned
    on a minimum pairwise distance (`start_min_dist` 8, `start_metric` manhattan: the smallest closest
    pair in the 36 pull-2 replays is Manhattan 8). Real starts sit near an edge slightly less often than

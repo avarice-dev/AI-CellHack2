@@ -14,15 +14,15 @@ Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10 and pull 7 on 20
 
 | Pull | What it collected | Main write-up |
 |---|---|---|
-| 1 | 10 match-list pages (398 finished ladder matches, ids 98432 to 98829), 13 replays, a few match pages, and the leaderboard. | `data/ladder-data-2026-11-08.md` |
-| 2 | 16 match-list pages (593 finished ladder matches, ids 98830 to 99422), 165 small match pages, the leaderboard, and 36 replays. 35 raw replay files were kept. | `data/ladder-data-2-2026-11-08.md` |
-| 3 | The newest 100 finished ladder games of the Scourge cell (matches 103128 to 103747), one match page for each, and 15 replays of games Scourge lost. | `data/scourge-losses-2026-11-08.md` |
+| 1 | 10 match-list pages (398 finished ladder matches, ids 98432 to 98829), 13 replays, a few match pages, and the leaderboard. | `docs/evidence/ladder-data-2026-11-08.md` |
+| 2 | 16 match-list pages (593 finished ladder matches, ids 98830 to 99422), 165 small match pages, the leaderboard, and 36 replays. 35 raw replay files were kept. | `docs/evidence/ladder-data-2-2026-11-08.md` |
+| 3 | The newest 100 finished ladder games of the Scourge cell (matches 103128 to 103747), one match page for each, and 15 replays of games Scourge lost. | `docs/evidence/scourge-losses-2026-11-08.md` |
 | 4 | All 95 finished ladder games of the Contagion cell (matches 103614 to 104195), and 12 replays (6 wins, 6 losses). | `data/contagion-games-2026-11-08.md` |
 | 5 | 12 match-list pages (480 finished ladder matches, ids 105881 to 106358), the leaderboard, and 72 match pages and replays: Contagion 18, Complacency 18 (2 games hold both cells), and 38 games of the top rivals without our cells. | `data/pull5-games-2026-11-08.md` |
-| 6 | 3 replays and match pages of two new leading cells (CogBloomXT, Ironbloom). | `data/contact-study-2026-11-10.md` |
+| 6 | 3 replays and match pages of two new leading cells (CogBloomXT, Ironbloom). | `docs/evidence/contact-study-2026-11-10.md` |
 | 7 | 20 replays and match pages: games of the leading cells of 2026-11-10 and 2026-11-11, with and without our cells. In `names.json` our cell has a version label in some games (see the tip under [Writing your own replay tool](#writing-your-own-replay-tool)). | No write-up yet |
 
-Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 + 12 + 72); pull 1's 13 replays are not in the pool. FIT and TEST sizes are in [simulator.md](simulator.md). Site mechanics and calibration results are in `data/site-observations-2026-11-08.md`. Ratings over time are in `data/site-checks.md`.
+Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 + 12 + 72); pull 1's 13 replays are not in the pool. FIT and TEST sizes are in [simulator.md](simulator.md). Site mechanics and calibration results are in `docs/evidence/site-observations-2026-11-08.md`. Ratings over time are in `data/site-checks.md`.
 
 ## What the site gives
 
@@ -255,5 +255,5 @@ These rules apply to every request to the site.
 
 ## Related documents
 
-- `data/ladder-data-2-2026-11-08.md`: the main study of pull 2, with its headline findings and rival profiles.
+- `docs/evidence/ladder-data-2-2026-11-08.md`: the main study of pull 2, with its headline findings and rival profiles.
 - `data/replay-mining-2026-11-08.md`: the refill race and resting income, from the 35 pull 2 replays.

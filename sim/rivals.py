@@ -1,6 +1,6 @@
 """Rival reference policies: plausible strong ladder cells, modelled on the replays.
 
-Measured (data/ladder-data-2026-11-08.md section 4): every strong rival checks the four directions in a
+Measured (docs/evidence/ladder-data-2026-11-08.md section 4): every strong rival checks the four directions in a
 fixed order (Hunter-style), so it bites in 4 / 6 / 8 / 10 by check order: Brawler-like U, L, R, D,
 AtomPush-like R, L, U, D.  rbrawler, rpump and ratompush use that static front.  Hypothetical fronts,
 kept for comparison only: rblind3 (bites at 3 in every direction), rlock5 / rfatgrab (checked lock +
@@ -139,7 +139,7 @@ def parse_order(order):
 def _make_front(front, order, prearm, bite_costs=None):
     """front(c, mem) -> (action, n, alt) for a bite, or (None, n, alt) with the slow path's start count.
 
-    'static' (measured on the ladder, data/ladder-data-2026-11-08.md section 4), Hunter-style:
+    'static' (measured on the ladder, docs/evidence/ladder-data-2026-11-08.md section 4), Hunter-style:
         cmp byte [rdi+VIEW_CELLS+idx_k], 2 / je .eat_k      ; 2 per check, in `order`
         .eat_k: mov al, ACT_EAT+d / ret                     ; bite at check k (0-3): 4 + 2k / 3 + 2k
         all four miss: 8 / 8; no memory use
@@ -498,7 +498,7 @@ def make_rblindlock3(split_min=5, feed_min=6, feed_margin=2, feed_target_max=48)
 
 def make_rsiectf(**kw):
     """L2 rival Siect-F (ladder 'CogSpore-Siect-F'): bites in <= 3 in every direction (flat3 front, measured
-    data/bane-v22-evidence-2026-11-12.md s12), splits at 5, no feeding (fpe 0.2-1.2 in the replays, 0% early feed)."""
+    docs/evidence/bane-v22-evidence-2026-11-12.md s12), splits at 5, no feeding (fpe 0.2-1.2 in the replays, 0% early feed)."""
     kw.setdefault('front', 'flat3')
     kw.setdefault('feed_min', 99)
     return make_rbrawler(**kw)

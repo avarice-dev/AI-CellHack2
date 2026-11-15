@@ -4,7 +4,7 @@ written by hand.
     python cells/gen_complacency.py     # writes cells/complacency.asm next to this file
 
 Complacency is Scourge (cells/gen_scourge.py, legacy SSE2 only) plus exactly one bet (designs.md round 6, from
-pull 3's land-grab finding, data/scourge-losses-2026-11-08.md): no prey hold in the early game.  On Scourge's middle
+pull 3's land-grab finding, docs/evidence/scourge-losses-2026-11-08.md): no prey hold in the early game.  On Scourge's middle
 path (no adjacent enemy, an empty neighbour, gate 1 not taken, 5 <= e < 16) Scourge rests while an enemy is anywhere
 in the 5x5 view, until tick 2980.  Complacency splits there while tick < FREE_UNTIL, enemy in view or not; from
 FREE_UNTIL on it is Scourge.  The tick is checked first on that path (`cmp dword [tick], T` / `jb EXIT_ADDR`; al

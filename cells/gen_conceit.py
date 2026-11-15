@@ -3,7 +3,7 @@
     python cells/gen_conceit.py         # writes cells/conceit.asm next to this file
 
 Conceit makes exactly Covetous's decisions (cells/gen_covetous.py) with one instruction less on every path
-through the split check.  Site calibration (data/site-observations-2026-11-08.md, "VEX"): AVX-128 VEX forms of
+through the split check.  Site calibration (docs/evidence/site-observations-2026-11-08.md, "VEX"): AVX-128 VEX forms of
 SSE2 ops run and their memory operand may be unaligned.  The bite loads the raw window of view idx 7..22 into
 xmm3 and compares it with the non-destructive `vpcmpeqb xmm0, xmm3, [kEnemy]` (still 5 instructions); the split
 check compares xmm3 again (`vpcmpeqb xmm0, xmm3, [kEmpty]`) instead of movdqu + pcmpeqb.  The 5x5 check uses

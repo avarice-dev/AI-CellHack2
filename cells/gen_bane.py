@@ -6,7 +6,7 @@ by hand.
 Bane is Scourge (cells/gen_scourge.py: F5 bite, refill, prey hold, capped-donor feeding) plus Schism's boxed rule
 (cells/gen_schism.py, designs.md 11.1): no enemy in the 5x5, no empty neighbour, energy >= 6: feed the first friend
 of UP, RIGHT, DOWN, LEFT that has an empty neighbour.  The one difference from Schism is that the prey hold is back
-(designs.md 11.3, 2026-11-10, data/contact-study-2026-11-10.md): with an enemy anywhere in the 5x5 view, a cell at
+(designs.md 11.3, 2026-11-10, docs/evidence/contact-study-2026-11-10.md): with an enemy anywhere in the 5x5 view, a cell at
 5 <= e < 16 rests instead of splitting a 2-3-energy child next to a faster biter.  No memory.
 """
 

@@ -4,7 +4,7 @@ A data pull is any folder data/<pull>/ that has a validation-table.md and a star
 builds both from the pull's replays).  The pulls are found there, not listed here (pulls(), --pull).  Re-plays
 every match of the chosen pulls with the same start squares and the nearest sim model of each cell, then compares
 the replay-style statistics with the table.  The rule statistics and rival fingerprints printed as reference are
-our pull 2 measurements (data/ladder-data-2-2026-11-08.md sections 4 and 6), whatever pulls are re-played.
+our pull 2 measurements (docs/evidence/ladder-data-2-2026-11-08.md sections 4 and 6), whatever pulls are re-played.
 FIT/TEST: data/splits/split.json (--split), never re-drawn; --extend-split gives new matches a set.  Reads the
 data files and writes nothing there, except --extend-split.  Set CH_DATA to use another data folder.
 
@@ -35,7 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.environ.get('CH_DATA') or os.path.join(ROOT, 'data')
 SPLIT_SEED = 20261108
 
-# cell name -> (sim spec, quality).  Profiles from data/ladder-data-2-2026-11-08.md sections 3-4.
+# cell name -> (sim spec, quality).  Profiles from docs/evidence/ladder-data-2-2026-11-08.md sections 3-4.
 MODELS = {
     'Sprint': ('sprint', 'exact'),
     'Scourge': ('scourge', 'exact'), 'Contagion': ('contagion', 'exact'), 'Covetous': ('covetous', 'exact'),
@@ -55,7 +55,7 @@ MODELS = {
     'AtomPush': ('ratompush[split_after=2,assist_min=6,feed_margin=4]', 'model'),     # R4 L6, fat economy
     'AtomCrasher': ('ratompush[split_after=2,assist_min=8,feed_margin=4]', 'model'),  # R4 L6, fat, feeds less
     'rooby': ('ratompush[order=URDL,split_min=6,assist_min=99,donor_min=99,pad=56,pad_bites_from=2]', 'model'),  # U4 R6, no feeding
-    # L2 rivals of the 2026-11-13 review (data/bane-v22-evidence-2026-11-12.md s12, replays of pulls 7-9):
+    # L2 rivals of the 2026-11-13 review (docs/evidence/bane-v22-evidence-2026-11-12.md s12, replays of pulls 7-9):
     'CogSpore-Siect-F': ('rsiectf[]', 'model'),   # Siect-F: bite <= 3 any direction, no feed
     'CogSpore - VarSi': ('rvarsi[]', 'model'),    # VarSi: U/D 4, L/R 5-15, cap idle
     'Colossus': ('rcolossus[]', 'model'),         # Colossus: bite 5, heavy feeding
@@ -63,7 +63,7 @@ MODELS = {
     'gemAlert_v4': ('hunter', 'rough'), 'Bulwark': ('hunter', 'rough'),
     'zergling': ('walker', 'rough'), 'choochoo': ('walker', 'rough'),
 }
-# Measured fingerprints, data/ladder-data-2-2026-11-08.md section 4 (pooled over all replays of the cell):
+# Measured fingerprints, docs/evidence/ladder-data-2-2026-11-08.md section 4 (pooled over all replays of the cell):
 # front / interior mean energy at keyframes 500 and 1000, feeds per eat (pooled), most common split energy.
 # None = not given there.
 FINGERPRINTS = {

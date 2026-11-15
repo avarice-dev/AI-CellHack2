@@ -1,6 +1,6 @@
 # Deep review: what the measures say, and the path forward (2026-11-13)
 
-Inputs: `data/bane-v22-evidence-2026-11-12.md` (pack) and, in `data/evidence-2026-11-12/`: `m1-gate-summary.txt`,
+Inputs: `docs/evidence/bane-v22-evidence-2026-11-12.md` (pack) and, in `data/evidence-2026-11-12/`: `m1-gate-summary.txt`,
 `m2-varsi-budget.txt`, `m2b-far-none.txt`, `m3-losses-by-winner.txt`, `m5-refill-killer.txt`, `m7-newborns.txt`,
 `m-r1-first-contact.txt`, `m-solo-matrix.txt`, `notes-2026-11-13.md`, `duel-summary.txt`. Source: `cells/bane2.asm`.
 Real replays and solo runs only. Inferences are marked; every claim has a confidence.

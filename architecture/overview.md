@@ -97,7 +97,7 @@ Ladder results and new replays feed the next analysis. Cells and their history a
 3. [cells-and-experiments.md](cells-and-experiments.md), for how cells are built and checked, and what each cell tried.
 4. [simulator.md](simulator.md), for how the simulator works and how far to trust it.
 5. [data-pulls.md](data-pulls.md), for where the game data comes from and how it is stored.
-6. `data/ladder-data-2-2026-11-08.md`, the main study of ladder matches.
+6. `docs/evidence/ladder-data-2-2026-11-08.md`, the main study of ladder matches.
 
 ## Repository layout
 

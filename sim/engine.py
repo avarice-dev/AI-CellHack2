@@ -55,7 +55,7 @@ CORNER_ORDER = ('top-left', 'top-right', 'bottom-left', 'bottom-right')
 
 # ---- start placement -----------------------------------------------------------------------------
 # Verified 2026-11-08 (replays): ladder starts are random squares, not corners, one cell at energy 10 per
-# colony.  Pull 2 (36 replays, data/ladder-data-2-2026-11-08.md s5): the closest pair of starts in a match
+# colony.  Pull 2 (36 replays, docs/evidence/ladder-data-2-2026-11-08.md s5): the closest pair of starts in a match
 # is Manhattan 8 to 42 apart (median 18), so the default minimum is Manhattan 8 (the observed minimum;
 # 98753 has a Chebyshev-11 pair).  Nearest-edge distance: 19% of starts within 4 of an edge vs 29% for a
 # uniform square, a mild bias not modelled.  Change it here or pass start_sampler.

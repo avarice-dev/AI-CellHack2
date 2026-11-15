@@ -1,4 +1,4 @@
-"""Late-game "treadmill" metrics, real replays vs sim (targets from data/scourge-losses-2026-11-08.md).
+"""Late-game "treadmill" metrics, real replays vs sim (targets from docs/evidence/scourge-losses-2026-11-08.md).
 
 Per colony, from the race rows (one per death; Engine(record_races=True).race_rows() or
 data/<pull>/mining/races/<id>.csv.gz) and the population every 10 ticks:
