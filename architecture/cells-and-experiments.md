@@ -193,7 +193,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 ## Known limitations
 
 - Conviction and Penalty have no final result in the repo.
-- The name on the site (Bane v4) differs from the project name (Bane v2.2). The mapping comes from the order of site versions and from the dates. It is not written on the site itself.
+- The name on the site (Bane v4) differs from the project name (Bane v2.2). The match rests on contemporary project notes, not on the site: cell 289 is Bane v2.2 in the evidence pack, the site shows cell 289 as "Bane v4", and the site versions run 272 (v1), 277 (v2), 287 (v3, Bane v2.1), 289 (v4). The site does not state the project version.
 - Dogma and the Depravity hotfix are untested on the ladder. All claims about them come from the local engine.
 - The Depravity root cause is the reviewer's analysis. It was not verified on the ladder.
 

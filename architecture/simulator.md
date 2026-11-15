@@ -7,7 +7,7 @@ The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python fun
 The project is finished, and so is the simulator. The engine was complete on 2026-11-11. After that, the project added runners for the last cells (see [Use in the last round](#use-in-the-last-round)). No more work is planned.
 
 - **The rules engine is solid.** With the recorded actions of real replays as input, it gives the same board as the replay (see [How far to trust it](#how-far-to-trust-it)). A colony that grows alone is simulated well, because no rival model is involved. The project uses it for that: to check the opening of a new cell before the cell goes to the site.
-- **Rival cells were left to the user.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
+- **The rival models are not reliable.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
 - **What this means for you.** Use the engine as it is. To study a matchup, write and validate your own model of that rival from your own replays (`validate.py`, [Data pulls and replay tools](data-pulls.md)). Do not use the win rates of the supplied rival models as evidence. The turn order by instruction count follows the published rules; replays cannot confirm it.
 
 ## What it models
@@ -46,7 +46,7 @@ flowchart LR
 | `batch.py` | Runs a named set unattended and writes a summary. |
 | `validate.py` | Replays the matches of every pull in `data/` (each folder with a `validation-table.md`) and compares them with the real results. `--pull <pull>` limits it to one pull. |
 | `treadmill.py` | Compares late-game measures of replays and simulator, such as land changes after tick 500. |
-| `baseline.py` | Rating and win-share baselines for the winner check. It has no ratings for pull 5 yet. |
+| `baseline.py` | Rating and win-share baselines for the winner check. It has no ratings for pull 5. |
 | `ceiling.py` | Estimates the best possible winner score from extra seeds on TEST. It needs a stored seed-0 run that a fresh checkout lacks. |
 | `growth.py` | Solo-colony study of split-direction rules (Schism, `designs.md` 10.4). |
 | `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. |

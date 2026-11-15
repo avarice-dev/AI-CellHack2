@@ -178,7 +178,7 @@ the +3/+2/+0 cases) with no feed bonus, because a fed cell that rests also gains
 no-event +1 share is 26% vs 8% real (the sim counts REST as no event; whether replays log a rest event
 is unknown).
 
-**Validation pool now** (2026-11-08, pull 5): 135 matches, FIT 90 / TEST 45, fixed per match in
+**Validation pool** (final; set on 2026-11-08, pull 5): 135 matches, FIT 90 / TEST 45, fixed per match in
 data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
 stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
 SPLIT_SEED = 20261108). Current results: architecture/simulator.md. New matches: `python validate.py --extend-split` (old entries never change).

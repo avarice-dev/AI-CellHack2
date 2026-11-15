@@ -85,6 +85,15 @@ FINGERPRINTS = {
                'split_mode': 5},
     'rooby': {'front500': 32.8, 'int500': 49.7, 'front1000': 38.5, 'int1000': 49.8, 'fpe': 0.2,
               'split_mode': 6},
+    # The three L2 models (Siect-F, VarSi, Colossus) were added after the pull-2 measures above. No pooled
+    # keyframe fingerprint of that kind was ever measured for them (their bite tiers come from replays, see MODELS),
+    # so every value is None: the report prints the simulator value only. Do not fill these in without a measure.
+    'CogSpore-Siect-F': {'front500': None, 'int500': None, 'front1000': None, 'int1000': None, 'fpe': None,
+                         'split_mode': None},
+    'CogSpore - VarSi': {'front500': None, 'int500': None, 'front1000': None, 'int1000': None, 'fpe': None,
+                         'split_mode': None},
+    'Colossus': {'front500': None, 'int500': None, 'front1000': None, 'int1000': None, 'fpe': None,
+                 'split_mode': None},
 }
 FP_COLS = ('front500', 'int500', 'front1000', 'int1000', 'split_mode')
 COLS = ('t50', 't100', 't200', 't500', 't1000', 'end', 'E200', 'E1000', 'fpe')

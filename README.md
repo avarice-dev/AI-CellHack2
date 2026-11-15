@@ -88,6 +88,8 @@ Run these commands from the root of the repository.
    python -m unittest
    ```
 
+   The tool tests run from the repository root with `python -m unittest discover -s tools/tests`.
+
 2. Run a simulator batch. The `rivals` set plays 24 games and takes about 12 to 15 minutes. For a quick test, add `--seeds 1` (about 1 minute). The console prints the path of the summary file. The results go to `sim/out/`.
 
    ```
