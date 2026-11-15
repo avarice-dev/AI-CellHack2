@@ -138,9 +138,9 @@ flowchart LR
 
 ### Final ladder status
 
-The project is finished. This table lists every cell that played on the ladder, with the last figure the project recorded. The ladder log (`data/site-checks.md`) is local only. Editing a cell on the site creates a new cell id, so each version has its own number and its own rating ([site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md)). A new version starts at rating 1000.
+The project is finished. This table lists every cell that played on the ladder, with the last figure the project recorded. The ladder log (`data/site-checks.md`) is local only. Editing a cell on the site creates a new cell id, so each version has its own number and its own rating ([site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md)). A new version starts at rating 1000. The places for Avarice to Contagion and Complacency are from site reads on 2026-11-10. The Schism, Pestilence and Bane places are from the My cells page on 2026-11-11 to 2026-11-13.
 
-| Cell (site id) | Last recorded state | Rating, games | Place |
+| Cell (site id) | Last recorded state | Rating, games | Last recorded place |
 |---|---|---|---|
 | Avarice | Retired 2026-11-08. | 1191, 886 | 9th |
 | Covetous | Retired 2026-11-08. | 1392, 829 | 7th |
