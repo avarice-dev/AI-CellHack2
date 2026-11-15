@@ -1,2 +1,0 @@
-# Misfortune vs Siect-F, one line per shared ladder game (tools/replay/siectf_probe.js)
-- 146477: {"places":"M 2 / S 1","cells_M_S":{"t30":"152/131","t60":"513/1125","t100":"744/2266","t300":"787/3072","t1000":"787/3309","final":"787/3309"},"S_leads_by10_at":38,"M_last_ahead":35,"freed_M_cell_refilled_by":{"M":65,"S":58,"other":0,"empty":2},"freed_S_cell_refilled_by":{"M":154,"S":226,"other":33,"empty":7},"bitten_first":{"M <100":"29% of 2482","M 100-300":"13% of 12978","M 300+":"11% of 172800","S <100":"55% of 2403","S 100-300":"81% of 12937","S 300+":"89% of 172800"}}
