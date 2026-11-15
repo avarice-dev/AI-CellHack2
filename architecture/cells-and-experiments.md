@@ -1,6 +1,6 @@
 # Cells, calibration probes and experiments
 
-This document explains how cells are designed, generated and checked. It also lists the calibration probes, the simulator experiments and the history of each cell. Terms such as cell, bet, tick and ladder are defined in [overview.md](overview.md). The instructions themselves are explained in [cell-assembly.md](cell-assembly.md).
+This document explains how cells are designed, generated and checked. It also lists the calibration probes, the simulator experiments, the history of each cell and the final ladder status. The project is finished. Terms such as cell, bet, tick and ladder are defined in [overview.md](overview.md). The instructions themselves are explained in [cell-assembly.md](cell-assembly.md).
 
 ## From design to ladder
 
@@ -40,6 +40,11 @@ The count includes every executed instruction, taken jumps and the final `ret` (
 | Split at energy 5 to 15, never hold | 16 | Complacency, Schism |
 | Boxed feed to a friend with an empty neighbour | 32 to 48 | Schism |
 | Split path | 19 to 23 | Avarice |
+| Armed bite (the bite is stored in advance) | 2 | Misfortune, Depravity |
+| First bite of Misfortune (the arming step) | 19 (Depravity: 17) | Misfortune v1 and v3, Depravity |
+| Queued bite | 3 | Conviction, Penalty |
+| Counter bite | 3 | Dogma |
+| Gate 1 (refill or split at energy 16 or more) | 15 | Misfortune, Depravity, Dogma |
 
 ## The checker
 
@@ -104,6 +109,11 @@ flowchart LR
     CO -.-> E["Endemic (VEX form, never on the ladder)"]
     SM --> P["Pestilence"]
     SM --> B["Bane"] --> B2["Bane v2"]
+    B2 --> CV["Conviction"] --> PN["Penalty"]
+    B2 --> MF["Misfortune v1"] --> MF3["Misfortune v3"]
+    MF --> MF2["Misfortune v2 (failed)"]
+    MF -.-> DP["Depravity (failed)"]
+    MF3 -.-> DG["Dogma (never uploaded)"]
 ```
 
 | Cell | Bet | What it does | What it taught |
@@ -116,27 +126,82 @@ flowchart LR
 | Schism (176) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Sandbox, 3 games each against Scourge, Covetous, Contagion: places 2, 1, 2 (Complacency 2, 2, 3), 0 faults, no seed control. Path counts: `designs.md` 11.1. |
 | Pestilence (180) | Moving strong cells forward beats splitting a weak child. | Schism, plus: on the refill path with energy at least 20, move into the freed square instead of splitting (`designs.md` 11.2, change 1 only). | Sandbox 2nd, 0 faults. Ladder: 2nd with 1576 after 377 games (2026-11-10), average place 1.24 against Schism's 1.23. |
 | Bane (built 2026-11-10, `cells/gen_bane.py`) | Children born next to a faster biter die before they act; the prey hold saves them. | Schism with Scourge's prey hold back: with an enemy in the 5x5, a cell at 5 to 15 energy rests instead of splitting. Bite, refill and feeding unchanged. | From replays 123880 and 123990 (`docs/evidence/contact-study-2026-11-10.md`): the new rivals bite as fast as we do, so our border cells are stunned about half the time; in the t100-200 grab Schism lost 118 cells, Ironbloom 3. Bane v1 reached about 1300 after 44 games (10th) on the ladder and is retired. |
-| Bane v2 (`cells/gen_bane2.py`; v2.0, v2.1 and v2.2) | Spread-out colonies are not boxed in, and a fixed bite target is faster than a view scan. | Bane v1, plus a dispersal opening: with an empty neighbour and no enemy near, children walk away (the first child 8 squares forward, later ones 2 squares) before they settle. It uses the cell memory and MOVE. v2.1 adds a stored bite: it bites the square bitten last time again in 4 instructions if an enemy is still there. v2.2 holds back only with an enemy on a diagonal square, not anywhere in the 5x5. | v2.0: retired at 1645 after 157 games, 1st. v2.1: 1775 after 189 games, 175 wins, average place 1.07, 1st, 189 points ahead of Colossus. It eliminated medivac in replays and lost to CogSpore twice and Colossus once. v2.2: checked locally, one Sandbox game with 0 faults, on the ladder since 2026-11-11 15:05 UTC in place of v2.1; no result yet. Details: `designs.md` 11.3. |
+| Bane v2 (`cells/gen_bane2.py`; v2.0, v2.1 and v2.2) | Spread-out colonies are not boxed in, and a fixed bite target is faster than a view scan. | Bane v1, plus a dispersal opening: with an empty neighbour and no enemy near, children walk away (the first child 8 squares forward, later ones 2 squares) before they settle. It uses the cell memory and MOVE. v2.1 adds a stored bite: it bites the square bitten last time again in 4 instructions if an enemy is still there. v2.2 holds back only with an enemy on a diagonal square, not anywhere in the 5x5. | v2.0: retired at 1645 after 157 games, 1st. v2.1: 1775 after 189 games, 175 wins, average place 1.07, 1st, 189 points ahead of Colossus. It eliminated medivac in replays and lost to CogSpore twice and Colossus once. v2.2 (shown on the site as Bane v4): one Sandbox game with 0 faults, on the ladder from 2026-11-11 15:05 UTC in place of v2.1. Last read: 1761 after 1883 games, average place 1.15, 2nd (2026-11-13). Details: `designs.md` 11.3. |
+| Conviction (`cells/gen_conviction.py`) | Acting on what it believed last tick makes the bite faster. | Bane v2.2 with a bite queue: after one look, it bites the same square for several ticks in 3 instructions. | 1635 after 155 games. Bitten first far less often than Bane v2.2, but it refilled few of the squares it freed. |
+| Penalty (`cells/gen_penalty.py`) | The queue should end with a split into the dying target's square. | Conviction plus that split. | A test cell. No result was kept. |
+| Misfortune v1 (350; `cells/gen_misfortune.py`) | A 2-instruction bite is the floor, so an armed cell bites before every cell we know. | After one look, it stores its next bites by its own energy. Each later bite takes 2 instructions. | Sandbox 1st, 0 faults. Ladder: 1751 after 172 games, 2nd. |
+| Misfortune v2 = AC1 (352; commit b40b1a4, its generator was later rewritten for v3) | A checked refill and armed children add to v1. | v1 plus a checked refill, armed children, no prey hold and a feed pad. | Failed: 1326 after 9 games. A slower first bite and more friendly bites. |
+| Misfortune v3 = split10 (353; `cells/gen_misfortune2.py`) | The v2 fix: go back to v1 and change one thing. | v1 plus: cells with 10 or more energy split even with an enemy near. | Live to the end: 1841 after 441 games, average place 1.17, 3rd. |
+| Depravity (363; `cells/gen_depravity.py`) | Without Cap B, a clean-sheet cell with a 17-instruction arm step wins the front. | Table jump for the arm step, no Cap B, no feeding of boxed cells before tick 200. | Failed in its first 5 games: 1193. |
+| Dogma (`cells/gen_dogma.py`) | A 3-instruction counter bite with a walker opening beats the 2-instruction bite. | Counter bite, first 8/2 walker, +2-lane pick. | Met its spec. Did not beat Misfortune v3 locally. NO-GO, never uploaded. |
 | Woe, Conceit, Endemic | Same decisions, fewer instructions. | VEX forms of Scourge, Covetous and Contagion. | Never on the ladder. Woe died in two Sandbox games (peaks 4 and 5 cells). Broken on the site; do not submit. |
 
-### Ladder status
+### Final ladder status
 
-The ladder now holds two cells: **Bane and Pestilence** (site My cells page, read 2026-11-11). Bane v2.1 is rated 1804 after 203 games; an earlier read the same day was 1775 after 189 games. Pestilence is rated 1307 after 1467 games. Bane v1 (1307 after 44 games) and v2.0 (1645 after 157 games) are retired. Editing a cell on the site creates a new cell id, so each Bane version has its own number (`docs/evidence/site-observations-2026-11-08.md`). The owner retired Schism on 2026-11-11 because it was the lowest rated of the three ladder cells: final 1314 after 2814 games (peak 1675 on 2026-11-09). Avarice, Covetous, Scourge, Complacency and Contagion are retired. Final figures: Scourge 1507 after 600 games, Complacency 1516 after 691 (left 2026-11-08), Contagion 1616 after 2145 (left 2026-11-09). Ratings over time are in `data/site-checks.md`. The README table holds one dated snapshot and the best recorded peaks.
+The project is finished. This table lists every cell that played on the ladder, with the last figure the project recorded. The ladder log (`data/site-checks.md`) is local only. Editing a cell on the site creates a new cell id, so each version has its own number and its own rating ([site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md)). A new version starts at rating 1000.
+
+| Cell (site id) | Last recorded state | Rating, games | Place |
+|---|---|---|---|
+| Avarice | Retired 2026-11-08. | 1191, 886 | 9th |
+| Covetous | Retired 2026-11-08. | 1392, 829 | 7th |
+| Scourge | Retired 2026-11-08. | 1507, 600 | 2nd |
+| Complacency | Taken off by the owner 2026-11-08. | 1516, 691 | 2nd |
+| Contagion | Taken off by the owner 2026-11-09. | 1616, 2145 | 2nd |
+| Schism | Retired 2026-11-11. | 1314, 2814 | peak 1675 on 2026-11-09 |
+| Pestilence | Taken off 2026-11-11 to free a slot for test cells. | 1250, 1649 | peak 2nd |
+| Bane v1 | Retired. | 1307, 44 | 10th |
+| Bane v2.0 | Retired 2026-11-11. | 1645, 157 | 1st |
+| Bane v2.1 | Replaced by v2.2 on 2026-11-11. | 1804, 203 | 1st |
+| Bane v2.2 (shown on the site as Bane v4) | Taken off 2026-11-13 for Misfortune v1. Last read 2026-11-13. | 1761, 1883 | 2nd |
+| Conviction | Last recorded 2026-11-11. No later figure was kept. | 1635, 155 | 3rd |
+| Penalty | Tester cell. No result was kept. | none | none |
+| Misfortune v1 (350) | Replaced by v2 on 2026-11-14. | 1751, 172 | 2nd |
+| Misfortune v2 = AC1 (352) | Retired. It failed. | 1326, 9 | none |
+| **Misfortune v3 = split10 (353)** | **Live at the last check, 2026-11-14 16:47.** | **1841, 441; average place 1.17** | **3rd** |
+| Depravity (363) | Put on the ladder 2026-11-14, retired after 5 games. The hotfix d1637f3 was built and never uploaded. | 1193, 5 | none |
+| Dogma | Built and checked. Verdict NO-GO. Never uploaded. | none | none |
+
+At the last check the top of the ladder was: Siect-F 2053 (average place 1.05), then Misfortune v3 at 1841. The gap to first place was 212 points. The best ever place of a cell of ours was 1st (Scourge, Contagion, Complacency, Schism, Bane v2.0 and v2.1, at various times). None held it at the end. Misfortune v3 was the final cell, and it held second or third place on the last day.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 
-## Open items
+### The last cells, in short
 
-**Conviction and Penalty (2026-11-11).** Conviction (`cells/gen_conviction.py`) is Bane v2.2 with a bite queue: after a bite found by the view scan it stores several bites of the same square and plays one per tick in 3 instructions, without reading the view. In pull 7 it is bitten first in 7 to 23% of front ticks, where Bane v2.2 is bitten first in 40 to 88% by the same rival, but it filled only 10% of the enemy squares freed beside it (Bane v2.2: 60%). Penalty (`cells/gen_penalty.py`) is the test of a fix: when the target is expected to die, the queue ends with a split into its square. Penalty is on the ladder in the third slot, which is now a slot for test cells; Pestilence left it on 2026-11-11 (1250 after 1649 games). No result for Penalty yet.
+**Conviction and Penalty (2026-11-11).** Conviction (`cells/gen_conviction.py`) is Bane v2.2 with a bite queue. After a bite found by the view scan, it stores several bites of the same square and plays one per tick in 3 instructions, without reading the view. It was bitten first in 7 to 23% of front ticks, where Bane v2.2 was bitten first in 40 to 88% by the same rival. But it filled only 10% of the enemy squares freed beside it (Bane v2.2: 60%). Penalty (`cells/gen_penalty.py`) was the test of a fix: when the target is expected to die, the queue ends with a split into its square.
 
-**Bane v2.3a (2026-11-12, built, not on the site).** `cells/gen_bane3.py` is Bane v2.2 with a cheaper first bite: 12 instructions, not 16. One 16-bit table load (`lock2_tbl`) gives the bite and the square to store. One 16-bit store keeps both. The two stored-bite bytes trade places. Every other path, every decision and every instruction count is the same as v2.2 (`check_cells`: 931,437 cases, 0 mismatches). A new site version restarts the rating at 1000, and this gain is too small to show in wins. So v2.3a waits for the next change in behaviour.
+**Bane v2.3 (2026-11-12 and 2026-11-13, parked).** `cells/gen_bane3.py` is Bane v2.2 with a cheaper first bite: 12 instructions, not 16 (`check_cells`: 931,437 cases, 0 mismatches). A new site version restarts the rating, and this gain was too small to show in wins, so it was held for a bigger change. The bundle plan is in [v23-brief-2026-11-13.md](../briefs/v23-brief-2026-11-13.md). Misfortune replaced it.
 
-The plan for the cells (Schism, Pestilence, Bane) and their order is in `designs.md` 11. Schism passed the gate in 11.4. Bane was built on 2026-11-10 from the contact study of the new rivals (`docs/evidence/contact-study-2026-11-10.md`, `designs.md` 11.3): their bite ties or beats ours, so the front is a stalemate and the games are decided in the t100-200 land grab. Bane v1 restored the prey hold. Bane v2 then added the dispersal opening and the stored bite. In the two CogSpore losses of v2.1, Bane's growth stalls from about t40. Bane v2.2 (prey hold only with an enemy on a diagonal square) replaced v2.1 on the ladder on 2026-11-11 15:05 UTC. It needs at least 100 games before it is compared with v2.1 (1804 after 203 games); if it is worse, v2.1 (git tag `bane-v2.1`) goes back. Ideas not built: a refill that prefers fat children (theirs are 15-19 energy, ours 8-10), and less interior feed churn (Schism's interior feeds 411 times a tick, Ironbloom's 4).
+**Misfortune v1 (2026-11-13, cell 350; `cells/gen_misfortune.py`).** A bite that does not look. After one look at an enemy beside it, the cell stores its next bites, chosen by its own energy. Each later bite takes 2 instructions, the fewest the game allows. The name fits because whoever bites it is bitten first on the next tick. Sandbox 146370: 1st, 0 faults. On the ladder it reached 1751 after 172 games.
+
+**Misfortune v2 = AC1 (cell 352; commit b40b1a4).** Misfortune v1 plus a checked refill, armed children, no prey hold and a feed pad. It went live on the owner's go before the evidence was complete, and it failed: 1326 after 9 games. The checked refill made the first bite slower (19 to 22 instructions and more), and it raised friendly bites. Details are in [misfortune2-audit-2026-11-13.md](../reviews/misfortune2-audit-2026-11-13.md) and [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
+
+**Misfortune v3 = split10 (cell 353).** The emergency fix: Misfortune v1 plus one change. Cells with 10 or more energy split even with an enemy near (`hold='split'`, `hold_min=10`). It restored the 19-instruction first bite and the 15-instruction Gate 1 of v1. Unicorn check: 59,058 cases, 0 mismatches. It stayed on the ladder to the end.
+
+**Depravity (cell 363; `cells/gen_depravity.py`).** A clean-sheet cell that dropped Cap B and used a table jump for the arm step (arm 17 instructions). In a Sandbox game it came 1st. On the ladder it failed in its first games: it could not push AtomVirus or VarSi back. The reviewer's analysis blamed a 48/50 energy stalemate on front cells without Cap B, and a feeding gate (`T_FEED = 200`) that starved the front. The hotfix d1637f3 restored Cap B. The local check showed it did not change the front cell, so the owner decided not to upload it.
+
+**Dogma (`cells/gen_dogma.py`).** The last build: a 3-instruction counter bite, a first 8/2 walker and a rotating pick of the +2 lanes. It met every count of its spec, passed 49,023 Unicorn checks, and caught 8 of 8 planted mutants. It fixed what it was made for (no feeding before tick 100, no faults). But on our own engine it did not beat Misfortune v3, because the 3-instruction bite lost to the 2-instruction bite. Verdict NO-GO: it was never uploaded. The evidence is in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md), section 5.
+
+## Lessons that held up
+
+- A faster first bite decided the front. A 2-instruction bite beat every rival bite we met.
+- Contact was won, but growth was lost against Siect-F. Misfortune won the bite order at the front 89% to 11% in the game that was studied, and it lost the equal-area growth race.
+- Local engine results did not predict ladder results for new designs. The rival models were not good enough to judge a cell. Treat a local win as a sign, not as proof.
+- A live loss in the Sandbox against the previous version is a stop signal.
+- Check a change against the live version in paired, slot-balanced games, never against a control that already carries the change under test.
+- A new upload restarts the rating, so each upload costs time. A small gain is not worth one.
+
+## Known limitations
+
+- Conviction and Penalty have no final result in the repo.
+- The name on the site (Bane v4) differs from the project name (Bane v2.2). The mapping comes from the order of site versions and from the dates. It is not written on the site itself.
+- Dogma and the Depravity hotfix are untested on the ladder. All claims about them come from the local engine.
+- The Depravity root cause is the reviewer's analysis. It was not verified on the ladder.
 
 ## Related documents
 
-- `designs.md`: facts, cell designs and decisions, with reasons.
-- `docs/evidence/scourge-losses-2026-11-08.md`, `data/contagion-games-2026-11-08.md`: loss studies.
-- `data/replay-mining-2026-11-08.md`: refill race numbers.
-- [data-pulls.md](data-pulls.md): where the replay data came from.
+- [designs.md](../designs.md): facts, cell designs and decisions, with reasons.
+- [scourge-losses-2026-11-08.md](../docs/evidence/scourge-losses-2026-11-08.md) and [contact-study-2026-11-10.md](../docs/evidence/contact-study-2026-11-10.md): loss studies.
+- [bane-v22-evidence-2026-11-12.md](../docs/evidence/bane-v22-evidence-2026-11-12.md): the measures on Bane v2.2.
+- [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md): the last round.
+- [data-pulls.md](data-pulls.md): where the replay data came from. The local studies `data/contagion-games-2026-11-08.md` and `data/replay-mining-2026-11-08.md` (refill race numbers) are not in the repo.
 - [simulator.md](simulator.md): how the simulator models these cells.

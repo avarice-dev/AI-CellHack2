@@ -1,8 +1,18 @@
-# CellHack2 simulator, stage 1 (rules only)
+# CellHack2 simulator (rules engine, Python references)
 
 Pure Python 3.12, stdlib only. Cell programs are Python functions that also report how many
 instructions their asm version would run; the engine uses that count for turn order exactly as the real
-game does. Stage 2 (later) will run real asm.
+game does. The simulator never runs real asm. The assembly is checked separately by `../cells/check_cells.py`
+against the Python references in `cells_ref.py`.
+
+**Status: final.** The project is finished and the simulator is complete. The engine matches real replays
+(see `replay_check.py`). Fights against rival cells are weak, and local results did not predict ladder results for
+the last cells. The accuracy figures are in `../architecture/simulator.md`.
+
+**Local data.** `validate.py`, the FIT and TEST check in `tests/test_reference_data.py` and `treadmill.py` read the
+local folder `../data/` (pull tables, starts and `splits/split.json`). That folder is not in the repository, so
+these parts cannot run from a clean clone. Rebuild the inputs with the tools in `../tools/replay/` (see
+`../architecture/data-pulls.md`). The tests in `test_reference_data.py` and the real-data checks in `test_validate.py` need it. The other tests use made-up data (not run on a clean clone for this check).
 
 Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHack2.pdf`,
 `../docs/cellhack.inc` (ABI 4), `../docs/bots/*.asm`.
@@ -23,6 +33,8 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `ceiling.py` | best possible winner score from extra seeds on TEST (needs a stored seed-0 run) |
 | `growth.py` | solo-colony study of split-direction rules (designs.md 10.4) |
 | `replay_check.py` | drives the engine with recorded replay actions and compares every square; `--pull <pull> [ids]` |
+| `misfortune_runner.py`, `misfortune_dump.py`, `armed_children_runner.py`, `hold_off_runner.py` | staged gates, paired gates and trace dumps for the Misfortune cells and their variants (2026-11-13/14) |
+| `dogma_runner.py` | the Dogma gauntlet: solo matrix, 16x16, 64x64 four-player, duels, ablations |
 | `tests/` | unittest suite (`python -m unittest` from this folder) |
 
 ## Running
@@ -149,7 +161,7 @@ freeze tick (earliest tick after which every colony stays within 5% of its popul
 replay analyzer's definition) and the bite-first pair counts. Same engine options as run.py.
 
 ## Validation against the ladder (validate.py)
-Reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull (read only).
+Reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull (read only). `data/` is local working data and is not in the repository.
 A data pull is any folder of `../data/` that has a `validation-table.md`; `validate.pulls()` finds them, and
 `--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
 pull's replays (architecture/data-pulls.md, "Doing your own pull"). Set `CH_DATA` to use another data folder.

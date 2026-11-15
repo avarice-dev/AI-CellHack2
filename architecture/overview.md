@@ -1,6 +1,8 @@
 # CellHack2: project overview
 
-This document explains the game, the goal, the parts of the project and where to read next. Each part has its own document in this folder.
+This document explains the game, the goal, the outcome, the parts of the project and where to read next. Each part has its own document in this folder.
+
+The project is finished. The competition ends on 2026-11-15. The last ladder check was on 2026-11-14.
 
 ## What CellHack2 is
 
@@ -14,11 +16,17 @@ The official rules are in `docs/` (Rules, Reference and Quick start, as PDF file
 
 The game has a public ranked list called the **ladder**. Cells on the ladder play real matches against other players' cells. Each cell has a **rating** that goes up or down with its results.
 
-## What the project is for
+## What the project was for
 
-The goal is to learn what works, from ladder cells and from game records studied offline.
+The goal was a cell that takes first place on the ladder and stays there. The project did not reach it. The best cell, Misfortune v3, reached second and third place. At the last check (2026-11-14 16:47) it was rated 1841 after 441 games, with an average place of 1.17, in third place. The leader, Siect-F, was rated 2053.
 
-Each cell tests one main idea. That idea is the cell's **bet**. Keeping one bet per cell makes the result easier to read. If the cell does well or badly, the reason should be clear.
+The project also aimed to learn what works. It learned this from ladder cells and from game records studied offline.
+
+Each cell tested one main idea. That idea is the cell's **bet**. One bet per cell made each result easier to read. The history of every cell is in [cells-and-experiments.md](cells-and-experiments.md).
+
+## Who did what
+
+Claude, Anthropic's AI, wrote all code and documents through Claude Code. The project owner set the goals and approved every step that changed the ladder. In the last days, an external reviewer read designs and results and gave directions. Claude checked those directions against the data before it acted.
 
 ## Glossary
 
@@ -83,32 +91,74 @@ The steps run in this order:
 7. **Sandbox.** A saved cell plays test matches on the site.
 8. **Ladder.** A cell goes on the ladder only with the project owner's approval.
 
-Ladder results and new replays feed the next analysis. Cells and their history are covered in [cells-and-experiments.md](cells-and-experiments.md).
+Ladder results and new replays fed the next analysis. Cells and their history are covered in [cells-and-experiments.md](cells-and-experiments.md).
 
-## How the work is done
+## How the work was done
 
-- **Calibration probes.** Before a design relies on a game fact, a small probe cell tests it on the site. For example, probes showed that a `ret` counts as one instruction.
-- **Facts and assumptions are kept apart.** The design notes mark each fact as verified on the site or in every replay. Anything else is an assumption or an open question.
+- **Calibration probes.** Before a design relied on a game fact, a small probe cell tested it on the site. For example, probes showed that a `ret` counts as one instruction.
+- **Facts and assumptions were kept apart.** The design notes mark each fact as verified on the site or in every replay. Anything else is an assumption or an open question.
+- **Every cell was checked before upload.** The checker compares each cell with a Python reference on emulated inputs. See [cells-and-experiments.md](cells-and-experiments.md).
+- **Ladder changes needed approval.** A new upload restarts the rating, and taking a cell off the ladder loses its rating. So the owner approved each change.
 
 ## Where to start reading
 
 1. This document, for the glossary and the parts.
-2. `designs.md`, section 1 (the facts the design rests on), section 3 (the cells), section 10 (state after pull 5) and section 11 (current plan).
-3. [cells-and-experiments.md](cells-and-experiments.md), for how cells are built and checked, and what each cell tried.
-4. [simulator.md](simulator.md), for how the simulator works and how far to trust it.
-5. [data-pulls.md](data-pulls.md), for where the game data comes from and how it is stored.
-6. `docs/evidence/ladder-data-2-2026-11-08.md`, the main study of ladder matches.
+2. [cells-and-experiments.md](cells-and-experiments.md), for the lineage of cells and the final ladder status.
+3. [designs.md](../designs.md), for the final state at the top, then the facts (section 1) and the dated design rounds.
+4. [cell-assembly.md](cell-assembly.md), for the instructions in the cells and why each was chosen.
+5. [simulator.md](simulator.md), for how the simulator works and how far to trust it.
+6. [data-pulls.md](data-pulls.md), for where the game data came from and which parts are local only.
+7. [ladder-data-2-2026-11-08.md](../docs/evidence/ladder-data-2-2026-11-08.md), the main study of ladder matches.
 
 ## Repository layout
 
 | Path | What it holds |
 |---|---|
-| `README.md` | Short entry point with a quick start. |
+| `README.md` | Short entry point with the outcome and a quick start. |
+| `CLAUDE.md` | Short notes for an agent that resumes the project. |
 | `architecture/` | These architecture documents. |
-| `designs.md` | Design notes: verified facts, the cell designs, planned experiments and decisions. |
+| `designs.md` | Design notes: the final state, verified facts, the cell designs, experiments and decisions. |
 | `docs/` | The game rules as PDF files, `cellhack.inc` (the constants: interface version 4, ruleset version 9), five open bots in `docs/bots/`, and a list of cell names in `docs/cell_names.txt`. |
+| `docs/evidence/` | Six study notes copied from the working data. Code comments and documents cite them. |
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py`, the VEX helper `vex_emu.py`, and calibration probes in `calib/`. |
 | `sim/` | The simulator, its batch runners and its unit tests in `sim/tests/`. Output goes to `sim/out/`, which git ignores. |
-| `tools/` | The replay tools (`replay/`, each run with `--pull <pull>`), the pull 2 history scripts and the old paths kept for the dated reports (`pull2/`, `pull3/`, `pull4/`), and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). The hook enforces this project's own privacy rules, for example it blocks AI model names and home-folder paths. It is opt-in, and outside contributors can skip it. |
-| `data/` | Write-ups (`*.md`), the pulled data in `pull2/` to `pull5/`, and the FIT and TEST sets in `splits/split.json`. |
-| `reviews/` | Design review notes and decision records. Newest: `final-round-2026-11-13-14.md` (decisions, measured results and verdicts of the last round: growth gates, AC1 failure, Depravity hotfix analysis, Dogma gauntlet and NO-GO), `misfortune2-audit-2026-11-13.md` (audit, post-mortem, dead-ends, surviving candidates), `dogma-clean-sheet-review-2026-11-14.md` (clean-sheet review and the Dogma spec). |
+| `tools/` | The replay tools (`replay/`, each run with `--pull <pull>`), the pull 2 history scripts and the old paths kept for the dated reports (`pull2/`, `pull3/`, `pull4/`), and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). The hook is opt-in. |
+| `reviews/` | Design reviews and decision records. See the index below. |
+| `briefs/` | Dated briefs, hand-over notes and build checks. See the index below. |
+| `data/` | **Local only, not in the repo.** Replays, pulled match lists, mining output, validation tables, the FIT and TEST split and the site-check log. See [data-pulls.md](data-pulls.md). |
+
+## Index of reviews
+
+All files are in `reviews/`. Paths to `data/` inside them point to local files that are not in the repo. The files are historical records. They were edited only to fix paths.
+
+| File | What it is |
+|---|---|
+| [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md) | The last round: growth gates, the armed-children cell and its failure, the Depravity build and live failure, the Dogma gauntlet and its NO-GO. Start here for the end of the project. |
+| [misfortune2-audit-2026-11-13.md](../reviews/misfortune2-audit-2026-11-13.md) | Audit and post-mortem of Misfortune v2, with the list of dead ends. |
+| [dogma-clean-sheet-review-2026-11-14.md](../reviews/dogma-clean-sheet-review-2026-11-14.md) | Clean-sheet review of the field and the Dogma spec. |
+| [r1-rules.md](../reviews/r1-rules.md), [r1-asm.md](../reviews/r1-asm.md), [r1-strategy.md](../reviews/r1-strategy.md) | Round 1 reviews of the rules, the assembly and the strategy. |
+| [decisions-r1.md](../reviews/decisions-r1.md) | Decisions after round 1. |
+| [r2-review.md](../reviews/r2-review.md), [r3-review.md](../reviews/r3-review.md) | Round 2 and round 3 reviews. |
+| [designs-r1-snapshot.md](../reviews/designs-r1-snapshot.md), [designs-r2-snapshot.md](../reviews/designs-r2-snapshot.md), [designs-r3-snapshot.md](../reviews/designs-r3-snapshot.md) | Copies of `designs.md` at the end of rounds 1 to 3. |
+
+## Index of briefs
+
+All files are in `briefs/`. They are dated working documents. Some name files in the local `data/` folder.
+
+| File | What it is |
+|---|---|
+| [contact-brief-2026-11-10.md](../briefs/contact-brief-2026-11-10.md) | The contact study of the new rivals and the plan for Bane v1 and v2. |
+| [resume-2026-11-10.md](../briefs/resume-2026-11-10.md), [resume-2026-11-11.md](../briefs/resume-2026-11-11.md) | Hand-over notes for a fresh session. |
+| [deep-review-2026-11-13.md](../briefs/deep-review-2026-11-13.md) | What the measures on Bane v2.2 say, and the path forward. |
+| [v23-brief-2026-11-13.md](../briefs/v23-brief-2026-11-13.md), [v23-review-prompt-2026-11-13.md](../briefs/v23-review-prompt-2026-11-13.md) | The build plan for Bane v2.3 (parked) and its review prompt. |
+| [misfortune-spec-2026-11-13.md](../briefs/misfortune-spec-2026-11-13.md) | The final spec of Misfortune. |
+| [misfortune-build-review-2026-11-13.md](../briefs/misfortune-build-review-2026-11-13.md), [misfortune-asm-check-2026-11-13.md](../briefs/misfortune-asm-check-2026-11-13.md), [misfortune2-asm-check-2026-11-13.md](../briefs/misfortune2-asm-check-2026-11-13.md) | The build review and the assembly checks of Misfortune v1 and v2. |
+| [misfortune-byte-dumps-2026-11-13.txt](../briefs/misfortune-byte-dumps-2026-11-13.txt) | Byte dumps of the Misfortune build. |
+
+## Known limitations
+
+- The simulator is accurate for growth and for the rules. It is weak for fights against rival cells. Local wins did not predict ladder results in the last round. See [simulator.md](simulator.md).
+- The validation of the simulator needs local data that is not in the repo. See [data-pulls.md](data-pulls.md).
+- The checker ran in Linux and WSL only. It needs NASM. It was not run on native Windows.
+- The rival models `rsiectf`, `rvarsi` and `rcolossus` do not match real growth. Do not use them to judge a cell.
+- The name `Dogma` was used for two things. An early note (the header of `designs.md`) used it for a deep-pump idea that was dropped. The final `Dogma` is the last cell built (see [cells-and-experiments.md](cells-and-experiments.md)).

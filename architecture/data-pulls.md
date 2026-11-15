@@ -2,27 +2,33 @@
 
 The site serves each match's replay as a separate file. The project collects match lists, match pages and replays in rounds called **pulls**, then decodes the replays into tables and write-ups.
 
-## Status (2026-11-11)
+## Status (final)
 
-- **The base is complete.** Pulling (`tools/replay/pull_replays.js`, `collect.sh`) and decoding (`mine.py`) are finished parts. `pull_replays.js` reads match pages and replays at the site's pace and writes the match list. `mine.py` decodes every replay and checks itself against the replay's keyframes. No more work is planned on these parts, unless the site changes its pages or its replay format.
-- **The analysis tools are open-ended.** Each one answers one question that came up in a study, for example "who acts first at the front" or "who takes a freed square". The set is not complete and it is not meant to be. It grows when a new question needs a new measure. The tools written for our own questions are in the table below. Some of the later ones have no automated tests.
-- **Add your own.** The right measures depend on your cell: its strengths, its weak points, and the rivals it meets. A replay holds every event of a match, so most questions can be answered with a short script. See [Writing your own replay tool](#writing-your-own-replay-tool).
+The project is finished. The pulling and decoding tools are complete. The analysis tools are an open set.
+
+- **The `data/` folder is not published.** The repository does not contain `data/`. It was local working data, and git ignores it (`/data/`). It held the replays, the pulled match lists and match pages, the mining output, the validation tables, the FIT and TEST split, the site-check log and most write-ups. Everything this document says about `data/` describes the author's local copy.
+- **Six study notes are published.** They are in `docs/evidence/` and cited by code comments and documents: [ladder-data-2026-11-08.md](../docs/evidence/ladder-data-2026-11-08.md), [ladder-data-2-2026-11-08.md](../docs/evidence/ladder-data-2-2026-11-08.md), [site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md), [scourge-losses-2026-11-08.md](../docs/evidence/scourge-losses-2026-11-08.md), [contact-study-2026-11-10.md](../docs/evidence/contact-study-2026-11-10.md) and [bane-v22-evidence-2026-11-12.md](../docs/evidence/bane-v22-evidence-2026-11-12.md). Paths under `data/` inside them name local files.
+- **Simulator validation needs local data.** `sim/validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py` read `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. These files are not in the repository. So the validation cannot run from a clean clone. The rest of the simulator tests do not need `data/`. See [simulator.md](simulator.md).
+- **How to rebuild the data.** The tools in `tools/replay/` fetch match lists and replays from the site and rebuild the tables. See [Doing your own pull](#doing-your-own-pull). The rebuilt files will differ from the originals, because the site's ladder has moved on.
+- **The tools are complete.** Pulling (`tools/replay/pull_replays.js`, `collect.sh`) and decoding (`mine.py`) are finished. `pull_replays.js` reads match pages and replays at the site's pace and writes the match list. `mine.py` decodes every replay and checks itself against the replay's keyframes.
+- **The analysis tools are open-ended.** Each one answers one question that came up in a study, for example "who acts first at the front" or "who takes a freed square". Some of the later ones have no automated tests. A replay holds every event of a match, so most new questions need only a short script. See [Writing your own replay tool](#writing-your-own-replay-tool).
 
 ## The pulls
 
-Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10 and pull 7 on 2026-11-10 and 2026-11-11, all through a logged-in browser session.
+Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10, pull 7 on 2026-11-10 and 2026-11-11, and pulls 8 and 9 on 2026-11-11 and 2026-11-12, all through a logged-in browser session. A last set of Siect-F games was decoded on 2026-11-13 with a probe script (`tools/replay/siectf_probe.js`). The write-up column names the note for each pull. A name that starts with `data/` is a local note that is not in the repository.
 
 | Pull | What it collected | Main write-up |
 |---|---|---|
 | 1 | 10 match-list pages (398 finished ladder matches, ids 98432 to 98829), 13 replays, a few match pages, and the leaderboard. | `docs/evidence/ladder-data-2026-11-08.md` |
 | 2 | 16 match-list pages (593 finished ladder matches, ids 98830 to 99422), 165 small match pages, the leaderboard, and 36 replays. 35 raw replay files were kept. | `docs/evidence/ladder-data-2-2026-11-08.md` |
 | 3 | The newest 100 finished ladder games of the Scourge cell (matches 103128 to 103747), one match page for each, and 15 replays of games Scourge lost. | `docs/evidence/scourge-losses-2026-11-08.md` |
-| 4 | All 95 finished ladder games of the Contagion cell (matches 103614 to 104195), and 12 replays (6 wins, 6 losses). | `data/contagion-games-2026-11-08.md` |
-| 5 | 12 match-list pages (480 finished ladder matches, ids 105881 to 106358), the leaderboard, and 72 match pages and replays: Contagion 18, Complacency 18 (2 games hold both cells), and 38 games of the top rivals without our cells. | `data/pull5-games-2026-11-08.md` |
+| 4 | All 95 finished ladder games of the Contagion cell (matches 103614 to 104195), and 12 replays (6 wins, 6 losses). | `data/contagion-games-2026-11-08.md` (local) |
+| 5 | 12 match-list pages (480 finished ladder matches, ids 105881 to 106358), the leaderboard, and 72 match pages and replays: Contagion 18, Complacency 18 (2 games hold both cells), and 38 games of the top rivals without our cells. | `data/pull5-games-2026-11-08.md` (local) |
 | 6 | 3 replays and match pages of two new leading cells (CogBloomXT, Ironbloom). | `docs/evidence/contact-study-2026-11-10.md` |
-| 7 | 20 replays and match pages: games of the leading cells of 2026-11-10 and 2026-11-11, with and without our cells. In `names.json` our cell has a version label in some games (see the tip under [Writing your own replay tool](#writing-your-own-replay-tool)). | No write-up yet |
+| 7 | 20 replays and match pages: games of the leading cells of 2026-11-10 and 2026-11-11, with and without our cells. In `names.json` our cell has a version label in some games (see the tip under [Writing your own replay tool](#writing-your-own-replay-tool)). | None |
+| 8, 9 | Replays of Bane v2.2 games (pull 8: 12 consecutive games; pull 9: 44 games, mostly Bane v2.2 against the leading cells), used for the Bane v2.2 evidence pack. | [bane-v22-evidence-2026-11-12.md](../docs/evidence/bane-v22-evidence-2026-11-12.md) |
 
-Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 + 12 + 72); pull 1's 13 replays are not in the pool. FIT and TEST sizes are in [simulator.md](simulator.md). Site mechanics and calibration results are in `docs/evidence/site-observations-2026-11-08.md`. Ratings over time are in `data/site-checks.md`.
+Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 + 12 + 72); pull 1's 13 replays are not in the pool. FIT and TEST sizes are in [simulator.md](simulator.md). Site mechanics and calibration results are in `docs/evidence/site-observations-2026-11-08.md`. Ratings over time were logged in `data/site-checks.md` (local).
 
 ## What the site gives
 
@@ -56,6 +62,7 @@ Events within a tick are in turn order, so the studies can measure which colony 
 
 ## Layout of the data folder
 
+This is the layout of the local `data/` folder. It is not in the repository.
 
 ```
 data/
@@ -255,5 +262,5 @@ These rules apply to every request to the site.
 
 ## Related documents
 
-- `docs/evidence/ladder-data-2-2026-11-08.md`: the main study of pull 2, with its headline findings and rival profiles.
-- `data/replay-mining-2026-11-08.md`: the refill race and resting income, from the 35 pull 2 replays.
+- [ladder-data-2-2026-11-08.md](../docs/evidence/ladder-data-2-2026-11-08.md): the main study of pull 2, with its headline findings and rival profiles.
+- `data/replay-mining-2026-11-08.md` (local only): the refill race and resting income, from the 35 pull 2 replays.

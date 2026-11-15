@@ -2,12 +2,12 @@
 
 The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python function replaces each cell and returns the action and the number of instructions that the real cell would run. Use it for early checks only. It does not replace a Sandbox test or a ladder result. Terms such as pad3, t100 and pump are in the [glossary](overview.md#glossary).
 
-## Status: complete (2026-11-11)
+## Status: final
 
-The simulator is finished as a feature. No more work is planned on it.
+The project is finished, and so is the simulator. The engine was complete on 2026-11-11. After that, the project added runners for the last cells (see [Use in the last round](#use-in-the-last-round)). No more work is planned.
 
 - **The rules engine is solid.** With the recorded actions of real replays as input, it gives the same board as the replay (see [How far to trust it](#how-far-to-trust-it)). A colony that grows alone is simulated well, because no rival model is involved. The project uses it for that: to check the opening of a new cell before the cell goes to the site.
-- **Rival cells are the user's work.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
+- **Rival cells were left to the user.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
 - **What this means for you.** Use the engine as it is. To study a matchup, write and validate your own model of that rival from your own replays (`validate.py`, [Data pulls and replay tools](data-pulls.md)). Do not use the win rates of the supplied rival models as evidence. The turn order by instruction count follows the published rules; replays cannot confirm it.
 
 ## What it models
@@ -50,6 +50,9 @@ flowchart LR
 | `ceiling.py` | Estimates the best possible winner score from extra seeds on TEST. It needs a stored seed-0 run that a fresh checkout lacks. |
 | `growth.py` | Solo-colony study of split-direction rules (Schism, `designs.md` 10.4). |
 | `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. |
+| `misfortune_runner.py`, `misfortune_dump.py` | Staged gates and trace dumps for the Misfortune cells. |
+| `armed_children_runner.py`, `hold_off_runner.py` | Paired gates for the armed-children and hold-off variants (2026-11-13). |
+| `dogma_runner.py` | The Dogma gauntlet: solo matrix, 16 by 16, 64 by 64 with four players, duels and ablations. |
 | `tests/` | Unit tests. |
 
 The policy interface, engine options and full assumption list are in [sim/README.md](../sim/README.md).
@@ -106,6 +109,8 @@ This section is the only home of the simulator's accuracy figures. Other documen
 
 The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` fixes the set of each match. A match never changes set.
 
+**This validation cannot run from a clean clone.** `data/` is local working data and is not in the repository. `validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py` need `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. The tools in `tools/replay/` rebuild the tables from the site (see [data-pulls.md](data-pulls.md)). The figures below were measured on the original local data.
+
 | Pulls | Matches | FIT | TEST |
 |---|---|---|---|
 | 2 to 4 | 63 | 42 | 21 |
@@ -135,7 +140,7 @@ The win-share baseline is in-sample, so it is optimistic. Seed noise, measured 2
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
 
-Not planned (see [Status](#status-complete-2026-11-11)): the real Atom and pump feeding rules, and models of later rivals. Both need per-tick replay study of each rival, which is left to the user.
+Not planned (see [Status](#status-final)): the real Atom and pump feeding rules, and models of later rivals. Both need per-tick replay study of each rival, which is left to the user.
 
 ## Main assumptions
 
@@ -150,4 +155,17 @@ The docs do not settle every rule. [sim/README.md](../sim/README.md) lists all a
 | A failed action earns no energy. | Sandbox probe `t_failed_eat` confirmed this. |
 | The order of random draws in the real engine is unknown. | Seeds do not reproduce real matches. |
 
-Simulator results for the later cells are in `designs.md`, sections 8 to 10.
+Simulator results for the earlier cells are in `designs.md`, sections 8 to 10.
+
+## Use in the last round
+
+For the last cells (Misfortune v2, Depravity, Dogma), the project used the engine with its own cells as opponents, and with rival models for Siect-F, VarSi and Colossus (`rsiectf`, `rvarsi`, `rcolossus` in `rivals.py`). The rival models did not match real growth. Siect-F and VarSi grew about 2.5 times too slowly between ticks 30 and 60, and all three filled the board too early. The replays do not show the mechanism, so none was invented. Gates against these models told nothing about the live leader.
+
+Local gates did not predict the ladder. Misfortune v2 passed its paired local gate 6 of 8 and failed on the ladder (1326 after 9 games). Dogma passed its spec and lost to Misfortune v3 on the engine. Use the engine to catch faults and regressions in growth. Do not use it to rank a new design against the live field. The details are in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
+
+## Known limitations
+
+- Fights against rival cells are weak, as the table above shows.
+- The rival models of the last round (`rsiectf`, `rvarsi`, `rcolossus`) are not calibrated. Do not use them as evidence.
+- The validation needs local data that is not published (see above).
+- The Dogma runner gave mix A non-cyclic start slots, which favored one cell. The runner was not corrected. See the slot-bias note in the final-round review.

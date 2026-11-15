@@ -8,7 +8,7 @@ A cell gets one turn in each tick and returns one action. A cell that runs fewer
 
 To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register, compares all 16 bytes with one instruction, and packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
 
-The diagram shows how Schism, the newest cell, chooses one action. It is simplified. The numbers are instructions run on that path. "Edge friend" means energy at least 6, no enemy in view, and a friend with an empty neighbour.
+The diagram shows how Schism, a mid-project cell, chooses one action. It is simplified. The numbers are instructions run on that path. "Edge friend" means energy at least 6, no enemy in view, and a friend with an empty neighbour.
 
 ```mermaid
 flowchart LR
@@ -239,7 +239,7 @@ The checker compares the asm with the reference on energies 0 to 50, random memo
 
 ## Misfortune v2 additions
 
-Misfortune v2 (`cells/gen_misfortune2.py`, `cells/misfortune2.asm`) is Misfortune v1 plus two changes. The reference is `make_misfortune2()` in `sim/cells_ref.py`, which is `make_misfortune(cap='B', exact=1, hold='split', hold_min=10, refill='checked')`. The v1 files stay as they are.
+Misfortune v2 (AC1, cell 352) was Misfortune v1 plus a checked refill, armed children, no prey hold and a feed pad. It failed on the ladder (1326 after 9 games). This section describes the first v2 build, the checked-refill build (commit 44e50da). Its reference is `make_misfortune2_m2v0` in `sim/cells_ref.py`. After the failure, `cells/gen_misfortune2.py` and `cells/misfortune2.asm` were rebuilt as the live cell 353 (next section). The v1 files stay as they are. The text below counts the checked-refill build. 
 
 - **Checked refill.** Each bite stores one word at memory byte 2: SPLIT plus the direction, and the view offset of the bitten square. The word comes from the same table lookup as the pattern row (`row4_tbl`, one dword per target energy and direction), so the biting path pays one extra instruction. On every slow path, right after the prefix, the cell reads byte 2. If it is set, the square in the view is empty and the cell has 12 or more energy, it splits into that square at once (13 instructions). Byte 2 is cleared first on every path, so a child starts clean. When the stored square is taken or the cell is too weak, a copy of the bite scan runs next, so a bite does not pay a clear store.
 - **Split hold.** An enemy on a diagonal square used to hold a cell of 5 or more energy. From 10 energy the cell now splits at once (`threat:` tests `esi` against 10). Below 10 the old hold applies and costs 2 more instructions.
@@ -247,9 +247,39 @@ Misfortune v2 (`cells/gen_misfortune2.py`, `cells/misfortune2.asm`) is Misfortun
 
 The checker (`--only misfortune2`) uses the same method as for v1 and adds a sweep over every stored direction, square occupant and energy.
 
-## Open items
+## Misfortune v3 (the live cell 353)
 
-- Schism was on the ladder until 2026-11-11: `designs.md` 11.1. Its feed block at energy 16 or more is longer than Complacency's.
+Misfortune v3 is Misfortune v1 plus one change: the split hold. It is built by `cells/gen_misfortune2.py` into `cells/misfortune2.asm`. The reference is `make_misfortune2_split10` in `sim/cells_ref.py`, which is `make_misfortune(cap='B', exact=1, hold='split', hold_min=10)`.
+
+- **Split hold.** From 10 energy the cell splits at once, even with an enemy on a diagonal square. Below 10 the old hold applies.
+- **Counts.** It keeps the 19-instruction first bite, the 15-instruction Gate 1 and the 2-instruction armed bite of v1. The binary is 23,674 bytes.
+- **Check.** Unicorn: 59,058 cases, 0 mismatches (58,991 after a harness fix that changed only the random view stream).
+
+## Depravity additions
+
+Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binary is 18,602 bytes.
+
+- **Table jump for the arm step.** `jmp [arm_tbl + rax*8]` goes to one of four stubs. The arm step costs 17 instructions, not 19.
+- **No Cap B.** The boxed cell has no rule that drains rear friends from 48 to 46 energy. A feeding gate (`T_FEED = 200`) stopped boxed cells from feeding before tick 200.
+- **First moves.** The opening walker (8 squares, then 2) picks its direction with SSE2 and a 256-byte table, with no `popcnt`. The prey hold starts at 8 energy.
+- **Check.** `check_cells --only depravity`: 38,960 cases, 0 mismatches, one planted mutation caught.
+- **Result.** It failed on the ladder. The reviewer's analysis blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The hotfix was built and checked locally (38,960 cases, 0 mismatches) and never uploaded.
+
+## Dogma additions
+
+Dogma (`cells/gen_dogma.py`, `cells/dogma.asm`) was the last build. The binary is 20,682 bytes. It was never uploaded.
+
+- **Counter bite.** A bite of 3 instructions that answers a stun on a blind tick. The stun still shifts the stored bite mask by one.
+- **Walker opening.** The first child goes 8 squares, later ones 2.
+- **Rotating pick.** The +2 lanes are chosen from 256-byte tables (`open_lo`, `open_hi`) with a 4-byte `d2_tbl` and a 1,024-byte `dir_pick_tbl`.
+- **Check.** `check_cells --only dogma` passes. `cells/test_dogma.py` ran 49,023 Unicorn checks with 0 failures, and it caught 8 of 8 planted mutants. Every instruction count met its spec.
+- **Result.** On our own engine it did not beat Misfortune v3, because its 3-instruction bite lost to the 2-instruction bite of v3. See [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md), section 5.
+
+## Known limitations
+
+- The checker cannot show that a cell works on the site. Only the Sandbox and the ladder can.
+- The VEX cells (Woe, Conceit, Endemic) are broken on the site and were never submitted.
+- Dogma and the Depravity hotfix were never on the ladder. Their counts are exact, and their results come from the local engine.
 
 ## Glossary
 
