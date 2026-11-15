@@ -101,20 +101,22 @@ The batch sets and the accuracy limits are in [simulator.md](simulator.md).
 
 ```mermaid
 flowchart LR
-    S["Avarice"] --> C["Covetous"] --> SC["Scourge"] --> CO["Contagion"]
-    SC --> CP["Complacency"]
-    CP --> SM["Schism"]
+    AV["Avarice"] --> CV1["Covetous"] --> SC["Scourge"] --> CT["Contagion"]
+    SC --> CP["Complacency"] --> SM["Schism"]
     SC -.-> W["Woe (VEX form, never on the ladder)"]
-    C -.-> CN["Conceit (VEX form, never on the ladder)"]
-    CO -.-> E["Endemic (VEX form, never on the ladder)"]
+    CV1 -.-> CN["Conceit (VEX form, never on the ladder)"]
+    CT -.-> E["Endemic (VEX form, never on the ladder)"]
     SM --> P["Pestilence"]
-    SM --> B["Bane"] --> B2["Bane v2"]
+    SM --> B1["Bane v1"] --> B2["Bane v2 (v2.0, v2.1, v2.2)"]
     B2 --> CV["Conviction"] --> PN["Penalty"]
+    B2 -.-> B3["Bane v2.3 (parked, never uploaded)"]
     B2 --> MF["Misfortune v1"] --> MF3["Misfortune v3"]
     MF --> MF2["Misfortune v2 (failed)"]
     MF -.-> DP["Depravity (failed)"]
     MF3 -.-> DG["Dogma (never uploaded)"]
 ```
+
+A solid arrow means "built from". A dotted arrow means a looser link: a VEX form of the same decisions, a parked or failed side branch, or a new design that took ideas from its source. Every cell in the final status table below appears here, and so does the parked Bane v2.3.
 
 | Cell | Bet | What it does | What it taught |
 |---|---|---|---|
@@ -126,7 +128,7 @@ flowchart LR
 | Schism (176) | Feeding the growing edge wins the grab. | Complacency, plus: no enemy in the 5x5, boxed, energy at least 6: feed the first friend with an empty neighbour. | Sandbox, 3 games each against Scourge, Covetous, Contagion: places 2, 1, 2 (Complacency 2, 2, 3), 0 faults, no seed control. Path counts: `designs.md` 11.1. |
 | Pestilence (180) | Moving strong cells forward beats splitting a weak child. | Schism, plus: on the refill path with energy at least 20, move into the freed square instead of splitting (`designs.md` 11.2, change 1 only). | Sandbox 2nd, 0 faults. Ladder: 2nd with 1576 after 377 games (2026-11-10), average place 1.24 against Schism's 1.23. |
 | Bane (built 2026-11-10, `cells/gen_bane.py`) | Children born next to a faster biter die before they act; the prey hold saves them. | Schism with Scourge's prey hold back: with an enemy in the 5x5, a cell at 5 to 15 energy rests instead of splitting. Bite, refill and feeding unchanged. | From replays 123880 and 123990 (`docs/evidence/contact-study-2026-11-10.md`): the new rivals bite as fast as we do, so our border cells are stunned about half the time; in the t100-200 grab Schism lost 118 cells, Ironbloom 3. Bane v1 reached about 1300 after 44 games (10th) on the ladder and is retired. |
-| Bane v2 (`cells/gen_bane2.py`; v2.0, v2.1 and v2.2) | Spread-out colonies are not boxed in, and a fixed bite target is faster than a view scan. | Bane v1, plus a dispersal opening: with an empty neighbour and no enemy near, children walk away (the first child 8 squares forward, later ones 2 squares) before they settle. It uses the cell memory and MOVE. v2.1 adds a stored bite: it bites the square bitten last time again in 4 instructions if an enemy is still there. v2.2 holds back only with an enemy on a diagonal square, not anywhere in the 5x5. | v2.0: retired at 1645 after 157 games, 1st. v2.1: 1775 after 189 games, 175 wins, average place 1.07, 1st, 189 points ahead of Colossus. It eliminated medivac in replays and lost to CogSpore twice and Colossus once. v2.2 (shown on the site as Bane v4): one Sandbox game with 0 faults, on the ladder from 2026-11-11 15:05 UTC in place of v2.1. Last read: 1761 after 1883 games, average place 1.15, 2nd (2026-11-13). Details: `designs.md` 11.3. |
+| Bane v2 (`cells/gen_bane2.py`; v2.0, v2.1 and v2.2) | Spread-out colonies are not boxed in, and a fixed bite target is faster than a view scan. | Bane v1, plus a dispersal opening: with an empty neighbour and no enemy near, children walk away (the first child 8 squares forward, later ones 2 squares) before they settle. It uses the cell memory and MOVE. v2.1 adds a stored bite: it bites the square bitten last time again in 4 instructions if an enemy is still there. v2.2 holds back only with an enemy on a diagonal square, not anywhere in the 5x5. | v2.0: retired at 1645 after 157 games, 1st. v2.1: 1775 after 189 games (1804 after 203 at its last read), 175 wins, average place 1.07, 1st, 189 points ahead of Colossus. It eliminated medivac in replays and lost to CogSpore twice and Colossus once. v2.2 (shown on the site as Bane v4): one Sandbox game with 0 faults, on the ladder from 2026-11-11 15:05 UTC in place of v2.1. Last read: 1761 after 1883 games, average place 1.15, 2nd (2026-11-13). Details: `designs.md` 11.3. |
 | Conviction (`cells/gen_conviction.py`) | Acting on what it believed last tick makes the bite faster. | Bane v2.2 with a bite queue: after one look, it bites the same square for several ticks in 3 instructions. | 1635 after 155 games. Bitten first far less often than Bane v2.2, but it refilled few of the squares it freed. |
 | Penalty (`cells/gen_penalty.py`) | The queue should end with a split into the dying target's square. | Conviction plus that split. | A test cell. No result was kept. |
 | Misfortune v1 (350; `cells/gen_misfortune.py`) | A 2-instruction bite is the floor, so an armed cell bites before every cell we know. | After one look, it stores its next bites by its own energy. Each later bite takes 2 instructions. | Sandbox 1st, 0 faults. Ladder: 1751 after 172 games, 2nd. |
@@ -177,7 +179,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 **Misfortune v3 = split10 (cell 353).** The emergency fix: Misfortune v1 plus one change. Cells with 10 or more energy split even with an enemy near (`hold='split'`, `hold_min=10`). It restored the 19-instruction first bite and the 15-instruction Gate 1 of v1. Unicorn check: 59,058 cases, 0 mismatches. It stayed on the ladder to the end.
 
-**Depravity (cell 363; `cells/gen_depravity.py`).** A clean-sheet cell that dropped Cap B and used a table jump for the arm step (arm 17 instructions). In a Sandbox game it came 1st. On the ladder it failed in its first games: it could not push AtomVirus or VarSi back. The reviewer's analysis blamed a 48/50 energy stalemate on front cells without Cap B, and a feeding gate (`T_FEED = 200`) that starved the front. The hotfix d1637f3 restored Cap B. The local check showed it did not change the front cell, so the owner decided not to upload it.
+**Depravity (cell 363; `cells/gen_depravity.py`).** A clean-sheet cell that dropped Cap B and used a table jump for the arm step (arm 17 instructions). In a Sandbox game it came 1st. On the ladder it failed in its first games: it could not push AtomVirus or VarSi back. The external reviewer's analysis blamed a 48/50 energy stalemate on front cells without Cap B, and a feeding gate (`T_FEED = 200`) that starved the front. The hotfix d1637f3 restored Cap B. The local check showed it did not change the front cell, so the owner decided not to upload it.
 
 **Dogma (`cells/gen_dogma.py`).** The last build: a 3-instruction counter bite, a first 8/2 walker and a rotating pick of the +2 lanes. It met every count of its spec, passed 49,023 Unicorn checks, and caught 8 of 8 planted mutants. It fixed what it was made for (no feeding before tick 100, no faults). But on our own engine it did not beat Misfortune v3, because the 3-instruction bite lost to the 2-instruction bite. Verdict NO-GO: it was never uploaded. The evidence is in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md), section 5.
 
@@ -195,7 +197,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 - Conviction and Penalty have no final result in the repo.
 - The name on the site (Bane v4) differs from the project name (Bane v2.2). The match rests on contemporary project notes, not on the site: cell 289 is Bane v2.2 in the evidence pack, the site shows cell 289 as "Bane v4", and the site versions run 272 (v1), 277 (v2), 287 (v3, Bane v2.1), 289 (v4). The site does not state the project version.
 - Dogma and the Depravity hotfix are untested on the ladder. All claims about them come from the local engine.
-- The Depravity root cause is the reviewer's analysis. It was not verified on the ladder.
+- The Depravity root cause is the external reviewer's analysis. It was not verified on the ladder.
 
 ## Related documents
 

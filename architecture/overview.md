@@ -65,6 +65,11 @@ These terms are used the same way in every document in this folder.
 | Feeds per eat (f/eat) | A colony's feeds divided by its eats of enemies. |
 | Pad, pad3 | `pad=N` adds *N* instructions to a rival model, to match a slow rival. pad3 also adds them to its slow-direction bites. |
 | F5 | The project's bite: 5 instructions in every direction, with no memory. |
+| Boxed | A cell with no empty neighbour. It cannot split. |
+| Armed bite | A bite that the cell stored in its memory on an earlier tick. Misfortune plays it in 2 instructions, without a look. The first look and store ("arming") takes 19 instructions in Misfortune. |
+| Gate 1 | The check on the slow path (after the bite test) that decides between a refill, a split and a rest. In Misfortune it takes 15 instructions. |
+| Cap B | A rule for boxed cells in Misfortune v1 and v3. It drains rear friends from 48 to 46 energy, which stops a 48/50 energy stalemate at the front. Depravity dropped it. |
+| External reviewer | An outside reviewer that read the designs and results in the last days and gave directions. |
 
 ## How the parts connect
 

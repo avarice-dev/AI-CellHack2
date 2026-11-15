@@ -228,7 +228,7 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 
 ## Misfortune additions
 
-Misfortune (`cells/gen_misfortune.py`, cap B, exact 1) is Bane v2.2 with a blind bite indexed by energy. The reference is `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py`.
+Misfortune v1 (`cells/gen_misfortune.py`, cap B, exact 1) is Bane v2.2 with a blind bite indexed by energy. The reference is `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py`.
 
 - **Armed bite.** `or al, [esi + CELLMEM_BASE + 13]` / `jnz EXIT_ADDR`: 2 instructions. Byte 13 + e holds the bite to play at energy e. The access uses esi (address-size prefix 0x67), not rsi.
 - **Prefix.** Every other path first zeroes the 16 bytes at 9 + e0 with xmm0 (zero at entry). Byte 8 holds e0, the energy at the last arming. Slow paths cost Bane v2.2's core + 4.
@@ -239,7 +239,7 @@ The checker compares the asm with the reference on energies 0 to 50, random memo
 
 ## Misfortune v2 additions
 
-Misfortune v2 (AC1, cell 352) was Misfortune v1 plus a checked refill, armed children, no prey hold and a feed pad. It failed on the ladder (1326 after 9 games). This section describes the first v2 build, the checked-refill build (commit 44e50da). Its reference is `make_misfortune2_m2v0` in `sim/cells_ref.py`. After the failure, `cells/gen_misfortune2.py` and `cells/misfortune2.asm` were rebuilt as the live cell 353 (next section). The v1 files stay as they are. The text below counts the checked-refill build. 
+Misfortune v2 (AC1, cell 352) was Misfortune v1 plus a checked refill, armed children, no prey hold and a feed pad. It failed on the ladder (1326 after 9 games). This section describes the first v2 build, the checked-refill build (commit 44e50da). Its reference is `make_misfortune2_m2v0` in `sim/cells_ref.py`. After the failure, `cells/gen_misfortune2.py` and `cells/misfortune2.asm` were rebuilt as the live cell 353 (next section). The v1 files stay as they are.
 
 - **Checked refill.** Each bite stores one word at memory byte 2: SPLIT plus the direction, and the view offset of the bitten square. The word comes from the same table lookup as the pattern row (`row4_tbl`, one dword per target energy and direction), so the biting path pays one extra instruction. On every slow path, right after the prefix, the cell reads byte 2. If it is set, the square in the view is empty and the cell has 12 or more energy, it splits into that square at once (13 instructions). Byte 2 is cleared first on every path, so a child starts clean. When the stored square is taken or the cell is too weak, a copy of the bite scan runs next, so a bite does not pay a clear store.
 - **Split hold.** An enemy on a diagonal square used to hold a cell of 5 or more energy. From 10 energy the cell now splits at once (`threat:` tests `esi` against 10). Below 10 the old hold applies and costs 2 more instructions.
@@ -263,7 +263,7 @@ Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binar
 - **No Cap B.** The boxed cell has no rule that drains rear friends from 48 to 46 energy. A feeding gate (`T_FEED = 200`) stopped boxed cells from feeding before tick 200.
 - **First moves.** The opening walker (8 squares, then 2) picks its direction with SSE2 and a 256-byte table, with no `popcnt`. The prey hold starts at 8 energy.
 - **Check.** `check_cells --only depravity`: 38,960 cases, 0 mismatches, one planted mutation caught.
-- **Result.** It failed on the ladder. The reviewer's analysis blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The hotfix was built and checked locally (38,960 cases, 0 mismatches) and never uploaded.
+- **Result.** It failed on the ladder. The external reviewer's analysis blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The hotfix was built and checked locally (38,960 cases, 0 mismatches) and never uploaded.
 
 ## Dogma additions
 
