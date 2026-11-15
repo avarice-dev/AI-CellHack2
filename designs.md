@@ -1,6 +1,32 @@
-# CellHack2 cell designs — round 4 (2026-11-08)
+# CellHack2 cell designs: final state, then the dated rounds
 
-The current plan is section 11. Earlier sections are history where a pointer says so.
+## Final state (2026-11-14)
+
+The project is finished. This file keeps the design notes of every round, in the order they were written. The sections below this summary are history: they say "current plan" about the day they were written. Paths under `data/` in this file name local working data that is not in the repository (see `architecture/data-pulls.md`). The six cited study notes are copies in `docs/evidence/`.
+
+**Outcome.** The goal was a cell that takes #1 and holds it. It was not reached. The best cell, Misfortune v3 (cell 353), was live at the last check (2026-11-14 16:47): rating 1841 after 441 games, average place 1.17, #3. Siect-F led with 2053. The final status of every cell is in `architecture/cells-and-experiments.md`.
+
+**The rounds in this file.**
+- Rounds 4 to 7 (sections 1 to 10, 2026-11-08): the shared kernel, the VEX cells (Woe, Conceit, Endemic: broken on the site), Complacency, and the review after pull 5.
+- Section 11 (2026-11-08 to 2026-11-11): Schism, Pestilence and the Bane line (v1, v2.0, v2.1, v2.2). Bane v2.1 was the first cell of ours at #1 with a clear lead (1804 after 203 games).
+
+**Rounds after section 11** (these have no sections below; the records are in `reviews/` and `briefs/`):
+- **Conviction and Penalty (2026-11-11).** Bane v2.2 with a bite queue (3-instruction bites), and a test cell that ends the queue with a split into the dying target's square. Conviction reached 1635 after 155 games.
+- **Bane v2.3 (2026-11-12 and 2026-11-13).** A cheaper first bite (12 instructions, not 16), built as `cells/gen_bane3.py` and never uploaded. A bundle with a stored bite in advance and a new opening was planned and parked: `briefs/deep-review-2026-11-13.md`, `briefs/v23-brief-2026-11-13.md`.
+- **Misfortune v1 (2026-11-13).** A 2-instruction armed bite, the fewest the game allows. Spec: `briefs/misfortune-spec-2026-11-13.md`. It replaced Bane v2.2 on the ladder and reached 1751 after 172 games.
+- **Misfortune v2 = AC1 (2026-11-13, cell 352).** A checked refill, armed children and no prey hold. It failed on the ladder: 1326 after 9 games. The audit and the dead ends are in `reviews/misfortune2-audit-2026-11-13.md`.
+- **Misfortune v3 = split10 (cell 353).** Misfortune v1 plus a split at 10 energy even with an enemy near. It stayed live to the end.
+- **Depravity (2026-11-14, cell 363).** A clean-sheet cell (17-instruction arm step, no Cap B). It failed in its first 5 games (1193). The hotfix d1637f3 was built and never uploaded.
+- **Dogma (2026-11-14).** A 3-instruction counter bite with a walker opening. It met its spec exactly and did not beat Misfortune v3 on our engine. NO-GO, never uploaded. The spec is `reviews/dogma-clean-sheet-review-2026-11-14.md`.
+- Details of the last four items: `reviews/final-round-2026-11-13-14.md`. The name "Dogma" in the header below belongs to an older idea (a deep-pump variant) that was dropped.
+
+**Lessons.** A faster first bite decided the front, but growth decided the games against Siect-F. Local engine results did not predict the ladder for new designs. A live Sandbox loss to the previous version is a stop signal. Compare a change with the live version in paired, slot-balanced games.
+
+**Known limitations.** The simulator is weak for fights against rival cells and its validation needs local data. Dogma and the Depravity hotfix never ran on the ladder. The final results of Conviction and Penalty were not recorded.
+
+---
+
+*Round 4 text follows.* The current plan at that time was section 11. Earlier sections are history where a pointer says so.
 
 Planning only. Round 4 rests on both ladder data pulls (`docs/evidence/ladder-data-2-2026-11-08.md` is the main source,
 991 matches and 36 decoded replays), the site calibrations (`docs/evidence/site-observations-2026-11-08.md`), the reviewer's

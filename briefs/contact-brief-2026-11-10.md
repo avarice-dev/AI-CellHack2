@@ -1,5 +1,7 @@
 # Brief: why do our cells stall at contact, and how do the new cells break fronts?
 
+> Note: paths under `data/` name local working data that is not published in the repo (see architecture/data-pulls.md). Historical document.
+
 Self-contained. Read this file; open other files only if a specific number is needed (paths given).
 Do not visit the site, put anything on the ladder or run long jobs. Thinking only. Answer compactly.
 

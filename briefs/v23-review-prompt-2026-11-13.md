@@ -1,4 +1,6 @@
 Review the build brief `briefs/v23-brief-2026-11-13.md` for Bane v2.3 in the CellHack2 repo. Read-only: do not edit
+
+> Note: paths under `data/` name local working data that is not published in the repo (see architecture/data-pulls.md). Historical document.
 files or run commands. Keep the reply under 600 words.
 
 Context: `briefs/deep-review-2026-11-13.md` (the plan this brief implements), `cells/bane3.asm` (v2.3a, the base) and

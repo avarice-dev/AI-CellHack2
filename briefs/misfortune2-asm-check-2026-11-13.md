@@ -1,5 +1,7 @@
 # Misfortune v2 asm check, 2026-11-13
 
+> Note: paths under `data/` name local working data that is not published in the repo (see architecture/data-pulls.md). Historical document.
+
 Asm paused by the main session (growth rules may change); this is the check of the built version (commit 44e50da, local only, nothing uploaded).
 
 - `python3 cells/check_cells.py --only misfortune2` (WSL): ALL CHECKS PASSED. Full output: `data/shared-2026-11-13/2026-11-13_asm-check_misfortune2_check_cells.txt` (local-only data folder).
