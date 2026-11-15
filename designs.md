@@ -16,7 +16,7 @@ No further work is planned. This file keeps the design notes of every round, in 
 - **Misfortune v1 (2026-11-13).** A 2-instruction armed bite, the fewest the game allows. Spec: `briefs/misfortune-spec-2026-11-13.md`. It replaced Bane v2.2 on the ladder and reached 1751 after 172 games.
 - **Misfortune v2 = AC1 (2026-11-13, cell 352).** A checked refill, armed children and no prey hold. It failed on the ladder: 1326 after 9 games. The audit and the dead ends are in `reviews/misfortune2-audit-2026-11-13.md`.
 - **Misfortune v3 = split10 (cell 353).** Misfortune v1 plus a split at 10 energy even with an enemy near. It stayed live to the end.
-- **Depravity (2026-11-14, cell 363).** A clean-sheet cell (17-instruction arm step, no Cap B). It failed in its first 5 games (1193). The hotfix d1637f3 was built and never uploaded.
+- **Depravity (2026-11-14, cell 363).** A clean-sheet cell (17-instruction arm step, no Cap B). It failed in its first 5 games (1193). The hotfix e729e16 was built and never uploaded.
 - **Dogma (2026-11-14).** A 3-instruction counter bite with a walker opening. It met its spec exactly and did not beat Misfortune v3 on our engine. NO-GO, never uploaded. The spec is `reviews/dogma-clean-sheet-review-2026-11-14.md`.
 - Details of the last four items: `reviews/final-round-2026-11-13-14.md`. The name "Dogma" in the header below belongs to an older idea (a deep-pump variant) that was dropped.
 

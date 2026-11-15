@@ -208,10 +208,13 @@ first, split, none) for comparing with the sim.
 
 ## Assumptions (docs silent or unverified)
 
-Docs re-review 2026-11-08: the Rules support the defaults of 4 (cap at Tidy, stated), 5 and 6 (implied by
-Decide before Act), and 7 (newborns act from the next tick); 6b has no basis in the docs (no feed bonus,
-no passive gain). 1 (starts), 2 (rounding) and 3 (self type) are not in the docs.
-Parameters let you flip the ones marked (param).
+These are the rules the Rules text does not state, or states only in part. The simulator makes a choice for each. A parameter (param) lets you change the choice.
+
+Status after the docs re-review of 2026-11-08:
+
+- The Rules support the defaults of items 4 (cap at Tidy, stated), 5 and 6 (implied by Decide before Act), and 7 (newborns act from the next tick).
+- Item 6b has no basis in the docs (no feed bonus, no passive gain). It is off by default.
+- Items 1 (starts), 2 (rounding) and 3 (self type) are not in the docs.
 1. **Start squares** (param `start_mode`). Verified 2026-11-08 from replays: ladder starts are random
    squares (e.g. 98753: (10,61) (23,30) (45,21) (13,41); more in `../docs/evidence/ladder-data-2026-11-08.md` s5).
    `random` (default in run.py and experiments.py) draws each start uniformly over the board, conditioned

@@ -160,7 +160,7 @@ This table lists every cell that played on the ladder, with the last figure the 
 | Misfortune v1 (350) | Replaced by v2 on 2026-11-14. | 1751, 172 | 2nd |
 | Misfortune v2 = AC1 (352) | Retired. It failed. | 1326, 9 | none |
 | **Misfortune v3 = split10 (353)** | **Live at the last check, 2026-11-14 16:47.** | **1841, 441; average place 1.17** | **3rd** |
-| Depravity (363) | Put on the ladder 2026-11-14, retired after 5 games. The hotfix d1637f3 was built and never uploaded. | 1193, 5 | none |
+| Depravity (363) | Put on the ladder 2026-11-14, retired after 5 games. The hotfix e729e16 was built and never uploaded. | 1193, 5 | none |
 | Dogma | Built and checked. Verdict NO-GO. Never uploaded. | none | none |
 
 At the last check the top of the ladder was: Siect-F 2053 (average place 1.05), then Misfortune v3 at 1841. The gap to first place was 212 points. The best ever place of a cell of ours was 1st (Scourge, Contagion, Complacency, Schism, Bane v2.0 and v2.1, at various times). None held it at the last check. Misfortune v3 was the last cell, and it held second or third place on 2026-11-14.
@@ -179,7 +179,7 @@ Win rates are a rough guide. The design notes say that direction luck is worth a
 
 **Misfortune v3 = split10 (cell 353).** The emergency fix: Misfortune v1 plus one change. Cells with 10 or more energy split even with an enemy near (`hold='split'`, `hold_min=10`). It restored the 19-instruction first bite and the 15-instruction Gate 1 of v1. Unicorn check: 59,058 cases, 0 mismatches. It stayed on the ladder to the end.
 
-**Depravity (cell 363; `cells/gen_depravity.py`).** A clean-sheet cell that dropped Cap B and used a table jump for the arm step (arm 17 instructions). In a Sandbox game it came 1st. On the ladder it failed in its first games: it could not push AtomVirus or VarSi back. The external reviewer blamed two causes: a 48/50 energy stalemate on front cells without Cap B, and a feeding gate (`T_FEED = 200`) that starved the front. The hotfix d1637f3 restored Cap B. The local check showed that it did not change the front cell, so the owner decided not to upload it. The live build is commit c4d7350. `cells/gen_depravity.py` and `cells/depravity.asm` in the repository are the hotfix.
+**Depravity (cell 363; `cells/gen_depravity.py`).** A clean-sheet cell that dropped Cap B and used a table jump for the arm step (arm 17 instructions). In a Sandbox game it came 1st. On the ladder it failed in its first games: it could not push AtomVirus or VarSi back. The external reviewer blamed two causes: a 48/50 energy stalemate on front cells without Cap B, and a feeding gate (`T_FEED = 200`) that starved the front. The hotfix e729e16 restored Cap B. The local check showed that it did not change the front cell, so the owner decided not to upload it. The live build is commit c4d7350. `cells/gen_depravity.py` and `cells/depravity.asm` in the repository are the hotfix.
 
 **Dogma (`cells/gen_dogma.py`).** The last build: a 3-instruction counter bite, a first 8/2 walker and a rotating pick of the +2 lanes. It met every count of its spec, passed 49,023 Unicorn checks, and caught 8 of 8 planted mutants. It fixed what it was made for (no feeding before tick 100, no faults). But on our own engine it did not beat Misfortune v3, because its 3-instruction bite lost to the 2-instruction bite. Verdict NO-GO: it was never uploaded. The evidence is in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md), section 5.
 

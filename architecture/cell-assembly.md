@@ -263,7 +263,7 @@ Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binar
 - **No Cap B.** The boxed cell has no rule that drains rear friends from 48 to 46 energy. A feeding gate (`T_FEED = 200`) stopped boxed cells from feeding before tick 200.
 - **First moves.** The opening walker (8 squares, then 2) picks its direction with SSE2 and a 256-byte table, with no `popcnt`. The prey hold starts at 8 energy.
 - **Check.** `check_cells --only depravity`: 38,960 cases, 0 mismatches, one planted mutation caught.
-- **Result.** It failed on the ladder. The external reviewer blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The project built and checked the hotfix locally (38,960 cases, 0 mismatches) and never uploaded it.
+- **Result.** It failed on the ladder. The external reviewer blamed the missing Cap B and the feeding gate. The hotfix e729e16 restored Cap B. The project built and checked the hotfix locally (38,960 cases, 0 mismatches) and never uploaded it.
 
 ## Dogma additions
 
