@@ -1,4 +1,4 @@
-"""Dogma local gauntlet (spec shared/cellhack2/COMPREHENSIVE_REPORT.md section 7.3): our own reference cells and the
+"""Dogma local gauntlet (spec reviews/dogma-clean-sheet-review-2026-11-14.md section 7.3): our own reference cells and the
 calibrated rival models only; no site access.  Run from sim/:
 
   python dogma_runner.py --stage solo            # 11 solo starts, Dogma vs Bane v2.2, cells at t20..t100 (gate: 0/11 regressions)

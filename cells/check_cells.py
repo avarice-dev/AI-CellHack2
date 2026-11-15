@@ -1023,7 +1023,7 @@ DEPRAVITY_K = MISFORTUNE_K + ('kOne',)
 
 
 def check_depravity(path, blob, syms, lst):
-    """Depravity (spec shared/cellhack2/PLAN.md): generated source, aligned SSE constants, table bytes (pat1_tbl with the
+    """Depravity (spec reviews/final-round-2026-11-13-14.md section 4): generated source, aligned SSE constants, table bytes (pat1_tbl with the
     k = 0 stun-save row, k16_tbl te 0..255, pop8_tbl, arm_tbl), one FF 24 C5 jump, bite_tbl actions, constants
     (HOLD_MIN 8), Misfortune v2's cap B (cap_hit padding, kRing* / cap_tbl / c2e / c2z / ring / e6 / en_* bytes), 0x67 on every esi-indexed operand and no rsi-indexed memory operand."""
     import gen_depravity as D
