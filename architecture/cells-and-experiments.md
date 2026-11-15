@@ -1,6 +1,6 @@
 # Cells, calibration probes and experiments
 
-This document explains how cells are designed, generated and checked. It also lists the calibration probes, the simulator experiments, the history of each cell and the final ladder status. The project is finished. Terms such as cell, bet, tick and ladder are defined in [overview.md](overview.md). The instructions themselves are explained in [cell-assembly.md](cell-assembly.md).
+This document explains how cells are designed, generated and checked. It also lists the calibration probes, the simulator experiments, the history of each cell and the final ladder status. No further work is planned. Terms such as cell, bet, tick and ladder are defined in [overview.md](overview.md). The instructions themselves are explained in [cell-assembly.md](cell-assembly.md).
 
 ## From design to ladder
 
@@ -138,7 +138,7 @@ flowchart LR
 
 ### Final ladder status
 
-The project is finished. This table lists every cell that played on the ladder, with the last figure the project recorded. The ladder log (`data/site-checks.md`) is local only. Editing a cell on the site creates a new cell id, so each version has its own number and its own rating ([site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md)). A new version starts at rating 1000. The places for Avarice to Contagion and Complacency are from site reads on 2026-11-10. The Schism, Pestilence and Bane places are from the My cells page on 2026-11-11 to 2026-11-13.
+This table lists every cell that played on the ladder, with the last figure the project recorded. The ladder log (`data/site-checks.md`) is local only. Editing a cell on the site creates a new cell id, so each version has its own number and its own rating ([site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md)). A new version starts at rating 1000. The places for Avarice to Contagion and Complacency are from site reads on 2026-11-10. The Schism, Pestilence and Bane places are from the My cells page on 2026-11-11 to 2026-11-13.
 
 | Cell (site id) | Last recorded state | Rating, games | Last recorded place |
 |---|---|---|---|
@@ -161,7 +161,7 @@ The project is finished. This table lists every cell that played on the ladder, 
 | Depravity (363) | Put on the ladder 2026-11-14, retired after 5 games. The hotfix d1637f3 was built and never uploaded. | 1193, 5 | none |
 | Dogma | Built and checked. Verdict NO-GO. Never uploaded. | none | none |
 
-At the last check the top of the ladder was: Siect-F 2053 (average place 1.05), then Misfortune v3 at 1841. The gap to first place was 212 points. The best ever place of a cell of ours was 1st (Scourge, Contagion, Complacency, Schism, Bane v2.0 and v2.1, at various times). None held it at the end. Misfortune v3 was the final cell, and it held second or third place on the last day.
+At the last check the top of the ladder was: Siect-F 2053 (average place 1.05), then Misfortune v3 at 1841. The gap to first place was 212 points. The best ever place of a cell of ours was 1st (Scourge, Contagion, Complacency, Schism, Bane v2.0 and v2.1, at various times). None held it at the last check. Misfortune v3 was the last cell, and it held second or third place on 2026-11-14.
 
 Win rates are a rough guide. The design notes say that direction luck is worth about 16 points of win rate. They ask for at least 50 games before a cell is judged.
 

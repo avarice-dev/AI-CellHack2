@@ -2,7 +2,7 @@
 
 This document explains the game, the goal, the outcome, the parts of the project and where to read next. Each part has its own document in this folder.
 
-The project is finished. The competition ends on 2026-11-15. The last ladder check was on 2026-11-14.
+The project is likely done being updated. The last ladder check was on 2026-11-14.
 
 ## What CellHack2 is
 

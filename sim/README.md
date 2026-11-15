@@ -5,7 +5,7 @@ instructions their asm version would run; the engine uses that count for turn or
 game does. The simulator never runs real asm. The assembly is checked separately by `../cells/check_cells.py`
 against the Python references in `cells_ref.py`.
 
-**Status: final.** The project is finished and the simulator is complete. The engine matches real replays
+**Status: final.** The simulator is complete. The engine matches real replays
 (see `replay_check.py`). Fights against rival cells are weak, and local results did not predict ladder results for
 the last cells. The accuracy figures are in `../architecture/simulator.md`.
 

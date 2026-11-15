@@ -4,7 +4,7 @@ The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python fun
 
 ## Status: final
 
-The project is finished, and so is the simulator. The engine was complete on 2026-11-11. After that, the project added runners for the last cells (see [Use in the last round](#use-in-the-last-round)). No more work is planned.
+The simulator is complete. The engine was complete on 2026-11-11. After that, the project added runners for the last cells (see [Use in the last round](#use-in-the-last-round)). No more work is planned.
 
 - **The rules engine is solid.** With the recorded actions of real replays as input, it gives the same board as the replay (see [How far to trust it](#how-far-to-trust-it)). A colony that grows alone is simulated well, because no rival model is involved. The project uses it for that: to check the opening of a new cell before the cell goes to the site.
 - **The rival models are not reliable.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.

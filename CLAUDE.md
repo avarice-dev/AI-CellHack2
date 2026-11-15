@@ -1,6 +1,6 @@
 # CellHack2: instructions for an agent that resumes this repository
 
-**The project is finished.** It was a competition project: write x86-64 assembly "cells" for an online ladder, with a Python simulator and replay tools. The goal was a cell that takes #1 and holds it. It was not reached. The best cell, Misfortune v3 (cell 353), was #3 at the last check (2026-11-14 16:47, rating 1841; the leader Siect-F was at 2053). The competition ends 2026-11-15. Do not start new work unless the owner asks.
+**The project is likely done being updated.** It was a competition project: write x86-64 assembly "cells" for an online ladder, with a Python simulator and replay tools. The goal was a cell that takes #1 and holds it. It was not reached. The best cell, Misfortune v3 (cell 353), was #3 at the last check (2026-11-14 16:47, rating 1841; the leader Siect-F was at 2053). Do not start new work unless the owner asks.
 
 ## Where things are
 

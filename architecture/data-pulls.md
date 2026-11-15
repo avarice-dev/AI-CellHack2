@@ -4,7 +4,7 @@ The site serves each match's replay as a separate file. The project collects mat
 
 ## Status (final)
 
-The project is finished. The pulling and decoding tools are complete. The analysis tools are an open set.
+No further work is planned. The pulling and decoding tools are complete. The analysis tools are an open set.
 
 - **The `data/` folder is not published.** The repository does not contain `data/`. It was local working data, and git ignores it (`/data/`). It held the replays, the pulled match lists and match pages, the mining output, the validation tables, the FIT and TEST split, the site-check log and most write-ups. Everything this document says about `data/` describes the author's local copy.
 - **Six study notes are published.** They are in `docs/evidence/` and cited by code comments and documents: [ladder-data-2026-11-08.md](../docs/evidence/ladder-data-2026-11-08.md), [ladder-data-2-2026-11-08.md](../docs/evidence/ladder-data-2-2026-11-08.md), [site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md), [scourge-losses-2026-11-08.md](../docs/evidence/scourge-losses-2026-11-08.md), [contact-study-2026-11-10.md](../docs/evidence/contact-study-2026-11-10.md) and [bane-v22-evidence-2026-11-12.md](../docs/evidence/bane-v22-evidence-2026-11-12.md). Paths under `data/` inside them name local files.

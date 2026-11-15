@@ -2,7 +2,7 @@
 
 ## Final state (2026-11-14)
 
-The project is finished. This file keeps the design notes of every round, in the order they were written. The sections below this summary are history: they say "current plan" about the day they were written. Paths under `data/` and `sim/out/` in this file name local working data that is not in the repository (see `architecture/data-pulls.md`). The six cited study notes are copies in `docs/evidence/`.
+No further work is planned. This file keeps the design notes of every round, in the order they were written. The sections below this summary are history: they say "current plan" about the day they were written. Paths under `data/` and `sim/out/` in this file name local working data that is not in the repository (see `architecture/data-pulls.md`). The six cited study notes are copies in `docs/evidence/`.
 
 **Outcome.** The goal was a cell that takes #1 and holds it. It was not reached. The best cell, Misfortune v3 (cell 353), was live at the last check (2026-11-14 16:47): rating 1841 after 441 games, average place 1.17, #3. Siect-F led with 2053. The final status of every cell is in `architecture/cells-and-experiments.md`.
 

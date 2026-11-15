@@ -2,7 +2,7 @@
 
 CellHack2 is an online game in which players write small x86-64 assembly programs called cells. Each cell controls one square on a 64 by 64 board, and up to four colonies play in each match. This repository holds one project's work on the game. The project wrote ladder cells, tested them, studied the game data and recorded what worked. It also holds a Python simulator of the game rules and tools that collect and decode replays.
 
-**The project is finished.** The competition ends on 2026-11-15. This is the final state of the repository.
+**The project is likely done being updated.** No further work is planned.
 
 **This whole project was made with Claude, Anthropic's AI, through Claude Code.** Claude wrote the cells, the generators and checkers, the simulator, the data tools, the analysis and these documents. The owner set the goals, made the decisions and approved each step that touched the ladder. An external reviewer gave directions in the last days. The project tested how far an AI agent can take a competitive programming project, from the first probe to cells near the top of the ladder.
 
