@@ -12,7 +12,7 @@
 
 ### Top-Level Verdict
 1. **Abandon `C1` (`2`-insn `e`-slot) & `Depravity` (`363`) — Neither Can Cleanly Overtake `1962`:**
-   - **Live `Depravity` (`cell 363`, `c4d7350`)** is structurally broken on the ladder despite finishing 1st (`138 vs 33`) in small-board `16x16` Sandbox `151538`. Dropping Cap B creates a deterministic `48 <-> 50` front stalemate (`e=50` drops to `17`-insn `arm:`, gets stunned back to `48`, bites at `2` insns back to `50` forever), `T_FEED=200` starves `t60–t199` battlefronts, `HOLD_MIN=8` spawns suicidal `4e` children while holding `5–7`, and `dir-open` taxes every settled split `76–139` insns.
+   - **Live `Depravity` (`cell 363`, `6cfb4a7`)** is structurally broken on the ladder despite finishing 1st (`138 vs 33`) in small-board `16x16` Sandbox `151538`. Dropping Cap B creates a deterministic `48 <-> 50` front stalemate (`e=50` drops to `17`-insn `arm:`, gets stunned back to `48`, bites at `2` insns back to `50` forever), `T_FEED=200` starves `t60–t199` battlefronts, `HOLD_MIN=8` spawns suicidal `4e` children while holding `5–7`, and `dir-open` taxes every settled split `76–139` insns.
    - **Any `C1` (`2`-insn `e`-slot) architecture is REJECTED (`REJECT`):** Even with unpadded `49`-insn Cap B and Stage 4 pre-arms stripped (whose pre-arms contain fatal `t_failed_eat` infinite air-bite loops and `e0` prefix-wipe / `+1,-2` parity mismatches), `m11-contact-stats.txt` proves **`52.3%`** of contact ticks have `>= 2` enemies (causing `4.5` blind friendly bites per `100` enemy bites, `82%` at `e <= 47` outside Cap B), **`92.3% (a)` / `38.1% (b)`** of kills lack a boxed `>= 6e` edge friend (leaving unbacked spearheads in `48 <-> 50` locks), and Cap B burned `90,384` energy over `52,620` pulls (`1.7e/pull`, `issues.md:8`).
 2. **Converge on a Single Clean-Sheet Primary Target: `Dogma` (`C3b` Calibrated + `first 8/2`):**
    - **Combat (`3` / `15` insns):** `C3b` bitmask shift counter (`shr qword [rdx+8], 1 / mov al, [rdx+16] / jnz EXIT_ADDR`) with `1`-insn cleanup (`xor eax, eax`), **`15`-insn `arm:`**, and **`15`-insn `Gate-1`** (`REFILL_MIN=12`, `THREAT_MIN=16`). Eliminates the `e=50` cliff and `Cap B` burn completely, supports up to `63` consecutive bites (`0` mid-duel re-scans), bounds crossfire/KS blind tails via **`K_CAP = 16`** (`k(1..2) = 1` exploiting `RULESET_VERSION=9`'s verified `stun_keeps_memory=True` from `m9-stun-memory.txt:4`), and avoids `C3a`'s 8th-tick leak (`1` re-arm / `17` ticks vs `1` / `8`).
@@ -48,15 +48,15 @@ Instruction counts below measure **all executed instructions** (including taken 
 | **11. Penalty** (`gen_penalty.py`, ID `302`) | **Conviction** -> Queue for `te <= KILL_MAX (8)` appends blind `[SPLIT]` into target square (`te<=2` queues `[SPLIT]`). | **Queued bite/split 3**; **1st bite 18**; slow paths same as Conviction (Gate-1 **14**, max **89**). | ID `302`: **Regressed** to `112/139` (`81%`), `10–17%` newborns killed within 5 ticks. Retired `2026-11-12`. |
 | **12. Misfortune v1** (`gen_misfortune.py`, ID `350`) | **Bane v2.2** -> **2-insn `e`-slot blind bite** (`[esi+CELLMEM_BASE+13]`) + `xmm0` clear + `exact=1` (`k=0` at `te<=2`) + **Cap B** (`byte 63=0`, hold `>=48`, lift `>=47`). | **Armed bite 2**; **1st arm 19**; Gate-1 **15**; diag rest/hold **30 / 32**; walker **38**; settled **42–65**; Cap B hit **80** / miss `+56` (max **145**). | ID `350`: **#2 at 1697 / 137g**, retired **1751 / 172g**. Won `2/6` vs Siect-F (`1.6x–3x` area), `0/4` on equal/smaller area. |
 | **13. Misfortune v2 ("AC1")** (`gen_misfortune2.py` `b40b1a4`, ID `352`) | **Misfortune v1** + **4 bundled changes**: checked refill (`byte 2`), `armed_children` (`e=1 mod 4`), `hold='off'`, `FEED_PAD=6` (`>=100`). | **Armed bite 2**; checked refill **13**; **1st arm 22/26/28**; Gate-1 **20–66**; max **151**. | ID `352`: **Catastrophic `-371` collapse** -> retired after **9 games, rating 1326** (`+115-120%` friendly fire, slow `arm:`/`Gate-1`). |
-| **14. Misfortune v3 ("split10")** (`gen_misfortune2.py` `db936c4`, ID `353`, **LIVE**) | **Misfortune v1** (all AC1 changes reverted) + **`hold='split', hold_min=10`** (diag enemy w/ `e>=10` splits via `Gate-1`). | **Armed bite 2**; **1st arm 19**; Gate-1 **15**; `hold_split` (`>=10`): **29 / 31**; diag `<10`: **32 / 34**; walker **38**; settled **42–65**; Cap B **80** / max **144**. | ID `353`: **Current #2 — 1812 / 228g (82.9%, avg 1.17, 135 insns/call)** -> **1826 / 247g** (`data/site-checks.md:21,23`). |
-| **15. Depravity** (`c4d7350`, ID `363`, **LIVE**) | **Misfortune v2 `arm_tbl`** -> deleted Cap B, added `T_FEED=200`, `arm_tbl` (`17`), `pat1_tbl` `k=0` stun-save, `HOLD_MIN=8`, settled `dir-open` (`76–139`). | **Armed bite 2**; **1st `arm_tbl` 17**; Gate-1 **15**; `hold_split` (`>=8`): **29 / 32**; `dir-open`: **76–139**; boxed `<200`: **23 / 33**; `>=200`: **38–86**; SB avg **57**, max **135**. | ID `363`: 1st in `16x16` Sandbox `151538` (pop `138 vs 33`), **stalled immediately in ladder game 1 vs AtomVirus & VarSi** (`48<->50` lock + `T_FEED=200` starvation). *(Local unshipped `e729e16` disregarded.)* |
+| **14. Misfortune v3 ("split10")** (`gen_misfortune2.py` `400bf88`, ID `353`, **LIVE**) | **Misfortune v1** (all AC1 changes reverted) + **`hold='split', hold_min=10`** (diag enemy w/ `e>=10` splits via `Gate-1`). | **Armed bite 2**; **1st arm 19**; Gate-1 **15**; `hold_split` (`>=10`): **29 / 31**; diag `<10`: **32 / 34**; walker **38**; settled **42–65**; Cap B **80** / max **144**. | ID `353`: **Current #2 — 1812 / 228g (82.9%, avg 1.17, 135 insns/call)** -> **1826 / 247g** (`data/site-checks.md:21,23`). |
+| **15. Depravity** (`6cfb4a7`, ID `363`, **LIVE**) | **Misfortune v2 `arm_tbl`** -> deleted Cap B, added `T_FEED=200`, `arm_tbl` (`17`), `pat1_tbl` `k=0` stun-save, `HOLD_MIN=8`, settled `dir-open` (`76–139`). | **Armed bite 2**; **1st `arm_tbl` 17**; Gate-1 **15**; `hold_split` (`>=8`): **29 / 32**; `dir-open`: **76–139**; boxed `<200`: **23 / 33**; `>=200`: **38–86**; SB avg **57**, max **135**. | ID `363`: 1st in `16x16` Sandbox `151538` (pop `138 vs 33`), **stalled immediately in ladder game 1 vs AtomVirus & VarSi** (`48<->50` lock + `T_FEED=200` starvation). *(Local unshipped `e729e16` disregarded.)* |
 
 ### B. Live Top-10 Ladder Standings (`data/site-checks.md:21-24`)
 
 | Rank | Cell | Rating | Games / Wins / Avg Place | Notes |
 |---|---|---|---|---|
 | **1** | **`CogSpore-Siect-F`** | **1962** | `2069g` / `1971w` (**95.3%**) / **1.05** | `87` median insns (`202` max); `<=3`-insn multi-dir combat (`=3` `84.6–91.3%`) |
-| **2** | **`Misfortune v3` (`cell 353`, OURS)** | **1826** *(1812 @ 228g)* | `247g` (`189/228` = **82.9%**) / **1.17** | `23,674` B; **`135` insns/call**; shipped `2026-11-14 06:18 UTC` (`db936c4`) |
+| **2** | **`Misfortune v3` (`cell 353`, OURS)** | **1826** *(1812 @ 228g)* | `247g` (`189/228` = **82.9%**) / **1.17** | `23,674` B; **`135` insns/call**; shipped `2026-11-14 06:18 UTC` (`400bf88`) |
 | **3** | **`CogSpore - VarSi v2`** | **1798** | `2256g` / **1.18** | `87` median insns (`203` max); `4`-insn `U/D` (`0% R/L <5`) |
 | **4** | **`Colossus`** | **1752** | `2771g` / **1.28** | `65` median insns (`106` max); `5`-insn isotropic bite; high early feed |
 | **5** | **`AtomVirus v10`** | **1671** | `1304g` / **1.31** | Fast `t100 = 2203` from `526` Voronoi area (`147068`); no decoded replays |
@@ -65,7 +65,7 @@ Instruction counts below measure **all executed instructions** (including taken 
 | **8** | **`NomNom2`** | **1318** | — | `5+`-insn bite (`99.7%` lost to `Bane v2.2` armed) |
 | **9** | **`AtomPush v5`** | **1279** | — | Early Atom benchmark (`35` insns/call) |
 | **10** | **`AtomCrasher v7`** | **1206** | — | Early Atom benchmark (`35` insns/call) |
-| *(Active)* | **`Depravity` (`cell 363`, OURS)** | *(Unranked / new)* | Activated `09:35–09:40` | `18,602` B (`c4d7350`); stalled in game 1 vs `AtomVirus` & `VarSi` |
+| *(Active)* | **`Depravity` (`cell 363`, OURS)** | *(Unranked / new)* | Activated `09:35–09:40` | `18,602` B (`6cfb4a7`); stalled in game 1 vs `AtomVirus` & `VarSi` |
 
 ---
 
@@ -218,15 +218,15 @@ All `LEGACY_SSE` constants (`kEnemy, kRefill, kNearLo, kNearHi, kOpen7, kTwoLo, 
    - Exhaustively test: `k = 0..63` bitmask shift countdowns; `e = 1..50` (explicitly verifying `e = 48, 49, 50` zero cliff & `boxed_front` `cmp esi, 49` boundaries); `(0,0)` start coordinates (`+1 != 0`); `te = 0..50` (`kmask_tbl` with `k(1..2)=1` and `K_CAP=16`); `stun_keeps_memory=True` (`t1` `arm:` -> `t2` `3`-insn bite, noting `Decide` runs before stun so stunned blind ticks consume 1 bit); and zero `rdx` clobber on every path.
    - Verify exact Unicorn instruction counts match Section 6 (`3` / `15` / `15` / `21` / `23` / `28` / `30` / `33,35,41` / `39` / `43` / `54,56,57,65` / `47–68`).
 3. **Local Arena Gauntlet & Pass/Fail Gates (BEFORE Any Ladder Upload):**
-   - **Opponents & Maps:** `Misfortune v3 (353)` (`db936c4`), `Bane v2.2 (289)`, `Depravity (c4d7350)`, plus local `Siect-F` (`3`-insn counter + `15`-insn `Gate-1` + `0%` `t<100` feed + `98% e=50`), `VarSi` (`4`-insn U/D), and `AtomVirus` archetypes across `16x16` (`500t`), `64x64` 4-player (`3000t`, `m-solo-matrix.txt` starts, paired mirrored slots per `issues.md:27`), and `1v1` `50e` sustained duels (`3000t`).
+   - **Opponents & Maps:** `Misfortune v3 (353)` (`400bf88`), `Bane v2.2 (289)`, `Depravity (6cfb4a7)`, plus local `Siect-F` (`3`-insn counter + `15`-insn `Gate-1` + `0%` `t<100` feed + `98% e=50`), `VarSi` (`4`-insn U/D), and `AtomVirus` archetypes across `16x16` (`500t`), `64x64` 4-player (`3000t`, `m-solo-matrix.txt` starts, paired mirrored slots per `issues.md:27`), and `1v1` `50e` sustained duels (`3000t`).
    - **Ablations:** Sweep `K_CAP = 12 / 16 / 25`, `k(1..2) = 1 / 0`, and `QUIET_FEED_CAP = 24 / 28 / 38`.
    - **Hard Pass/Fail Gates:**
      1. `0` faults, `0` `48 <-> 50` locks, `t < 100` feed `== 0.0%`, and `0/11` `t20–t100` solo regressions vs `Bane v2.2` (`m-solo-matrix.txt`).
-     2. Clear win-rate & avg-place dominance over `Misfortune v3 (353)`, `Bane v2.2 (289)`, and `Depravity (c4d7350)` on `64x64` multi-seed 4-player matches.
+     2. Clear win-rate & avg-place dominance over `Misfortune v3 (353)`, `Bane v2.2 (289)`, and `Depravity (6cfb4a7)` on `64x64` multi-seed 4-player matches.
      3. Net positive H2H vs local `Siect-F` proxy on equal-start `64x64` 4-player and backed `1v1` front duels.
 4. **Dual-Slot Ladder Discipline:**
    - **Preserve `cell 353` (`Misfortune v3`, `1826 / 247g`) untouched.**
-   - **Replace only `cell 363` (`Depravity`, `c4d7350`)** after all local gates pass (using scripted POST + source verification guard per `issues.md:35`).
+   - **Replace only `cell 363` (`Depravity`, `6cfb4a7`)** after all local gates pass (using scripted POST + source verification guard per `issues.md:35`).
 
 ---
 

@@ -3,7 +3,7 @@
     python cells/gen_depravity.py     # writes cells/depravity.asm next to this file
 
 Locked spec: reviews/final-round-2026-11-13-14.md section 4.  Reference policy: sim/cells_ref.make_depravity().  Built on
-gen_misfortune2.generate(armtbl=True) (arm_tbl pattern of commit aee07dd, gate 1, threat / hold_split, walker) with:
+gen_misfortune2.generate(armtbl=True) (arm_tbl pattern of commit 7e6fc33, gate 1, threat / hold_split, walker) with:
  - cap B kept exactly as in Misfortune v2 (hold / lift / pull logic, the 80-instruction cap_hit padding, kRing*, cap_tbl);
  - HOLD_MIN = 8 (hold_split from e >= 8);
  - k = 0 rows (te <= 2) arm slots e0 - 4, e0 - 2, e0 only (the stun-save); k = 1..5 unchanged;

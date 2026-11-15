@@ -12,7 +12,7 @@ Each finished game appends one JSON line to <out>/<stage>.jsonl (a restart skips
 writes <out>/<stage>-report.md.  Nothing is truncated: a game runs to its tick limit or until one colony is left.
 
 Mixes (the first name is the focus colony: Dogma or its control; seat = rotation r puts it in slot r):
-  A  dogma, m353 (make_misfortune2_split10), bane22 (Bane v2.2), dep_c4d (Depravity as of commit c4d7350, T_FEED 200)
+  A  dogma, m353 (make_misfortune2_split10), bane22 (Bane v2.2), dep_c4d (Depravity as of commit 6cfb4a7, T_FEED 200)
   B  dogma, rsiectf, rvarsi, ratompush            (Bc: m353 in place of dogma)
   C  dogma, rsiectf, m353, bane22 on fixed equal-start squares   (Cc: dep_c4d in place of dogma)
 rivals.py has no AtomVirus model: ratompush (AtomPush / HammerSpb, the fat-body refill rival) is the nearest proxy.
@@ -43,7 +43,7 @@ WINDOWS = ((0, 100, '<100'), (100, 300, '100-300'), (300, 1000, '300-1000'), (10
 MAX_WORKERS = 6
 DUEL_SIDE = 8                       # duel board 16 x 16: colony in slot 0 on x < 8, slot 1 on x >= 8, 50 energy everywhere
 FIXED_STARTS = ((16, 16), (47, 16), (16, 47), (47, 47))
-DEP_COMMIT = 'c4d7350'
+DEP_COMMIT = '6cfb4a7'
 ABLATIONS = {'k_cap12': dict(k_cap=12), 'k_cap25': dict(k_cap=25), 'k12_0': dict(k12=0),
              'quiet28': dict(quiet_cap=28), 'quiet38': dict(quiet_cap=38)}
 MIXES = {'A': ('dogma', 'm353', 'bane22', 'dep_c4d'),
@@ -71,7 +71,7 @@ def parse_seeds(s):
 
 
 def _dep_module():
-    """Depravity's reference exactly as of DEP_COMMIT (live cell 363 = c4d7350), loaded from git next to the log."""
+    """Depravity's reference exactly as of DEP_COMMIT (live cell 363 = 6cfb4a7), loaded from git next to the log."""
     os.makedirs(OUT_DIR, exist_ok=True)
     path = os.path.join(OUT_DIR, 'cells_ref_%s.py' % DEP_COMMIT)
     if not os.path.exists(path):
@@ -85,7 +85,7 @@ def _dep_module():
 
 
 class _ViewProxy(object):
-    """The c4d7350 reference copies the view and assigns v2.cells = ...; the engine's View has read-only properties."""
+    """The 6cfb4a7 reference copies the view and assigns v2.cells = ...; the engine's View has read-only properties."""
 
     def __init__(self, v):
         self._v = v
