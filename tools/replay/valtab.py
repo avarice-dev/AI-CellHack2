@@ -1,6 +1,6 @@
 """Validation table and start squares of decoded replays, offline (pure Python, no website).
 
-Same statistics as the pull 2 in-page analysis (tools/pull2/analyze.js, report.py sec_val), so that sim/validate.py
+Same statistics as the pull 2 in-page analysis (the pull 2 in-page analysis), so that sim/validate.py
 reads every pull the same way:
   pop at ticks 50, 100, 200, 500, 1000 (tick record), end (last tick record), mean energy of the colony's cells at
   keyframes 200 and 1000 (None when it has no cells or no such keyframe), feeds per enemy eat (None when no enemy
@@ -164,7 +164,7 @@ def main():
     if args:
         return
     with open(os.path.join(ROOT, 'data', PULL, 'validation-table.md'), 'w', encoding='utf-8', newline='\n') as f:
-        f.write('### val (%s, tools/valtab.py)\n' % PULL)
+        f.write('### val (%s, tools/replay/valtab.py)\n' % PULL)
         f.write('| match | colony | pop t50 | t100 | t200 | t500 | t1000 | end | E t200 | E t1000 | feeds/eat | freeze |\n')
         f.write('|---|---|---|---|---|---|---|---|---|---|---|---|\n')
         f.write('\n'.join(table) + '\n')

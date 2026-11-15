@@ -309,7 +309,7 @@ This is a dated log of calibration steps. Each entry gives the change, then the 
   the gap is in the rival models. Evidence: (a) match-page avg insns: Noob++ 73-90, rooby 58-79, Aegis 32-35 vs the
   models' ~20-24 (Avarice 19 (21/23), Hunter, Medic, Walker match exactly, so the column is reliable); (b) contested
   refills (FIT, real / sim): Avarice vs Noob++ 77 / 50%, Aegis vs rooby 81-97 / 38-46%; (c) real birth order
-  (`tools/pull2/birth_order.py`, t >= 300): Brawler, Brawler v2, Bouncer and the Atoms split before Avarice in 100% of
+  (`tools/replay/birth_order.py`, t >= 300): Brawler, Brawler v2, Bouncer and the Atoms split before Avarice in 100% of
   shared ticks, Noob+ / Aegis / rooby / Noob++ after it in 94-100%.
   pad1 (non-bite pad: Noob++ 66, rooby 56, Aegis 12): FIT 49/63. pad3 (also slow-direction bites:
   `pad_bites_from` 1 / 2 / 1): FIT 46/63, TEST 49/62 (base TEST 47/62); land t500->end now right for Noob++,

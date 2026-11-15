@@ -2,9 +2,7 @@
 tool must stop with a one-line "run a pull first" message, never a traceback or an empty output file.  Also the
 --pull / --cell / --matches arguments of the tab scripts, and LF line endings in the files the tools write.
 
-Most tests here run the old paths (tools/pull2/, pull3/, pull4/, tools/valtab.py), which are now thin wrappers of
-tools/replay/ with the defaults they had, so the commands in the dated reports keep working; NewPaths runs
-tools/replay/ itself (more in test_replay_tools.py).
+More tests of tools/replay/ are in test_replay_tools.py.
 e2e: each test copies the real scripts into a temporary tree with the repository layout (the scripts find the data
 folder from their own location) and runs them as a subprocess with `python -I`.  Only the data is made up.
 Run from the repo root:  python -m unittest discover -s tools/tests
@@ -57,57 +55,6 @@ class Tree(unittest.TestCase):
 
 
 class NoReplays(Tree):
-    def test_valtab_missing_replays_folder(self):
-        self.copy('tools/valtab.py')
-        res = self.run_tool('tools/valtab.py', pull='pull9')
-        self.assertPullFirst(res, 'no replays in data/pull9/replays')
-        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'validation-table.md')))
-        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'starts.json')))
-
-    def test_valtab_empty_replays_folder_writes_nothing(self):
-        self.copy('tools/valtab.py')
-        os.makedirs(self.path('data', 'pull9', 'replays'))
-        res = self.run_tool('tools/valtab.py', pull='pull9')
-        self.assertPullFirst(res, 'no replays in data/pull9/replays')
-        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'validation-table.md')))
-        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'starts.json')))
-
-    def test_valtab_named_replay_missing(self):
-        self.copy('tools/valtab.py')
-        res = self.run_tool('tools/valtab.py', '123', pull='pull9')
-        self.assertPullFirst(res, 'data/pull9/replays/123.chr2.gz')
-
-    def test_mine_missing_replays(self):
-        self.copy('tools/pull2/mine.py')
-        res = self.run_tool('tools/pull2/mine.py', pull='pull9')
-        self.assertPullFirst(res, 'no replays in data/pull9/replays')
-        self.assertFalse(os.path.exists(self.path('data', 'pull9', 'mining')))
-
-    def test_mine_named_replay_missing(self):
-        self.copy('tools/pull2/mine.py')
-        os.makedirs(self.path('data', 'pull9', 'replays'))
-        res = self.run_tool('tools/pull2/mine.py', '123', pull='pull9')
-        self.assertPullFirst(res, 'data/pull9/replays/123.chr2.gz')
-
-    def test_actions_replay_missing(self):
-        self.copy('tools/pull2/actions.py')
-        res = self.run_tool('tools/pull2/actions.py', '123')
-        self.assertPullFirst(res, 'data/pull2/replays/123.chr2.gz')
-
-    def test_actions_no_arguments_prints_usage(self):
-        self.copy('tools/pull2/actions.py')
-        res = self.run_tool('tools/pull2/actions.py')
-        self.assertNotEqual(res.returncode, 0)
-        self.assertNotIn('Traceback', res.stderr)
-        self.assertIn('usage', res.stderr.lower())
-
-    def test_birth_order_replay_missing(self):
-        self.copy('tools/pull2/birth_order.py')
-        res = self.run_tool('tools/pull2/birth_order.py', '0', '123')
-        self.assertPullFirst(res, 'data/pull2/')
-
-
-class NewPaths(Tree):
     def test_valtab_missing_replays(self):
         res = self.run_tool('tools/replay/valtab.py', '--pull', 'pull9')
         self.assertPullFirst(res, 'no replays in data/pull9/replays')
@@ -170,11 +117,11 @@ class TabArgs(Tree):
         self.assertEqual(json.loads(raw)['200'], ['Foo', 'Alpha', 'Beta', 'Gamma'])
         return res
 
-    def test_pull3_tab_arguments(self):
-        self.check_args('tools/pull3/tab.py')
+    def test_tab_arguments(self):
+        self.check_args('tools/replay/tab.py')
 
-    def test_pull4_tab_arguments(self):
-        res = self.check_args('tools/pull4/tab.py', '--rival', 'Alpha')
+    def test_tab_rival_argument(self):
+        res = self.check_args('tools/replay/tab.py', '--rival', 'Alpha')
         self.assertIn('Foo vs Alpha in the same game: 4 games', res.stdout)
 
     def check_mixed(self, script, *extra):
@@ -193,75 +140,26 @@ class TabArgs(Tree):
         self.assertEqual(sorted(names), ['200', '201', '202', '203', '300'])
         self.assertEqual(names['300'], ['Delta', 'Alpha', 'Beta', 'Gamma'])
 
-    def test_pull3_tab_mixed_list(self):
-        self.check_mixed('tools/pull3/tab.py')
+    def test_tab_mixed_list(self):
+        self.check_mixed('tools/replay/tab.py')
 
-    def test_pull4_tab_mixed_list(self):
-        self.check_mixed('tools/pull4/tab.py', '--rival', 'Alpha')
-
-    def check_default(self, script, pull, matches):
-        self.copy(script, 'data/%s/%s' % (pull, matches))
-        res = self.run_tool(script)
-        self.assertEqual(res.returncode, 0, res.stderr)
-        made = open(self.path('data', pull, 'names.json'), 'rb').read()
-        kept = open(os.path.join(REPO, 'data', pull, 'names.json'), 'rb').read().replace(b'\r\n', b'\n')
-        self.assertEqual(made, kept)                         # defaults unchanged, LF endings
-        return res.stdout
-
-    def test_pull3_tab_defaults_unchanged(self):
-        out = self.check_default('tools/pull3/tab.py', 'pull3', 'matches-scourge-2026-11-08.json')
-        self.assertIn('Games 100 (ids 103128-103747); won 74 (74%)', out)
-
-    def test_pull4_tab_defaults_unchanged(self):
-        out = self.check_default('tools/pull4/tab.py', 'pull4', 'matches-contagion-2026-11-08.json')
-        self.assertIn('Games 95 (ids 103614-104195); won 70', out)
-        self.assertIn('Contagion vs Scourge in the same game: 13 games, Contagion placed higher in 10', out)
-
-    def check_mining_args(self, script, pull, *args):
-        """Same output from the defaults and from --pull/--cell naming the same data under another pull name."""
-        self.copy(script)
-        shutil.copytree(os.path.join(REPO, 'data', pull, 'mining'), self.path('data', pull, 'mining'))
-        a = self.run_tool(script)
-        os.rename(self.path('data', pull), self.path('data', 'pull9'))   # only --pull can find it now
-        b = self.run_tool(script, '--pull', 'pull9', *args)
-        self.assertEqual(a.returncode, 0, a.stderr)
-        self.assertEqual(b.returncode, 0, b.stderr)
-        self.assertEqual(a.stdout, b.stdout)
-        self.assertGreater(len(a.stdout.splitlines()), 20)
-
-    def test_pull3_losses_arguments(self):
-        self.check_mining_args('tools/pull3/losses.py', 'pull3', '--cell', 'Scourge')
-
-    def test_pull4_games_arguments(self):
-        self.check_mining_args('tools/pull4/games.py', 'pull4', '--cell', 'Contagion', '--rival', 'Scourge')
+    def test_tab_mixed_list_with_rival(self):
+        self.check_mixed('tools/replay/tab.py', '--rival', 'Alpha')
 
     def test_losses_without_mining_output(self):
-        self.copy('tools/pull3/losses.py')
-        self.assertPullFirst(self.run_tool('tools/pull3/losses.py', '--pull', 'pull9'), 'data/pull9/mining')
+        self.assertPullFirst(self.run_tool('tools/replay/losses.py', '--pull', 'pull9', '--cell', 'Foo'), 'data/pull9/mining')
 
     def test_games_without_mining_output(self):
-        self.copy('tools/pull4/games.py')
-        self.assertPullFirst(self.run_tool('tools/pull4/games.py', '--pull', 'pull9'), 'data/pull9/mining')
+        self.assertPullFirst(self.run_tool('tools/replay/games.py', '--pull', 'pull9', '--cell', 'Foo'), 'data/pull9/mining')
 
 
 class LineEndings(Tree):
     def test_mine_report_writes_lf(self):
-        self.copy('tools/pull2/mine_report.py')
-        os.makedirs(self.path('data', 'pull2', 'mining', 'races'))
-        res = self.run_tool('tools/pull2/mine_report.py')
+        os.makedirs(self.path('data', 'pull9', 'mining', 'races'))
+        res = self.run_tool('tools/replay/mine_report.py', '--pull', 'pull9')
         self.assertEqual(res.returncode, 0, res.stderr)
         for f in ('refill.json', 'rest.json'):
-            self.assertNotIn(b'\r\n', open(self.path('data', 'pull2', 'mining', f), 'rb').read(), f)
-
-    def test_lists_writes_lf(self):
-        self.copy('tools/pull2/lists.py')
-        ms = fake_matches('Sprint')['matches']
-        os.makedirs(self.path('data', 'pull2'))
-        with open(self.path('data', 'pull2', 'matches-1-4.json'), 'w', encoding='utf-8') as f:
-            json.dump(dict(matches=ms), f)
-        res = self.run_tool('tools/pull2/lists.py')
-        self.assertEqual(res.returncode, 0, res.stderr)
-        self.assertNotIn(b'\r\n', open(self.path('data', 'pull2', 'winrates.json'), 'rb').read())
+            self.assertNotIn(b'\r\n', open(self.path('data', 'pull9', 'mining', f), 'rb').read(), f)
 
 
 if __name__ == '__main__':

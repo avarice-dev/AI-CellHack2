@@ -1,4 +1,4 @@
-"""Race recorder (Engine record_races=True): one row per death, like tools/pull2/mine.py's races CSV.
+"""Race recorder (Engine record_races=True): one row per death, like tools/replay/mine.py's races CSV.
 
 Integration tests of engine.py with scripted policies (nothing of ours faked).
 Row: (tDeath, deadCol, killerCol, contMask, fillCol, dt, fillKind, fillE); fillKind 1 birth, 2 move,

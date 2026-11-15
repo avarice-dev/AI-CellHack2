@@ -4,8 +4,8 @@
 
 Data: Scourge's newest 100 finished ladder games (matches 103128-103747, `data/pull3/matches-scourge-2026-11-08.json`,
 from the rjclay match list plus one match page per game, 6 s apart) and 15 loss replays decoded offline
-(`data/pull3/replays/`, git-ignored, 278 MB; decoder `tools/pull2/mine.py` with `CH_PULL=pull3`, 0 keyframe mismatches in
-all 15; outputs `data/pull3/mining/`). Tables: `python -I tools/pull3/tab.py` and `python -I tools/pull3/losses.py`.
+(`data/pull3/replays/`, git-ignored, 278 MB; decoder `tools/replay/mine.py --pull pull3`, 0 keyframe mismatches in
+all 15; outputs `data/pull3/mining/`). Tables: `python -I tools/replay/tab.py --pull pull3 --cell Scourge` and `python -I tools/replay/losses.py --pull pull3 --cell Scourge`.
 Current pacing (2026-11-08): see "Pacing rules for the site" in `architecture/data-pulls.md`.
 
 ## Findings
@@ -86,7 +86,7 @@ Per-opponent (100 games; Scourge wins / games with that opponent present; first-
 | Contagion | 0/2 | - | 1 |
 
 The rest (Hunter, Medic, Random, zergling, gemAlert_v3/v4, squirtle, choochoo, Walker, Noob, Bulwark) never won;
-Scourge's losses in their games went to the fourth colony. Full tables: `tools/pull3/tab.py` output.
+Scourge's losses in their games went to the fourth colony. Full tables: `tools/replay/tab.py` output.
 
 ## Design implications (one bet each)
 

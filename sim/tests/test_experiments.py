@@ -83,7 +83,7 @@ class PlayJobTest(unittest.TestCase):
 
 
 class FreezeTickTest(unittest.TestCase):
-    """freeze_tick: the replay analyzer's definition (tools/pull2/analyze.js): the earliest t such that
+    """freeze_tick: the replay analyzer's definition (the pull 2 in-page analyzer, no longer in the repository): the earliest t such that
     every colony's population at every later tick stays within 5% of its population at t."""
 
     def test_definition(self):

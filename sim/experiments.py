@@ -71,7 +71,7 @@ def lower_priority():
 
 def freeze_tick(history, tol=FREEZE_TOL):
     """Earliest t such that, for every colony, every population from t on lies within [p(t) * (1 - tol),
-    p(t) * (1 + tol)].  Same definition as the replay analyzer (tools/pull2/analyze.js).
+    p(t) * (1 + tol)].  Same definition as the replay analyzer (the pull 2 in-page analyzer, no longer in the repository).
     history = one list per colony, index = tick (state after that many ticks)."""
     T = len(history[0])
     n = len(history)

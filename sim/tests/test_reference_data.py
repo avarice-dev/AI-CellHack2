@@ -29,7 +29,7 @@ class OurTables(unittest.TestCase):
         self.assertIsNone(t[98790]['rows'][1]['E200'])          # choochoo died: None in the table
         p2 = [d['freeze'] for m, d in t.items() if V.pull_of(m) == 'pull2']
         self.assertEqual(sorted(p2)[18], 2076)                  # report: median 2076
-        row = t[103128]['rows'][0]                              # pull 3, tools/valtab.py
+        row = t[103128]['rows'][0]                              # pull 3, tools/replay/valtab.py
         self.assertEqual((row['cell'], row['t50'], row['end'], row['E200']), ('AtomPush', 392, 2957, 40.184))
         self.assertEqual(t[103128]['freeze'], 927)
         self.assertEqual({V.pull_of(m) for m in t}, {'pull2', 'pull3', 'pull4', 'pull5'})

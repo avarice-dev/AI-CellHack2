@@ -287,7 +287,7 @@ class Engine(object):
         # record_events: split_energy[c] = {parent energy just before a successful split: count}
         self.split_energy = [dict() for _ in range(MAX_COLONIES)] if record_events else None
         # record_races: rows (tDeath, deadCol, killerCol, contMask, fillCol, dt, fillKind, fillE) as in
-        # tools/pull2/mine.py; killer = colony of the last cell that ever ate the dead cell (-1 none),
+        # tools/replay/mine.py; killer = colony of the last cell that ever ate the dead cell (-1 none),
         # contMask = colonies with a living cell orthogonally adjacent at the moment of death.
         self.races = [] if record_races else None
         self._race_pending = {}         # grid index -> (tDeath, deadCol, killerCol, contMask)
