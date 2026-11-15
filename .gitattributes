@@ -1,3 +1,2 @@
 * text=auto eol=lf
 *.gz binary
-tools/hooks/* text eol=lf

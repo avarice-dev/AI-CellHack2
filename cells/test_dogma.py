@@ -3,7 +3,7 @@
     python3 cells/test_dogma.py             # build dogma.asm + the ablation variants, run everything
     python3 cells/test_dogma.py --mutants   # also show planted mutants failing (every one must be caught)
 
-Level labels (CLAUDE.md): the Unicorn sections are INTEGRATION tests (the real assembled binary, real tables, the real
+Level labels: the Unicorn sections are INTEGRATION tests (the real assembled binary, real tables, the real
 cells_ref reference; only the engine around the call is simulated: stun and split inheritance are replayed by hand
 from sim/engine.py semantics).  The static checks are unit tests of the source text.  Nothing here is e2e.
 

@@ -120,14 +120,13 @@ Ladder results and new replays fed the next analysis. Cells and their history ar
 | Path | What it holds |
 |---|---|
 | `README.md` | Short entry point with the outcome and a quick start. |
-| `CLAUDE.md` | Short notes for an agent that resumes the project. |
 | `architecture/` | These architecture documents. |
 | `designs.md` | Design notes: the final state, verified facts, the cell designs, experiments and decisions. |
 | `docs/` | The game rules as PDF files, `cellhack.inc` (the constants: interface version 4, ruleset version 9), five open bots in `docs/bots/`, and a list of cell names in `docs/cell_names.txt`. |
 | `docs/evidence/` | Six study notes copied from the working data. Code comments and documents cite them. |
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py`, the VEX helper `vex_emu.py`, and calibration probes in `calib/`. |
 | `sim/` | The simulator, its batch runners and its unit tests in `sim/tests/`. Output goes to `sim/out/`, which git ignores. |
-| `tools/` | The replay tools (`replay/`, each run with `--pull <pull>`), the pull 2 history scripts and the old paths kept for the dated reports (`pull2/`, `pull3/`, `pull4/`), `valtab.py` (old path of `replay/valtab.py`), `search/` (the opening search), `tests/` (tests of the tools, run with `python -m unittest discover -s tools/tests`), and `privacy_check.py`, which looks for local paths, personal text and model names. `tools/hooks/pre-commit` runs it on each commit (`git config core.hooksPath tools/hooks`). The hook is opt-in. |
+| `tools/` | The replay tools (`replay/`, each run with `--pull <pull>`), `search/` (the opening search), and `tests/` (tests of the tools, run with `python -m unittest discover -s tools/tests`). |
 | `reviews/` | Design reviews and decision records. See the index below. |
 | `briefs/` | Dated briefs, hand-over notes and build checks. See the index below. |
 | `data/` | **Local only, not in the repo.** Replays, pulled match lists, mining output, validation tables, the FIT and TEST split and the site-check log. See [data-pulls.md](data-pulls.md). |

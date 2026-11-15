@@ -64,7 +64,7 @@ Other documents:
 | `architecture/` | The architecture documents above. |
 | `cells/` | Cell generators (`gen_*.py`), the assembly they write (`*.asm`), the checker `check_cells.py` and the calibration probes. |
 | `sim/` | The simulator, its runners and its tests. See [sim/README.md](sim/README.md). |
-| `tools/` | Replay tools (`tools/replay/`), the older pull scripts and the privacy check. |
+| `tools/` | Replay tools (`tools/replay/`), the opening search (`tools/search/`) and the tests of the tools. |
 | `docs/` | The game rules (PDF), `cellhack.inc`, the open bots and `docs/evidence/`. |
 | `reviews/`, `briefs/` | Reviews and dated briefs. |
 | `data/` | **Local only, not in the repository.** See below. |
@@ -117,7 +117,6 @@ Run these commands from the root of the repository.
 
 4. Use the replay tools. The replays are not in the repository. To decode replays, do your own pull first: see "Doing your own pull" in [data-pulls.md](architecture/data-pulls.md). Each replay tool is in `tools/replay/` and takes the pull as `--pull <pull>`; there is no default pull.
 
-5. Check the repository for local paths, personal text and model names before a commit: `python tools/privacy_check.py`.
 
 ## Known limitations
 

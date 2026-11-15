@@ -113,20 +113,7 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/replay/agg_actions.py`, `bite_targets.py`, `front_feed.py`, `freed_squares.py` | Study tools for the front: actions next to an enemy pooled over a pull, bite targets and kills, energy and feeding of front cells, and who retakes freed squares. Each file starts with its usage line. |
 | `tools/replay/pull_replays.js` | The browser script of a pull. It reads the match page and the replay of each match id at the site's pace, saves `<id>.chr2.gz`, and saves the match list as `matches-<time>.json`. The file starts with its usage. |
 | `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/` (replays and match lists). Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
-| `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
 
-**History tools.** These scripts reproduce the pull 2 report and read only `data/pull2`.
-
-| Tool | What it does |
-|---|---|
-| `tools/pull2/analyze.js` | The browser-side analyzer used in pull 2. It ran inside the replay page. |
-| `tools/pull2/report.py` | Builds summary tables from the summaries. |
-| `tools/pull2/lists.py` | Win rates and head-to-heads from the pull 2 match list. |
-| `tools/pull2/select_sprint.py` | Lists matches with Avarice, and how Avarice fared in each. |
-| `tools/pull2/late.py` | Finds the largest population changes after tick 500, and the freeze tick of each match. |
-| `tools/pull2/sec8.py` | Builds the table of matches chosen for study and why. |
-
-**Old paths.** The dated write-ups use older paths, such as `tools/pull2/mine.py`, `tools/pull3/tab.py`, `tools/pull4/games.py` and `tools/valtab.py`. These files still exist. Each runs its `tools/replay/` tool with the defaults it had then. `tools/pull2/mine.py`, `tools/pull2/actions.py` and `tools/valtab.py` read the pull name from `CH_PULL`. Use `tools/replay/` for new work.
 
 ## Doing your own pull
 
