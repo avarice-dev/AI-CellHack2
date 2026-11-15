@@ -17,7 +17,7 @@ The goal was a cell that takes first place on the ladder and stays there. The pr
 
 ## Cell names
 
-The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. The table covers each cell that played on the ladder, and the last cell built. Peak figures marked with `*` are the best recorded values, because the site does not publish peaks. The full status table is in [Cells and experiments](architecture/cells-and-experiments.md#final-ladder-status).
+The cells are named after Necroid ship classes from the game Stellaris. The calibration probes are the exception. The table covers each cell that played on the ladder and the last cell built. Peak figures marked with `*` are the best recorded values, because the site does not publish peaks. The full status table is in [Cells and experiments](architecture/cells-and-experiments.md#final-ladder-status).
 
 | Cell | How it plays | Peak place | Last rating | Final state |
 |---|---|---|---|---|
@@ -73,9 +73,9 @@ Other documents:
 
 The `data/` folder is not published. It held the replays, the pulled match lists, the mining output, the validation tables, the FIT and TEST split and the site-check log. Git ignores it. The tools in `tools/replay/` rebuild the match data from the site. See [data-pulls.md](architecture/data-pulls.md).
 
-This has one effect on the tests. The simulator validation (`sim/validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py`) needs local pulls: `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. It cannot run from a clean clone. Everything else below runs from a clean clone, with the tools it names.
+This affects the tests. The simulator validation (`sim/validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py`) needs local pulls: `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. It cannot run from a clean clone. Everything else below runs from a clean clone, with the tools it names.
 
-Many documents and code comments name files under `data/`. Those names point to the local folder. The six notes that the code cites are copies in `docs/evidence/`.
+Many documents and code comments name files under `data/`. Those names point to the local folder. Copies of the six notes that the code cites are in `docs/evidence/`.
 
 ## Quick start
 
@@ -111,7 +111,9 @@ Run these commands from the root of the repository.
 
    Each cell has a generator `cells/gen_<name>.py` that writes `cells/<name>.asm`. Run the checker without `--only` (all cells) when `docs/cellhack.inc`, `check_cells.py` or a shared reference changes.
 
-   Versions known to work: NASM 3.01, Unicorn 2.1.4, Python 3.12 (Python 3.14 also works). The VEX cells Woe, Conceit and Endemic always fail the check. The site runs their VEX compares incorrectly, so the checker flags them on purpose, and they were not submitted. The checker reports their problems as expected failures. It ends with `ALL OTHER CHECKS PASSED` and exit code 0 when only these cells fail. Any problem in another cell is a real failure: the checker prints `PROBLEM(S) in:` with the cell names, and exits with code 1.
+   Versions known to work: NASM 3.01, Unicorn 2.1.4 and Python 3.12 (Python 3.14 also works).
+
+   The VEX cells Woe, Conceit and Endemic always fail the check. The site runs their VEX compares wrongly, so the checker flags them on purpose, and the project never submitted them. The checker reports their problems as expected failures. When only these cells fail, it ends with `ALL OTHER CHECKS PASSED` and exit code 0. A problem in any other cell is a real failure. The checker then prints `PROBLEM(S) in:` with the cell names and exits with code 1.
 
 4. Use the replay tools. The replays are not in the repository. To decode replays, do your own pull first: see "Doing your own pull" in [data-pulls.md](architecture/data-pulls.md). Each replay tool is in `tools/replay/` and takes the pull as `--pull <pull>`; there is no default pull.
 

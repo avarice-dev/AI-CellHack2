@@ -1,5 +1,7 @@
 # Misfortune v2 (`cell 352`) Consolidated 8-Agent Audit & Execution Plan
 
+> Note (2026-11-14, added in the documentation review): historical. The directives and gates below were written for the session that resumed after the Misfortune v2 failure. The `split10` hotfix became Misfortune v3 (cell 353). What happened next is in [final-round-2026-11-13-14.md](final-round-2026-11-13-14.md). The `#L<line>` links in this file point to the code as it was then.
+
 **Date:** 2026-11-14  
 **Scope:** End-to-end audit of `Misfortune` / `Misfortune v2` (`AC1` failure post-mortem, `split10` hotfix verification, replay diagnosis vs `#1 Siect-F` / `VarSi` / `Colossus`, devil's-advocate kills, surviving levers, harness/checker bugs, and pre-registered execution gates).
 

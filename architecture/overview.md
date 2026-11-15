@@ -8,7 +8,7 @@ The project is likely done being updated. The last ladder check was on 2026-11-1
 
 CellHack2 is an online game. Players write small programs in x86-64 assembly language. Each program is a **cell**. A cell controls one square on a 64 by 64 board.
 
-A **match** has up to four **colonies**. A colony is the group of cells that one player's program makes. A match runs for up to 3000 **ticks**. It can end early. In each tick, every living cell gets one turn. On its turn, a cell can rest, split, move, eat or feed. The colony with the most cells at the end wins. Ties go to more total energy, then to fewer instructions over the match, then to the lower colony number. Ladder matches give 3, 2, 1 and 0 points by place, and the points feed the rating (Rules, page 2).
+A **match** has up to four **colonies**. A colony is the group of cells that one player's program makes. A match runs for up to 3000 **ticks**. It can end early. In each tick, every living cell gets one turn. On its turn, a cell can rest, split, move, eat or feed. The colony with the most cells at the end wins. Ties go to the colony with more total energy, then to the one with fewer instructions over the match, then to the lower colony number. Ladder matches give 3, 2, 1 and 0 points by place, and the points feed the rating (Rules, page 2).
 
 The turn order depends on the **instruction count**. This is the number of machine instructions a cell runs on its turn. A cell with fewer instructions acts earlier in the tick. So a short program can take a square before a longer one. All colonies share one pass per tick, and cells with equal counts are put in a random order. All randomness comes from the match seed, so a match replays identically (Rules, pages 2 and 3). A call over 1000 instructions is a fault, and the cell does nothing that tick.
 
@@ -20,7 +20,7 @@ The game has a public ranked list called the **ladder**. Cells on the ladder pla
 
 The goal was a cell that takes first place on the ladder and stays there. The project did not reach it. The best cell, Misfortune v3, reached second and third place. At the last check (2026-11-14 16:47) it was rated 1841 after 441 games, with an average place of 1.17, in third place. The leader, Siect-F, was rated 2053.
 
-The project also aimed to learn what works. It learned this from ladder cells and from game records studied offline.
+The project also aimed to learn what works. It learned this from ladder cells and from game records that it studied offline.
 
 Each cell tested one main idea. That idea is the cell's **bet**. One bet per cell made each result easier to read. The history of every cell is in [cells-and-experiments.md](cells-and-experiments.md).
 
@@ -38,15 +38,15 @@ These terms are used the same way in every document in this folder.
 | Colony | All the cells that one player has in one match. A match has up to four colonies. |
 | Tick | One round of the game. A match has up to 3000 ticks. |
 | Instruction count | How many machine instructions a cell runs on one turn. Fewer instructions means an earlier turn. |
-| Energy | A number that each cell holds. A colony's first cell starts at 10. At the end of each tick (the Tidy step), energy above 50 is cut back to 50, so a cell can hold more than 50 for part of a tick. |
+| Energy | A number that each cell holds. A colony's first cell starts at 10. At the end of each tick (the Tidy step), the game cuts energy above 50 back to 50. So a cell can hold more than 50 for part of a tick. |
 | Rest | An action that gives the cell +1 energy. It is the only source of new energy. |
 | Eat | An action that takes up to 2 energy from an adjacent cell. |
 | Bite | An eat aimed at an adjacent enemy cell. Only the four neighbours that share an edge count. |
 | Stun | A bitten cell that has not had its turn yet in that tick loses that turn. |
 | Split | An action that makes a child cell on an empty adjacent square. It needs at least 5 energy. The child gets half the energy, rounded down. The parent keeps the rest. |
-| Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). There is no feed bonus. |
-| Refill | A birth or move onto a square that a death freed. The Rules say such a square cannot be entered until the next tick (a square freed by a move can be entered in the same tick). The replays agree: no refill came in the same tick as its death, and most came one tick later. |
-| Prey hold | A rule in Covetous, Scourge, Contagion and Bane. Complacency and Schism drop it. (Bane v2.2 holds only with an enemy on a diagonal square.) A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. In Scourge and Contagion, a refill at 12 energy or more still splits. |
+| Feed | An action that gives 2 of the feeder's energy to the cell in the chosen direction. The target can be a friend or an enemy. A feeder with less than 2 gives all it has, and dies if that was all of it. A fed cell that also rests gains 3 in that tick (2 + 1). Feeding gives no bonus. |
+| Refill | A birth or move onto a square that a death freed. The Rules say nobody can enter such a square until the next tick. (A square freed by a move can be entered in the same tick.) The replays agree: no refill came in the same tick as its death, and most came one tick later. |
+| Prey hold | A rule in Covetous, Scourge, Contagion and Bane. Complacency and Schism drop it. A cell with 5 to 15 energy and an enemy in its 5 by 5 view rests instead of splitting, until tick 2980. In Scourge and Contagion, a refill at 12 energy or more still splits. Bane v2.2 holds only with an enemy on a diagonal square. |
 | Bet | The one main idea that a cell tests. |
 | Ladder | The public ranked list. Cells on it play real matches and have a rating. |
 | Sandbox | The site's test area. It runs saved cells against up to three opponents on a 16 by 16 board for 500 ticks. Nothing in it changes the ladder. |
@@ -68,8 +68,8 @@ These terms are used the same way in every document in this folder.
 | Boxed | A cell with no empty neighbour. It cannot split. |
 | Armed bite | A bite that the cell stored in its memory on an earlier tick. Misfortune plays it in 2 instructions, without a look. The first look and store ("arming") takes 19 instructions in Misfortune. |
 | Gate 1 | The check on the slow path (after the bite test) that decides between a refill, a split and a rest. In Misfortune it takes 15 instructions. |
-| Cap B | A rule for boxed cells in Misfortune v1 and v3. It drains rear friends from 48 to 46 energy, which stops a 48/50 energy stalemate at the front. Depravity dropped it. |
-| External reviewer | An outside reviewer that read the designs and results in the last days and gave directions. |
+| Cap B | A rule for boxed cells in Misfortune v1 and v3. It drains rear friends from 48 to 46 energy. This stops a 48/50 energy stalemate at the front. Depravity dropped it. |
+| External reviewer | An outside reviewer who read the designs and results in the last days and gave directions. |
 
 ## How the parts connect
 
@@ -164,6 +164,6 @@ All files are in `briefs/`. They are dated working documents. Some name files in
 
 - The simulator is accurate for growth and for the rules. It is weak for fights against rival cells. Local wins did not predict ladder results in the last round. See [simulator.md](simulator.md).
 - The validation of the simulator needs local data that is not in the repo. See [data-pulls.md](data-pulls.md).
-- The checker ran in Linux and WSL only. It needs NASM. It was not run on native Windows.
+- The checker needs NASM. It ran in Linux and WSL only, not on native Windows.
 - The rival models `rsiectf`, `rvarsi` and `rcolossus` do not match real growth. Do not use them to judge a cell.
-- The name `Dogma` was used for two things. An early note (the header of `designs.md`) used it for a deep-pump idea that was dropped. The final `Dogma` is the last cell built (see [cells-and-experiments.md](cells-and-experiments.md)).
+- The name `Dogma` was used for two things. An early note (the header of `designs.md`) used it for a deep-pump idea that the project dropped. The final `Dogma` is the last cell built (see [cells-and-experiments.md](cells-and-experiments.md)).

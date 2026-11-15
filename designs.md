@@ -196,6 +196,8 @@ Deferred: harvesting (G17: a second-row cell eating its own capped front cell); 
 
 ---------------------------------------------------------------------------------------------------
 ## 7. Exploratory cells (planner brainstorm 2026-11-08; ranked by value per effort; none built yet)
+*Note, 2026-11-14: later rounds reused some of these names for different cells. Pestilence (11.2) was built as described here. Conviction was built as a bite queue (see the final state above). The Bane and Misfortune of the final cells are new designs, not items 5 and 7 below. The final cell list is in `architecture/cells-and-experiments.md`.*
+
 1. **Pestilence** (S, fits K): refill a freed square by MOVE with a fat front cell (>= 20), backfill its old square
    from the interior by split. Carries 30-50 energy forward in one action; nobody refills by move (0% in mining).
    Only pays once our refill wins the race (rides on Scourge). Guard: move only if the vacated square has no enemy
@@ -538,7 +540,7 @@ This plan replaces further design rounds. A climber aims to raise the rating. Po
 - Benefit in solo growth: 128/512 cells at t31/t63, 1110 cells at t100; Complacency 37/79.5, 751 [M]. AtomPush real: 29/63.
 - Why this rule: with feeding on, the view split adds no tick (w+f6x 31/62.5). Memory adds nothing (a+f6 31/62). This corrects 10.2: feeding gives most of the gain, not geometry.
 - Risk: thin cells behind the front at contact. Deep cells have no target, so they stay fat [R].
-- Status: on the ladder as cell 176 since 2026-11-08 (the owner's action).
+- Status: on the ladder as cell 176 since 2026-11-08 (the owner's action). *Note, 2026-11-14: retired on 2026-11-11 at 1314 after 2814 games; its peak was 1675.*
 
 ### 11.2 Pestilence (unique mechanic; second)
 - Base: the higher rated of Schism and Complacency.
@@ -548,6 +550,7 @@ This plan replaces further design rounds. A climber aims to raise the rating. Po
 - Benefit: 0% of 375k mined refills are moves [M]. Carries 20-50 energy forward; a child has 6 [R]. Ladder gain unknown.
 - Risk: slower refill loses races.
 - Slot: the slot Complacency left on 2026-11-08.
+- *Note, 2026-11-14: taken off the ladder on 2026-11-11 at 1250 after 1649 games.*
 - Built 2026-11-09 (`cells/gen_pestilence.py`): Schism base, change 1 only (change 2 is a turn-order guess; add it only if the Sandbox shows moves working). `cmp sil, [mv_tbl + rcx]` / `jae move` before gate 1 loads its action: the move refill takes 13; every other path after the bite costs 2 more than Schism's (split 13). A check after gate 1 would cost 15, because gate 1 leaves through the return address. Binary 24,410 bytes. `check_cells`: 100,256 Unicorn cases and 524,288 boxed cases, 0 mismatches.
 
 ### 11.3 Bane (combat climber; third; replaces Famine 2026-11-09)
@@ -566,7 +569,7 @@ The name is reused: section 7's Bane (notch traps) was never built. Famine (11.3
   - SUPERSEDED (Bane v2 changed the opening by dispersal and a stored bite, not by more feeding; see the bullets below). Direction: Schism's rule (boxed cells feed the edge from e >= 6) is the right idea, and Schism is the one cell of ours that beats Atom. Bane pushes it further in the opening: more and earlier feeding toward cells with an empty neighbour. Tune it with the solo growth study (`sim/growth.py`; no rival model, the simulator's trusted part), target AtomPush's real curve (t20 57, t50 334). Keep the contact play. Needs Schism's own replays first (a new data pull) to see how far Schism already closes the gap.
   - Bane v2.0 (git tag bane-v2.0; `cells/gen_bane2.py`, reference `make_bane2` in `sim/cells_ref.py`, tests `sim/tests/test_bane2.py`, checker branch `bane2`): Bane v1 plus a dispersal opening. A cell with an empty neighbour and no enemy near no longer splits in a fixed order. Its children walk away before they settle. The first child from a square goes forward 8 squares. Later children go to the next empty square clockwise and walk 2 squares. A walker stops when the next square is not empty or its steps run out. Memory: [0] bearing, [1] steps left, [4..7] the square the cell last split from. Why: every cell keeps empty neighbours, so cells rest and split and are not boxed in. Checker: 931,437 emulated cases, 0 mismatches. Solo engine check of the opening (existing engine, mean of 4 start squares): 137 cells at t30, 1063 at t60, 2942 at t100. Ladder: retired at 1645 after 157 games, 82% wins, average place 1.22, 1st. Cells at t30 / t60 / t100 / t200 (mean of 8 games against top cells): 132 / 796 / 1376 / 1580; medivac in the same pull 81 / 940 / 1860 / 2204. Bane v1 for comparison: about 1300 after 44 games, 10th; 102 / 350 / 576 at t30 / t60 / t100 (3 games). Head to head in pulled replays: medivac 0-3, CogBloomXT 0-2, Colossus 1-1.
   - Bane v2.1 (git tag bane-v2.1): stored bite. Memory [2] is the square bitten last time and [3] is the action. If that square still holds an enemy, the cell bites again in 4 instructions with no view scan (the old bite takes 5). The check is exact, so a stale entry never bites a friend. Cost: every other path is 5 instructions longer (refill 16, first bite on a new enemy 16). Ladder: 1775 after 189 games, 175 wins (93%), average place 1.07, 1st, 189 points ahead of the second cell (Colossus, 1586). Bitten first against medivac 0-2% (v2.0: about 50%). It fills 68-69% of enemy squares freed beside it. Replays: medivac eliminated (peak 1740 cells, final 0); CogBloomXT 58 (peak 348). Losses: CogSpore twice (836 v 3260; 1039 v 3057) and Colossus once (1466 v 1776). In the CogSpore losses Bane's growth stalls from about t40 (357 cells at t40, 662 at t60; CogSpore 396 and 1342).
-  - Bane v2.2 (on the ladder since 2026-11-11 15:05 UTC in place of v2.1, which stood at 1804 after 203 games; no result yet): the prey hold (rest instead of splitting a thin child) applies only with an enemy on a diagonal square (view squares 6, 8, 16, 18), not anywhere in the 5x5. Reason: enemy walkers that passed two squares away froze the opening. Sandbox (16x16, one game, a fault check only): 1st with 173 of 256 squares, 0 faults; v2.1 in the same game 81.
+  - Bane v2.2 (on the ladder since 2026-11-11 15:05 UTC in place of v2.1, which stood at 1804 after 203 games; no result yet. *Note, 2026-11-14: last read on 2026-11-13, 1761 after 1883 games, then replaced by Misfortune v1*): the prey hold (rest instead of splitting a thin child) applies only with an enemy on a diagonal square (view squares 6, 8, 16, 18), not anywhere in the 5x5. Reason: enemy walkers that passed two squares away froze the opening. Sandbox (16x16, one game, a fault check only): 1st with 173 of 256 squares, 0 faults; v2.1 in the same game 81.
   - Not built: a preloaded refill split (measured: not needed).
 
 ### 11.4 Gate

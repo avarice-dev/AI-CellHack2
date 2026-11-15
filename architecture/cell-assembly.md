@@ -6,9 +6,9 @@ This document explains the x86-64 assembly in the CellHack2 cells: which instruc
 
 A cell gets one turn in each tick and returns one action. A cell that runs fewer instructions acts earlier in the tick, and an earlier turn can win a contested square. Speed is the main design goal.
 
-To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register, compares all 16 bytes with one instruction, and packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
+To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register. One instruction compares all 16 bytes. Another packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
 
-The diagram shows how Schism, a mid-project cell, chooses one action. It is simplified. The numbers are instructions run on that path. "Edge friend" means energy at least 6, no enemy in view, and a friend with an empty neighbour.
+The diagram shows how Schism, a mid-project cell, chooses one action. It is simplified. The numbers are the instructions run on that path. "Edge friend" means the cell has energy of at least 6, no enemy is in view, and a friend has an empty neighbour.
 
 ```mermaid
 flowchart LR
@@ -26,15 +26,15 @@ flowchart LR
 
 ## Why instruction count matters
 
-Within a tick, cells run in order of instruction count, lowest first. The count includes every instruction run, each taken jump and the final `ret`, the instruction that ends the call. All colonies share one pass per tick. The match seed orders equal counts, so a match with the same seed replays identically (Rules, pages 2 and 3; Reference: "The engine counts every instruction."). A probe with a `mov` and a `ret` averaged 2 instructions per call on the site.
+Within a tick, cells run in order of instruction count, lowest first. The count includes every instruction run, each taken jump and the final `ret`, the instruction that ends the call. All colonies share one pass per tick. The match seed orders equal counts, so a match with the same seed replays the same way (Rules, pages 2 and 3; Reference: "The engine counts every instruction."). A probe with a `mov` and a `ret` averaged 2 instructions per call on the site.
 
 A call over 1000 instructions (`INSN_BUDGET` in `docs/cellhack.inc`) is a fault, and the cell does nothing that tick. The longest path in Covetous is 60 instructions, and in Scourge 53. The cap does not limit these cells.
 
-A square freed by a death cannot be entered until the next tick. A square freed by a move can be entered later in the same tick. Two cells cannot swap places. The race for a freed square is therefore decided by turn order in the next tick. The total instruction count also breaks ties at the end of a match, after population and total energy (Rules, page 2).
+A square freed by a death cannot be entered until the next tick. A square freed by a move can be entered later in the same tick. Two cells cannot swap places. So turn order in the next tick decides the race for a freed square. The total instruction count also breaks ties at the end of a match, after population and total energy (Rules, page 2).
 
 ## The core trick: one compare, one lookup
 
-A register is a small storage slot in the processor. The cells use general registers such as `rax`, and 16-byte registers `xmm0` to `xmm15`, which belong to the SSE instruction family.
+A register is a small storage slot in the processor. The cells use general registers such as `rax`. They also use the 16-byte registers `xmm0` to `xmm15`, which belong to the SSE instruction family.
 
 The game passes a pointer to the view in `rdi`. The view holds 25 bytes, one per square of the 5 by 5 block, in row order. The cell is at index 12. Index 7 is up, 11 left, 13 right, 17 down. This is the bite from `cells/covetous.asm`, which every later cell reuses:
 
@@ -54,7 +54,7 @@ start:
 
 Example: mask 0x411 has bits 0, 4 and 10 set, so enemies stand UP, LEFT and DOWN. With three enemies, the rule is to bite the side opposite the free side, which is LEFT. The table entry is 0x33: 0x30 means bite, and 3 means LEFT.
 
-The bite table has 1106 entries, one per mask value from 0 to 0x451. The generator fills every entry. A lookup costs one read, whichever squares hold enemies. A chain of if-statements would cost a compare and a jump per case.
+The bite table has 1106 entries, one per mask value from 0 to 0x451. The generator fills every entry. A lookup costs one read, whichever squares hold enemies. A chain of if-statements would cost one compare and one jump for each case.
 
 ## The five-instruction bite
 
@@ -64,14 +64,14 @@ The `or` also sets the zero flag. A mask with no adjacent enemy points to a zero
 
 `jnz` jumps when the zero flag is clear, to `EXIT_ADDR`, the address that a `ret` would return to. The call ends there and skips the `ret`, which saves one instruction.
 
-The design notes call this bite F5: 5 instructions in every direction, no memory. (Bane v2.1 adds a 4-instruction repeat bite that uses the cell memory.) The strongest rivals bite in about 4 in one fixed direction, about 6 in a second, and 8 or more in the others. F5 beats every rival's second direction and every slower side.
+The design notes call this bite F5: 5 instructions in every direction, with no memory. (Bane v2.1 adds a 4-instruction repeat bite that uses the cell memory.) The strongest rivals bite in about 4 instructions in one fixed direction, about 6 in a second, and 8 or more in the others. F5 beats every rival's second direction and every slower side.
 
 Four facts make the bite safe:
 
 - The `or` needs `al` to be zero at entry. Probe `c_rax_probe` found `rax` zero on every call.
 - The bite overwrites `xmm0` and `ecx` before it reads them. Probes `r_gpr_zero` and `q_xmm_zero` also found `rbx`, `rcx`, `rbp`, `r8` to `r15` and `xmm0` to `xmm15` zero at entry.
-- The `jnz` exit needs the site to treat a jump to the return address like a `ret`. Probe `e_jexit` confirmed this, with 2 instructions per call and no faults.
-- The jump leaves the stack pointer 8 bytes lower than a `ret`. The game resets the stack before every call.
+- The `jnz` exit needs the site to treat a jump to the return address like a `ret`. Probe `e_jexit` confirmed this: 2 instructions per call and no faults.
+- The jump leaves the stack pointer 8 bytes lower than a `ret` does. This is safe because the game resets the stack before every call.
 
 ## Splitting, and the energy threshold
 
@@ -88,7 +88,7 @@ split:
 	ret
 ```
 
-`test` sets the zero flag when the mask is zero, and `jz` then goes to the feeding code. Otherwise the table gives the split direction. Before this code runs, the cell must have enough energy. Covetous decides the threshold with a 5x5 check:
+`test` sets the zero flag when the mask is zero, and `jz` then goes to the feeding code. Otherwise the table gives the split direction. The cell must have enough energy before this code runs. Covetous sets the threshold with a 5x5 check:
 
 ```nasm
 	cmp		esi, SPLIT_MIN
@@ -103,7 +103,7 @@ split:
 	jnz		threat
 ```
 
-`esi` holds the cell's energy. A cell below 5 energy rests. The 25 squares do not fit in one 16-byte window, so the cell uses two overlapping windows and joins them with `por`. The constants keep the cell's own square out of the result.
+`esi` holds the cell's energy. A cell below 5 energy rests. The 25 squares do not fit in one 16-byte window. So the cell uses two overlapping windows and joins them with `por`. The constants keep the cell's own square out of the result.
 
 | Situation | Threshold | Reason |
 |---|---|---|
@@ -113,7 +113,7 @@ split:
 
 ## Feeding from full cells
 
-Feeding gives 2 of the feeder's energy to the cell in the chosen direction. A feeder with less than 2 gives all it has, and dies if that was all. The target can be an enemy, so the cells check for a friend first. A cell near the cap of 50 gains little from resting, so it gives energy away at little cost. In Covetous, a cell at 47 energy or more feeds its poorest friend neighbour, if that friend has 46 energy or less:
+Feeding gives 2 of the feeder's energy to the cell in the chosen direction. A feeder with less than 2 gives all it has, and dies if that was all. The target can be an enemy, so the cells check for a friend first. A cell near the cap of 50 gains little from resting, so giving energy away costs it little. In Covetous, a cell with 47 energy or more feeds its poorest friend neighbour, if that friend has 46 energy or less:
 
 ```nasm
 feed:
@@ -130,11 +130,11 @@ feed:
 	mov		al, ACT_FEED + DIR_UP
 ```
 
-`r8d` keeps the lowest friend energy so far. It starts at 255, so the first friend always wins. The block repeats for right, down and left. A target at 47 or more gains little. One rival, Aegis, wasted 34% of its feeds on full cells. Scourge's feeding floor is 16 energy, and Contagion's is 12.
+`r8d` keeps the lowest friend energy so far. It starts at 255, so the first friend always wins. The block repeats for right, down and left. A target at 47 or more gains little. One rival, Aegis, wasted 34% of its feeds on full cells. The feeding floor is 16 energy in Scourge and 12 in Contagion.
 
 ## The refill gate in Scourge
 
-A freed front square is an empty neighbour with an enemy beyond it or beside it. Scourge tries to retake these squares right after the bite fails:
+A freed front square is an empty neighbour with an enemy beyond it or beside it. Scourge tries to retake these squares as soon as the bite finds no enemy:
 
 ```nasm
 slow:						; 5 instructions so far
@@ -154,7 +154,7 @@ The path is 11 instructions: 5 for the bite and 6 lines above. Only the VEX vari
 
 A parent with 12 energy gives its child 6. AtomPush's children were 5 to 7 energy in the replay study.
 
-The window stops short of squares 2 and 22, the squares beyond UP and DOWN. Indexes 2 to 22 need 21 bytes. Reading them would cost at least 3 more instructions on the path that has to stay fast.
+The window does not reach squares 2 and 22, the squares beyond UP and DOWN. Indexes 2 to 22 need 21 bytes. Reading them would cost at least 3 more instructions on the path that has to stay fast.
 
 Scourge refilled 98% of the squares that its rivals ate from it in the ladder study.
 
@@ -171,7 +171,7 @@ rest:
 	ret
 ```
 
-Scourge lost the land grab: at tick 200 it had about 800 cells on the ladder, and the winners about 2400. Complacency is Scourge with the hold removed. Its middle split is a plain split at 5 energy or more, with no 5x5 check. That path costs 16 instructions, against 24 to 27 on Scourge's same paths:
+Scourge lost the land grab. At tick 200 it had about 800 cells on the ladder, and the winners had about 2400. Complacency is Scourge with the hold removed. Its middle split is a plain split at 5 energy or more, with no 5x5 check. That path costs 16 instructions. Scourge's same paths cost 24 to 27:
 
 ```nasm
 	cmp		esi, 5
@@ -182,9 +182,9 @@ rest:
 	ret
 ```
 
-The simulator sweep tested a hold that stops at tick 200, 300, 500 or never, and a hold only for a diagonal enemy. "Never" gave the highest final population in all three mixes, with equal win rates, and it is the simplest code. Head-to-head numbers on new seeds followed the start slot, not the cell.
+The simulator sweep tested a hold that stops at tick 200, 300, 500 or never, and a hold only for a diagonal enemy. "Never" gave the highest final population in all three mixes, with equal win rates, and it is the simplest code. In head-to-head runs on new seeds, the start slot decided the result, not the cell.
 
-Pull 5 shows that dropping the hold did not close the grab gap. Complacency reaches 128 and 512 cells at t36 and t84. AtomPush reaches them at t29 and t63. The gap comes in the first 35 ticks. `designs.md` 10.2 first traced it to the split direction. Solo growth runs (`designs.md` 11.1) corrected this: feeding gives most of the gain. Schism tests this on the ladder.
+Pull 5 shows that dropping the hold did not close the grab gap. Complacency reaches 128 and 512 cells at t36 and t84. AtomPush reaches them at t29 and t63. The gap comes in the first 35 ticks. `designs.md` 10.2 first blamed the split direction. Solo growth runs (`designs.md` 11.1) corrected this: feeding gives most of the gain. Schism tested this on the ladder.
 
 ## Constraints and what was ruled out
 
@@ -211,7 +211,7 @@ Probe `s_vex_src` showed that a VEX compare reads its destination, not its first
 
 Legacy SSE instructions that read memory need an address that is a multiple of 16, so each constant has `align 16`. The view window can start at any byte, so the cells load it with `movdqu`.
 
-The cells use no loops and no stack. Only Contagion (on its scout path) and Bane v2 (for its dispersal opening and, from v2.1, its stored bite) use the cell memory. These are project speed rules, not game rules: the Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The hazards that the Reference names are writes to the code or view pages and running off the stack.
+The cells use no loops and no stack. Only Contagion (on its scout path) and Bane v2 use the cell memory. Bane v2 uses it for its dispersal opening and, from v2.1, for its stored bite. These are project speed rules, not game rules. The Reference allows mutable data in the cell memory (`[rdx]`) or on the stack, and the Quick start says "The stack is yours." The Reference names two hazards: writes to the code or view pages, and running off the stack.
 
 ## How the cells were checked
 
@@ -228,48 +228,48 @@ Contagion is Scourge with a feeding floor of 12 and two additions:
 
 ## Misfortune additions
 
-Misfortune v1 (`cells/gen_misfortune.py`, cap B, exact 1) is Bane v2.2 with a blind bite indexed by energy. The reference is `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py`.
+Misfortune v1 (`cells/gen_misfortune.py`, Cap B, exact 1) is Bane v2.2 with a blind bite indexed by energy. Its reference is `make_misfortune(cap='B', exact=1)` in `sim/cells_ref.py`.
 
-- **Armed bite.** `or al, [esi + CELLMEM_BASE + 13]` / `jnz EXIT_ADDR`: 2 instructions. Byte 13 + e holds the bite to play at energy e. The access uses esi (address-size prefix 0x67), not rsi.
-- **Prefix.** Every other path first zeroes the 16 bytes at 9 + e0 with xmm0 (zero at entry). Byte 8 holds e0, the energy at the last arming. Slow paths cost Bane v2.2's core + 4.
-- **Arming.** A bite found by the view scan writes byte 8 and one 16-byte pattern row (direction, k) at 9 + e0: 19 instructions. k is the number of bites an unfed target still needs, at most 5.
-- **Cap B rule.** A boxed cell tests its edge friends without branches: two SSE compares for the ring squares, then table lookups. A hit takes exactly 80 instructions; a miss takes exactly 56. Filler instructions (`xor r11d, r11d`) set both counts to the reference's counts.
+- **Armed bite.** `or al, [esi + CELLMEM_BASE + 13]` and `jnz EXIT_ADDR`: 2 instructions. Byte 13 + e holds the bite to play at energy e. The access uses `esi` (address-size prefix 0x67), not `rsi`.
+- **Prefix.** Every other path first zeroes the 16 bytes at 9 + e0 with `xmm0` (zero at entry). Byte 8 holds e0, the energy at the last arming. Slow paths cost 4 more instructions than the core of Bane v2.2.
+- **Arming.** A bite found by the view scan writes byte 8 and one 16-byte pattern row (direction, k) at 9 + e0. This takes 19 instructions. k is the number of bites that an unfed target still needs, at most 5.
+- **Cap B rule.** A boxed cell tests its edge friends without branches: two SSE compares for the ring squares, then table lookups. A hit takes exactly 80 instructions. A miss takes exactly 56. Filler instructions (`xor r11d, r11d`) make both counts equal to the reference's counts.
 
-The checker compares the asm with the reference on energies 0 to 50, random memory and random views, and on every empty / friend / enemy pattern of the 8 squares around the edge friends.
+The checker compares the assembly with the reference on energies 0 to 50, random memory and random views. It also compares them on every empty, friend and enemy pattern of the 8 squares around the edge friends.
 
 ## Misfortune v2 additions
 
 Misfortune v2 (AC1, cell 352) was Misfortune v1 plus a checked refill, armed children, no prey hold and a feed pad. It failed on the ladder (1326 after 9 games). This section describes the first v2 build, the checked-refill build (commit 44e50da). Its reference is `make_misfortune2_m2v0` in `sim/cells_ref.py`. After the failure, `cells/gen_misfortune2.py` and `cells/misfortune2.asm` were rebuilt as the live cell 353 (next section). The v1 files stay as they are.
 
-- **Checked refill.** Each bite stores one word at memory byte 2: SPLIT plus the direction, and the view offset of the bitten square. The word comes from the same table lookup as the pattern row (`row4_tbl`, one dword per target energy and direction), so the biting path pays one extra instruction. On every slow path, right after the prefix, the cell reads byte 2. If it is set, the square in the view is empty and the cell has 12 or more energy, it splits into that square at once (13 instructions). Byte 2 is cleared first on every path, so a child starts clean. When the stored square is taken or the cell is too weak, a copy of the bite scan runs next, so a bite does not pay a clear store.
-- **Split hold.** An enemy on a diagonal square used to hold a cell of 5 or more energy. From 10 energy the cell now splits at once (`threat:` tests `esi` against 10). Below 10 the old hold applies and costs 2 more instructions.
-- **Counts.** Armed bite 2, first bite 22, bite after a stored direction 26 (square taken) or 28 (energy below 12), other slow paths 2 more than v1, a clear without a bite 8 or 10 more, cap rule 80 when nothing is stored.
+- **Checked refill.** Each bite stores one word at memory byte 2. The word holds SPLIT plus the direction, and the view offset of the bitten square. It comes from the same table lookup as the pattern row (`row4_tbl`, one dword per target energy and direction), so the biting path pays one extra instruction. On every slow path, right after the prefix, the cell reads byte 2. If byte 2 is set, the square in the view is empty and the cell has 12 or more energy, the cell splits into that square at once (13 instructions). Every path clears byte 2 first, so a child starts clean. If the stored square is taken or the cell is too weak, a copy of the bite scan runs next, so a bite does not pay a clear store.
+- **Split hold.** Before, an enemy on a diagonal square held a cell of 5 or more energy. In v2, a cell with 10 or more energy splits at once (`threat:` tests `esi` against 10). Below 10 energy the old hold applies and costs 2 more instructions.
+- **Counts.** Armed bite: 2. First bite: 22. Bite after a stored direction: 26 (square taken) or 28 (energy below 12). Other slow paths: 2 more than v1. A clear without a bite: 8 or 10 more. Cap rule: 80 when nothing is stored.
 
-The checker (`--only misfortune2`) uses the same method as for v1 and adds a sweep over every stored direction, square occupant and energy.
+The checker (`--only misfortune2`) uses the same method as for v1. It adds a sweep over every stored direction, square occupant and energy.
 
 ## Misfortune v3 (the live cell 353)
 
 Misfortune v3 is Misfortune v1 plus one change: the split hold. It is built by `cells/gen_misfortune2.py` into `cells/misfortune2.asm`. The reference is `make_misfortune2_split10` in `sim/cells_ref.py`, which is `make_misfortune(cap='B', exact=1, hold='split', hold_min=10)`.
 
 - **Split hold.** From 10 energy the cell splits at once, even with an enemy on a diagonal square. Below 10 the old hold applies.
-- **Counts.** It keeps the 19-instruction first bite, the 15-instruction Gate 1 and the 2-instruction armed bite of v1. The binary is 23,674 bytes.
+- **Counts.** It keeps the 19-instruction first bite, the 15-instruction Gate 1 and the 2-instruction armed bite of v1. The binary has 23,674 bytes.
 - **Check.** Unicorn: 59,058 cases, 0 mismatches (58,991 after a harness fix that changed only the random view stream).
 
 ## Depravity additions
 
-Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binary is 18,602 bytes.
+Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binary has 18,602 bytes. The list below describes the build that played on the ladder (commit c4d7350). The generator in the repository now builds the hotfix (see Result): it has Cap B and no feeding gate.
 
 - **Table jump for the arm step.** `jmp [arm_tbl + rax*8]` goes to one of four stubs. The arm step costs 17 instructions, not 19.
 - **No Cap B.** The boxed cell has no rule that drains rear friends from 48 to 46 energy. A feeding gate (`T_FEED = 200`) stopped boxed cells from feeding before tick 200.
 - **First moves.** The opening walker (8 squares, then 2) picks its direction with SSE2 and a 256-byte table, with no `popcnt`. The prey hold starts at 8 energy.
 - **Check.** `check_cells --only depravity`: 38,960 cases, 0 mismatches, one planted mutation caught.
-- **Result.** It failed on the ladder. The external reviewer's analysis blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The hotfix was built and checked locally (38,960 cases, 0 mismatches) and never uploaded.
+- **Result.** It failed on the ladder. The external reviewer blamed the missing Cap B and the feeding gate. The hotfix d1637f3 restored Cap B. The project built and checked the hotfix locally (38,960 cases, 0 mismatches) and never uploaded it.
 
 ## Dogma additions
 
-Dogma (`cells/gen_dogma.py`, `cells/dogma.asm`) was the last build. The binary is 20,682 bytes. It was never uploaded.
+Dogma (`cells/gen_dogma.py`, `cells/dogma.asm`) was the last build. The binary has 20,682 bytes. The project never uploaded it.
 
-- **Counter bite.** A bite of 3 instructions that answers a stun on a blind tick. The stun still shifts the stored bite mask by one.
+- **Counter bite.** A 3-instruction bite that answers a stun on a blind tick. The stun still shifts the stored bite mask by one.
 - **Walker opening.** The first child goes 8 squares, later ones 2.
 - **Rotating pick.** The +2 lanes are chosen from 256-byte tables (`open_lo`, `open_hi`) with a 4-byte `d2_tbl` and a 1,024-byte `dir_pick_tbl`.
 - **Check.** `check_cells --only dogma` passes. `cells/test_dogma.py` ran 49,023 Unicorn checks with 0 failures, and it caught 8 of 8 planted mutants. Every instruction count met its spec.

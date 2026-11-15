@@ -1,5 +1,7 @@
 # CellHack2 Clean-Sheet Strategic Review & Final Specification: `Dogma`
 
+> Note (2026-11-14, added in the documentation review): historical. Dogma was built to this specification. It met every count but did not beat Misfortune v3 on the local engine, so it was never uploaded (NO-GO). The standings quoted here are from the time of writing. See [final-round-2026-11-13-14.md](final-round-2026-11-13-14.md).
+
 **Date:** 2026-11-14  
 **Scope:** Strictly read-only synthesis of full cell lineage, decoded ladder replays, live site standings, x86-64 ABI v4 / Ruleset v9 boundaries, red-team elimination, and converged clean-sheet specification for overtaking `#1 CogSpore-Siect-F (1962)`.  
 **Primary Sources Verified:** `docs/cellhack.inc`, `cells/check_cells.py`, `sim/engine.py`, `cells/gen_scourge.py`, `cells/gen_schism.py`, `cells/gen_bane2.py`, `cells/gen_conviction.py`, `cells/gen_penalty.py`, `cells/gen_misfortune.py`, `cells/gen_misfortune2.py`, `cells/depravity.asm`, `data/site-checks.md`, `data/opening-search-2026-11-11.md`, `data/siectf-growth-2026-11-13.md`, `data/siectf-games.md`, `docs/evidence/bane-v22-evidence-2026-11-12.md`, `briefs/deep-review-2026-11-13.md`, `data/evidence-2026-11-12/*`, and `issues.md`.

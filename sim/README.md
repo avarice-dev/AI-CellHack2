@@ -1,21 +1,22 @@
 # CellHack2 simulator (rules engine, Python references)
 
-Pure Python 3.12, stdlib only. Cell programs are Python functions that also report how many
-instructions their asm version would run; the engine uses that count for turn order exactly as the real
-game does. The simulator never runs real asm. The assembly is checked separately by `../cells/check_cells.py`
-against the Python references in `cells_ref.py`.
+The simulator is pure Python 3.12 and uses only the standard library. A cell program is a Python function.
+It also reports how many instructions its assembly version would run. The engine uses that count for the
+turn order, as the real game does. The simulator never runs real assembly. `../cells/check_cells.py` checks
+the assembly separately, against the Python references in `cells_ref.py`.
 
-**Status: final.** The simulator is complete. The engine matches real replays
-(see `replay_check.py`). Fights against rival cells are weak, and local results did not predict ladder results for
-the last cells. The accuracy figures are in `../architecture/simulator.md`.
+**Status: final.** The simulator is complete. The engine matches real replays (see `replay_check.py`).
+It is weak for fights against rival cells. Local results did not predict ladder results for the last cells.
+The accuracy figures are in `../architecture/simulator.md`.
 
-**Local data.** `validate.py`, the FIT and TEST check in `tests/test_reference_data.py` and `treadmill.py` read the
-local folder `../data/` (pull tables, starts and `splits/split.json`). That folder is not in the repository, so
-these parts cannot run from a clean clone. Rebuild the inputs with the tools in `../tools/replay/` (see
-`../architecture/data-pulls.md`). The tests in `test_reference_data.py` and the real-data checks in `test_validate.py` need it. The other tests use made-up data (not run on a clean clone for this check).
+**Local data.** These parts read the local folder `../data/` (pull tables, starts and `splits/split.json`):
+`validate.py`, `treadmill.py`, the FIT and TEST check in `tests/test_reference_data.py` and the real-data
+checks in `tests/test_validate.py`. That folder is not in the repository, so these parts cannot run from a
+clean clone. To rebuild the inputs, use the tools in `../tools/replay/` (see
+`../architecture/data-pulls.md`). The other tests use made-up data.
 
 Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHack2.pdf`,
-`../docs/cellhack.inc` (ABI 4), `../docs/bots/*.asm`.
+`../docs/cellhack.inc` (interface version 4) and `../docs/bots/*.asm`.
 
 ## Files
 | File | What |
@@ -24,7 +25,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `bots.py` | the five open bots, ported line by line from `docs/bots/*.asm`, with exact per-path instruction counts |
 | `cells_ref.py` | Python references of our own asm cells (`sprint` = `../cells/sprint.asm`, exact path counts) |
 | `run.py` | CLI: one match or a seed series, summary tables, optional CSV and ASCII snapshots |
-| `rivals.py` | rival reference policies modelled on ladder replays (see below) |
+| `rivals.py` | rival policies modelled on ladder replays (see below) |
 | `policies.py` | registry: policy spec string -> function |
 | `experiments.py` | parallel runner for policy mixes over many seeds, replay-style statistics |
 | `batch.py` | one command: a named experiment set, unattended, summary .md + full .json in `out/` |
@@ -74,7 +75,7 @@ def my_cell(view, mem):
   empty/wall). Everything is the start-of-tick snapshot. `view.to_bytes()` gives the 128-byte struct.
 - `mem` is the cell's 64-byte `bytearray`; change it in place. It persists between calls and a split
   copies it to the child.
-- Keep no other state (no globals, closures or attributes): the asm cell has only `mem`.
+- Keep no other state (no globals, closures or attributes). The assembly cell has only `mem`.
 - Actions: `0x00` NOP, `0x01` REST, `0x10+d` MOVE, `0x20+d` SPLIT, `0x30+d` EAT, `0x40+d` FEED,
   d = UP 0 (y-1), RIGHT 1 (x+1), DOWN 2 (y+1), LEFT 3 (x-1). Only the low byte is read.
 - `insn_count` is your estimate of the asm path length, counting every executed instruction including
@@ -114,21 +115,19 @@ by giving its module a `FACTORIES` (name -> factory) and/or `POLICIES` dict and 
 | `rlock5`, `rfatgrab` | hypothetical: checked lock 5 + pre-arm, F6 10 | as rbrawler / ratompush |
 | `rblindlock3` | hypothetical (the earlier rblind3): blind lock, first bite 9 then 3, never exits | as rbrawler, no pre-arm |
 
-No measured rival uses a lock: every one checks directions in a fixed order (4 / 6 / >= 8). The lock and
-flat-3 variants are labelled hypotheticals, for comparison only.
+No measured rival uses a lock. Every one checks the directions in a fixed order (4 / 6 / >= 8). The lock and
+flat-3 variants are hypotheticals, for comparison only.
 Options: `order=ULRD`, `front=static|flat3|lock`, thresholds (see the factories), e.g. `rpump[pump_min=12]`.
-Speed options (2026-11-08; off unless a model spec sets them, as the pad3 defaults for Aegis, Noob++ and rooby, and Noob+ with `pad=4`, in `validate.py` MODELS do): `pad=N` adds N instructions to every non-bite path, and with
-`pad_bites_from=k` also to bites in check positions >= k (slow cells: the match-page average insns of rooby,
-Noob++ and Aegis is 33-90 while the models ran ~20); `split_after=k` (ratompush and rpump, static front) does
-the split check after the first k direction checks, so a hole is refilled in 2k + 13.
+Speed options (added 2026-11-08). They are off unless a model spec sets them. The pad3 defaults for Aegis, Noob++ and rooby, and Noob+ with `pad=4`, in `validate.py` MODELS set them.
+- `pad=N` adds N instructions to every non-bite path. With `pad_bites_from=k` it also adds them to bites in check positions >= k. This models slow cells: the match-page average instruction count of rooby, Noob++ and Aegis is 33 to 90, while the models ran about 20.
+- `split_after=k` (ratompush and rpump, static front) does the split check after the first k direction checks. A hole is then refilled in 2k + 13 instructions.
 
 ## Experiments
-**CPU limit:** every runner uses at most 4 worker processes (default 4, `treadmill.py` 2; never 6, the PC's total; `--workers 1`
-runs in-process) and puts itself and its workers at below-normal priority (Windows; a no-op elsewhere).
-The limit was 2 until 2026-11-08; the run times below were measured with 2 workers.
+**CPU limit.** Every runner uses at most 4 worker processes. The default is 4 (2 for `treadmill.py`). `--workers 1` runs in-process. Every runner puts itself and its workers at below-normal priority (Windows only; it does nothing elsewhere).
+The limit was 2 until 2026-11-08. The run times below were measured with 2 workers.
 
-Unattended runs: one command; the console prints only the summary path at the end. Output goes to
-`sim/out/` (git-ignored): `<set>-<time>.md` (under 60 lines) and `<set>-<time>.json` (every match).
+An unattended run is one command. The console prints only the summary path at the end. Output goes to
+`sim/out/` (local only, git-ignored): `<set>-<time>.md` (under 60 lines) and `<set>-<time>.json` (every match).
 ```
 cd sim                                # from the repo root
 python batch.py --set rivals          # 3 mixes x 8 seeds = 24 full games, about 12-15 min
@@ -136,11 +135,13 @@ python batch.py --set hypothetical    # 2 mixes x 8 seeds = 16 games, about 8-10
 python batch.py --set validate        # every validation match re-played (see the time estimate below)
 python batch.py --set rivals --seeds 1-16 --stun-memory drop --feed-bonus 1   # any engine option
 ```
-Runtime estimate from the smoke run (2026-11-07, this PC, 2 workers): 2 full 64x64 / 3000-tick games in
-59 s wall, so about 30 s of wall time per game. The sets are defined in `batch.SETS`.
-Re-playing real matches (`validate.py`, `batch.py --set validate`, `treadmill.py`) takes about 20 to 80 s of CPU
-per match and sim seed (a single match, 1 worker: 19 s, 2026-11-08). So N matches with S seeds take at most
-about N x S x 80 s / workers (2026-11-08, 135-match pool, 3 workers: mean 84-93 s per game, 141 s at most, so allow up to N x S x 141 s / workers). Count the matches with `--set fit` / `--set test` / `--pull` before a long run.
+Run time, smoke run (2026-11-07, 2 workers): 2 full 64x64, 3000-tick games took 59 s, about 30 s per game. `batch.SETS` defines the sets.
+
+Replaying real matches (`validate.py`, `batch.py --set validate`, `treadmill.py`) takes 19 to 141 s of CPU per match and simulator seed:
+- A single match with 1 worker took 19 s (2026-11-08).
+- The 135-match pool with 3 workers took a mean of 84 to 93 s per game and 141 s at most (2026-11-08).
+- So allow up to N x S x 141 s / workers for N matches and S seeds.
+- Count the matches with `--set fit`, `--set test` or `--pull` before a long run.
 
 Interactive runs:
 ```
@@ -153,24 +154,27 @@ python validate.py --models '{"<cell>": "<sim spec>"}'                          
 python treadmill.py --set fit --workers 2                       # late-game metrics + validate checks
 python treadmill.py --set fit --models '{"rooby": "ratompush[...,pad=56]"}'   # try other cell models (JSON or a file)
 ```
-Per mix and policy: points per game (3/2/1/0), win %, average place and final population. `--detail`
-adds per match and as means: splits, moves, eats, feeds, feeds per bite (feeds / eats of enemies,
-pooled), deaths, mean energy at t200/500/1000, front and interior cell energy and count at t200/500/1000
-(front = an enemy in a 4-neighbour), population ("land") at t50/100/200/300/500/1000/2000/3000/end, the
-freeze tick (earliest tick after which every colony stays within 5% of its population at that tick: the
-replay analyzer's definition) and the bite-first pair counts. Same engine options as run.py.
+For each mix and policy, the output gives points per game (3/2/1/0), win %, average place and final population. `--detail`
+adds these values per match and as means:
+- splits, moves, eats, feeds, feeds per bite (feeds divided by eats of enemies, pooled) and deaths;
+- mean energy at t200, t500 and t1000;
+- energy and count of front and interior cells at t200, t500 and t1000 (front = an enemy in a 4-neighbour);
+- population ("land") at t50, t100, t200, t300, t500, t1000, t2000, t3000 and the end;
+- the freeze tick (see the glossary in `../architecture/overview.md`);
+- the bite-first pair counts.
+
+The engine options are the same as in `run.py`.
 
 ## Validation against the ladder (validate.py)
-Reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull (read only). `data/` is local working data and is not in the repository.
-A data pull is any folder of `../data/` that has a `validation-table.md`; `validate.pulls()` finds them, and
-`--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
+`validate.py` reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull. It only reads them. `data/` is local only and is not in the repository.
+A data pull is any folder of `../data/` that has a `validation-table.md`. `validate.pulls()` finds them. `--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
 pull's replays (architecture/data-pulls.md, "Doing your own pull"). Set `CH_DATA` to use another data folder.
 Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Avarice, open bots), `model` (rivals.py on
 the measured profile: direction order, split threshold, feeding style) or `rough` (hunter or walker stands in).
 A cell that is not in `MODELS` is played by hunter as `rough`, with a warning; `--models` adds models.
-The rule statistics and fingerprints printed as "real" are our pull 2 measurements, whatever pulls are re-played. Reported: freeze ticks, matches frozen by t500, same winner,
+The rule statistics and fingerprints printed as "real" are our pull 2 measurements, whichever pulls are re-played. The report gives: freeze ticks, matches frozen by t500, same winner,
 Avarice wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
-two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is feed 2 + the target's own rest 1 (Rules p.1-2; docs re-review 2026-11-08). The model is not tuned to fit.
+two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is the feed (2) plus the target's own rest (1) (Rules, pages 1 and 2; docs re-review 2026-11-08). The model is not tuned to fit.
 
 Smoke result (2 matches, 98844 and 99388; not a sample): Avarice's growth matches closely (t50 242/243,
 t100 850/849, t200 1884/1874 real/sim). Fed-once receivers end +3 in 83% of sim cases (real: 73% of
@@ -182,7 +186,7 @@ is unknown).
 data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
 stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
 SPLIT_SEED = 20261108). Current results: architecture/simulator.md. New matches: `python validate.py --extend-split` (old entries never change).
-`--split <file>` uses another FIT/TEST file (for example one for your own pull); give it to every run.
+To use another FIT and TEST file (for example one for your own pull), pass `--split <file>` to every run.
 
 **Hold-out split** (history; fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
 every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989, 99074, 99109, 99134,
@@ -265,12 +269,10 @@ That path has no taken jumps, so only not counting `ret` would make it 19; or th
 Settled 2026-11-08: the sentence is loose. The Reference says "The engine counts every instruction"
 (p.3), and the site's match pages show Hunter at 19 (20).
 
-Slot effects are large: Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16, so in 4x Hunter
-the bottom-left colony (fronts up and right) won all of seeds 1-8 and the top-right one (fronts down and
-left) always died first. Always rotate slots when comparing policies.
+Slot effects are large. Hunter's eat paths cost UP 7 < RIGHT 10 < DOWN 13 < LEFT 16. So in a match of four Hunters, the bottom-left colony (fronts up and right) won all of seeds 1 to 8, and the top-right one (fronts down and left) always died first. Always rotate slots when you compare policies.
+
 ## Calibration log
-Each line: change, then FIT (and TEST when run) results. sw = same winner (no rough / all), fz = freeze
-median sim vs real, f500 = frozen by t500, Sp = Avarice wins, f/eat = feeds per eat. Terms: architecture/overview.md.
+This is a dated log of calibration steps. Each entry gives the change, then the FIT results (and TEST when run). Short forms: sw = same winner (no rough / all), fz = freeze tick, median sim vs real, f500 = frozen by t500, Sp = Avarice wins, f/eat = feeds per eat. Terms are in `../architecture/overview.md`. The log is history. The final results are in `../architecture/simulator.md`.
 
 - 2026-11-07 baseline (sim 909c432 models): FIT sw 4/7, 17/24; fz 2632 vs 2106; f500 0 vs 0; Sp 9/12 vs 12/12;
   31/63 checks pass. Pump colonies E200 28-32 vs 10-13 real; AtomCrasher f/eat 27 vs 7; fed +3 85% vs 73%.

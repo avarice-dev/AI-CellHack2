@@ -7,8 +7,8 @@ The simulator plays CellHack2 matches on a PC. It runs no assembly. A Python fun
 The simulator is complete. The engine was complete on 2026-11-11. After that, the project added runners for the last cells (see [Use in the last round](#use-in-the-last-round)). No more work is planned.
 
 - **The rules engine is solid.** With the recorded actions of real replays as input, it gives the same board as the replay (see [How far to trust it](#how-far-to-trust-it)). A colony that grows alone is simulated well, because no rival model is involved. The project uses it for that: to check the opening of a new cell before the cell goes to the site.
-- **The rival models are not reliable.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply that, and cannot keep it current. A replay shows every action of a rival and the board around it. It does not show the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, or its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below), and no model exists for the cells that led the ladder later.
-- **What this means for you.** Use the engine as it is. To study a matchup, write and validate your own model of that rival from your own replays (`validate.py`, [Data pulls and replay tools](data-pulls.md)). Do not use the win rates of the supplied rival models as evidence. The turn order by instruction count follows the published rules; replays cannot confirm it.
+- **The rival models are not reliable.** A good result against other players' cells needs an accurate model of each rival. This repository does not supply one, and it cannot keep one current. A replay shows every action of a rival and the board around it. It does not show four things: the rival's memory, its instruction count for each call (which decides the turn order), which of its rules chose an action, and its rests. A model must infer these for each rival, and rivals publish new versions within hours. The models in `policies.py` describe the field of 2026-11-08. They have known errors (table below). No model exists for the cells that led the ladder later.
+- **What this means for you.** Use the engine as it is. To study a matchup, write your own model of that rival from your own replays, and validate it (`validate.py`, [Data pulls and replay tools](data-pulls.md)). Do not use the win rates of the supplied rival models as evidence. The turn order by instruction count follows the published rules. Replays cannot confirm it.
 
 ## What it models
 
@@ -72,7 +72,7 @@ A policy is a plain Python function. It takes the view and the memory, and retur
 
 Hypothetical models are for comparison only. No measured rival uses a lock.
 
-The default model for each ladder cell is in `MODELS` in `sim/validate.py`. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4`, `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=4`, so they assist earlier and stop feeding between full cells.
+`MODELS` in `sim/validate.py` holds the default model for each ladder cell. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4` and `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=4`. So they assist earlier and stop feeding between full cells.
 
 ## Running it
 
@@ -116,9 +116,16 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 | 2 to 4 | 63 | 42 | 21 |
 | 5 | 72 | 48 | 24 |
 
-Engine rules, checked 2026-11-09 with `replay_check.py` on every stored replay from pulls 2 to 5: before first contact, 1.38 million squares compared one tick at a time, 0 differ. After it, about 1.35 billion squares, 248 differ, none in move, split, feed or death. All 248 are bite energies off by 1. The one inspected is a killed cell that rested before the bite, which the replay does not record. In 50-tick free runs between keyframes, 188 of about 26.9 million squares differ (6 by owner). No engine rule needed a change. The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. The figures below are therefore errors of the rival models, not of the rules.
+**Engine rules.** The check ran on 2026-11-09 with `replay_check.py`, on every stored replay from pulls 2 to 5.
 
-State measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c (`designs.md` 10.6). One seed per match, real starts. Same winner: the largest final population matches the real winner. Checks: rows of `validate.thresholds` that pass. Rating baseline: the highest pre-match rating wins.
+- Before first contact, it compared 1.38 million squares, one tick at a time. 0 differ.
+- After first contact, it compared about 1.35 billion squares. 248 differ, and none is in a move, split, feed or death. All 248 are bite energies that are off by 1. The one case that was inspected is a killed cell that rested before the bite, which the replay does not record.
+- In 50-tick free runs between keyframes, 188 of about 26.9 million squares differ (6 by owner).
+- No engine rule needed a change.
+
+The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. So the figures below are errors of the rival models, not of the rules.
+
+These figures were measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c (`designs.md` 10.6). Each run used one seed per match and the real starts. Same winner: the largest final population matches the real winner. Checks: the rows of `validate.thresholds` that pass. Rating baseline: the match winner is the colony with the highest pre-match rating.
 
 | Set | Matches | Same winner (before) | Checks (before) | Rating baseline | Win-share baseline |
 |---|---|---|---|---|---|
@@ -133,9 +140,9 @@ The win-share baseline is in-sample, so it is optimistic. Seed noise, measured 2
 | Area | Trust | Evidence |
 |---|---|---|
 | Own-colony growth before contact | Good | No rival model is involved. Simulated Scourge and Complacency reach 128 cells at t37; the real range is t36-44. |
-| Atom models | Wrong feeding | Early growth is close, but the feeding behind it is wrong: do not trust this model's energy or fights. A correct fix needs the real feeding rule from per-tick replay data. Before the change at 471711c: 36-38 feeds per eat (real pooled 6.2 and 17.8), and 25-30% too slow to t100. After it, on 8 FIT matches (real/sim medians): t100 AtomPush 941/871 (was 744), AtomCrasher 835/825 (was 774). Feeding now undershoots: pooled feeds per eat AtomPush 0.5 against 17.8 real, AtomCrasher 0.9 against 6.2 real (0.2 and 0.4 with `feed_margin=6`). `feed_margin` 2 feeds too much; 4 is the current value. |
-| Pump models | Weak | Feed about half the real amount. Hold about 6 more energy at t200. Not changed: pump cells with 5 or more energy already feed whenever boxed in, so no existing parameter raises the rate. |
-| Noob+ late land | Weak | Before the change at 471711c: median final population real 0, simulator 1821; 8 wrong winners of 135. With `pad=4` on 4 FIT matches (real / before / after): t500 560 / 1010 / 580, end 431 / 1186 / 276. Costs: t200 1121 / 1121 / 937, feeds per eat 31.1 pooled real / 14.0 / 11.3. |
+| Atom models | Wrong feeding | Early growth is close, but the feeding behind it is wrong. Do not trust this model's energy or fights. A correct fix needs the real feeding rule from per-tick replay data. Before the change at 471711c, the model made 36 to 38 feeds per eat (real, pooled: 6.2 and 17.8) and was 25 to 30% too slow to t100. After the change, on 8 FIT matches (real/sim medians): t100 AtomPush 941/871 (was 744), AtomCrasher 835/825 (was 774). Feeding now falls short: pooled feeds per eat are 0.5 for AtomPush against 17.8 real, and 0.9 for AtomCrasher against 6.2 real (0.2 and 0.4 with `feed_margin=6`). With `feed_margin` 2 the model feeds too much. The current value is 4. |
+| Pump models | Weak | They feed about half the real amount and hold about 6 more energy at t200. The project did not change them: pump cells with 5 or more energy already feed whenever boxed in, so no existing parameter raises the rate. |
+| Noob+ late land | Weak | Before the change at 471711c, the median final population was 0 in the real matches and 1821 in the simulator, and 8 of 135 winners were wrong. With `pad=4` on 4 FIT matches (real / before / after): t500 560 / 1010 / 580, end 431 / 1186 / 276. The change has costs: t200 1121 / 1121 / 937, and pooled feeds per eat 31.1 real / 14.0 / 11.3. |
 | Early-fill games | Weak | Scourge over-wins when the real winner fills the board by about t300. Winner accuracy with a real freeze at or before t600 is 10/20. |
 | rooby | Weak | Dead at the end in 24 of 34 simulated games; 16 of 34 real games. |
 | Fed +3 share | Wrong | 88-90% against 73% real. The simulator never produces the +0 fed outcome. |
@@ -159,13 +166,13 @@ Simulator results for the earlier cells are in `designs.md`, sections 8 to 10.
 
 ## Use in the last round
 
-For the last cells (Misfortune v2, Depravity, Dogma), the project used the engine with its own cells as opponents, and with rival models for Siect-F, VarSi and Colossus (`rsiectf`, `rvarsi`, `rcolossus` in `rivals.py`). The rival models did not match real growth. Siect-F and VarSi grew about 2.5 times too slowly between ticks 30 and 60, and all three filled the board too early. The replays do not show the mechanism, so none was invented. Gates against these models told nothing about the live leader.
+For the last cells (Misfortune v2, Depravity, Dogma), the project used the engine with its own cells as opponents. It also used rival models for Siect-F, VarSi and Colossus (`rsiectf`, `rvarsi`, `rcolossus` in `rivals.py`). These models did not match real growth. Siect-F and VarSi grew about 2.5 times too slowly between ticks 30 and 60, and all three filled the board too early. The replays do not show the mechanism, so the project did not invent one. Gates against these models told nothing about the live leader.
 
-Local gates did not predict the ladder. Misfortune v2 passed its paired local gate 6 of 8 and failed on the ladder (1326 after 9 games). Dogma passed its spec and lost to Misfortune v3 on the engine. Use the engine to catch faults and regressions in growth. Do not use it to rank a new design against the live field. The details are in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
+Local gates did not predict the ladder. Misfortune v2 passed 6 of 8 in its paired local gate and failed on the ladder (1326 after 9 games). Dogma passed its spec and lost to Misfortune v3 on the engine. Use the engine to catch faults and growth regressions. Do not use it to rank a new design against the live field. The details are in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
 
 ## Known limitations
 
 - Fights against rival cells are weak, as the table above shows.
 - The rival models of the last round (`rsiectf`, `rvarsi`, `rcolossus`) are not calibrated. Do not use them as evidence.
 - The validation needs local data that is not published (see above).
-- The Dogma runner gave mix A non-cyclic start slots, which favored one cell. The runner was not corrected. See the slot-bias note in the final-round review.
+- The Dogma runner gave mix A non-cyclic start slots, which favoured one cell. The project did not correct the runner. See the slot-bias note in the final-round review.

@@ -1,5 +1,7 @@
 # Misfortune: build review (2026-11-13)
 
+> Note (2026-11-14, added in the documentation review): historical. "No stage has been run" describes the state when this pack was written. Later staged gates are in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
+
 This is the sign-off pack for the reviewer: does the Python reference build match `briefs/misfortune-spec-2026-11-13.md`? Section letters follow the reviewer's checklist (a to h). No stage has been run. One 1000-tick game was timed (section i).
 
 Files:

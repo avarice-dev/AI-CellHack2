@@ -4,18 +4,18 @@ The site serves each match's replay as a separate file. The project collects mat
 
 ## Status (final)
 
-No further work is planned. The pulling and decoding tools are complete. The analysis tools are an open set.
+No further work is planned. The pulling and decoding tools are complete. You can add more analysis tools.
 
-- **The `data/` folder is not published.** The repository does not contain `data/`. It was local working data, and git ignores it (`/data/`). It held the replays, the pulled match lists and match pages, the mining output, the validation tables, the FIT and TEST split, the site-check log and most write-ups. Everything this document says about `data/` describes the author's local copy.
+- **The `data/` folder is not published.** The repository does not contain `data/`. It was local working data, and git ignores it (`/data/`). It held the replays, the pulled match lists and match pages, the mining output, the validation tables, the FIT and TEST split, the site-check log and most write-ups. Every statement in this document about `data/` describes the author's local copy.
 - **Six study notes are published.** They are in `docs/evidence/` and cited by code comments and documents: [ladder-data-2026-11-08.md](../docs/evidence/ladder-data-2026-11-08.md), [ladder-data-2-2026-11-08.md](../docs/evidence/ladder-data-2-2026-11-08.md), [site-observations-2026-11-08.md](../docs/evidence/site-observations-2026-11-08.md), [scourge-losses-2026-11-08.md](../docs/evidence/scourge-losses-2026-11-08.md), [contact-study-2026-11-10.md](../docs/evidence/contact-study-2026-11-10.md) and [bane-v22-evidence-2026-11-12.md](../docs/evidence/bane-v22-evidence-2026-11-12.md). Paths under `data/` inside them name local files.
-- **Simulator validation needs local data.** `sim/validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py` read `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. These files are not in the repository. So the validation cannot run from a clean clone. The rest of the simulator tests do not need `data/`. See [simulator.md](simulator.md).
-- **How to rebuild the data.** The tools in `tools/replay/` fetch match lists and replays from the site and rebuild the tables. See [Doing your own pull](#doing-your-own-pull). The rebuilt files will differ from the originals, because the site's ladder has moved on.
-- **The tools are complete.** Pulling (`tools/replay/pull_replays.js`, `collect.sh`) and decoding (`mine.py`) are finished. `pull_replays.js` reads match pages and replays at the site's pace and writes the match list. `mine.py` decodes every replay and checks itself against the replay's keyframes.
-- **The analysis tools are open-ended.** Each one answers one question that came up in a study, for example "who acts first at the front" or "who takes a freed square". Some of the later ones have no automated tests. A replay holds every event of a match, so most new questions need only a short script. See [Writing your own replay tool](#writing-your-own-replay-tool).
+- **Simulator validation needs local data.** `sim/validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py` read `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. These files are not in the repository, so the validation cannot run from a clean clone. The rest of the simulator tests do not need `data/`. See [simulator.md](simulator.md).
+- **How to rebuild the data.** The tools in `tools/replay/` fetch match lists and replays from the site and rebuild the tables. See [Doing your own pull](#doing-your-own-pull). The rebuilt files will differ from the originals, because the ladder has changed.
+- **The pull and decode tools are complete.** `pull_replays.js` and `collect.sh` pull the data. `pull_replays.js` reads match pages and replays at the site's pace and writes the match list. `mine.py` decodes every replay and checks the result against the replay's keyframes.
+- **The analysis tools answer single questions.** Each one answers one question from a study, for example "who acts first at the front" or "who takes a freed square". Some of the later ones have no automated tests. A replay holds every event of a match, so most new questions need only a short script. See [Writing your own replay tool](#writing-your-own-replay-tool).
 
 ## The pulls
 
-Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10, pull 7 on 2026-11-10 and 2026-11-11, and pulls 8 and 9 on 2026-11-11 and 2026-11-12, all through a logged-in browser session. A last set of Siect-F games was decoded on 2026-11-13 with a probe script (`tools/replay/siectf_probe.js`). The write-up column names the note for each pull. A name that starts with `data/` is a local note that is not in the repository.
+Pulls 1 to 5 were collected on 2026-11-08, pull 6 on 2026-11-10, pull 7 on 2026-11-10 and 2026-11-11, and pulls 8 and 9 on 2026-11-11 and 2026-11-12, all through a logged-in browser session. The project decoded a last set of Siect-F games on 2026-11-13 with a probe script (`tools/replay/siectf_probe.js`). The last column names the note for each pull. A name that starts with `data/` is a local note that is not in the repository.
 
 | Pull | What it collected | Main write-up |
 |---|---|---|
@@ -41,7 +41,7 @@ Pulls 2 to 5 supply the 135 matches of the simulator's validation pool (36 + 15 
 
 ## How a replay is read
 
-A replay is a binary stream. The site's page decodes it with `CellHackViewer.decode`. The decoded data has these parts:
+A replay is a binary stream. The site's page decodes it with `CellHackViewer.decode`. The decoded data has five parts:
 
 - **Header.** Format version 4, ruleset 9, a 64 by 64 board, 3000 ticks, the seed, the colony ids, and a keyframe every 50 ticks.
 - **Keyframes.** A full list of the living cells every 50 ticks: id, colony, position and energy.
@@ -53,9 +53,9 @@ Events within a tick are in turn order, so the studies can measure which colony 
 
 ## The decoder
 
-`tools/replay/mine.py` is a pure Python version of the site's decoder. It streams one replay at a time, compares the state at the start of each tick with the keyframes, and checks that the count of energy values matches the count of living cells. All 35 pull 2 replays matched all 1732 keyframes, and pulls 3 and 4 reported 0 mismatches. It runs in about 2 to 8 seconds per replay, on one process at below-normal priority.
+`tools/replay/mine.py` is a pure Python version of the site's decoder. It reads one replay at a time. At the start of each tick it compares the state with the keyframes. It also checks that the number of energy values equals the number of living cells. All 35 pull 2 replays matched all 1732 keyframes, and pulls 3 and 4 reported 0 mismatches. It takes about 2 to 8 seconds per replay, on one process at below-normal priority.
 
-`mine.py` runs two analyses:
+`mine.py` runs two analyses.
 
 - **Refill race.** For every death: which colony took the freed square, how many ticks later, the energy of the new cell, and which colonies were next to the square.
 - **Resting income.** For every cell and tick with no event: the energy change, by starting energy.
@@ -115,7 +115,6 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/replay/pull_replays.js` | The browser script of a pull. It reads the match page and the replay of each match id at the site's pace, saves `<id>.chr2.gz`, and saves the match list as `matches-<time>.json`. The file starts with its usage. |
 | `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/` (replays and match lists). Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
 | `tools/privacy_check.py` | Looks for local paths, personal text and model names in the files. |
-
 
 **History tools.** These scripts reproduce the pull 2 report and read only `data/pull2`.
 
@@ -203,7 +202,7 @@ The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a 
 python -I tools/replay/mine.py --pull <pull>
 ```
 
-The decoder reads every replay with no output yet and writes `data/<pull>/mining/<id>.json` and `mining/races/<id>.csv.gz`. `kfMismatch` and `countMismatch` must be 0. If not, the format changed and the outputs are not reliable.
+The decoder reads every replay that has no output yet. It writes `data/<pull>/mining/<id>.json` and `mining/races/<id>.csv.gz`. `kfMismatch` and `countMismatch` must be 0. If they are not, the format changed and the outputs are not reliable.
 
 ### Step 6: build the validation table
 
@@ -213,7 +212,7 @@ python -I tools/replay/valtab.py --pull <pull>
 
 This writes `validation-table.md` and `starts.json` in `data/<pull>/`. `sim/validate.py` uses every folder of `data/` that has a `validation-table.md`. To replay only your pull, run `python validate.py --pull <pull>` in `sim/`.
 
-Then run `python validate.py --extend-split` in `sim/`. It gives a set only to matches that have none, and writes `data/splits/split.json`. `--split <file>` uses another file, for every later run. A match never changes set. `validate.py` stops with an error when a match has no set.
+Then run `python validate.py --extend-split` in `sim/`. It gives a set only to matches that have none, and writes `data/splits/split.json`. To use another split file, pass `--split <file>` on every later run. A match never changes set. `validate.py` stops with an error when a match has no set.
 
 A cell with no sim model is played by the hunter bot, with a warning. Use `--models '{"<cell>": "<sim spec>"}'` or `--models <file.json>` to give it one.
 
@@ -249,7 +248,7 @@ These rules apply to every request to the site.
 3. **Replays and other large downloads at least 30 seconds apart.**
 4. **Cell creation at least 30 seconds apart.**
 5. **On HTTP 429 or an error, wait.** Wait at least 60 seconds before the next request. If the error comes again, double the wait each time, up to 5 minutes.
-6. **Check the small pages first.** Read the leaderboard before you fetch large files. It shows whether the rival cells changed version.
+6. **Read the small pages first.** Read the leaderboard before you fetch large files. It shows whether the rival cells changed version.
 7. **Use stored data first.** Fetch only what the stored data does not already give.
 
 
