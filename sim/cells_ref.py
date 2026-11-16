@@ -986,7 +986,7 @@ def make_misfortune2_split10(**kw):
     return make_misfortune(cap='B', exact=1, hold='split', hold_min=10, **kw)
 
 
-make_misfortune2 = make_misfortune2_split10      # the shipped cell (live cell 352); the checked-refill variant is make_misfortune2_m2v0
+make_misfortune2 = make_misfortune2_split10      # the shipped cell (live cell 353, Misfortune v3); the checked-refill variant is make_misfortune2_m2v0
 
 
 misfortune = make_misfortune()

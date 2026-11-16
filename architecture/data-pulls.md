@@ -52,7 +52,7 @@ Events within a tick are in turn order, so the studies can measure which colony 
 
 ## The decoder
 
-`tools/replay/mine.py` is a pure Python version of the site's decoder. It reads one replay at a time. At the start of each tick it compares the state with the keyframes. It also checks that the number of energy values equals the number of living cells. All 35 pull 2 replays matched all 1732 keyframes, and pulls 3 and 4 reported 0 mismatches. It takes about 2 to 8 seconds per replay, on one process at below-normal priority.
+`tools/replay/mine.py` is a pure Python version of the site's decoder. It reads one replay at a time. At the start of each tick it compares the state with the keyframes. It also checks that the number of energy values equals the number of living cells. On the original local data, all 35 pull 2 replays matched all 1732 keyframes, and pulls 3 and 4 reported 0 mismatches. It takes about 2 to 8 seconds per replay, on one process (at below-normal priority on Windows).
 
 `mine.py` runs two analyses.
 
@@ -61,41 +61,29 @@ Events within a tick are in turn order, so the studies can measure which colony 
 
 ## Layout of the data folder
 
-This is the layout of the local `data/` folder. It is not in the repository.
+The tools read and write a local `data/` folder. It is not in the repository, and git ignores it. A clone has no `data/` folder. Some tools create their own output folders. This is the layout that the tools expect:
 
 ```
 data/
-  *.md                              write-ups for each pull and study, plus site notes
-  site-checks.md                    ratings logged at several times
-  pull2/
-    matches-98830-99422.json        the match list (593 matches)
-    leaderboard-*.json              leaderboard snapshot
-    sprint-match-pages.json         small match pages, the Avarice set
-    other-match-pages.json          small match pages, the other set
-    winrates.json                   win rate data (see lists.py)
-    validation-table.md, starts.json  tables read by sim/validate.py
-    site/viewer.js                  copy of the site's replay decoder (local only, not in the repository)
-    replays/<id>.chr2.gz            raw replays (35 kept; git-ignored, not in the repository)
-    keyframes/<id>.kf.json.gz       keyframes for each replay (git-ignored, not in the repository)
-    summaries/<id>.json             one summary per replay
-    mining/                         output of mine.py and mine_report.py
-  pull3/, pull4/ and pull5/
-    matches-*.json, names.json      match lists and name tables
-    replays/                        raw replays; git-ignored (too large for the repo)
-    mining/<id>.json                per-game timelines
-    mining/races/<id>.csv.gz        one row per death (refill race)
-    validation-table.md, starts.json  tables read by sim/validate.py (tools/replay/valtab.py)
-  pull5/
-    matchlist-105881-106358.json    the 480 matches of the match list (id, cells, winner)
-    matches-pull5-2026-11-08.json   the 72 chosen games with their match pages
-    leaderboard-2026-11-08.json     leaderboard snapshot (versions)
+  <pull>/
+    matches-*.json                  the match list of the pull (you save it; tab.py reads it)
+    names.json                      colony names of each match, in colony order (tab.py writes it)
+    replays/<id>.chr2.gz            raw replays (you download them)
+    keyframes/, summaries/          optional files that collect.sh moves in; mine.py reads summaries/<id>.json if it exists
+    mining/<id>.json                per-game timeline (mine.py writes it)
+    mining/races/<id>.csv.gz        one row per death, for the refill race (mine.py writes it)
+    mining/refill.json, rest.json   pooled tables (mine_report.py writes them)
+    validation-table.md, starts.json   tables that sim/validate.py reads (valtab.py writes them)
   splits/
     split.json                      the FIT or TEST set of every validation match (sim/validate.py)
+  site-checks.md, *.md              the author's local notes (not made by any tool)
 ```
+
+The author's own `data/` folder held more files (pulled match pages, leaderboard snapshots and write-ups). A reader of the repository cannot use them.
 
 ## Tools
 
-Run each tool from the repository root. The replay tools are in `tools/replay/`. Each one works on one pull, named with `--pull <pull>`. There is no default pull. Without `--pull`, a tool stops and names the folders it found in `data/`.
+Run each tool from the repository root. The replay tools are in `tools/replay/`. Most of them work on one pull, named with `--pull <pull>`. There is no default pull. Without `--pull`, these tools stop and name the folders they found in `data/`. Four study tools (`early_growth.py`, `bite_targets.py`, `front_feed.py` and `freed_squares.py`) take the pull names as plain arguments, and `agg_actions.py` is different (see the table).
 
 | Tool | What it does |
 |---|---|
@@ -110,9 +98,12 @@ Run each tool from the repository root. The replay tools are in `tools/replay/`.
 | `tools/replay/early_growth.py` | Per cell name, in a tick window: cells at the end, and the share of cell-ticks that split, fed, ate, moved or had no event. Run `python -I tools/replay/early_growth.py --tmin=0 --tmax=75 [--min=1] <pull> [<pull> ...]`. |
 | `tools/replay/opening.py` | Every move and split of one colony for each tick, and the cells that could split and did not. Run with `--pull <pull> <replay id> <colony index> [--tmin=0] [--tmax=40] [--quiet]`. |
 | `tools/replay/claims.py` | For every square freed by a death: which cells were next to it, what they did, and who filled it. Run with `--pull <pull> <replay id> [--tmin=T] [--tmax=T]`. |
-| `tools/replay/agg_actions.py`, `bite_targets.py`, `front_feed.py`, `freed_squares.py` | Study tools for the front: actions next to an enemy pooled over a pull, bite targets and kills, energy and feeding of front cells, and who retakes freed squares. Each file starts with its usage line. |
+| `tools/replay/bite_targets.py`, `front_feed.py`, `freed_squares.py` | Study tools for the front: bite targets and kills, energy and feeding of front cells, and who retakes freed squares. Run `python -I tools/replay/<tool>.py [--tmin=T] [--tmax=T] <pull> [<pull> ...]`. Each file starts with its usage line and its default tick window. |
+| `tools/replay/agg_actions.py` | Pools the text tables that `actions.py` wrote earlier. It has no usage line. It reads `<root>/sim/out/overnight/07-actions-t75-200-<pull>.txt`, which is not in the repository, unless you pass `<root> <pull> <table file>`. Treat it as an example. |
+| `tools/replay/review.py` | One row of measures for every colony of every replay of a pull (cells at fixed ticks, action shares, contact, bites, freed squares). Run `python -I tools/replay/review.py --pull <pull> [replay ids] [--csv=FILE]`. |
+| `tools/replay/siectf_probe.js` | A browser script for one ladder match: `await siectfProbe(<match id>)` reads the match page and the replay, then returns compact measures of Misfortune against Siect-F. It follows the same pacing. |
 | `tools/replay/pull_replays.js` | The browser script of a pull. It reads the match page and the replay of each match id at the site's pace, saves `<id>.chr2.gz`, and saves the match list as `matches-<time>.json`. The file starts with its usage. |
-| `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/` (replays and match lists). Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
+| `tools/replay/collect.sh` | Moves finished files saved by the browser into `data/<pull>/` (replays, keyframes, summaries and match lists). Run `tools/replay/collect.sh <pull> [downloads folder]`. It removes the number the browser adds to a repeated file name, so the newer copy replaces the older one. |
 
 
 ## Doing your own pull
@@ -180,7 +171,7 @@ The site serves the replay of match `<id>` at `/api/matches/<id>/replay`, for a 
 - A file that starts with the bytes `1f 8b` is already gzip-compressed.
 - Only format version 4 is decoded. The tools stop with an error for other versions.
 - Download one replay at a time, at least 30 seconds apart.
-- Do not commit the replays. `.gitignore` ignores `data/*/replays/` and `data/*/keyframes/`.
+- Do not commit the replays. `.gitignore` ignores the whole `data/` folder.
 
 ### Step 5: decode the replays
 

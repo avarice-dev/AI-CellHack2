@@ -81,7 +81,7 @@ Many documents and code comments name files under `data/`. Those names point to 
 
 Run these commands from the root of the repository.
 
-1. Run the simulator's unit tests. Python 3.12 is needed. The simulator uses only the standard library. The tests that read `data/` (see above) fail or skip in a clean clone.
+1. Run the simulator's unit tests. Python 3.12 is needed. The simulator uses only the standard library. In a clean clone, `tests/test_reference_data.py` reads `data/` and fails (10 of its 11 tests). All other simulator tests pass.
 
    ```
    cd sim

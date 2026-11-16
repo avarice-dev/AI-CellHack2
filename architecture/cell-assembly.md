@@ -257,7 +257,7 @@ Misfortune v3 is Misfortune v1 plus one change: the split hold. It is built by `
 
 ## Depravity additions
 
-Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The binary has 18,602 bytes. The list below describes the build that played on the ladder (commit 6cfb4a7). The generator in the repository now builds the hotfix (see Result): it has Cap B and no feeding gate.
+Depravity (`cells/gen_depravity.py`, cell 363) was a clean-sheet cell. The list below describes the build that played on the ladder (commit 6cfb4a7). Its binary has 18,602 bytes. The generator in the repository now builds the hotfix (see Result): it has Cap B and no feeding gate, and its binary has 23,610 bytes.
 
 - **Table jump for the arm step.** `jmp [arm_tbl + rax*8]` goes to one of four stubs. The arm step costs 17 instructions, not 19.
 - **No Cap B.** The boxed cell has no rule that drains rear friends from 48 to 46 energy. A feeding gate (`T_FEED = 200`) stopped boxed cells from feeding before tick 200.

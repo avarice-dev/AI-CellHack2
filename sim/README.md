@@ -10,8 +10,8 @@ It is weak for fights against rival cells. Local results did not predict ladder 
 The accuracy figures are in `../architecture/simulator.md`.
 
 **Local data.** These parts read the local folder `../data/` (pull tables, starts and `splits/split.json`):
-`validate.py`, `treadmill.py`, the FIT and TEST check in `tests/test_reference_data.py` and the real-data
-checks in `tests/test_validate.py`. That folder is not in the repository, so these parts cannot run from a
+`validate.py`, `treadmill.py`, `replay_check.py` and the FIT and TEST check in
+`tests/test_reference_data.py`. That folder is not in the repository, so these parts cannot run from a
 clean clone. To rebuild the inputs, use the tools in `../tools/replay/` (see
 `../architecture/data-pulls.md`). The other tests use made-up data.
 

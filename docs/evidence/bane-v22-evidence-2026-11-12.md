@@ -7,7 +7,7 @@ version can be planned that closes real gaps without giving up anything Bane alr
 inferences are marked **(inferred)**. No rival models and no games against them were used (user rule 2026-11-12);
 the solo engine (our own cell alone on the board) is used only for the start-square potential.
 
-Files (all in `data/evidence-2026-11-12/`, scripts in `scripts/`, run with `python -I`):
+Files (all in the local folder `data/evidence-2026-11-12/`, which is not in the repository; the scripts are in its `scripts/` folder; run with `python -I`):
 
 | File | What | Script |
 |---|---|---|

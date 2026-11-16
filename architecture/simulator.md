@@ -44,12 +44,12 @@ flowchart LR
 | `experiments.py` | Runs many matches in parallel and collects replay-style statistics. |
 | `run.py` | One match or a series of seeds. |
 | `batch.py` | Runs a named set unattended and writes a summary. |
-| `validate.py` | Replays the matches of every pull in `data/` (each folder with a `validation-table.md`) and compares them with the real results. `--pull <pull>` limits it to one pull. |
-| `treadmill.py` | Compares late-game measures of replays and simulator, such as land changes after tick 500. |
+| `validate.py` | Replays the matches of every pull in `data/` (each folder with a `validation-table.md`) and compares them with the real results. `--pull <pull>` limits it to one pull. It needs local data that a clone does not have (see [How far to trust it](#how-far-to-trust-it)). |
+| `treadmill.py` | Compares late-game measures of replays and simulator, such as land changes after tick 500. It needs the local mining output in `data/`. |
 | `baseline.py` | Rating and win-share baselines for the winner check. It has no ratings for pull 5. |
 | `ceiling.py` | Estimates the best possible winner score from extra seeds on TEST. It needs a stored seed-0 run that a fresh checkout lacks. |
 | `growth.py` | Solo-colony study of split-direction rules (Schism, `designs.md` 10.4). |
-| `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. |
+| `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. It needs the local replays in `data/`. |
 | `misfortune_runner.py`, `misfortune_dump.py` | Staged gates and trace dumps for the Misfortune cells. |
 | `armed_children_runner.py`, `hold_off_runner.py` | Paired gates for the armed-children and hold-off variants (2026-11-13). |
 | `dogma_runner.py` | The Dogma gauntlet: solo matrix, 16 by 16, 64 by 64 with four players, duels and ablations. |
@@ -76,7 +76,7 @@ Hypothetical models are for comparison only. No measured rival uses a lock.
 
 ## Running it
 
-Run these from `sim/`. Runners use at most four workers by default (`treadmill.py`: two; `--workers` changes this) and below-normal priority on Windows.
+Run these from `sim/`. `experiments.py`, `batch.py` and `validate.py` use at most four workers (default four) at below-normal priority on Windows. `treadmill.py` defaults to two workers. `misfortune_runner.py`, `armed_children_runner.py` and `dogma_runner.py` default to six, and `hold_off_runner.py` to four. `--workers` changes the default.
 
 | Command | What it does |
 |---|---|
@@ -97,7 +97,7 @@ Batch sets write a summary (`.md`) and a full file (`.json`) to `sim/out/`, whic
 |---|---|---|
 | `rivals` | Avarice against the rival models | 24 games, 12 to 15 minutes |
 | `hypothetical` | Hypothetical fronts against the measured models | 16 games, 8 to 10 minutes |
-| `validate` | Every validation match with its real starts | One game per match; mean 84 to 93 seconds per game, 141 seconds at most |
+| `validate` | Every validation match with its real starts. It needs local data that a clone does not have. | One game per match; mean 84 to 93 seconds per game, 141 seconds at most |
 | `complacency-t` | Sweep of the tick at which the prey hold stops | 136 games, 3148 seconds |
 | `complacency`, `complacency-mirror` | Complacency against Scourge, new seeds and swapped slots | 40 and 16 games, 19 and 9 minutes |
 | `vex` | VEX variants against their parents | 120 games, time not recorded |
