@@ -53,7 +53,7 @@ This section is the only home of the simulator's accuracy figures. Other documen
 
 The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` fixes the set of each match. A match never changes set.
 
-**This validation cannot run from a clean clone.** `data/` is local working data and is not in the repository. `validate.py` and the FIT and TEST check in `sim/tests/test_reference_data.py` need `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. The tools in `tools/replay/` rebuild the tables from the site (see [data-pulls.md](data-pulls.md)). The figures below were measured on the original local data.
+**This validation cannot run from a clean clone.** `data/` is local working data and is not in the repository. `validate.py`, the FIT and TEST check in `sim/tests/test_reference_data.py`, and `sim/tests/test_batch.py`'s `test_validate_set_on_two_matches` need `data/<pull>/validation-table.md`, `data/<pull>/starts.json` and `data/splits/split.json`. The tools in `tools/replay/` rebuild the tables from the site (see [data-pulls.md](data-pulls.md)). The figures below were measured on the original local data.
 
 | Pulls | Matches | FIT | TEST |
 |---|---|---|---|
