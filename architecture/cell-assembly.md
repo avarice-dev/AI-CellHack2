@@ -1,14 +1,14 @@
 # Cell assembly: the instructions and the reasons for them
 
-This document explains the x86-64 assembly in the CellHack2 cells: which instructions they use, why, and how each decision is coded. You do not need to know assembly. The [glossary](#glossary) defines the terms. Game rules are in [overview.md](overview.md). The history of each cell is in [cells-and-experiments.md](cells-and-experiments.md).
+This document explains the x86-64 assembly in the CellHack2 cells: which instructions they use, why, and how each decision is coded. No prior assembly knowledge is required; see the [glossary](#glossary) for terms, [overview.md](overview.md) for game rules, and [cells-and-experiments.md](cells-and-experiments.md) for cell history.
 
 ## The short version
 
-A cell gets one turn in each tick and returns one action. A cell that runs fewer instructions acts earlier in the tick, and an earlier turn can win a contested square. Speed is the main design goal.
+Each cell gets one turn per tick and returns one action. Cells running fewer instructions act earlier in the tick, which can win a contested square, so speed is the primary design goal.
 
-To keep the turn short, the cells use a **one-step lookup**. The cell copies part of its view into a 16-byte register. One instruction compares all 16 bytes. Another packs the result into a number called a mask. The mask is an index into a table that holds the answer. The site accepts only some instruction sets, so the project tested each set before it used it.
+To stay fast, the cells use a **one-step lookup**: copy part of the view into a 16-byte register, compare all 16 bytes with one instruction, pack the result into a bitmask, and index a lookup table for the action. Because the site only allows a subset of x86-64 instructions, each instruction set was probed before use.
 
-The diagram shows how Schism, a mid-project cell, chooses one action. It is simplified. The numbers are the instructions run on that path. "Edge friend" means the cell has energy of at least 6, no enemy is in view, and a friend has an empty neighbour.
+The diagram shows how Schism, a mid-project cell, chooses one action (simplified), with instruction counts on each path. "Edge friend" means energy >= 6, no enemy in view, and a friend with an empty neighbour.
 
 ```mermaid
 flowchart LR
@@ -58,13 +58,13 @@ The bite table has 1106 entries, one per mask value from 0 to 0x451. The generat
 
 ## The five-instruction bite
 
-The bite is the five lines above. The first three build the mask, the fourth reads the answer, and the fifth leaves if there was a bite.
+The five lines above form the bite: three build the mask, the fourth reads the answer, and the fifth exits if an enemy was found.
 
-The `or` also sets the zero flag. A mask with no adjacent enemy points to a zero table byte, so the zero flag is set and the cell goes on to the code below the bite (the slow path). A miss costs the same 5 instructions as a hit.
+`or` sets the zero flag: a mask with no adjacent enemy reads a zero byte, keeping the zero flag set so execution falls through to the slow path below. A miss costs the same 5 instructions as a hit.
 
-`jnz` jumps when the zero flag is clear, to `EXIT_ADDR`, the address that a `ret` would return to. The call ends there and skips the `ret`, which saves one instruction.
+`jnz` jumps when the zero flag is clear to `EXIT_ADDR` (the return address), ending the call without a `ret` and saving one instruction.
 
-The design notes call this bite F5: 5 instructions in every direction, with no memory. (Bane v2.1 adds a 4-instruction repeat bite that uses the cell memory.) The strongest rivals bite in about 4 instructions in one fixed direction, about 6 in a second, and 8 or more in the others. F5 beats every rival's second direction and every slower side.
+The design notes call this F5: 5 instructions in every direction, with no memory. (Bane v2.1 adds a 4-instruction repeat bite using cell memory.) The strongest rivals bite in ~4 instructions in one fixed direction, ~6 in a second, and 8+ in the others, so F5 beats every rival's second direction and slower sides.
 
 Four facts make the bite safe:
 
@@ -184,7 +184,7 @@ rest:
 
 The simulator sweep tested a hold that stops at tick 200, 300, 500 or never, and a hold only for a diagonal enemy. "Never" gave the highest final population in all three mixes, with equal win rates, and it is the simplest code. In head-to-head runs on new seeds, the start slot decided the result, not the cell.
 
-Pull 5 shows that dropping the hold did not close the grab gap. Complacency reaches 128 and 512 cells at t36 and t84. AtomPush reaches them at t29 and t63. The gap comes in the first 35 ticks. `designs.md` 10.2 first blamed the split direction. Solo growth runs (`designs.md` 11.1) corrected this: feeding gives most of the gain. Schism tested this on the ladder.
+Pull 5 shows that dropping the hold did not close the grab gap: Complacency reaches 128 and 512 cells at t36 and t84, versus t29 and t63 for AtomPush. The gap opens in the first 35 ticks; [designs.md](../docs/archive/designs.md) 10.2 initially blamed split direction, and solo growth runs ([designs.md](../docs/archive/designs.md) 11.1) showed feeding gives most of the gain, which Schism tested on the ladder.
 
 ## Constraints and what was ruled out
 
@@ -273,7 +273,7 @@ Dogma (`cells/gen_dogma.py`, `cells/dogma.asm`) was the last build. The binary h
 - **Walker opening.** The first child goes 8 squares, later ones 2.
 - **Rotating pick.** The +2 lanes are chosen from 256-byte tables (`open_lo`, `open_hi`) with a 4-byte `d2_tbl` and a 1,024-byte `dir_pick_tbl`.
 - **Check.** `check_cells --only dogma` passes. `cells/test_dogma.py` ran 49,023 Unicorn checks with 0 failures, and it caught 8 of 8 planted mutants. Every instruction count met its spec.
-- **Result.** On our own engine it did not beat Misfortune v3, because its 3-instruction bite lost to the 2-instruction bite of v3. See [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md), section 5.
+- **Result.** On our own engine it did not beat Misfortune v3, because its 3-instruction bite lost to the 2-instruction bite of v3. See [final-round-2026-11-13-14.md](../docs/archive/reviews/final-round-2026-11-13-14.md), section 5.
 
 ## Known limitations
 

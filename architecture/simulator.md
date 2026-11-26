@@ -32,76 +32,20 @@ flowchart LR
     D --> E["End of tick: cap energy at 50, remove dead cells"]
 ```
 
-## Files
+## Files and CLI
 
-| File | What it does |
-|---|---|
-| `engine.py` | The rules engine: board, turn order, constants from `docs/cellhack.inc`. |
-| `bots.py` | The five open bots from `docs/bots/`, with their instruction counts. |
-| `cells_ref.py` | Python reference versions of the project's cells. `cells/check_cells.py` compares the assembly with them. |
-| `rivals.py` | Rival models based on direction habits seen in replays. |
-| `policies.py` | Registry that turns a name such as `rpump` into a policy function. |
-| `experiments.py` | Runs many matches in parallel and collects replay-style statistics. |
-| `run.py` | One match or a series of seeds. |
-| `batch.py` | Runs a named set unattended and writes a summary. |
-| `validate.py` | Replays the matches of every pull in `data/` (each folder with a `validation-table.md`) and compares them with the real results. `--pull <pull>` limits it to one pull. It needs local data that a clone does not have (see [How far to trust it](#how-far-to-trust-it)). |
-| `treadmill.py` | Compares late-game measures of replays and simulator, such as land changes after tick 500. It needs the local mining output in `data/`. |
-| `baseline.py` | Rating and win-share baselines for the winner check. It has no ratings for pull 5. |
-| `ceiling.py` | Estimates the best possible winner score from extra seeds on TEST. It needs a stored seed-0 run that a fresh checkout lacks. |
-| `growth.py` | Solo-colony study of split-direction rules (Schism, `designs.md` 10.4). |
-| `replay_check.py` | Drives the engine with the recorded actions of real replays, without cell code or rival models, and compares every square with the replay. `--pull <pull> [ids]`. It needs the local replays in `data/`. |
-| `misfortune_runner.py`, `misfortune_dump.py` | Staged gates and trace dumps for the Misfortune cells. |
-| `armed_children_runner.py`, `hold_off_runner.py` | Paired gates for the armed-children and hold-off variants (2026-11-13). |
-| `dogma_runner.py` | The Dogma gauntlet: solo matrix, 16 by 16, 64 by 64 with four players, duels and ablations. |
-| `tests/` | Unit tests. |
+The simulator modules, policy interface, CLI examples, batch sets, and engine options live in [sim/README.md](../sim/README.md). Key entry points:
 
-The policy interface, engine options and full assumption list are in [sim/README.md](../sim/README.md).
+- **Engine & bots:** `sim/engine.py`, `sim/bots.py`, `sim/cells_ref.py` (Python references checked against assembly by `cells/check_cells.py`).
+- **Runners:** `sim/run.py` (single match or seed series), `sim/experiments.py` (parallel mixes), `sim/batch.py` (named unattended sets).
+- **Validation & mining:** `sim/validate.py`, `sim/treadmill.py`, `sim/baseline.py`, `sim/ceiling.py`, `sim/replay_check.py` (require local `data/` pulls; see [How far to trust it](#how-far-to-trust-it) and [data-pulls.md](data-pulls.md)).
+- **Last-round runners:** `sim/misfortune_runner.py`, `sim/misfortune_dump.py`, `sim/armed_children_runner.py`, `sim/hold_off_runner.py`, `sim/dogma_runner.py`, and `sim/growth.py` (solo split-direction study, [designs.md](../docs/archive/designs.md) 10.4).
 
 ## Policies
 
-A policy is a plain Python function. It takes the view and the memory, and returns an action and an instruction count. It keeps no other state, because the real cell has only its 64 bytes. The count must match the real path, because the turn order depends on it.
+A policy is a stateless Python function `(view, mem) -> (action_byte, insn_count)` that keeps all mutable state in the cell's 64-byte `mem`. `sim/policies.py` maps spec strings (such as `rpump` or `rpump[pump_min=12]`) to policy functions, and `sim/rivals.py` implements the measured (`rbrawler`, `rpump`, `ratompush`) and hypothetical (`rblind3`, `rlock5`, `rfatgrab`, `rblindlock3`) rival models. See [sim/README.md](../sim/README.md#policy-registry-and-rivals) for the full policy API, rival table, and speed/padding options (`pad`, `pad_bites_from`, `split_after`).
 
-| Name | Type | What it models |
-|---|---|---|
-| `rbrawler` | Measured | Checks up, left, right, down. Feeds poorer friends. |
-| `rpump` | Measured | Like `rbrawler`, but interior cells feed their richest friend. |
-| `ratompush` | Measured | Checks right, left, up, down. Assists poor friends with room to grow. |
-| `rblind3` | Hypothetical | Bites at 3 instructions in every direction, with no memory. |
-| `rlock5`, `rfatgrab` | Hypothetical | Variants with other bite costs (see `rivals.py`). |
-| `rblindlock3` | Hypothetical | Earlier `rblind3`: a blind lock that bites at 9, then at 3. |
-
-Hypothetical models are for comparison only. No measured rival uses a lock.
-
-`MODELS` in `sim/validate.py` holds the default model for each ladder cell. Aegis, Noob++ and rooby use the pad3 models, with `pad` and `pad_bites_from` set. Noob+ uses `pad=4` and `pad_bites_from=1`. The options `pad`, `pad_bites_from` and `split_after` slow a model. They are off unless a model spec sets them. AtomPush and AtomCrasher set `assist_min` (6 and 8) and `feed_margin=4`. So they assist earlier and stop feeding between full cells.
-
-## Running it
-
-Run these from `sim/`. `experiments.py`, `batch.py` and `validate.py` use at most four workers (default four) at below-normal priority on Windows. `treadmill.py` defaults to two workers. `misfortune_runner.py`, `armed_children_runner.py` and `dogma_runner.py` default to six, and `hold_off_runner.py` to four. `--workers` changes the default.
-
-| Command | What it does |
-|---|---|
-| `python -m unittest` | Runs the unit tests. |
-| `python run.py` | One match: Hunter, Medic, Random, Walker. |
-| `python run.py --bots hunter,idle,medic,walker --seeds 1-20` | A series of seeds. Slots rotate between games. |
-| `python run.py --bots mymodule:mypolicy,hunter` | Plays your own policy, if `sim/` can import its module. |
-| `python experiments.py --mix sprint,rbrawler,ratompush,walker --seeds 1-8` | A mix over many seeds: points, win rate, average place, final population. |
-| `python batch.py --set rivals` | A named set. The console prints only the summary path. |
-| `python validate.py --extend-split` | Gives new matches a FIT or TEST set (see [data-pulls.md](data-pulls.md)). |
-| `python treadmill.py --set fit --workers 4` | Late-game comparison (`--set test` for TEST). |
-
-Slot position changes results, so the simulator rotates slots when it compares policies.
-
-Batch sets write a summary (`.md`) and a full file (`.json`) to `sim/out/`, which git ignores.
-
-| Set | What it asks | Games and recorded time |
-|---|---|---|
-| `rivals` | Avarice against the rival models | 24 games, 12 to 15 minutes |
-| `hypothetical` | Hypothetical fronts against the measured models | 16 games, 8 to 10 minutes |
-| `validate` | Every validation match with its real starts. It needs local data that a clone does not have. | One game per match; mean 84 to 93 seconds per game, 141 seconds at most |
-| `complacency-t` | Sweep of the tick at which the prey hold stops | 136 games, 3148 seconds |
-| `complacency`, `complacency-mirror` | Complacency against Scourge, new seeds and swapped slots | 40 and 16 games, 19 and 9 minutes |
-| `vex` | VEX variants against their parents | 120 games, time not recorded |
-| `smoke` | Tiny set for the tests | Not timed |
+Note that `MODELS` in `sim/validate.py` sets `pad=3` defaults (`pad` and `pad_bites_from`) for Aegis, Noob++, and rooby, `pad=4, pad_bites_from=1` for Noob+, and `assist_min` (6 and 8) with `feed_margin=4` for AtomPush and AtomCrasher. No measured rival uses a lock.
 
 ## How far to trust it
 
@@ -125,7 +69,7 @@ The validation pool has 135 matches: 90 FIT, 45 TEST. `data/splits/split.json` f
 
 The check cannot test what replays do not record: the instruction counts behind the turn order, REST against NOP (inferred from the energy), and rival behaviour. So the figures below are errors of the rival models, not of the rules.
 
-These figures were measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c (`designs.md` 10.6). Each run used one seed per match and the real starts. Same winner: the largest final population matches the real winner. Checks: the rows of `validate.thresholds` that pass. Rating baseline: the match winner is the colony with the highest pre-match rating.
+These figures were measured at commit 3d4221c, after the Atom and Noob+ model changes. "Before" is commit 471711c ([designs.md](../docs/archive/designs.md) 10.6). Each run used one seed per match and the real starts. Same winner: the largest final population matches the real winner. Checks: the rows of `validate.thresholds` that pass. Rating baseline: the match winner is the colony with the highest pre-match rating.
 
 | Set | Matches | Same winner (before) | Checks (before) | Rating baseline | Win-share baseline |
 |---|---|---|---|---|---|
@@ -162,13 +106,13 @@ The docs do not settle every rule. [sim/README.md](../sim/README.md) lists all a
 | A failed action earns no energy. | Sandbox probe `t_failed_eat` confirmed this. |
 | The order of random draws in the real engine is unknown. | Seeds do not reproduce real matches. |
 
-Simulator results for the earlier cells are in `designs.md`, sections 8 to 10.
+Simulator results for earlier cells are in [designs.md](../docs/archive/designs.md), sections 8 to 10.
 
 ## Use in the last round
 
-For the last cells (Misfortune v2, Depravity, Dogma), the project used the engine with its own cells as opponents. It also used rival models for Siect-F, VarSi and Colossus (`rsiectf`, `rvarsi`, `rcolossus` in `rivals.py`). These models did not match real growth. Siect-F and VarSi grew about 2.5 times too slowly between ticks 30 and 60, and all three filled the board too early. The replays do not show the mechanism, so the project did not invent one. Gates against these models told nothing about the live leader.
+For the last cells (Misfortune v2, Depravity, Dogma), the project used the engine with its own cells as opponents and uncalibrated rival models for Siect-F, VarSi, and Colossus (`rsiectf`, `rvarsi`, `rcolossus` in `rivals.py`). Siect-F and VarSi grew about 2.5 times too slowly between ticks 30 and 60, and all three filled the board too early. Because replays do not show the mechanism, gates against these models did not reflect the live leader.
 
-Local gates did not predict the ladder. Misfortune v2 passed 6 of 8 in its paired local gate and failed on the ladder (1326 after 9 games). Dogma passed its spec and lost to Misfortune v3 on the engine. Use the engine to catch faults and growth regressions. Do not use it to rank a new design against the live field. The details are in [final-round-2026-11-13-14.md](../reviews/final-round-2026-11-13-14.md).
+Local gates did not predict the ladder: Misfortune v2 passed 6 of 8 in its paired local gate and failed on the ladder (1326 after 9 games), and Dogma passed its spec and lost to Misfortune v3 on the engine. Use the engine to catch faults and growth regressions, not to rank a new design against the live field. Details are in [final-round-2026-11-13-14.md](../docs/archive/reviews/final-round-2026-11-13-14.md).
 
 ## Known limitations
 

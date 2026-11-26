@@ -5,15 +5,9 @@ It also reports how many instructions its assembly version would run. The engine
 turn order, as the real game does. The simulator never runs real assembly. `../cells/check_cells.py` checks
 the assembly separately, against the Python references in `cells_ref.py`.
 
-**Status: final.** The simulator is complete. The engine matches real replays (see `replay_check.py`).
-It is weak for fights against rival cells. Local results did not predict ladder results for the last cells.
-The accuracy figures are in `../architecture/simulator.md`.
+**Status: final.** The simulator is complete and the rules engine matches real replays (`replay_check.py`), though rival models are weak and did not predict ladder results for the last cells. Trust figures and `data/` validation details are in [../architecture/simulator.md](../architecture/simulator.md#how-far-to-trust-it).
 
-**Local data.** These parts read the local folder `../data/` (pull tables, starts and `splits/split.json`):
-`validate.py`, `treadmill.py`, `replay_check.py` and the FIT and TEST check in
-`tests/test_reference_data.py`. That folder is not in the repository, so these parts cannot run from a
-clean clone. To rebuild the inputs, use the tools in `../tools/replay/` (see
-`../architecture/data-pulls.md`). The other tests use made-up data.
+**Local data.** `validate.py`, `treadmill.py`, `replay_check.py`, and the FIT/TEST checks in `tests/test_reference_data.py` read `../data/` (git-ignored and absent from a fresh clone); all other tests use synthetic data. To rebuild `data/`, see [../architecture/data-pulls.md](../architecture/data-pulls.md#doing-your-own-pull).
 
 Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHack2.pdf`,
 `../docs/cellhack.inc` (interface version 4) and `../docs/bots/*.asm`.
@@ -32,7 +26,7 @@ Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHac
 | `validate.py` | re-plays the validation matches of every data pull (real starts) and compares with the replay stats |
 | `baseline.py` | rating and win-share baselines for the winner check (no pull 5 ratings yet) |
 | `ceiling.py` | best possible winner score from extra seeds on TEST (needs a stored seed-0 run) |
-| `growth.py` | solo-colony study of split-direction rules (designs.md 10.4) |
+| `growth.py` | solo-colony study of split-direction rules ([designs.md](../docs/archive/designs.md) 10.4) |
 | `replay_check.py` | drives the engine with recorded replay actions and compares every square; `--pull <pull> [ids]` |
 | `misfortune_runner.py`, `misfortune_dump.py`, `armed_children_runner.py`, `hold_off_runner.py` | staged gates, paired gates and trace dumps for the Misfortune cells and their variants (2026-11-13/14) |
 | `dogma_runner.py` | the Dogma gauntlet: solo matrix, 16x16, 64x64 four-player, duels, ablations |
@@ -166,13 +160,8 @@ adds these values per match and as means:
 The engine options are the same as in `run.py`.
 
 ## Validation against the ladder (validate.py)
-`validate.py` reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` of every data pull. It only reads them. `data/` is local only and is not in the repository.
-A data pull is any folder of `../data/` that has a `validation-table.md`. `validate.pulls()` finds them. `--pull <pull>` (repeatable) re-plays only those. `tools/replay/valtab.py --pull <pull>` builds both files from a
-pull's replays (architecture/data-pulls.md, "Doing your own pull"). Set `CH_DATA` to use another data folder.
-Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Avarice, open bots), `model` (rivals.py on
-the measured profile: direction order, split threshold, feeding style) or `rough` (hunter or walker stands in).
-A cell that is not in `MODELS` is played by hunter as `rough`, with a warning; `--models` adds models.
-The rule statistics and fingerprints printed as "real" are our pull 2 measurements, whichever pulls are re-played. The report gives: freeze ticks, matches frozen by t500, same winner,
+`validate.py` reads `../data/<pull>/validation-table.md` and `../data/<pull>/starts.json` for every folder under `../data/` (or `--pull <pull>`), which are local-only (set `CH_DATA` to override; see [../architecture/data-pulls.md](../architecture/data-pulls.md#doing-your-own-pull) to rebuild). Each real cell is mapped to a sim model (`validate.MODELS`): `exact` (Avarice, open bots), `model` (`rivals.py` on the measured profile), or `rough` (hunter or walker; also the fallback for unmapped cells, with a warning unless `--models` is given).
+The rule statistics and fingerprints printed as "real" are pull 2 measurements, whichever pulls are re-played. The report gives: freeze ticks, matches frozen by t500, same winner,
 Avarice wins, per-cell medians (pop t50..end, energy t200/t1000, feeds per bite) real vs sim, and the
 two replay effects (no-event +1, fed +3). Both are ordinary rest gains that replays do not log: +1 is a rest, and fed +3 is the feed (2) plus the target's own rest (1) (Rules, pages 1 and 2; docs re-review 2026-11-08). The model is not tuned to fit.
 
@@ -182,11 +171,7 @@ the +3/+2/+0 cases) with no feed bonus, because a fed cell that rests also gains
 no-event +1 share is 26% vs 8% real (the sim counts REST as no event; whether replays log a rest event
 is unknown).
 
-**Validation pool** (final; set on 2026-11-08, pull 5): 135 matches, FIT 90 / TEST 45, fixed per match in
-data/splits/split.json (`validate.split_sets` reads it). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, the
-stratified rule over their own ids); pull 5 (72: FIT 48 / TEST 24) was split alone by the same rule (seed
-SPLIT_SEED = 20261108). Current results: architecture/simulator.md. New matches: `python validate.py --extend-split` (old entries never change).
-To use another FIT and TEST file (for example one for your own pull), pass `--split <file>` to every run.
+**Validation pool** (final; set 2026-11-08, pull 5): 135 matches (FIT 90 / TEST 45) in `data/splits/split.json` (`validate.split_sets`). Pulls 2-4 keep their sets (63: FIT 42 / TEST 21, stratified over their own ids); pull 5 (72: FIT 48 / TEST 24) was split by the same rule (`SPLIT_SEED = 20261108`). Results: [../architecture/simulator.md](../architecture/simulator.md#how-far-to-trust-it). New matches: `python validate.py --extend-split` (old entries never change), or pass `--split <file>` on every run.
 
 **Hold-out split** (history; fixed 2026-11-07, before any tuning; `validate.split_sets`): the 36 match ids sorted,
 every third one (positions 2, 5, 8, ...) is TEST (12: 98797, 98854, 98911, 98989, 99074, 99109, 99134,
