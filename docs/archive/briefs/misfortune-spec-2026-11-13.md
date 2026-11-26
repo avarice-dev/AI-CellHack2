@@ -1,6 +1,6 @@
 # Misfortune: final spec and test plan (2026-11-13)
 
-> Note (2026-11-14, added in the documentation review): this is a historical record of the plan before the build. Misfortune v1 was built and played on the ladder (1751 after 172 games). The final outcome of every cell is in [cells-and-experiments.md](../architecture/cells-and-experiments.md#final-ladder-status).
+> Note (2026-11-14, added in the documentation review): this is a historical record of the plan before the build. Misfortune v1 was built and played on the ladder (1751 after 172 games). The final outcome of every cell is in [cells-and-experiments.md](../../../architecture/cells-and-experiments.md#final-ladder-status).
 
 Misfortune is a planned cell. Whoever bites it is bitten first on the next tick. The goal is to take and hold #1 against the current leader. The design came out of several review rounds; this file is the final text. The reference policy is `make_misfortune` in `sim/cells_ref.py`, and the build review is `briefs/misfortune-build-review-2026-11-13.md`. There is no asm yet.
 

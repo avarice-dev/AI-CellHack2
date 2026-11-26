@@ -44,7 +44,7 @@ Historical records and evidence:
 
 The `data/` directory is git-ignored and not published. It held replays, pulled match lists, mining output, validation tables, the FIT/TEST split, and the site-check log (see [data-pulls.md](architecture/data-pulls.md)).
 
-In a clean clone, `sim/validate.py` and the FIT/TEST checks in `sim/tests/test_reference_data.py` (10 of its 11 tests) fail because they read `data/`. Everything else below runs from a clean clone. Copies of the six study notes cited by code comments live in `docs/evidence/`.
+In a clean clone, `sim/validate.py` and the FIT/TEST checks in `sim/tests/test_reference_data.py` (10 of its 11 tests), plus `sim/tests/test_batch.py`'s `test_validate_set_on_two_matches`, fail because they read `data/`. Everything else below runs from a clean clone. Copies of the six study notes cited by code comments live in `docs/evidence/`.
 
 ## Quick start
 
@@ -55,7 +55,7 @@ Run these commands from the repository root (Python 3.12+ recommended; the simul
    cd sim && python -m unittest
    python -m unittest discover -s tools/tests
    ```
-   *(In a clean clone, 10 of 11 tests in `sim/tests/test_reference_data.py` fail without `data/`; all other simulator and tool tests pass.)*
+   *(In a clean clone, 10 of 11 tests in `sim/tests/test_reference_data.py` and `test_batch.py`'s `test_validate_set_on_two_matches` fail without `data/`; all other simulator and tool tests pass.)*
 
 2. **Simulator batch:**
    ```bash

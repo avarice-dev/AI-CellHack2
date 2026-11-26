@@ -7,7 +7,7 @@ the assembly separately, against the Python references in `cells_ref.py`.
 
 **Status: final.** The simulator is complete and the rules engine matches real replays (`replay_check.py`), though rival models are weak and did not predict ladder results for the last cells. Trust figures and `data/` validation details are in [../architecture/simulator.md](../architecture/simulator.md#how-far-to-trust-it).
 
-**Local data.** `validate.py`, `treadmill.py`, `replay_check.py`, and the FIT/TEST checks in `tests/test_reference_data.py` read `../data/` (git-ignored and absent from a fresh clone); all other tests use synthetic data. To rebuild `data/`, see [../architecture/data-pulls.md](../architecture/data-pulls.md#doing-your-own-pull).
+**Local data.** `validate.py`, `treadmill.py`, `replay_check.py`, and the FIT/TEST checks in `tests/test_reference_data.py` read `../data/` (git-ignored and absent from a fresh clone); `tests/test_batch.py`'s `test_validate_set_on_two_matches` reads it too, via `batch.py --set validate`. All other tests use synthetic data. To rebuild `data/`, see [../architecture/data-pulls.md](../architecture/data-pulls.md#doing-your-own-pull).
 
 Spec: `../docs/Rules _ CellHack2.pdf` (ruleset v9), `../docs/Reference _ CellHack2.pdf`,
 `../docs/cellhack.inc` (interface version 4) and `../docs/bots/*.asm`.
