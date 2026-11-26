@@ -17,9 +17,9 @@ cells/build/
 cells/sandbox/
 /CLAUDE.md
 
-# Beads / Dolt files (added by bd init)
+# Beads / Dolt / Gas City (local only)
+.beads/
 .dolt/
 *.db
 .beads-credential-key
-.beads/proxieddb/
 *.gate.lock*
